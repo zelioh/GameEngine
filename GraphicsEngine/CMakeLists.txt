@@ -17,7 +17,9 @@ add_library(GraphicsEngine OBJECT
         Vertex.cpp Vertex.h
         CommandPool.cpp CommandPool.h
         CommandBuffer.cpp CommandBuffer.h
-        SUniformBufferObject.h)
+        SUniformBufferObject.h
+        TextureManager.cpp TextureManager.h
+        Texture.cpp Texture.h)
 
 find_package(Vulkan REQUIRED)
 
@@ -28,3 +30,4 @@ target_link_libraries(GraphicsEngine PRIVATE ${Core})
 
 target_include_directories(GraphicsEngine PUBLIC ${Vulkan_INCLUDE_DIR})
 target_include_directories(GraphicsEngine PRIVATE ${Core_INCLUDE_DIR})
+target_include_directories(GraphicsEngine PRIVATE ${CMAKE_SOURCE_DIR}/dependencies/stb)

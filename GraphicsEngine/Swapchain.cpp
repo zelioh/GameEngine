@@ -11,6 +11,7 @@
 #include "QueueFamilyHint.h"
 #include "Instance.h"
 #include "Vertex.h"
+#include "SUniformBufferObject.h"
 
 graphics::Swapchain::Swapchain(const LogicalDevice & logicalDevice):
 m_parentLogicalDevice(logicalDevice),
@@ -28,6 +29,7 @@ void graphics::Swapchain::initialize()
     m_renderPass.initialize(*this);
     createVertexBuffer({}); ///< TODO: use vertices in parameters
     createIndexBuffer({}); ///< TODO: use vertices in parameters
+    createUniformBuffers();
     createDescriptorPool();
     initializeSyncObj();
 }
@@ -68,7 +70,16 @@ void graphics::Swapchain::release()
         logicalDevice.destroyImageView(imageView);
     }
     logicalDevice.destroySwapchainKHR(m_swapchain);
+
+    const size_t count = m_vImages.size();
+
+    for (size_t i = 0; i < count; ++i)
+    {
+        logicalDevice.destroyBuffer(m_uniformBuffers[i]);
+        logicalDevice.freeMemory(m_uniformBufferMemories[i]);
+    }
 }
+
 
 void graphics::Swapchain::recreate()
 {
@@ -359,6 +370,24 @@ void graphics::Swapchain::createIndexBuffer(const std::vector<uint32_t> &indices
     logicalDevice.destroyBuffer(stageBuffer);
     logicalDevice.freeMemory(stageBufferMemory);
 }
+
+void graphics::Swapchain::createUniformBuffers()
+{
+    vk::DeviceSize size = sizeof(SUniformBufferObject);
+    const size_t buffersize = m_vImages.size();
+
+    m_uniformBuffers.resize(buffersize);
+    m_uniformBufferMemories.resize(buffersize);
+    for (size_t i = 0; i < buffersize; ++i)
+    {
+        m_parentLogicalDevice.createVkBuffer(size,
+                                             vk::BufferUsageFlagBits::eUniformBuffer,
+                                             vk::MemoryPropertyFlagBits::eHostVisible | vk::MemoryPropertyFlagBits::eHostCoherent,
+                                             m_uniformBuffers[i],
+                                             m_uniformBufferMemories[i]);
+    }
+}
+
 
 void graphics::Swapchain::createDescriptorPool()
 {

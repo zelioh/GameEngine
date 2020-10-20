@@ -52,6 +52,7 @@ namespace graphics {
         void createDepthResources();
         void createVertexBuffer(const std::vector<Vertex> & vertices);
         void createIndexBuffer(const std::vector<uint32_t> & indices);
+        void createUniformBuffers();
         void createDescriptorPool();
         void initializeSyncObj();
 
@@ -87,6 +88,11 @@ namespace graphics {
         // Index buffer
         vk::Buffer m_indexBuffer;
         vk::DeviceMemory m_indexBufferMemory;
+
+        //
+        // Unifom buffer
+        std::vector<vk::Buffer> m_uniformBuffers;
+        std::vector<vk::DeviceMemory> m_uniformBufferMemories;
 
         //
         // Descriptor

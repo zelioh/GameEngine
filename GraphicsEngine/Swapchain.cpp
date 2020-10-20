@@ -31,6 +31,7 @@ void graphics::Swapchain::initialize()
     createIndexBuffer({}); ///< TODO: use vertices in parameters
     createUniformBuffers();
     createDescriptorPool();
+    createDescriptorSet();
     initializeSyncObj();
 }
 
@@ -150,6 +151,11 @@ const vk::Fence & graphics::Swapchain::getVkFenceInFlight(int iIndex) const
 void graphics::Swapchain::setVkFenceInFlight(int iIndex, const vk::Fence &fence)
 {
     m_fencesInFlight[iIndex] = fence;
+}
+
+const vk::DescriptorSet & graphics::Swapchain::getVkDescriptorSet(int iIndex) const
+{
+    return m_descriptorSets[iIndex];
 }
 
 void graphics::Swapchain::initializeInternal()
@@ -408,6 +414,54 @@ void graphics::Swapchain::createDescriptorPool()
     }
 }
 
+void graphics::Swapchain::createDescriptorSet()
+{
+    const size_t size = m_vImages.size();
+    std::vector<vk::DescriptorSetLayout> layouts(size, m_parentLogicalDevice.getDescriptorSetLayout());
+    vk::DescriptorSetAllocateInfo allocateInfo{};
+    const vk::Device & logicalDevice = m_parentLogicalDevice.getVkLogicalDevice();
+
+    allocateInfo.descriptorPool = m_descriptorPool;
+    allocateInfo.descriptorSetCount = size;
+    allocateInfo.pSetLayouts = layouts.data();
+    m_descriptorSets.resize(size);
+    m_descriptorSets = logicalDevice.allocateDescriptorSets(allocateInfo);
+    for (size_t i = 0; i < size; ++i)
+    {
+        vk::DescriptorBufferInfo bufferInfo{};
+
+        bufferInfo.buffer = m_uniformBuffers[i];
+        bufferInfo.offset = 0;
+        bufferInfo.range = sizeof(SUniformBufferObject);
+
+        vk::DescriptorImageInfo imageInfo{};
+
+        imageInfo.sampler = nullptr; ///< TODO: use texture sampler
+        imageInfo.imageView = nullptr; ///< TODO: use texture view
+        imageInfo.imageLayout = vk::ImageLayout::eShaderReadOnlyOptimal;
+
+        std::array<vk::WriteDescriptorSet, 2> writeSets{};
+
+        writeSets[0].dstSet = m_descriptorSets[i];
+        writeSets[0].dstBinding = 0;
+        writeSets[0].dstArrayElement = 0;
+        writeSets[0].descriptorType = vk::DescriptorType::eUniformBuffer;
+        writeSets[0].descriptorCount = 1;
+        writeSets[0].pBufferInfo = &bufferInfo;
+        writeSets[0].pImageInfo = nullptr;
+        writeSets[0].pTexelBufferView = nullptr;
+        writeSets[1].dstSet = m_descriptorSets[i];
+        writeSets[1].dstBinding = 1;
+        writeSets[1].dstArrayElement = 0;
+        writeSets[1].descriptorType = vk::DescriptorType::eCombinedImageSampler;
+        writeSets[1].descriptorCount = 1;
+        writeSets[1].pBufferInfo = nullptr;
+        writeSets[1].pImageInfo = &imageInfo;
+        writeSets[1].pTexelBufferView = nullptr;
+
+        logicalDevice.updateDescriptorSets(writeSets.size(),  writeSets.data(), 0, nullptr);
+    }
+}
 
 void graphics::Swapchain::initializeSyncObj()
 {

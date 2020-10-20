@@ -16,7 +16,8 @@ add_library(GraphicsEngine OBJECT
         Shader.cpp Shader.h
         Vertex.cpp Vertex.h
         CommandPool.cpp CommandPool.h
-        CommandBuffer.cpp CommandBuffer.h SUniformBufferObject.h)
+        CommandBuffer.cpp CommandBuffer.h
+        SUniformBufferObject.h)
 
 find_package(Vulkan REQUIRED)
 

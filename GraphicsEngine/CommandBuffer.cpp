@@ -69,8 +69,8 @@ void graphics::CommandBuffer::render(const Swapchain &swapchain,
         m_commandBuffers[i].bindDescriptorSets(vk::PipelineBindPoint::eGraphics,
                                                pipeline.getVkPipelineLayout(),
                                                0,
-                                               0, ///< TODO: replace by 1 when descriptor set
-                                               nullptr, ///< TODO: replace by descriptor set [i]
+                                               1,
+                                               &swapchain.getVkDescriptorSet(i),
                                                0,
                                                nullptr);
         m_commandBuffers[i].drawIndexed(indices.size(), 1, 0, 0, 0);

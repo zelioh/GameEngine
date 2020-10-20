@@ -40,6 +40,7 @@ namespace graphics {
         const vk::Fence & getVkFence(int iIndex) const;
         const vk::Fence & getVkFenceInFlight(int iIndex) const;
         void setVkFenceInFlight(int iIndex, const vk::Fence & fence);
+        const vk::DescriptorSet & getVkDescriptorSet(int iIndex) const;
 
     private:
         void initializeInternal();
@@ -54,6 +55,7 @@ namespace graphics {
         void createIndexBuffer(const std::vector<uint32_t> & indices);
         void createUniformBuffers();
         void createDescriptorPool();
+        void createDescriptorSet();
         void initializeSyncObj();
 
     private:
@@ -97,6 +99,7 @@ namespace graphics {
         //
         // Descriptor
         vk::DescriptorPool m_descriptorPool;
+        std::vector<vk::DescriptorSet> m_descriptorSets;
 
         //
         // Fence and semaphore

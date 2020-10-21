@@ -47,7 +47,7 @@ const graphics::Queue & graphics::LogicalDevice::getPresentQueue() const
 }
 
 vk::ImageView graphics::LogicalDevice::createVkImageView(const vk::Image &image,
-                                                         const vk::Format &format,
+                                                         vk::Format format,
                                                          vk::ImageAspectFlags aspect,
                                                          uint32_t mipLevel /* = 1 */) const
 {
@@ -258,4 +258,129 @@ void graphics::LogicalDevice::endVkSingleTimeBuffer(const vk::CommandBuffer &com
     m_graphicQueue.getVkQueue().submit(1, &info, nullptr);
     m_graphicQueue.getVkQueue().waitIdle();
     m_logicalDevice.freeCommandBuffers(m_commandPool.getVkCommandPool(), 1, &commandBuffer);
+}
+
+void graphics::LogicalDevice::createImage(uint32_t width, uint32_t height, uint32_t mipLevel,
+                                               vk::SampleCountFlagBits numSample, vk::Format format,
+                                               vk::ImageTiling tiling, vk::ImageUsageFlags usages,
+                                               vk::MemoryPropertyFlags properties, vk::Image &image,
+                                               vk::DeviceMemory &memory) const
+{
+    vk::ImageCreateInfo imageInfo{};
+
+    imageInfo.imageType = vk::ImageType::e2D;
+    imageInfo.extent.width = width;
+    imageInfo.extent.height = height;
+    imageInfo.extent.depth = 1;
+    imageInfo.mipLevels = mipLevel;
+    imageInfo.arrayLayers = 1;
+    imageInfo.format = format;
+    imageInfo.tiling = tiling;
+    imageInfo.initialLayout = vk::ImageLayout::eUndefined;
+    imageInfo.usage = usages;
+    imageInfo.sharingMode = vk::SharingMode::eExclusive;
+    imageInfo.samples = numSample;
+
+    image = m_logicalDevice.createImage(imageInfo);
+
+    if (!image)
+    {
+        throw std::runtime_error("Error while creating image");
+    }
+
+    vk::MemoryRequirements memoryRequirements = m_logicalDevice.getImageMemoryRequirements(image);
+    vk::MemoryAllocateInfo allocateInfo{};
+
+    allocateInfo.allocationSize = memoryRequirements.size;
+    allocateInfo.memoryTypeIndex = m_parentPhysicalDevice.findMemoryType(memoryRequirements.memoryTypeBits, properties);
+    memory = m_logicalDevice.allocateMemory(allocateInfo);
+    if (!memory)
+    {
+        throw std::runtime_error("Error while allocate texture memory");
+    }
+    m_logicalDevice.bindImageMemory(image, memory, 0);
+}
+
+void graphics::LogicalDevice::transitionImageLayout(vk::Image image, vk::Format format, vk::ImageLayout oldLayout,
+                                                vk::ImageLayout newLayout, uint32_t mipLevel) const
+{
+    vk::CommandBuffer commandBuffer = beginVkSingleTimeBuffer();
+    vk::ImageMemoryBarrier barrier{};
+
+    barrier.image = image;
+    barrier.oldLayout = oldLayout;
+    barrier.newLayout = newLayout;
+    barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+    barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+    barrier.subresourceRange.baseMipLevel = 0;
+    barrier.subresourceRange.baseArrayLayer = 0;
+    barrier.subresourceRange.levelCount = mipLevel;
+    barrier.subresourceRange.layerCount = 1;
+
+    vk::PipelineStageFlags srcStage;
+    vk::PipelineStageFlags dstStage;
+
+    if (newLayout == vk::ImageLayout::eDepthStencilAttachmentOptimal)
+    {
+        barrier.subresourceRange.aspectMask = vk::ImageAspectFlagBits::eDepth;
+
+        if (formatHasStencil(format))
+        {
+            barrier.subresourceRange.aspectMask |= vk::ImageAspectFlagBits::eStencil;
+        }
+    } else {
+        barrier.subresourceRange.aspectMask = vk::ImageAspectFlagBits::eColor;
+    }
+
+    if (oldLayout == vk::ImageLayout::eUndefined && newLayout == vk::ImageLayout::eTransferDstOptimal)
+    {
+        barrier.srcAccessMask = static_cast<vk::AccessFlags>(0);
+        barrier.dstAccessMask = vk::AccessFlagBits::eTransferWrite;
+        srcStage = vk::PipelineStageFlagBits::eTopOfPipe;
+        dstStage = vk::PipelineStageFlagBits::eTransfer;
+    } else if (oldLayout == vk::ImageLayout::eTransferDstOptimal && newLayout == vk::ImageLayout::eShaderReadOnlyOptimal)
+    {
+        barrier.srcAccessMask = vk::AccessFlagBits::eTransferWrite;
+        barrier.dstAccessMask = vk::AccessFlagBits::eShaderRead;
+        srcStage = vk::PipelineStageFlagBits::eTransfer;
+        dstStage = vk::PipelineStageFlagBits::eFragmentShader;
+    } else if (oldLayout == vk::ImageLayout::eUndefined && newLayout == vk::ImageLayout::eDepthStencilAttachmentOptimal) {
+        barrier.srcAccessMask = static_cast<vk::AccessFlags>(0);
+        barrier.dstAccessMask = vk::AccessFlagBits::eDepthStencilAttachmentRead | vk::AccessFlagBits::eDepthStencilAttachmentWrite;
+        srcStage = vk::PipelineStageFlagBits::eTopOfPipe;
+        dstStage = vk::PipelineStageFlagBits::eEarlyFragmentTests;
+    } else {
+        throw std::runtime_error("Error unregnozise layout stages combination");
+    }
+    commandBuffer.pipelineBarrier(srcStage,dstStage,
+                                  vk::DependencyFlags(),
+                                  0, nullptr,
+                                  0, nullptr,
+                                  1, &barrier);
+    endVkSingleTimeBuffer(commandBuffer);
+}
+
+bool graphics::LogicalDevice::formatHasStencil(vk::Format format) const
+{
+    return format == vk::Format::eD32SfloatS8Uint || format == vk::Format::eD24UnormS8Uint;
+}
+
+void graphics::LogicalDevice::copyVkBufferToImage(const vk::Buffer & buffer,
+                                                  const vk::Image & image,
+                                                  uint32_t width, uint32_t height) const
+{
+    vk::CommandBuffer commandBuffer = beginVkSingleTimeBuffer();
+    vk::BufferImageCopy region{};
+
+    region.imageExtent = vk::Extent3D{width, height, 1};
+    region.imageOffset = vk::Offset3D{0, 0, 0};
+    region.bufferOffset = 0;
+    region.bufferRowLength = 0;
+    region.bufferImageHeight = 0;
+    region.imageSubresource.aspectMask = vk::ImageAspectFlagBits::eColor;
+    region.imageSubresource.layerCount = 1;
+    region.imageSubresource.baseArrayLayer = 0;
+    region.imageSubresource.mipLevel = 0;
+    commandBuffer.copyBufferToImage(buffer, image, vk::ImageLayout::eTransferDstOptimal, 1, &region);
+    endVkSingleTimeBuffer(commandBuffer);
 }

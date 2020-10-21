@@ -14,28 +14,40 @@
 
 namespace graphics {
 
+    class LogicalDevice;
+
     class Texture {
 
         friend class TextureManager;
 
     public:
+        Texture() = default; ///< Default constructor with empty values
+
         const std::string & getName() const;
-        stbi_uc * getPixelData() const;
         int getWidth() const;
         int getHeight() const;
         int getChannels() const;
         vk::DeviceSize getVkSize() const;
+        const vk::Image & getVkTexture() const;
+        const vk::DeviceMemory & getVkTextureMemory() const;
+        const vk::ImageView & getVkTextureView() const;
+        const vk::Sampler & getVkTextureSampler() const;
 
     private:
-        Texture(const std::string & name, stbi_uc *pixels, int width, int heiht, int channels);
+        Texture(const LogicalDevice & logicalDevice, const std::string & name, stbi_uc *pixels, int width, int heiht, int channels);
 
+        void initializeInternal(const LogicalDevice & logicalDevice, stbi_uc *pixels);
+        void createSampler(const vk::Device & logicalDevice);
     private:
         std::string m_strName;
-        stbi_uc * m_pixels;
         int m_iWidth;
         int m_iHeight;
         int m_iChannels;
         vk::DeviceSize m_size;
+        vk::Image m_texture;
+        vk::DeviceMemory m_textureMemory;
+        vk::ImageView m_textureView;
+        vk::Sampler m_textureSampler;
     };
 }
 #endif //GAMEENGINE_TEXTURE_H

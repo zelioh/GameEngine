@@ -6,6 +6,7 @@
 
 #include "TextureManager.h"
 #include "Texture.h"
+#include "LogicalDevice.h"
 
 /*static*/ graphics::TextureManager * graphics::TextureManager::getInstance()
 {
@@ -18,8 +19,9 @@
     return manager;
 }
 
-const graphics::Texture * graphics::TextureManager::createTexture(const std::string &texturePath,
-                                                            const std::string &textureName) {
+const graphics::Texture * graphics::TextureManager::createTexture(const LogicalDevice & logicalDevice,
+                                                                  const std::string &texturePath,
+                                                                  const std::string &textureName) {
     //
     // Create texture name
     std::string name = nullptr;
@@ -43,7 +45,7 @@ const graphics::Texture * graphics::TextureManager::createTexture(const std::str
     int width = 0, height = 0, channels = 0;
     stbi_uc *pixels = stbi_load(texturePath.c_str(), &width, &height, &channels, STBI_rgb_alpha);
 
-    graphics::Texture *texture = new Texture(name, pixels, width, height, channels);
+    graphics::Texture *texture = new Texture(logicalDevice, name, pixels, width, height, channels);
     m_pool[name] = texture;
     return m_pool[name];
 }

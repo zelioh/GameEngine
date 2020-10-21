@@ -17,6 +17,7 @@ namespace graphics {
 
     class LogicalDevice;
     class Vertex;
+    class Texture;
 
     class Swapchain {
     public:
@@ -55,7 +56,7 @@ namespace graphics {
         void createIndexBuffer(const std::vector<uint32_t> & indices);
         void createUniformBuffers();
         void createDescriptorPool();
-        void createDescriptorSet();
+        void createDescriptorSet(const Texture & texture);
         void initializeSyncObj();
 
     private:

@@ -12,6 +12,7 @@
 
 namespace graphics {
 
+    class LogicalDevice;
     class Texture;
 
     class TextureManager {
@@ -24,7 +25,9 @@ namespace graphics {
          * @param textureName   name of the texture in the map. If nullptr the name will be the file name before the '.'
          * @return  a Texture instance
          */
-        const graphics::Texture * createTexture(const std::string & texturePath, const std::string & textureName = nullptr);
+        const graphics::Texture * createTexture(const LogicalDevice & logicalDevice,
+                                                const std::string & texturePath,
+                                                const std::string & textureName = nullptr);
         /**
          * Find a texture in the pool of texture
          * @param textureName   name of the texture

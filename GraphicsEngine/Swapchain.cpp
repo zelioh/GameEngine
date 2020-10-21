@@ -12,6 +12,7 @@
 #include "Instance.h"
 #include "Vertex.h"
 #include "SUniformBufferObject.h"
+#include "Texture.h"
 
 graphics::Swapchain::Swapchain(const LogicalDevice & logicalDevice):
 m_parentLogicalDevice(logicalDevice),
@@ -31,7 +32,7 @@ void graphics::Swapchain::initialize()
     createIndexBuffer({}); ///< TODO: use vertices in parameters
     createUniformBuffers();
     createDescriptorPool();
-    createDescriptorSet();
+    createDescriptorSet(Texture()); ///< TODO: use object TextureTODO
     initializeSyncObj();
 }
 
@@ -414,7 +415,7 @@ void graphics::Swapchain::createDescriptorPool()
     }
 }
 
-void graphics::Swapchain::createDescriptorSet()
+void graphics::Swapchain::createDescriptorSet(const Texture & texture)
 {
     const size_t size = m_vImages.size();
     std::vector<vk::DescriptorSetLayout> layouts(size, m_parentLogicalDevice.getDescriptorSetLayout());
@@ -436,8 +437,8 @@ void graphics::Swapchain::createDescriptorSet()
 
         vk::DescriptorImageInfo imageInfo{};
 
-        imageInfo.sampler = nullptr; ///< TODO: use texture sampler
-        imageInfo.imageView = nullptr; ///< TODO: use texture view
+        imageInfo.sampler = texture.getVkTextureSampler();
+        imageInfo.imageView = texture.getVkTextureView();
         imageInfo.imageLayout = vk::ImageLayout::eShaderReadOnlyOptimal;
 
         std::array<vk::WriteDescriptorSet, 2> writeSets{};

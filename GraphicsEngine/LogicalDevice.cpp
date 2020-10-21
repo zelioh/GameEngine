@@ -384,3 +384,96 @@ void graphics::LogicalDevice::copyVkBufferToImage(const vk::Buffer & buffer,
     commandBuffer.copyBufferToImage(buffer, image, vk::ImageLayout::eTransferDstOptimal, 1, &region);
     endVkSingleTimeBuffer(commandBuffer);
 }
+
+void graphics::LogicalDevice::generateMipmap(const vk::Image &image, vk::Format format, uint32_t texWidth,
+                                             uint32_t texHeight, uint32_t mipLevel) const
+{
+    vk::FormatProperties formatProperties = m_parentPhysicalDevice.getVkPhysicalDevice().getFormatProperties(format);
+
+    if (!(formatProperties.optimalTilingFeatures & vk::FormatFeatureFlagBits::eSampledImageFilterLinear))
+    {
+        throw std::runtime_error("Error the image format doesn't support the linear filter feature");
+    }
+
+    vk::CommandBuffer buffer = beginVkSingleTimeBuffer();
+    vk::ImageMemoryBarrier barrier{};
+
+    barrier.image = image;
+    barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+    barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+    barrier.subresourceRange.aspectMask = vk::ImageAspectFlagBits::eColor;
+    barrier.subresourceRange.layerCount = 1;
+    barrier.subresourceRange.levelCount = 1;
+    barrier.subresourceRange.baseArrayLayer = 0;
+
+    int32_t width = static_cast<int32_t>(texWidth);
+    int32_t height = static_cast<int32_t>(texHeight);
+
+    for (uint32_t i = 1; i < mipLevel; ++i) {
+        barrier.subresourceRange.baseMipLevel = i - 1;
+        barrier.oldLayout = vk::ImageLayout::eTransferDstOptimal;
+        barrier.newLayout = vk::ImageLayout::eTransferSrcOptimal;
+        barrier.srcAccessMask = vk::AccessFlagBits::eTransferWrite;
+        barrier.dstAccessMask = vk::AccessFlagBits::eTransferRead;
+
+        buffer.pipelineBarrier(
+                             vk::PipelineStageFlagBits::eTransfer,
+                             vk::PipelineStageFlagBits::eTransfer,
+                             vk::DependencyFlags(),
+                             0, nullptr,
+                             0,nullptr,
+                             1, &barrier);
+
+        vk::ImageBlit blit{};
+
+        blit.srcOffsets[0] = vk::Offset3D{0, 0, 0};
+        blit.srcOffsets[1] = vk::Offset3D{width, height, 1};
+        blit.srcSubresource.aspectMask = vk::ImageAspectFlagBits::eColor;
+        blit.srcSubresource.mipLevel = i - 1;
+        blit.srcSubresource.baseArrayLayer = 0;
+        blit.srcSubresource.layerCount = 1;
+        blit.dstOffsets[0] = vk::Offset3D{0, 0, 0};
+        blit.dstOffsets[1] = vk::Offset3D{width > 1 ? width / 2 : 1, height > 1 ? height / 2 : 1, 1};
+        blit.dstSubresource.aspectMask = vk::ImageAspectFlagBits::eColor;
+        blit.dstSubresource.mipLevel = i;
+        blit.dstSubresource.layerCount = 1;
+        blit.dstSubresource.baseArrayLayer = 0;
+
+        buffer.blitImage(
+                       image, vk::ImageLayout::eTransferSrcOptimal,
+                       image, vk::ImageLayout::eTransferDstOptimal,
+                       1, &blit, vk::Filter::eLinear
+        );
+
+        barrier.oldLayout = vk::ImageLayout::eTransferSrcOptimal;
+        barrier.newLayout = vk::ImageLayout::eShaderReadOnlyOptimal;
+        barrier.srcAccessMask = vk::AccessFlagBits::eTransferRead;
+        barrier.dstAccessMask = vk::AccessFlagBits::eShaderRead;
+
+        buffer.pipelineBarrier(
+                             vk::PipelineStageFlagBits::eTransfer,
+                             vk::PipelineStageFlagBits::eFragmentShader,
+                             vk::DependencyFlags(),
+                             0, nullptr,
+                             0, nullptr,
+                             1, &barrier);
+
+        width /= (width > 1) ? 2 : 1;
+        height /= (height > 1) ? 2 : 1;
+    }
+
+    barrier.subresourceRange.baseMipLevel = mipLevel - 1;
+    barrier.oldLayout = vk::ImageLayout::eTransferDstOptimal;
+    barrier.newLayout = vk::ImageLayout::eShaderReadOnlyOptimal;
+    barrier.srcAccessMask = vk::AccessFlagBits::eTransferWrite;
+    barrier.dstAccessMask = vk::AccessFlagBits::eTransferRead;
+
+    buffer.pipelineBarrier(
+                         vk::PipelineStageFlagBits::eTransfer,
+                         vk::PipelineStageFlagBits::eFragmentShader,
+                         vk::DependencyFlags(),
+                         0, nullptr,
+                         0, nullptr,
+                         1, &barrier);
+    endVkSingleTimeBuffer(buffer);
+}

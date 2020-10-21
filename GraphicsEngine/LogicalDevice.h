@@ -60,6 +60,10 @@ namespace graphics {
         bool formatHasStencil(vk::Format format) const;
         void copyVkBufferToImage(const vk::Buffer & buffer, const vk::Image & image, uint32_t width, uint32_t height) const;
 
+        void generateMipmap(const vk::Image & image,
+                            vk::Format format,
+                            uint32_t texWidth, uint32_t texHeight, uint32_t mipLevel) const;
+
     private:
         void initializeInternal();
         void initializeDescriptorLayout();

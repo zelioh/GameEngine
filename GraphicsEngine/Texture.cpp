@@ -65,12 +65,19 @@ const vk::Sampler & graphics::Texture::getVkTextureSampler() const
     return m_textureSampler;
 }
 
+uint32_t graphics::Texture::getMipLevel() const
+{
+    return m_iMipLevel;
+}
+
 void graphics::Texture::initializeInternal(const graphics::LogicalDevice &logicalDevice, stbi_uc *pixels)
 {
     vk::Buffer stageBuffer;
     vk::DeviceMemory stageMemory;
     void * data;
     const vk::Device & vkLogicalDevice = logicalDevice.getVkLogicalDevice();
+
+    m_iMipLevel = static_cast<uint32_t>(std::floor(std::log2(std::max(m_iWidth, m_iHeight)))) + 1;
 
     logicalDevice.createVkBuffer(m_size,
                                  vk::BufferUsageFlagBits::eTransferSrc,
@@ -84,8 +91,8 @@ void graphics::Texture::initializeInternal(const graphics::LogicalDevice &logica
     stbi_image_free(pixels);
     logicalDevice.createImage(m_iWidth,
                               m_iHeight,
-                              0, ///< TODO: change to mip_level
-                          vk::SampleCountFlagBits::e1,
+                              m_iMipLevel,
+                              vk::SampleCountFlagBits::e1,
                               vk::Format::eR8G8B8A8Srgb,
                               vk::ImageTiling::eOptimal,
                               vk::ImageUsageFlagBits::eTransferSrc | vk::ImageUsageFlagBits::eTransferDst | vk::ImageUsageFlagBits::eSampled,
@@ -94,22 +101,22 @@ void graphics::Texture::initializeInternal(const graphics::LogicalDevice &logica
                               m_textureMemory
     );
     logicalDevice.transitionImageLayout(m_texture,
-                                                vk::Format::eR8G8B8A8Srgb,
-                                                vk::ImageLayout::eUndefined,
-                                                vk::ImageLayout::eTransferDstOptimal,
-                                                0 ///< TODO: replace by mip_level
+                                        vk::Format::eR8G8B8A8Srgb,
+                                        vk::ImageLayout::eUndefined,
+                                        vk::ImageLayout::eTransferDstOptimal,
+                                        m_iMipLevel
     );
     logicalDevice.copyVkBufferToImage(stageBuffer, m_texture, m_iWidth, m_iHeight);
     vkLogicalDevice.destroyBuffer(stageBuffer);
     vkLogicalDevice.freeMemory(stageMemory);
 
-    ///< TODO generate mipmap
+    logicalDevice.generateMipmap(m_texture, vk::Format::eR8G8B8A8Srgb, m_iWidth, m_iHeight, m_iMipLevel);
 
     m_textureView = logicalDevice.createVkImageView(
             m_texture,
             vk::Format::eR8G8B8A8Srgb,
             vk::ImageAspectFlags(vk::ImageAspectFlagBits::eColor),
-            0 ///< TODO replace by mip level
+            m_iMipLevel
             );
     createSampler(vkLogicalDevice);
 }
@@ -132,8 +139,7 @@ void graphics::Texture::createSampler(const vk::Device &logicalDevice)
     samplerInfo.mipmapMode = vk::SamplerMipmapMode::eLinear;
     samplerInfo.mipLodBias = 0.f;
     samplerInfo.minLod = 0.f;
-    //samplerInfo.maxLod = static_cast<float>(m_mipLevel);
-    samplerInfo.maxLod = 0; ///< TODO; replace by mip level
+    samplerInfo.maxLod = static_cast<float>(m_iMipLevel);
     m_textureSampler = logicalDevice.createSampler(samplerInfo);
     if (!m_textureSampler)
     {

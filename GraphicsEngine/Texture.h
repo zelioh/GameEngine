@@ -32,12 +32,14 @@ namespace graphics {
         const vk::DeviceMemory & getVkTextureMemory() const;
         const vk::ImageView & getVkTextureView() const;
         const vk::Sampler & getVkTextureSampler() const;
+        uint32_t getMipLevel() const;
 
     private:
         Texture(const LogicalDevice & logicalDevice, const std::string & name, stbi_uc *pixels, int width, int heiht, int channels);
 
         void initializeInternal(const LogicalDevice & logicalDevice, stbi_uc *pixels);
         void createSampler(const vk::Device & logicalDevice);
+
     private:
         std::string m_strName;
         int m_iWidth;
@@ -48,6 +50,7 @@ namespace graphics {
         vk::DeviceMemory m_textureMemory;
         vk::ImageView m_textureView;
         vk::Sampler m_textureSampler;
+        uint32_t m_iMipLevel;
     };
 }
 #endif //GAMEENGINE_TEXTURE_H

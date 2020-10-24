@@ -19,15 +19,18 @@ add_library(GraphicsEngine OBJECT
         CommandBuffer.cpp CommandBuffer.h
         SUniformBufferObject.h
         TextureManager.cpp TextureManager.h
-        Texture.cpp Texture.h)
+        Texture.cpp Texture.h
+        Window.cpp Window.h)
 
 find_package(Vulkan REQUIRED)
-
-message("${Core_LIBRARY}")
+find_library(ws2_32_LIBRARY_PATH ws2_32)
 
 target_link_libraries(GraphicsEngine PUBLIC ${Vulkan_LIBRARIES})
+target_link_libraries(GraphicsEngine PUBLIC ${ws2_32_LIBRARY_PATH})
 target_link_libraries(GraphicsEngine PRIVATE ${Core})
 
 target_include_directories(GraphicsEngine PUBLIC ${Vulkan_INCLUDE_DIR})
 target_include_directories(GraphicsEngine PRIVATE ${Core_INCLUDE_DIR})
 target_include_directories(GraphicsEngine PRIVATE ${CMAKE_SOURCE_DIR}/dependencies/stb)
+
+add_definitions(-DUNICODE)

@@ -6,7 +6,7 @@
 
 #include "GameObject.h"
 
-object::GameObject::GameObject(Math::Vector3F position, Math::Vector3F color):
+object::GameObject::GameObject(const Math::Vector3F & position, const Math::Vector3F & color):
 m_position(position),
 m_color(color)
 {

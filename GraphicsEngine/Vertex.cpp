@@ -6,6 +6,12 @@
 
 #include "Vertex.h"
 
+graphics::Vertex::Vertex(const Math::Vector3F &position, const Math::Vector3F &color, const Math::Vector2F &texCoord):
+m_position(position),
+m_color(color),
+m_texCoord(texCoord)
+{
+}
 
 vk::VertexInputBindingDescription graphics::Vertex::getBindDescription()
 {
@@ -24,20 +30,20 @@ std::array<vk::VertexInputAttributeDescription, 3> graphics::Vertex::getAttribut
     attributes[0].binding = 0;
     attributes[0].location = 0;
     attributes[0].format = vk::Format::eR32G32B32Sfloat;
-    attributes[0].offset = offsetof(Vertex, position);
+    attributes[0].offset = offsetof(Vertex, m_position);
     attributes[1].binding = 0;
     attributes[1].location = 1;
     attributes[1].format = vk::Format::eR32G32B32Sfloat;
-    attributes[1].offset = offsetof(Vertex, color);
+    attributes[1].offset = offsetof(Vertex, m_color);
     attributes[2].binding = 0;
     attributes[2].location = 2;
     attributes[2].format = vk::Format::eR32G32Sfloat;
-    attributes[2].offset = offsetof(Vertex, texColor);
+    attributes[2].offset = offsetof(Vertex, m_texCoord);
 
     return attributes;
 }
 
 bool graphics::Vertex::operator==(const Vertex &other) const
 {
-    return position == other.position && texColor == other.texColor && color == other.color;
+    return m_position == other.m_position && m_texCoord == other.m_texCoord && m_color == other.m_color;
 }

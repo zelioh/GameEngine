@@ -25,7 +25,7 @@ namespace object {
         virtual const std::vector<uint32_t> & getIndices() const = 0;
 
     protected:
-        GameObject(Math::Vector3F position, Math::Vector3F color);
+        GameObject(const Math::Vector3F & position, const Math::Vector3F & color);
 
         Math::Vector3F m_position;
         Math::Vector3F m_color;

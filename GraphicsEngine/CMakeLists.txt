@@ -35,3 +35,7 @@ target_include_directories(GraphicsEngine PRIVATE ${Core_INCLUDE_DIR})
 target_include_directories(GraphicsEngine PRIVATE ${CMAKE_SOURCE_DIR}/dependencies/stb)
 
 add_definitions(-DUNICODE)
+
+set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/GraphicsEngine/ ${Vulkan_INCLUDE_DIR})
+
+set(GraphicsEngine_INCLUDE_DIR "${INCLUDE_DIR}" CACHE INTERNAL "")

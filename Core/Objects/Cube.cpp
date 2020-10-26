@@ -6,8 +6,8 @@
 
 #include "Cube.h"
 
-object::Cube::Cube(const Math::Vector3F &position, const Math::Vector3F &color):
-GameObject(position, color)
+object::Cube::Cube(const std::string & identifier, const Math::Vector3F &position, const Math::Vector3F &color):
+GameObject(identifier, position, color)
 {
     //
     // Vertices top face

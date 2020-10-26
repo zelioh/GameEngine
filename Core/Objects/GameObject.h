@@ -10,6 +10,7 @@
 #include "Vector3F.h"
 #include "Vertex.h"
 #include <vector>
+#include <string>
 
 namespace object {
 
@@ -21,16 +22,19 @@ namespace object {
         void setPosition(const Math::Vector3F & position);
         void setColor(const Math::Vector3F & color);
 
+        const std::string & getIdentifier() const;
+
         virtual const std::vector<graphics::Vertex> & getVertices() const = 0;
         virtual const std::vector<uint32_t> & getIndices() const = 0;
 
     protected:
-        GameObject(const Math::Vector3F & position, const Math::Vector3F & color);
+        GameObject(const std::string & identifier, const Math::Vector3F & position, const Math::Vector3F & color);
 
         Math::Vector3F m_position;
         Math::Vector3F m_color;
         std::vector<graphics::Vertex> m_vertices;
         std::vector<uint32_t> m_indices;
+        std::string m_strIdentifier;
     };
 
 }

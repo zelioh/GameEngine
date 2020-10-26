@@ -4,7 +4,8 @@
 
 set(OBJECT_SRC
 		Objects/GameObject.cpp Objects/GameObject.h
-		Objects/Cube.cpp Objects/Cube.h)
+		Objects/Cube.cpp Objects/Cube.h
+		Objects/CubeManager.cpp Objects/CubeManager.h)
 
 add_library(Core OBJECT
 			Core.cpp Core.h

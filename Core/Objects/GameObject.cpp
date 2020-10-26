@@ -6,7 +6,10 @@
 
 #include "GameObject.h"
 
-object::GameObject::GameObject(const Math::Vector3F & position, const Math::Vector3F & color):
+object::GameObject::GameObject(const std::string & identifier,
+                               const Math::Vector3F & position,
+                               const Math::Vector3F & color):
+m_strIdentifier(identifier),
 m_position(position),
 m_color(color)
 {
@@ -30,4 +33,9 @@ void object::GameObject::setPosition(const Math::Vector3F &position)
 void object::GameObject::setColor(const Math::Vector3F &color)
 {
     m_color = color;
+}
+
+const std::string & object::GameObject::getIdentifier() const
+{
+    return m_strIdentifier;
 }

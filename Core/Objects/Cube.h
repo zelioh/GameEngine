@@ -13,12 +13,15 @@ namespace object {
 
     class Cube : public GameObject
     {
+
+        friend class CubeManager;
+
     public:
         const std::vector<graphics::Vertex> & getVertices() const override;
         const std::vector<uint32_t> & getIndices() const override;
 
     private:
-        Cube(const Math::Vector3F & position, const Math::Vector3F & color);
+        Cube(const std::string & identifier, const Math::Vector3F & position, const Math::Vector3F & color);
     };
 
 }

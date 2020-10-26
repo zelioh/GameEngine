@@ -32,49 +32,63 @@ void graphics::CommandBuffer::release(const LogicalDevice & logicalDevice)
     logicalDevice.getVkLogicalDevice().freeCommandBuffers(logicalDevice.getCommandPool().getVkCommandPool(), m_commandBuffers);
 }
 
+void graphics::CommandBuffer::beginRender(const Swapchain &swapchain, uint32_t imageIndex)
+{
+    const vk::CommandBuffer & commandBuffer = m_commandBuffers[imageIndex];
+
+    commandBuffer.reset(vk::CommandBufferResetFlagBits::eReleaseResources);
+
+    vk::CommandBufferBeginInfo beginInfo{};
+
+    commandBuffer.begin(beginInfo);
+
+    vk::RenderPassBeginInfo renderPassBeginInfo{};
+    std::array<vk::ClearValue, 2> clearValues{};
+
+    clearValues[0].color = vk::ClearColorValue(std::array{0.f, 0.f, 0.f, 1.f});
+    clearValues[1].depthStencil = vk::ClearDepthStencilValue(1.f, 0);
+
+    renderPassBeginInfo.renderPass = swapchain.getRenderPass().getVkRenderPass();
+    renderPassBeginInfo.framebuffer = swapchain.getVkFrameBuffers()[imageIndex];
+    renderPassBeginInfo.renderArea.offset = vk::Offset2D(0, 0);
+    renderPassBeginInfo.renderArea.extent = swapchain.getVkSwapchainExtent();
+    renderPassBeginInfo.clearValueCount = clearValues.size();
+    renderPassBeginInfo.pClearValues = clearValues.data();
+
+    m_commandBuffers[imageIndex].beginRenderPass(renderPassBeginInfo, vk::SubpassContents::eInline);
+}
+
 void graphics::CommandBuffer::render(const Swapchain &swapchain,
                                      const CommandPool &commandPool,
                                      const Pipeline & pipeline,
-                                     const std::vector<uint32_t> & indices)
+                                     const std::vector<uint32_t> & indices,
+                                     uint32_t imageIndex
+                                     )
 {
-    const int count = m_commandBuffers.size();
-
-    for (int i = 0; i < count; ++i)
-    {
-        vk::CommandBufferBeginInfo beginInfo{};
-
-        m_commandBuffers[i].begin(beginInfo);
-
-        vk::RenderPassBeginInfo renderPassBeginInfo{};
-        std::array<vk::ClearValue, 2> clearValues{};
-
-        clearValues[0].color = vk::ClearColorValue(std::array{0.f, 0.f, 0.f, 1.f});
-        clearValues[1].depthStencil = vk::ClearDepthStencilValue(1.f, 0);
-
-        renderPassBeginInfo.renderPass = swapchain.getRenderPass().getVkRenderPass();
-        renderPassBeginInfo.framebuffer = swapchain.getVkFrameBuffers()[i];
-        renderPassBeginInfo.renderArea.offset = vk::Offset2D(0, 0);
-        renderPassBeginInfo.renderArea.extent = swapchain.getVkSwapchainExtent();
-        renderPassBeginInfo.clearValueCount = clearValues.size();
-        renderPassBeginInfo.pClearValues = clearValues.data();
-
-        m_commandBuffers[i].beginRenderPass(renderPassBeginInfo, vk::SubpassContents::eInline);
-        m_commandBuffers[i].bindPipeline(vk::PipelineBindPoint::eGraphics, pipeline.getVkPipeline());
+        m_commandBuffers[imageIndex].bindPipeline(vk::PipelineBindPoint::eGraphics, pipeline.getVkPipeline());
 
         vk::Buffer vertexBuffers[] = {swapchain.getVkVertexBuffer()};
         vk::DeviceSize deviceSize[] = {0};
 
-        m_commandBuffers[i].bindVertexBuffers(0, 1, vertexBuffers, deviceSize);
-        m_commandBuffers[i].bindIndexBuffer(swapchain.getVkIndexBuffer(), 0, vk::IndexType::eUint32);
-        m_commandBuffers[i].bindDescriptorSets(vk::PipelineBindPoint::eGraphics,
+        m_commandBuffers[imageIndex].bindVertexBuffers(0, 1, vertexBuffers, deviceSize);
+        m_commandBuffers[imageIndex].bindIndexBuffer(swapchain.getVkIndexBuffer(), 0, vk::IndexType::eUint32);
+        m_commandBuffers[imageIndex].bindDescriptorSets(vk::PipelineBindPoint::eGraphics,
                                                pipeline.getVkPipelineLayout(),
                                                0,
                                                1,
-                                               &swapchain.getVkDescriptorSet(i),
+                                               &swapchain.getVkDescriptorSet(imageIndex),
                                                0,
                                                nullptr);
-        m_commandBuffers[i].drawIndexed(indices.size(), 1, 0, 0, 0);
-        m_commandBuffers[i].endRenderPass();
-        m_commandBuffers[i].end();
-    }
+        m_commandBuffers[imageIndex].drawIndexed(indices.size(), 1, 0, 0, 0);
+}
+
+void graphics::CommandBuffer::endRender(uint32_t imageIndex)
+{
+    m_commandBuffers[imageIndex].endRenderPass();
+    m_commandBuffers[imageIndex].end();
+}
+
+const vk::CommandBuffer & graphics::CommandBuffer::getCommandBuffer(uint32_t imageIndex) const
+{
+    return m_commandBuffers[imageIndex];
 }

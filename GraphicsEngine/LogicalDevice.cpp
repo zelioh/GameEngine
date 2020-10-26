@@ -20,6 +20,16 @@ m_parentPhysicalDevice(physicalDevice)
     m_commandPool.initialize(*this);
 }
 
+void graphics::LogicalDevice::initializeCommandPool()
+{
+    m_commandPool.initialize(*this);
+}
+
+void graphics::LogicalDevice::releaseCommandPool()
+{
+    m_commandPool.release(*this);
+}
+
 void graphics::LogicalDevice::release()
 {
     m_commandPool.release(*this);

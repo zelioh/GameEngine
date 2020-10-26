@@ -19,6 +19,9 @@ namespace graphics {
     public:
         LogicalDevice(const graphics::PhysicalDevice & physicalDevice);
 
+        void initializeCommandPool();
+
+        void releaseCommandPool();
         void release();
 
         const vk::Device & getVkLogicalDevice() const;

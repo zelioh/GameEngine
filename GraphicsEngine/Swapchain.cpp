@@ -29,8 +29,6 @@ void graphics::Swapchain::initialize(const Window & window)
     initializeInternal(window);
     initializeImageViews();
     m_renderPass.initialize(*this);
-    createVertexBuffer({}); ///< TODO: use vertices in parameters
-    createIndexBuffer({}); ///< TODO: use vertices in parameters
     createUniformBuffers();
     createDescriptorPool();
     createDescriptorSet(Texture()); ///< TODO: use object TextureTODO
@@ -47,12 +45,6 @@ void graphics::Swapchain::release()
         logicalDevice.destroySemaphore(m_renderFinishSemaphores[i]);
         logicalDevice.destroyFence(m_fences[i]);
     }
-
-    logicalDevice.destroyBuffer(m_vertexBuffer); ///< TODO: remove vertex buffer from here. DO NOT free it for recreate
-    logicalDevice.freeMemory(m_verterBufferMemory); ///< TODO: remove vertex buffer from here. DO NOT free it for recreate
-
-    logicalDevice.destroyBuffer(m_indexBuffer); ///< TODO: remove index buffer from here. DO NOT free it for recreate
-    logicalDevice.freeMemory(m_indexBufferMemory); ///< TODO: remove index buffer from here. DO NOT free it for recreate
 
     logicalDevice.destroyImage(m_colorImage);
     logicalDevice.destroyImageView(m_colorView);
@@ -86,10 +78,47 @@ void graphics::Swapchain::release()
 
 void graphics::Swapchain::recreate(const Window & window)
 {
-    ///< TODO: Refactor
+    const vk::Device & logicalDevice = m_parentLogicalDevice.getVkLogicalDevice();
 
-    release();
-    initialize(window);
+    logicalDevice.waitIdle();
+    {
+        logicalDevice.destroyImage(m_colorImage);
+        logicalDevice.destroyImageView(m_colorView);
+        logicalDevice.freeMemory(m_colorMemory);
+
+        logicalDevice.destroyImage(m_depthImage);
+        logicalDevice.destroyImageView(m_depthView);
+        logicalDevice.freeMemory(m_depthMemory);
+
+        for (const vk::Framebuffer &framebuffer : m_vFrameBuffer) {
+            logicalDevice.destroyFramebuffer(framebuffer);
+        }
+
+        m_renderPass.release(*this);
+        for (const vk::ImageView &imageView : m_vImageViews) {
+            logicalDevice.destroyImageView(imageView);
+        }
+        logicalDevice.destroySwapchainKHR(m_swapchain);
+
+        const size_t count = m_vImages.size();
+
+        for (size_t i = 0; i < count; ++i) {
+            logicalDevice.destroyBuffer(m_uniformBuffers[i]);
+            logicalDevice.freeMemory(m_uniformBufferMemories[i]);
+        }
+        logicalDevice.destroyDescriptorPool(m_descriptorPool);
+    }
+    ///< TODO: destroy command pool and pipeline
+    initializeInternal(window);
+    initializeImageViews();
+    m_renderPass.initialize(*this);
+    createColorResources();
+    createDepthResources();
+    initializeFrameBuffer();
+    createUniformBuffers();
+    createDescriptorPool();
+    createDescriptorSet(Texture()); ///< TODO: remove
+    ///< TODO: create pipeline, commandBuffer
 }
 
 const graphics::LogicalDevice & graphics::Swapchain::getParentLogicalDevice() const
@@ -160,6 +189,32 @@ void graphics::Swapchain::setVkFenceInFlight(int iIndex, const vk::Fence &fence)
 const vk::DescriptorSet & graphics::Swapchain::getVkDescriptorSet(int iIndex) const
 {
     return m_descriptorSets[iIndex];
+}
+
+uint32_t graphics::Swapchain::acquireNextImage(size_t currentFrame) const
+{
+    return m_parentLogicalDevice.getVkLogicalDevice().acquireNextImageKHR(m_swapchain,
+                                                                   UINT64_MAX,
+                                                                   m_imageAvaibleSemaphores[currentFrame],
+                                                                   nullptr);
+}
+
+void graphics::Swapchain::initializeVertexIndexBuffers(const std::vector<Vertex> &vertices,
+                                                       const std::vector<uint32_t> &indices)
+{
+    createVertexBuffer(vertices);
+    createIndexBuffer(indices);
+}
+
+void graphics::Swapchain::releaseVertexIndexBuffers()
+{
+    const vk::Device & logicalDevice = m_parentLogicalDevice.getVkLogicalDevice();
+
+    logicalDevice.destroyBuffer(m_vertexBuffer);
+    logicalDevice.freeMemory(m_verterBufferMemory);
+
+    logicalDevice.destroyBuffer(m_indexBuffer);
+    logicalDevice.freeMemory(m_indexBufferMemory);
 }
 
 void graphics::Swapchain::initializeInternal(const Window & window)

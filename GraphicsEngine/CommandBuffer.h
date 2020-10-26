@@ -22,10 +22,14 @@ namespace graphics {
 
         void initialize(const Swapchain & swapchain);
         void release(const LogicalDevice & logicalDevice);
+        void beginRender(const Swapchain & swapchain, uint32_t imageIndex);
         void render(const Swapchain & swapchain,
                     const CommandPool & commandPool,
                     const Pipeline & pipeline,
-                    const std::vector<uint32_t> & indices);
+                    const std::vector<uint32_t> & indices,
+                    uint32_t imageIndex);
+        void endRender(uint32_t imageIndex);
+        const vk::CommandBuffer & getCommandBuffer(uint32_t imageIndex) const;
 
     private:
         std::vector<vk::CommandBuffer> m_commandBuffers;

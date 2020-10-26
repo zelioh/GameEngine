@@ -44,6 +44,10 @@ namespace graphics {
         void setVkFenceInFlight(int iIndex, const vk::Fence & fence);
         const vk::DescriptorSet & getVkDescriptorSet(int iIndex) const;
 
+        uint32_t acquireNextImage(size_t currentFrame) const;
+        void initializeVertexIndexBuffers(const std::vector<Vertex> & vertices, const std::vector<uint32_t> & indices);
+        void releaseVertexIndexBuffers();
+
     private:
         void initializeInternal(const Window & window);
         const vk::SurfaceFormatKHR & chooseSwapchainFormat(const std::vector<vk::SurfaceFormatKHR> & formats);

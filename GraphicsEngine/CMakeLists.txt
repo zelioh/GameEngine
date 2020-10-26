@@ -20,7 +20,8 @@ add_library(GraphicsEngine OBJECT
         SUniformBufferObject.h
         TextureManager.cpp TextureManager.h
         Texture.cpp Texture.h
-        Window.cpp Window.h)
+        Window.cpp Window.h
+        WindowParameters.cpp WindowParameters.h)
 
 find_package(Vulkan REQUIRED)
 find_library(ws2_32_LIBRARY_PATH ws2_32)

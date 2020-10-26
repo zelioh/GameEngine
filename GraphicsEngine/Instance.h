@@ -15,13 +15,14 @@
 namespace graphics
 {
     class InstanceParameter;
+    class Window;
 
     class Instance {
     public:
             Instance(); ///< Constructor that implement m_instance;
             Instance(const InstanceParameter & parameters); ///< Constructor that implement m_instance with user parameters
 
-            void initialize(); ///< Initialize vulkan instance
+            void initialize(const Window & window); ///< Initialize vulkan instance
             void release(); ///< Destroy the vulkan instance
 
             const vk::Instance & getVkInstance() const; ///< Returns the Vulkan instance for use it

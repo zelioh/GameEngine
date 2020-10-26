@@ -58,11 +58,11 @@ m_bIsDebug(false)
     m_appInfo.setApiVersion(VK_API_VERSION_1_2);
 }
 
-void graphics::Instance::initialize()
+void graphics::Instance::initialize(const Window & window)
 {
     initializeInternal();
     m_validationLayer.initialize(*this);
-    m_surface.initialize(*this);
+    m_surface.initialize(*this, window);
 }
 
 void graphics::Instance::release()

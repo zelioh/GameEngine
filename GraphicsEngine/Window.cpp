@@ -3,15 +3,16 @@
 //
 
 #include "Window.h"
+#include "WindowParameters.h"
 
-graphics::Window::Window(HINSTANCE const &hInstance):
+graphics::Window::Window(HINSTANCE const &hInstance, const WindowParameters & parameters):
 m_hInstance(hInstance),
 m_hwnd(nullptr),
-m_bIsFullScreen(false),
-m_iWidth(800),
-m_iHeight(600)
+m_bIsFullScreen(parameters.m_bIsFullScreen),
+m_iWidth(parameters.m_iWidth),
+m_iHeight(parameters.m_iHeight)
 {
-    LPCWSTR CLASS_NAME = L"myWin32WindowClass";
+    LPCWSTR CLASS_NAME = L"Window";
     WNDCLASS wc{};
 
     wc.hInstance = m_hInstance;
@@ -21,23 +22,30 @@ m_iHeight(600)
     wc.lpfnWndProc = WindowProcessMessages;
     RegisterClass(&wc);
 
+    //
+    // Get monitor information
     HMONITOR hmon = MonitorFromWindow(m_hwnd, MONITOR_DEFAULTTONEAREST);
     MONITORINFO mi = { sizeof(mi) };
     if (!GetMonitorInfo(hmon, &mi))
     {
         throw std::runtime_error("Enable to get monitor informations");
     }
-    m_hwnd = CreateWindow(CLASS_NAME, L"Win32 Tutorial",
-    //WS_POPUP          | // FullScreen
-                        WS_OVERLAPPED     | // No FullScreen
-                        WS_CAPTION        | // No FullScreen
-                        WS_SYSMENU        | // No FullScreen
-                        WS_THICKFRAME     | // No FullScreen
-                        WS_MINIMIZEBOX    | // No FullScreen
-                        WS_MAXIMIZEBOX    | // No FullScreen
-                        WS_BORDER         | // No FullScreen
-                        WS_VISIBLE,			// Window style
-                        CW_USEDEFAULT, CW_USEDEFAULT, // Window initial position
+
+    //
+    // Set size correctly
+    {
+        m_iWidth = (m_iWidth > (mi.rcMonitor.right - mi.rcMonitor.left)) ? mi.rcMonitor.right - mi.rcMonitor.left
+                                                                         : m_iWidth;
+        m_iHeight = (m_iHeight > (mi.rcMonitor.bottom - mi.rcMonitor.top)) ? mi.rcMonitor.bottom - mi.rcMonitor.top
+                                                                           : m_iHeight;
+    }
+    int left = (parameters.m_bIsFullScreen) ? mi.rcMonitor.left : parameters.m_iLeft;
+    int top = (parameters.m_bIsFullScreen) ? mi.rcMonitor.top : parameters.m_iTop;
+    std::wstring szname(parameters.m_strName.begin(), parameters.m_strName.end());
+
+    m_hwnd = CreateWindow(CLASS_NAME, szname.c_str(),
+                        getWindowStyle(parameters),
+                        left, top, // Window initial position
                         m_iWidth, m_iHeight, // Window size
                         nullptr, // Parent handle
                         nullptr, // Menu handle
@@ -127,4 +135,56 @@ void graphics::Window::useCallback(int eventID) const
     {
         callback.second(eventID);
     }
+}
+
+DWORD graphics::Window::getWindowStyle(const WindowParameters &parameters)
+{
+    DWORD style = WS_VISIBLE;
+
+    if (parameters.m_bIsFullScreen)
+    {
+        style |= WS_POPUP;
+        return style;
+    } else {
+        style |= WS_OVERLAPPED;
+    }
+
+    if (parameters.m_bCanMinize)
+    {
+        style |= WS_MINIMIZEBOX;
+    }
+
+    if (parameters.m_bCanMaximaze)
+    {
+        style |= WS_MAXIMIZEBOX;
+    }
+
+    if (parameters.m_bIsBorderLess)
+    {
+        style &= ~WS_BORDER;
+    } else {
+        style |= WS_BORDER;
+    }
+
+    if (parameters.m_bCanResize)
+    {
+        style |= WS_THICKFRAME;
+    } else {
+        style &= ~(WS_MINIMIZEBOX | WS_MAXIMIZEBOX);
+    }
+
+    if (parameters.m_bHasSysMenu)
+    {
+        style |= WS_SYSMENU;
+    } else {
+        style &= ~(WS_MINIMIZEBOX | WS_MAXIMIZEBOX);
+    }
+
+    if (parameters.m_bHasTitleBar)
+    {
+        style |= WS_CAPTION;
+    } else {
+        style &= ~(WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU);
+    }
+    return style;
 }

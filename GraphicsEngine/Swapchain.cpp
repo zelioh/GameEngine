@@ -13,19 +13,20 @@
 #include "Vertex.h"
 #include "SUniformBufferObject.h"
 #include "Texture.h"
+#include "Window.h"
 
-graphics::Swapchain::Swapchain(const LogicalDevice & logicalDevice):
+graphics::Swapchain::Swapchain(const LogicalDevice & logicalDevice, const Window & window):
 m_parentLogicalDevice(logicalDevice),
 m_renderPass()
 {
-    initializeInternal();
+    initializeInternal(window);
     initializeImageViews();
     m_renderPass.initialize(*this);
 }
 
-void graphics::Swapchain::initialize()
+void graphics::Swapchain::initialize(const Window & window)
 {
-    initializeInternal();
+    initializeInternal(window);
     initializeImageViews();
     m_renderPass.initialize(*this);
     createVertexBuffer({}); ///< TODO: use vertices in parameters
@@ -83,10 +84,12 @@ void graphics::Swapchain::release()
 }
 
 
-void graphics::Swapchain::recreate()
+void graphics::Swapchain::recreate(const Window & window)
 {
+    ///< TODO: Refactor
+
     release();
-    initialize();
+    initialize(window);
 }
 
 const graphics::LogicalDevice & graphics::Swapchain::getParentLogicalDevice() const
@@ -159,13 +162,13 @@ const vk::DescriptorSet & graphics::Swapchain::getVkDescriptorSet(int iIndex) co
     return m_descriptorSets[iIndex];
 }
 
-void graphics::Swapchain::initializeInternal()
+void graphics::Swapchain::initializeInternal(const Window & window)
 {
     SwapchainDetails details(m_parentLogicalDevice.getParentPhysicalDevice());
     vk::SurfaceFormatKHR format = chooseSwapchainFormat(details.getSurfaceFormats());
     vk::PresentModeKHR presentMode = chooseSwapchainPrensentMode(details.getPrensentModes());
     vk::SurfaceCapabilitiesKHR capabilities = details.getSurfaceCapabilities();
-    vk::Extent2D surfaceExtent = chooseSwapchainExtent(capabilities);
+    vk::Extent2D surfaceExtent = chooseSwapchainExtent(capabilities, window);
     uint32_t imageCount = capabilities.minImageCount + 1;
     QueueFamilyHint hints(m_parentLogicalDevice.getParentPhysicalDevice());
     uint32_t queueFamilyHints[] = {hints.getGraphicsFamilyValue(), hints.getPresentFamilyValue()};
@@ -235,20 +238,20 @@ const vk::PresentModeKHR & graphics::Swapchain::chooseSwapchainPrensentMode(
     return presentModes[0];
 }
 
-vk::Extent2D graphics::Swapchain::chooseSwapchainExtent(const vk::SurfaceCapabilitiesKHR &capabilities)
+vk::Extent2D graphics::Swapchain::chooseSwapchainExtent(const vk::SurfaceCapabilitiesKHR &capabilities, const Window & window)
 {
     if (capabilities.currentExtent.width != UINT32_MAX)
     {
         return capabilities.currentExtent;
     } else {
-        int width = 0, height = 0; ///< TODO: replace by window size
+        int width = window.getWidth(), height = window.getHeight();
 
         VkExtent2D currentExtent = {static_cast<uint32_t>(width), static_cast<uint32_t>(height)};
 
-        currentExtent.width = std::max(capabilities.minImageExtent.width,
-                                       std::min(capabilities.maxImageExtent.width, currentExtent.width));
-        currentExtent.height = std::max(capabilities.minImageExtent.height,
-                                       std::min(capabilities.maxImageExtent.height, currentExtent.height));
+        currentExtent.width = max(capabilities.minImageExtent.width,
+                                   min(capabilities.maxImageExtent.width, currentExtent.width));
+        currentExtent.height = max(capabilities.minImageExtent.height,
+                                   min(capabilities.maxImageExtent.height, currentExtent.height));
         return currentExtent;
     }
 }

@@ -12,12 +12,14 @@
 
 namespace graphics {
 
+    class WindowParameters;
+
     class Window
     {
     public:
         using EventCallback = std::function<void(int inputID)>;
 
-        Window(const HINSTANCE & hInstance); ///< TODO: Add properties
+        Window(const HINSTANCE & hInstance, const WindowParameters & parameters);
         ~Window();
 
         const HINSTANCE & getHInstance() const;
@@ -47,6 +49,7 @@ namespace graphics {
         static LRESULT CALLBACK WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM lparam); ///< Process event
 
         void useCallback(int eventID) const; ///< Call all callBack with an eventID ///< TODO: eventID must be a Enum
+        DWORD getWindowStyle(const WindowParameters & parameters);
     private:
         HWND m_hwnd;
         HINSTANCE m_hInstance;

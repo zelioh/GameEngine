@@ -6,15 +6,14 @@
 
 #include "Surface.h"
 #include "Instance.h"
+#include "Window.h"
 
-void graphics::Surface::initialize(const Instance &instance)
+void graphics::Surface::initialize(const Instance &instance, const Window & window)
 {
     vk::Win32SurfaceCreateInfoKHR surfaceInfo;
 
-    //
-    // TODO: use win32 window
-    surfaceInfo.hwnd = NULL;
-    surfaceInfo.hinstance = NULL;
+    surfaceInfo.hwnd = window.getHWindow();
+    surfaceInfo.hinstance = window.getHInstance();
 
     m_surface = instance.getVkInstance().createWin32SurfaceKHR(surfaceInfo);
     if (m_surface == nullptr)

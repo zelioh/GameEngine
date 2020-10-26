@@ -18,14 +18,15 @@ namespace graphics {
     class LogicalDevice;
     class Vertex;
     class Texture;
+    class Window;
 
     class Swapchain {
     public:
-        Swapchain(const LogicalDevice & logicalDevice);
+        Swapchain(const LogicalDevice & logicalDevice, const Window & window);
 
-        void initialize();
+        void initialize(const Window & window);
         void release();
-        void recreate();
+        void recreate(const Window & window);
 
         const LogicalDevice & getParentLogicalDevice() const;
         const vk::SwapchainKHR & getVkSwapchain() const;
@@ -44,10 +45,10 @@ namespace graphics {
         const vk::DescriptorSet & getVkDescriptorSet(int iIndex) const;
 
     private:
-        void initializeInternal();
+        void initializeInternal(const Window & window);
         const vk::SurfaceFormatKHR & chooseSwapchainFormat(const std::vector<vk::SurfaceFormatKHR> & formats);
         const vk::PresentModeKHR & chooseSwapchainPrensentMode(const std::vector<vk::PresentModeKHR> & presentModes);
-        vk::Extent2D chooseSwapchainExtent(const vk::SurfaceCapabilitiesKHR & capabilities);
+        vk::Extent2D chooseSwapchainExtent(const vk::SurfaceCapabilitiesKHR & capabilities, const Window & window);
         void initializeImageViews(); ///< Must be call after initializeInternal
         void initializeFrameBuffer(); ///< Must be call after renderPass initialization
         void createColorResources();

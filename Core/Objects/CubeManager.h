@@ -24,21 +24,24 @@ namespace object {
          * @param identifier    Identifier in the pool of the cube
          * @param position      Position of the cube in the world
          * @param color         Color of the cube
+         * @param scale         Scale of the cube
          * @return  instance of Cube
          */
         Cube * createCube(const std::string & identifier,
                           const Math::Vector3F & position,
-                          const Math::Vector3F & color);
+                          const Math::Vector3F & color,
+                          const Math::Vector3F & scale = Math::Vector3F(1.f, 1.f, 1.f));
         /**
          * Work like createCube but the identifier is create automaticly
          * with the patern CUBE_XXX where XXX is it number in the pool
          * @param position  Position of the cube in the world
          * @param color     Color of the cube
+         * @param scale     Scale of the cube
          * @return  instance of Cube
          */
         Cube * createCubeAutoName(const Math::Vector3F & position,
-                                  const Math::Vector3F & color);
-
+                                  const Math::Vector3F & color,
+                                  const Math::Vector3F & scale = Math::Vector3F(1.f, 1.f, 1.f));
         /**
          * Find a Cube instance in the pool. Assert if the cube doesn't exist
          * @param identifier    Cube identifier in the pool

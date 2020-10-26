@@ -18,9 +18,11 @@ namespace object {
     public:
         const Math::Vector3F & getPosition() const;
         const Math::Vector3F & getColor() const;
+        const Math::Vector3F & getScale() const;
 
         void setPosition(const Math::Vector3F & position);
         void setColor(const Math::Vector3F & color);
+        void setScale(const Math::Vector3F & scale);
 
         const std::string & getIdentifier() const;
 
@@ -28,10 +30,14 @@ namespace object {
         virtual const std::vector<uint32_t> & getIndices() const = 0;
 
     protected:
-        GameObject(const std::string & identifier, const Math::Vector3F & position, const Math::Vector3F & color);
+        GameObject(const std::string & identifier,
+                   const Math::Vector3F & position,
+                   const Math::Vector3F & color,
+                   const Math::Vector3F & scale = Math::Vector3F(1.f, 1.f, 1.f));
 
         Math::Vector3F m_position;
         Math::Vector3F m_color;
+        Math::Vector3F m_scale;
         std::vector<graphics::Vertex> m_vertices;
         std::vector<uint32_t> m_indices;
         std::string m_strIdentifier;

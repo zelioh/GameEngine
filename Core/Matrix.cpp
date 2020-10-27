@@ -33,7 +33,8 @@ Math::Matrix::~Matrix()
 Matrix Math::Matrix::operator+(Matrix& B)
 {
 	Matrix temp(m_colSize, m_rowSize, 0.0);
-	int i, j;
+	int i;
+	int j;
 	for (i = 0; i < m_rowSize; i++)
 	{
 		for (j = 0; j < m_colSize; j++)
@@ -47,7 +48,8 @@ Matrix Math::Matrix::operator+(Matrix& B)
 Matrix Math::Matrix::operator-(Matrix& B)
 {
 	Matrix temp(m_colSize, m_rowSize, 0.0);
-	unsigned i, j;
+	int i;
+	int j;
 	for (i = 0; i < m_rowSize; i++)
 	{
 		for (j = 0; j < m_colSize; j++)
@@ -64,7 +66,9 @@ Matrix Math::Matrix::operator*(Matrix& B)
 	Matrix multip(m_rowSize, B.getCols(), 0.0);
 	if (m_colSize == B.getRows())
 	{
-		unsigned i, j, k;
+		int i;
+		int j;
+		int k;
 		double temp = 0.0;
 		for (i = 0; i < m_rowSize; i++)
 		{
@@ -85,7 +89,8 @@ Matrix Math::Matrix::operator*(Matrix& B)
 Matrix Math::Matrix::operator+(double scalar)
 {
 	Matrix temp(m_rowSize, m_colSize, 0.0);
-	unsigned i, j;
+	int i;
+	int j;
 	for (i = 0; i < m_rowSize; i++)
 	{
 		for (j = 0; j < m_colSize; j++)
@@ -99,7 +104,8 @@ Matrix Math::Matrix::operator+(double scalar)
 Matrix Math::Matrix::operator-(double scalar)
 {
 	Matrix temp(m_rowSize, m_colSize, 0.0);
-	unsigned i, j;
+	int i;
+	int j;
 	for (i = 0; i < m_rowSize; i++)
 	{
 		for (j = 0; j < m_colSize; j++)
@@ -113,7 +119,8 @@ Matrix Math::Matrix::operator-(double scalar)
 Matrix Math::Matrix::operator*(double scalar)
 {
 	Matrix temp(m_rowSize, m_colSize, 0.0);
-	unsigned i, j;
+	int i;
+	int j;
 	for (i = 0; i < m_rowSize; i++)
 	{
 		for (j = 0; j < m_colSize; j++)
@@ -127,7 +134,8 @@ Matrix Math::Matrix::operator*(double scalar)
 Matrix Math::Matrix::operator/(double scalar)
 {
 	Matrix temp(m_rowSize, m_colSize, 0.0);
-	unsigned i, j;
+	int i;
+	int j;
 	for (i = 0; i < m_rowSize; i++)
 	{
 		for (j = 0; j < m_colSize; j++)

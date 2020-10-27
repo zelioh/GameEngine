@@ -84,6 +84,7 @@ Matrix Math::Matrix::operator*(Matrix& B)
 		}
 		return multip;
 	}
+	return multip;
 }
 
 Matrix Math::Matrix::operator+(double scalar)
@@ -154,8 +155,8 @@ double& Math::Matrix::operator()(const int& rowNo, const int& colNo)
 void Math::Matrix::print() const
 {
 	cout << "Matrix: " << endl;
-	for (unsigned i = 0; i < m_rowSize; i++) {
-		for (unsigned j = 0; j < m_colSize; j++) {
+	for (int i = 0; i < m_rowSize; i++) {
+		for (int j = 0; j < m_colSize; j++) {
 			cout << "[" << m_matrix[i][j] << "] ";
 		}
 		cout << endl;

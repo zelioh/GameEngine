@@ -2,28 +2,51 @@
 
 #include "Vector4F.h"
 
+#include <stdio.h>
+#include <iostream>
+#include <stdlib.h>
+#include <sstream>
+#include <string>
+#include <vector>
+#include <cmath>
+
 using namespace Math;
+using namespace std;
 
 namespace Math {
 	class Matrix
 	{
 	public:
-		Vector4F X;
-		Vector4F Y;
-		Vector4F Z;
-		Vector4F W;
+        int m_rowSize;
+        int m_colSize;
+        vector<vector<double> > m_matrix;
+    public:
+        Matrix(int row_size, int col_size, double value_init);
+        Matrix(int row_size, int col_size, vector<vector<double>> value_init);
+        Matrix(const Matrix&);
+        ~Matrix();
 
-	public:
-		Matrix();
-		Matrix(const Vector4F& InX, const Vector4F& InY, const Vector4F& InZ, const Vector4F& InW);
-		~Matrix();
+        // Matrix Operations
+        Matrix operator+(Matrix&);
+        Matrix operator-(Matrix&);
+        Matrix operator*(Matrix&);
 
-		Matrix operator* (const Matrix& Other) const;
-		void operator*=(const Matrix& Other);
-		Matrix operator+ (const Matrix& Other) const;
-		void operator+=(const Matrix& Other);
-		bool operator==(const Matrix& Other) const;
-		bool operator!=(const Matrix& Other) const;
+        //Scalar Operation
+        Matrix operator+(double);
+        Matrix operator-(double);
+        Matrix operator*(double);
+        Matrix operator/(double);
+
+        //get value of matrix at (row, col)
+        double& operator()(const int&, const int&);
+
+        // debug print
+        void print() const;
+
+        int getRows() const;
+        int getCols() const;
+
+
 	};
 }
 

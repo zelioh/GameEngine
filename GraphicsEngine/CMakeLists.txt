@@ -21,21 +21,31 @@ add_library(GraphicsEngine OBJECT
         TextureManager.cpp TextureManager.h
         Texture.cpp Texture.h
         Window.cpp Window.h
-        WindowParameters.cpp WindowParameters.h Renderer.cpp Renderer.h)
+        WindowParameters.cpp WindowParameters.h
+        Renderer.cpp Renderer.h)
 
 find_package(Vulkan REQUIRED)
 find_library(ws2_32_LIBRARY_PATH ws2_32)
 
 target_link_libraries(GraphicsEngine PUBLIC ${Vulkan_LIBRARIES})
 target_link_libraries(GraphicsEngine PUBLIC ${ws2_32_LIBRARY_PATH})
-target_link_libraries(GraphicsEngine PRIVATE ${Core})
+target_link_libraries(GraphicsEngine PUBLIC Core)
 
 target_include_directories(GraphicsEngine PUBLIC ${Vulkan_INCLUDE_DIR})
-target_include_directories(GraphicsEngine PRIVATE ${Core_INCLUDE_DIR})
-target_include_directories(GraphicsEngine PRIVATE ${CMAKE_SOURCE_DIR}/dependencies/stb)
+target_include_directories(GraphicsEngine PUBLIC ${Core_INCLUDE_DIR})
+target_include_directories(GraphicsEngine PUBLIC ${CMAKE_SOURCE_DIR}/dependencies/stb)
 
 add_definitions(-DUNICODE)
 
 set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/GraphicsEngine/ ${Vulkan_INCLUDE_DIR})
 
 set(GraphicsEngine_INCLUDE_DIR "${INCLUDE_DIR}" CACHE INTERNAL "")
+
+set_target_properties(GraphicsEngine PROPERTIES
+        IMPORTED_LOCATION "${DEPENDENCIES_DIR}/graphics/bin/GraphicsEngine.dll"
+        IMPORTED_IMPLIB "${DEPENDENCIES_DIR}/graphics/lib/GraphicsEngine.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${DEPENDENCIES_DIR}/graphics/include"
+        )
+
+
+add_subdirectory(test)

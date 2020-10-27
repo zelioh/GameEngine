@@ -15,6 +15,7 @@ void graphics::CommandPool::initialize(const LogicalDevice &logicalDevice)
     vk::CommandPoolCreateInfo commandPoolInfo{};
 
     commandPoolInfo.queueFamilyIndex = hints.getGraphicsFamilyValue();
+    commandPoolInfo.flags = vk::CommandPoolCreateFlagBits::eResetCommandBuffer;
     m_commandPool = logicalDevice.getVkLogicalDevice().createCommandPool(commandPoolInfo);
     if (!m_commandPool)
     {

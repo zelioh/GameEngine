@@ -9,23 +9,32 @@
 
 graphics::Renderer::Renderer(const Swapchain & swapchain):
 m_currentFrame(0),
-m_imageIndex(0)
+m_imageIndex(0),
+m_update(nullptr)
 {
     m_commandBuffer.initialize(swapchain);
+}
+
+void graphics::Renderer::setUpdateCallback(const UpdateCallback &callback)
+{
+    m_update = callback;
 }
 
 bool graphics::Renderer::renderObject(Swapchain &swapchain,
                                       const object::GameObject *object,
                                       const Pipeline & pipeline)
 {
-    if (!renderBegin(swapchain))
+    if (!renderBegin(swapchain, object))
         return false;
     render(swapchain, object, pipeline);
     return renderEnd(swapchain, pipeline);
 }
 
-bool graphics::Renderer::renderBegin(const Swapchain & swapchain)
+bool graphics::Renderer::renderBegin(Swapchain & swapchain, const object::GameObject * object)
 {
+    ///< TODO: initialize descriptor set
+    // TODO: get object vertex buffer
+
     const vk::Device logicalDevice = swapchain.getParentLogicalDevice().getVkLogicalDevice();
 
     logicalDevice.waitForFences(1, &swapchain.getVkFence(m_currentFrame), true, UINT64_MAX);
@@ -42,10 +51,11 @@ bool graphics::Renderer::renderBegin(const Swapchain & swapchain)
 
 void graphics::Renderer::render(Swapchain & swapchain, const object::GameObject * object, const Pipeline & pipeline)
 {
-    swapchain.initializeVertexIndexBuffers(object->getVertices(), object->getIndices());
-    ///< TODO: initialize descriptor set
+    if (nullptr != m_update)
+    {
+        m_update(swapchain, m_imageIndex);
+    }
     m_commandBuffer.render(swapchain, swapchain.getParentLogicalDevice().getCommandPool(), pipeline, object->getIndices(), m_imageIndex);
-    swapchain.releaseVertexIndexBuffers();
 }
 
 bool graphics::Renderer::renderEnd(Swapchain & swapchain, const Pipeline & pipeline)
@@ -54,11 +64,12 @@ bool graphics::Renderer::renderEnd(Swapchain & swapchain, const Pipeline & pipel
     const vk::Device & logicalDevice = device.getVkLogicalDevice();
 
     m_commandBuffer.endRender(m_imageIndex);
+
     if (swapchain.getVkFenceInFlight(m_imageIndex))
     {
         logicalDevice.waitForFences(1, &swapchain.getVkFenceInFlight(m_imageIndex), true, UINT64_MAX);
     }
-    swapchain.setVkFenceInFlight(m_imageIndex, swapchain.getVkFence(m_imageIndex));
+    swapchain.setVkFenceInFlight(m_imageIndex, swapchain.getVkFence(m_currentFrame));
 
     vk::SubmitInfo submitInfo{};
     vk::Semaphore waitSemaphores[] = {swapchain.getVkImageAvaibleSemaphore(m_currentFrame)};
@@ -72,6 +83,8 @@ bool graphics::Renderer::renderEnd(Swapchain & swapchain, const Pipeline & pipel
     submitInfo.pCommandBuffers = &m_commandBuffer.getCommandBuffer(m_imageIndex);
     submitInfo.signalSemaphoreCount = 1;
     submitInfo.pSignalSemaphores = signalSemaphores;
+
+    logicalDevice.resetFences(1, &swapchain.getVkFence(m_currentFrame));
 
     vk::Result result = device
                         .getGraphicQueue()

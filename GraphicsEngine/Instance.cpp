@@ -103,7 +103,7 @@ void graphics::Instance::initializeInternal()
     // Set debug information logger
     if (m_bIsDebug)
     {
-        auto validationLayerNames = m_validationLayer.getValidationLayerNames();
+        const std::vector<const char *> & validationLayerNames = m_validationLayer.getValidationLayerNames();
 
         createInfo.setEnabledLayerCount(static_cast<uint32_t>(validationLayerNames.size()));
         createInfo.setPpEnabledLayerNames(validationLayerNames.data());
@@ -126,9 +126,8 @@ void graphics::Instance::fillRequiredExtension()
 {
     m_vExtensions.push_back("VK_KHR_surface");
     m_vExtensions.push_back("VK_KHR_win32_surface");
-    if (m_bIsDebug) {
-
-    } else {
+    if (m_bIsDebug)
+    {
         m_vExtensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
     }
 }

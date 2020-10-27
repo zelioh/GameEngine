@@ -36,10 +36,10 @@ namespace graphics {
          * @param pCallback     Callback when an message is throw by Vulkan
          * @return  Result of the operation
          */
-        vk::Bool32 createDebugMessanger(const vk::Instance & instance, const
-                                    vk::DebugUtilsMessengerCreateInfoEXT* pCreateInfo, const
-                                    vk::AllocationCallbacks* pAllocator,
-                                    vk::DebugUtilsMessengerEXT*pCallback);
+        vk::Result createDebugMessanger(const VkInstance & instance, const
+                                    VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo, const
+                                    VkAllocationCallbacks* pAllocator,
+                                    VkDebugUtilsMessengerEXT*pCallback);
 
         /**
          * Function that release debug messenger
@@ -47,9 +47,9 @@ namespace graphics {
          * @param callback      Callback when an message is throw by Vulkan
          * @param pAllocator    Allocator callback, generaly set at nullptr
          */
-        void releaseDebugMessanger(const vk::Instance & instance,
-                                   const vk::DebugUtilsMessengerEXT & callback,
-                                   const vk::AllocationCallbacks* pAllocator);
+        void releaseDebugMessanger(const VkInstance & instance,
+                                   const VkDebugUtilsMessengerEXT & callback,
+                                   const VkAllocationCallbacks* pAllocator);
 
         /**
          * Debug callback call when a Vulkan throw a message
@@ -69,7 +69,7 @@ namespace graphics {
     protected:
     private:
         vk::DebugUtilsMessengerCreateInfoEXT m_debugUtilsMessengerInfo; ///< Informations of the messenger
-        vk::DebugUtilsMessengerEXT m_callback; ///< Callback instance
+        VkDebugUtilsMessengerEXT m_callback; ///< Callback instance
 
         std::vector<const char *> m_validationLayerNames; ///< Names of the extensions needed by Vulkan for instancing validation layer
     };

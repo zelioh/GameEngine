@@ -19,9 +19,7 @@ graphics::Swapchain::Swapchain(const LogicalDevice & logicalDevice, const Window
 m_parentLogicalDevice(logicalDevice),
 m_renderPass()
 {
-    initializeInternal(window);
-    initializeImageViews();
-    m_renderPass.initialize(*this);
+    initialize(window);
 }
 
 void graphics::Swapchain::initialize(const Window & window)
@@ -29,6 +27,7 @@ void graphics::Swapchain::initialize(const Window & window)
     initializeInternal(window);
     initializeImageViews();
     m_renderPass.initialize(*this);
+    initializeFrameBuffer();
     createUniformBuffers();
     createDescriptorPool();
     createDescriptorSet(Texture()); ///< TODO: use object TextureTODO
@@ -118,7 +117,7 @@ void graphics::Swapchain::recreate(const Window & window)
     createUniformBuffers();
     createDescriptorPool();
     createDescriptorSet(Texture()); ///< TODO: remove
-    ///< TODO: create pipeline, commandBuffer
+    ///< TODO: create pipeline, command pool
 }
 
 const graphics::LogicalDevice & graphics::Swapchain::getParentLogicalDevice() const
@@ -215,6 +214,16 @@ void graphics::Swapchain::releaseVertexIndexBuffers()
 
     logicalDevice.destroyBuffer(m_indexBuffer);
     logicalDevice.freeMemory(m_indexBufferMemory);
+}
+
+void graphics::Swapchain::updateUniformBuffer(int imageIndex, const SUniformBufferObject &ubo) const
+{
+    const vk::Device & logicalDevice = m_parentLogicalDevice.getVkLogicalDevice();
+    void *data;
+
+    logicalDevice.mapMemory(m_uniformBufferMemories[imageIndex], 0, sizeof(ubo), static_cast<vk::MemoryMapFlags>(0), &data);
+    memcpy(data, &ubo, sizeof(ubo));
+    logicalDevice.unmapMemory(m_uniformBufferMemories[imageIndex]);
 }
 
 void graphics::Swapchain::initializeInternal(const Window & window)
@@ -373,15 +382,23 @@ void graphics::Swapchain::createColorResources()
 
 void graphics::Swapchain::createDepthResources()
 {
+    vk::Format format = m_parentLogicalDevice
+            .getParentPhysicalDevice()
+            .findVkSupportedFormat(
+                    {vk::Format::eD32Sfloat, vk::Format::eD32SfloatS8Uint, vk::Format::eD24UnormS8Uint},
+                    vk::ImageTiling::eOptimal,
+                    vk::FormatFeatureFlagBits::eDepthStencilAttachment);
+
+
     m_parentLogicalDevice.createVkImage(m_extent.width, m_extent.height,
                                         1,
                                         m_parentLogicalDevice.getParentPhysicalDevice().getVkMSSASample(),
-                                        m_format,
+                                        format,
                                         vk::ImageTiling::eOptimal,
                                         vk::ImageUsageFlagBits::eDepthStencilAttachment,
                                         vk::MemoryPropertyFlagBits::eDeviceLocal,
                                         m_depthImage, m_depthMemory);
-    m_depthView = m_parentLogicalDevice.createVkImageView(m_depthImage, m_format, vk::ImageAspectFlagBits::eDepth, 1);
+    m_depthView = m_parentLogicalDevice.createVkImageView(m_depthImage, format, vk::ImageAspectFlagBits::eDepth, 1);
 }
 
 void graphics::Swapchain::createVertexBuffer(const std::vector<Vertex> &vertices)
@@ -499,26 +516,42 @@ void graphics::Swapchain::createDescriptorSet(const Texture & texture)
         imageInfo.imageView = texture.getVkTextureView();
         imageInfo.imageLayout = vk::ImageLayout::eShaderReadOnlyOptimal;
 
-        std::array<vk::WriteDescriptorSet, 2> writeSets{};
+        if (texture.getVkTextureView() == nullptr)
+        {
+            vk::WriteDescriptorSet writeSet;
 
-        writeSets[0].dstSet = m_descriptorSets[i];
-        writeSets[0].dstBinding = 0;
-        writeSets[0].dstArrayElement = 0;
-        writeSets[0].descriptorType = vk::DescriptorType::eUniformBuffer;
-        writeSets[0].descriptorCount = 1;
-        writeSets[0].pBufferInfo = &bufferInfo;
-        writeSets[0].pImageInfo = nullptr;
-        writeSets[0].pTexelBufferView = nullptr;
-        writeSets[1].dstSet = m_descriptorSets[i];
-        writeSets[1].dstBinding = 1;
-        writeSets[1].dstArrayElement = 0;
-        writeSets[1].descriptorType = vk::DescriptorType::eCombinedImageSampler;
-        writeSets[1].descriptorCount = 1;
-        writeSets[1].pBufferInfo = nullptr;
-        writeSets[1].pImageInfo = &imageInfo;
-        writeSets[1].pTexelBufferView = nullptr;
+            writeSet.dstSet = m_descriptorSets[i];
+            writeSet.dstBinding = 0;
+            writeSet.dstArrayElement = 0;
+            writeSet.descriptorType = vk::DescriptorType::eUniformBuffer;
+            writeSet.descriptorCount = 1;
+            writeSet.pBufferInfo = &bufferInfo;
+            writeSet.pImageInfo = nullptr;
+            writeSet.pTexelBufferView = nullptr;
 
-        logicalDevice.updateDescriptorSets(writeSets.size(),  writeSets.data(), 0, nullptr);
+            logicalDevice.updateDescriptorSets(1, &writeSet, 0, nullptr);
+        } else {
+            std::array<vk::WriteDescriptorSet, 2> writeSets{};
+
+            writeSets[0].dstSet = m_descriptorSets[i];
+            writeSets[0].dstBinding = 0;
+            writeSets[0].dstArrayElement = 0;
+            writeSets[0].descriptorType = vk::DescriptorType::eUniformBuffer;
+            writeSets[0].descriptorCount = 1;
+            writeSets[0].pBufferInfo = &bufferInfo;
+            writeSets[0].pImageInfo = nullptr;
+            writeSets[0].pTexelBufferView = nullptr;
+            writeSets[1].dstSet = m_descriptorSets[i];
+            writeSets[1].dstBinding = 1;
+            writeSets[1].dstArrayElement = 0;
+            writeSets[1].descriptorType = vk::DescriptorType::eCombinedImageSampler;
+            writeSets[1].descriptorCount = 1;
+            writeSets[1].pBufferInfo = nullptr;
+            writeSets[1].pImageInfo = &imageInfo;
+            writeSets[1].pTexelBufferView = nullptr;
+
+            logicalDevice.updateDescriptorSets(writeSets.size(), writeSets.data(), 0, nullptr);
+        }
     }
 }
 
@@ -530,7 +563,7 @@ void graphics::Swapchain::initializeSyncObj()
     m_imageAvaibleSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
     m_renderFinishSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
     m_fences.resize(MAX_FRAMES_IN_FLIGHT);
-    m_fencesInFlight.resize(m_vImages.size());
+    m_fencesInFlight.resize(m_vImages.size(), nullptr);
     fenceInfo.flags = vk::FenceCreateFlagBits::eSignaled;
 
     vk::Device logicalDevice = m_parentLogicalDevice.getVkLogicalDevice();

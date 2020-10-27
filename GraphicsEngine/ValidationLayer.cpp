@@ -17,7 +17,12 @@ m_validationLayerNames({"VK_LAYER_KHRONOS_validation"})
 
 void graphics::ValidationLayer::initialize(const Instance & instance)
 {
-    if (createDebugMessanger(instance.getVkInstance(), &m_debugUtilsMessengerInfo, nullptr, &m_callback))
+    vk::Result result = createDebugMessanger((VkInstance const &)instance.getVkInstance(),
+                         reinterpret_cast<const VkDebugUtilsMessengerCreateInfoEXT*>(&m_debugUtilsMessengerInfo),
+                         nullptr,
+                         &m_callback);
+
+    if (result != vk::Result::eSuccess)
     {
         throw std::runtime_error("Errro while initialize validation layers");
     }
@@ -25,7 +30,7 @@ void graphics::ValidationLayer::initialize(const Instance & instance)
 
 void graphics::ValidationLayer::release(const Instance & instance)
 {
-    releaseDebugMessanger(instance.getVkInstance(), m_callback, nullptr);
+    releaseDebugMessanger((VkInstance const &) instance.getVkInstance(), m_callback, nullptr);
 }
 
 const vk::DebugUtilsMessengerCreateInfoEXT & graphics::ValidationLayer::getDebugUtilsMessengerInfo() const
@@ -58,33 +63,26 @@ void graphics::ValidationLayer::populateDebugInfo()
     m_debugUtilsMessengerInfo.setPNext(nullptr);
 }
 
-vk::Bool32 graphics::ValidationLayer::createDebugMessanger(const vk::Instance & instance, const
-                                                     vk::DebugUtilsMessengerCreateInfoEXT* pCreateInfo, const
-                                                     vk::AllocationCallbacks* pAllocator,
-                                                     vk::DebugUtilsMessengerEXT*pCallback)
+vk::Result graphics::ValidationLayer::createDebugMessanger(const VkInstance & instance, const
+                                                            VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo, const
+                                                            VkAllocationCallbacks* pAllocator,
+                                                            VkDebugUtilsMessengerEXT*pCallback)
 {
-    auto func = (PFN_vkCreateDebugUtilsMessengerEXT)(instance.getProcAddr("vkCreateDebugUtilsMessengerEXT"));
-
+    auto func = (PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT");
     if (func != nullptr) {
-        return func((VkInstance)instance,
-                    (VkDebugUtilsMessengerCreateInfoEXT*)pCreateInfo,
-                    (VkAllocationCallbacks*)pAllocator,
-                    (VkDebugUtilsMessengerEXT*)pCallback);
+        return static_cast<vk::Result>(func(instance, pCreateInfo, pAllocator, pCallback));
     } else {
-        return VK_ERROR_EXTENSION_NOT_PRESENT;
+        return vk::Result::eErrorExtensionNotPresent;
     }
 }
 
-void graphics::ValidationLayer::releaseDebugMessanger(const vk::Instance & instance,
-                                                      const vk::DebugUtilsMessengerEXT & callback,
-                                                      const vk::AllocationCallbacks *pAllocator)
+void graphics::ValidationLayer::releaseDebugMessanger(const VkInstance & instance,
+                                                      const VkDebugUtilsMessengerEXT & callback,
+                                                      const VkAllocationCallbacks* pAllocator)
 {
-    auto func = (PFN_vkDestroyDebugUtilsMessengerEXT)(instance.getProcAddr("vkDestroyDebugUtilsMessengerEXT"));
-
+    auto func = (PFN_vkDestroyDebugUtilsMessengerEXT) vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
     if (func != nullptr) {
-        func((VkInstance)instance,
-             (VkDebugUtilsMessengerEXT)callback,
-             (VkAllocationCallbacks*)pAllocator);
+        func(instance, callback, pAllocator);
     }
 }
 

@@ -35,7 +35,7 @@ void graphics::Pipeline::initialize(const LogicalDevice &logicalDevice,
 
     vk::PipelineShaderStageCreateInfo fragShaderStageInfo{};
 
-    fragShaderStageInfo.stage = vk::ShaderStageFlagBits::eVertex;
+    fragShaderStageInfo.stage = vk::ShaderStageFlagBits::eFragment;
     fragShaderStageInfo.module = fragShaderModule;
     fragShaderStageInfo.pName = "main";
 

@@ -7,8 +7,6 @@
 #ifndef GAMEENGINE_TEXTURE_H
 #define GAMEENGINE_TEXTURE_H
 
-#define STB_IMAGE_IMPLEMENTATION
-
 #include "stb_image.h"
 #include "vulkan/vulkan.hpp"
 

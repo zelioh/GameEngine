@@ -12,6 +12,7 @@ add_library(Core OBJECT
 			Vector2F.h Vector2F.cpp
 			Vector3F.h Vector3F.cpp
 			Vector4F.h Vector4F.cpp
+			Matrix.h Matrix.cpp
 			${OBJECT_SRC}
 		)
 
@@ -24,4 +25,11 @@ target_include_directories(Core PUBLIC ${Core_INCLUDE_DIR} ${Core_INCLUDE_DIR}/O
 target_include_directories(Core PUBLIC ${GraphicsEngine_INCLUDE_DIR})
 
 set(Core_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/Core/" CACHE INTERNAL "")
+
+set_target_properties(Core PROPERTIES
+		IMPORTED_LOCATION "${DEPENDENCIES_DIR}/core/bin/Core.dll"
+		IMPORTED_IMPLIB "${DEPENDENCIES_DIR}/core/lib/Core.lib"
+		INTERFACE_INCLUDE_DIRECTORIES "${DEPENDENCIES_DIR}/core/include"
+		)
+
 # TODO: Add tests and install targets if needed.

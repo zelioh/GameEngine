@@ -13,6 +13,8 @@
 
 #define MAX_FRAMES_IN_FLIGHT 2
 
+struct SUniformBufferObject;
+
 namespace graphics {
 
     class LogicalDevice;
@@ -47,6 +49,8 @@ namespace graphics {
         uint32_t acquireNextImage(size_t currentFrame) const;
         void initializeVertexIndexBuffers(const std::vector<Vertex> & vertices, const std::vector<uint32_t> & indices);
         void releaseVertexIndexBuffers();
+
+        void updateUniformBuffer(int imageIndex, const SUniformBufferObject & ubo) const;
 
     private:
         void initializeInternal(const Window & window);

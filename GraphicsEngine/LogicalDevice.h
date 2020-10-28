@@ -13,6 +13,7 @@
 namespace graphics {
 
     class PhysicalDevice;
+    class Vertex;
 
     class LogicalDevice
     {
@@ -66,6 +67,9 @@ namespace graphics {
         void generateMipmap(const vk::Image & image,
                             vk::Format format,
                             uint32_t texWidth, uint32_t texHeight, uint32_t mipLevel) const;
+
+        void createVertexBuffer(vk::Buffer & vertexBuffer, vk::DeviceMemory & memory, const std::vector<graphics::Vertex> & m_vertices) const;
+        void createIndexBuffer(vk::Buffer & indexBuffer, vk::DeviceMemory & memory, const std::vector<uint32_t> & m_indices) const;
 
     private:
         void initializeInternal();

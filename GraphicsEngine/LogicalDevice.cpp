@@ -11,6 +11,7 @@
 #include "Instance.h"
 #include "CommandPool.h"
 #include <set>
+#include "Vertex.h"
 
 graphics::LogicalDevice::LogicalDevice(const graphics::PhysicalDevice &physicalDevice):
 m_parentPhysicalDevice(physicalDevice)
@@ -487,4 +488,55 @@ void graphics::LogicalDevice::generateMipmap(const vk::Image &image, vk::Format 
                          0, nullptr,
                          1, &barrier);
     endVkSingleTimeBuffer(buffer);
+}
+
+void graphics::LogicalDevice::createVertexBuffer(vk::Buffer &vertexBuffer, vk::DeviceMemory &memory,
+                                                 const std::vector<graphics::Vertex> &vertices) const
+{
+    vk::DeviceSize size = sizeof(vertices[0]) * vertices.size();
+    void *data;
+    vk::Buffer stageBuffer;
+    vk::DeviceMemory stageBufferMemory;
+    createVkBuffer(size,
+                                         vk::BufferUsageFlagBits::eTransferSrc,
+                                         vk::MemoryPropertyFlagBits::eHostVisible | vk::MemoryPropertyFlagBits::eHostCoherent,
+                                         stageBuffer,
+                                         stageBufferMemory);
+    m_logicalDevice.mapMemory(stageBufferMemory, 0, size, static_cast<vk::MemoryMapFlags>(0), &data);
+    memcpy(data, vertices.data(), static_cast<size_t>(size));
+    m_logicalDevice.unmapMemory(stageBufferMemory);
+    createVkBuffer(size,
+                                         vk::BufferUsageFlagBits::eTransferDst | vk::BufferUsageFlagBits::eVertexBuffer,
+                                         vk::MemoryPropertyFlagBits::eDeviceLocal,
+                                         vertexBuffer,
+                                         memory);
+    copyVkBuffer(stageBuffer, vertexBuffer, size);
+    m_logicalDevice.destroyBuffer(stageBuffer);
+    m_logicalDevice.freeMemory(stageBufferMemory);
+}
+
+void graphics::LogicalDevice::createIndexBuffer(vk::Buffer &indexBuffer, vk::DeviceMemory &memory,
+                                                const std::vector<uint32_t> &indices) const
+{
+    vk::DeviceSize size = sizeof(indices[0]) * indices.size();
+    void *data;
+    vk::Buffer stageBuffer;
+    vk::DeviceMemory stageBufferMemory;
+
+    createVkBuffer(size,
+                                         vk::BufferUsageFlagBits::eTransferSrc,
+                                         vk::MemoryPropertyFlagBits::eHostVisible | vk::MemoryPropertyFlagBits::eHostCoherent,
+                                         stageBuffer,
+                                         stageBufferMemory);
+    m_logicalDevice.mapMemory(stageBufferMemory, 0, size, static_cast<vk::MemoryMapFlags>(0), &data);
+    memcpy(data, indices.data(), static_cast<size_t>(size));
+    m_logicalDevice.unmapMemory(stageBufferMemory);
+    createVkBuffer(size,
+                                         vk::BufferUsageFlagBits::eTransferDst | vk::BufferUsageFlagBits::eIndexBuffer,
+                                         vk::MemoryPropertyFlagBits::eDeviceLocal,
+                                         indexBuffer,
+                                         memory);
+    copyVkBuffer(stageBuffer, indexBuffer, size);
+    m_logicalDevice.destroyBuffer(stageBuffer);
+    m_logicalDevice.freeMemory(stageBufferMemory);
 }

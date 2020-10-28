@@ -149,16 +149,6 @@ const std::vector<vk::Framebuffer> & graphics::Swapchain::getVkFrameBuffers() co
     return m_vFrameBuffer;
 }
 
-const vk::Buffer & graphics::Swapchain::getVkVertexBuffer() const
-{
-    return m_vertexBuffer;
-}
-
-const vk::Buffer & graphics::Swapchain::getVkIndexBuffer() const
-{
-    return m_indexBuffer;
-}
-
 const vk::Semaphore & graphics::Swapchain::getVkImageAvaibleSemaphore(int iIndex) const
 {
     return m_imageAvaibleSemaphores[iIndex];
@@ -195,24 +185,6 @@ uint32_t graphics::Swapchain::acquireNextImage(size_t currentFrame) const
                                                                    UINT64_MAX,
                                                                    m_imageAvaibleSemaphores[currentFrame],
                                                                    nullptr);
-}
-
-void graphics::Swapchain::initializeVertexIndexBuffers(const std::vector<Vertex> &vertices,
-                                                       const std::vector<uint32_t> &indices)
-{
-    createVertexBuffer(vertices);
-    createIndexBuffer(indices);
-}
-
-void graphics::Swapchain::releaseVertexIndexBuffers()
-{
-    const vk::Device & logicalDevice = m_parentLogicalDevice.getVkLogicalDevice();
-
-    logicalDevice.destroyBuffer(m_vertexBuffer);
-    logicalDevice.freeMemory(m_verterBufferMemory);
-
-    logicalDevice.destroyBuffer(m_indexBuffer);
-    logicalDevice.freeMemory(m_indexBufferMemory);
 }
 
 void graphics::Swapchain::updateUniformBuffer(int imageIndex, const SUniformBufferObject &ubo) const
@@ -398,58 +370,6 @@ void graphics::Swapchain::createDepthResources()
                                         vk::MemoryPropertyFlagBits::eDeviceLocal,
                                         m_depthImage, m_depthMemory);
     m_depthView = m_parentLogicalDevice.createVkImageView(m_depthImage, format, vk::ImageAspectFlagBits::eDepth, 1);
-}
-
-void graphics::Swapchain::createVertexBuffer(const std::vector<Vertex> &vertices)
-{
-    vk::DeviceSize size = sizeof(vertices[0]) * vertices.size();
-    void *data;
-    vk::Buffer stageBuffer;
-    vk::DeviceMemory stageBufferMemory;
-    const vk::Device & logicalDevice = m_parentLogicalDevice.getVkLogicalDevice();
-
-    m_parentLogicalDevice.createVkBuffer(size,
-                                         vk::BufferUsageFlagBits::eTransferSrc,
-                                         vk::MemoryPropertyFlagBits::eHostVisible | vk::MemoryPropertyFlagBits::eHostCoherent,
-                                         stageBuffer,
-                                         stageBufferMemory);
-    logicalDevice.mapMemory(stageBufferMemory, 0, size, static_cast<vk::MemoryMapFlags>(0), &data);
-    memcpy(data, vertices.data(), static_cast<size_t>(size));
-    logicalDevice.unmapMemory(stageBufferMemory);
-    m_parentLogicalDevice.createVkBuffer(size,
-                                         vk::BufferUsageFlagBits::eTransferDst | vk::BufferUsageFlagBits::eVertexBuffer,
-                                         vk::MemoryPropertyFlagBits::eDeviceLocal,
-                                         m_vertexBuffer,
-                                         m_verterBufferMemory);
-    m_parentLogicalDevice.copyVkBuffer(stageBuffer, m_vertexBuffer, size);
-    logicalDevice.destroyBuffer(stageBuffer);
-    logicalDevice.freeMemory(stageBufferMemory);
-}
-
-void graphics::Swapchain::createIndexBuffer(const std::vector<uint32_t> &indices)
-{
-    vk::DeviceSize size = sizeof(indices[0]) * indices.size();
-    void *data;
-    vk::Buffer stageBuffer;
-    vk::DeviceMemory stageBufferMemory;
-    const vk::Device & logicalDevice = m_parentLogicalDevice.getVkLogicalDevice();
-
-    m_parentLogicalDevice.createVkBuffer(size,
-                                         vk::BufferUsageFlagBits::eTransferSrc,
-                                         vk::MemoryPropertyFlagBits::eHostVisible | vk::MemoryPropertyFlagBits::eHostCoherent,
-                                         stageBuffer,
-                                         stageBufferMemory);
-    logicalDevice.mapMemory(stageBufferMemory, 0, size, static_cast<vk::MemoryMapFlags>(0), &data);
-    memcpy(data, indices.data(), static_cast<size_t>(size));
-    logicalDevice.unmapMemory(stageBufferMemory);
-    m_parentLogicalDevice.createVkBuffer(size,
-                                         vk::BufferUsageFlagBits::eTransferDst | vk::BufferUsageFlagBits::eIndexBuffer,
-                                         vk::MemoryPropertyFlagBits::eDeviceLocal,
-                                         m_indexBuffer,
-                                         m_indexBufferMemory);
-    m_parentLogicalDevice.copyVkBuffer(stageBuffer, m_indexBuffer, size);
-    logicalDevice.destroyBuffer(stageBuffer);
-    logicalDevice.freeMemory(stageBufferMemory);
 }
 
 void graphics::Swapchain::createUniformBuffers()

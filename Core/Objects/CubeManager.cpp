@@ -18,7 +18,8 @@
     return manager;
 }
 
-object::Cube * object::CubeManager::createCube(const std::string &identifier,
+object::Cube * object::CubeManager::createCube(const graphics::LogicalDevice & logicalDevice,
+                                               const std::string &identifier,
                                                const Math::Vector3F &position,
                                                const Math::Vector3F &color,
                                                const Math::Vector3F & scale /*=Math::Vector3F(1,1,1)*/,
@@ -34,11 +35,12 @@ object::Cube * object::CubeManager::createCube(const std::string &identifier,
     }
 
     // Create cube instance
-    m_pool[identifier.c_str()] = new Cube(identifier, position, color, scale, rotate);
+    m_pool[identifier.c_str()] = new Cube(logicalDevice, identifier, position, color, scale, rotate);
     return m_pool[identifier.c_str()];
 }
 
-object::Cube * object::CubeManager::createCubeAutoName(const Math::Vector3F &position,
+object::Cube * object::CubeManager::createCubeAutoName(const graphics::LogicalDevice & logicalDevice,
+                                                       const Math::Vector3F &position,
                                                        const Math::Vector3F &color,
                                                        const Math::Vector3F & scale /*=Math::Vector3F(1,1,1)*/,
                                                        const Math::Vector3F & rotate /*=Math::Vector3F(0,0,0)*/
@@ -47,7 +49,7 @@ object::Cube * object::CubeManager::createCubeAutoName(const Math::Vector3F &pos
     const size_t size = m_pool.size();
     std::string identifier = "CUBE_" + std::to_string(size);
 
-    return createCube(identifier, position, color, scale, rotate);
+    return createCube(logicalDevice, identifier, position, color, scale, rotate);
 }
 
 object::Cube * object::CubeManager::findCube(const std::string identifier)
@@ -60,14 +62,25 @@ object::Cube * object::CubeManager::findCube(const std::string identifier)
     return nullptr;
 }
 
-bool object::CubeManager::deleteCube(const std::string identifier)
+bool object::CubeManager::deleteCube(const std::string identifier, const graphics::LogicalDevice & logicalDevice)
 {
     auto search = m_pool.find(identifier.c_str());
 
     if (search == m_pool.end()) {
         return false;
     }
+    m_pool[identifier.c_str()]->release(logicalDevice);
     delete m_pool[identifier.c_str()];
     m_pool[identifier.c_str()] = nullptr;
     return true;
+}
+
+void object::CubeManager::release(const graphics::LogicalDevice &logicalDevice)
+{
+    for (std::pair<const char *const, Cube *> & cube : m_pool)
+    {
+        cube.second->release(logicalDevice);
+        delete cube.second;
+        cube.second = nullptr;
+    }
 }

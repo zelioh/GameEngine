@@ -93,15 +93,10 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     graphics::Renderer renderer(swapchain);
 
     object::CubeManager * manager = object::CubeManager::getInstance();
-    object::Cube * cube = manager->createCube("TestCube",
+    object::Cube * cube = manager->createCube(logicalDevice,
+                                              "TestCube",
                                               Math::Vector3F(0, 0, 0),
                                               Math::Vector3F(0.5f, 0.5f, 0.5f));
-
-    // Do not do the following !!!
-    swapchain.initializeVertexIndexBuffers(cube->getVertices(), cube->getIndices());
-
-    //TODO: create vertex buffer inside of the object and then use it at draw call
-
     renderer.setUpdateCallback(update);
     while (window)
     {
@@ -120,7 +115,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
         }
     }
     logicalDevice.getVkLogicalDevice().waitIdle();
-    swapchain.releaseVertexIndexBuffers();
+    manager->release(logicalDevice);
     pipeline.release(logicalDevice);
     swapchain.release();
     logicalDevice.release();

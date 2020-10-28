@@ -33,7 +33,6 @@ bool graphics::Renderer::renderObject(Swapchain &swapchain,
 bool graphics::Renderer::renderBegin(Swapchain & swapchain, const object::GameObject * object)
 {
     ///< TODO: initialize descriptor set
-    // TODO: get object vertex buffer
 
     const vk::Device logicalDevice = swapchain.getParentLogicalDevice().getVkLogicalDevice();
 
@@ -55,7 +54,7 @@ void graphics::Renderer::render(Swapchain & swapchain, const object::GameObject 
     {
         m_update(swapchain, m_imageIndex);
     }
-    m_commandBuffer.render(swapchain, swapchain.getParentLogicalDevice().getCommandPool(), pipeline, object->getIndices(), m_imageIndex);
+    m_commandBuffer.render(swapchain, swapchain.getParentLogicalDevice().getCommandPool(), pipeline, object, m_imageIndex);
 }
 
 bool graphics::Renderer::renderEnd(Swapchain & swapchain, const Pipeline & pipeline)

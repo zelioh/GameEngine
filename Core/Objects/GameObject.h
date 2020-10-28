@@ -12,6 +12,11 @@
 #include <vector>
 #include <string>
 
+namespace graphics
+{
+    class LogicalDevice;
+}
+
 namespace object {
 
     class GameObject {
@@ -31,8 +36,14 @@ namespace object {
         virtual const std::vector<graphics::Vertex> & getVertices() const = 0;
         virtual const std::vector<uint32_t> & getIndices() const = 0;
 
+        virtual const vk::Buffer & getVertexBuffer() const = 0;
+        virtual const vk::Buffer & getIndexBuffer() const = 0;
+
+        virtual void release(const graphics::LogicalDevice & logicalDevice) = 0;
+
     protected:
-        GameObject(const std::string & identifier,
+        GameObject(const graphics::LogicalDevice & logicalDevice,
+                   const std::string & identifier,
                    const Math::Vector3F & position,
                    const Math::Vector3F & color,
                    const Math::Vector3F & scale = Math::Vector3F(1.f, 1.f, 1.f),
@@ -45,6 +56,16 @@ namespace object {
         std::vector<graphics::Vertex> m_vertices;
         std::vector<uint32_t> m_indices;
         std::string m_strIdentifier;
+
+        //
+        // Vertex buffer
+        vk::Buffer m_vertexBuffer;
+        vk::DeviceMemory m_verterBufferMemory;
+
+        //
+        // Index buffer
+        vk::Buffer m_indexBuffer;
+        vk::DeviceMemory m_indexBufferMemory;
     };
 
 }

@@ -5,13 +5,15 @@
 //
 
 #include "Cube.h"
+#include "LogicalDevice.h"
 
-object::Cube::Cube(const std::string & identifier,
+object::Cube::Cube(const graphics::LogicalDevice & logicalDevice,
+                   const std::string & identifier,
                    const Math::Vector3F &position,
                    const Math::Vector3F &color,
                    const Math::Vector3F & scale /*=Math::Vector3F(1, 1, 1)*/,
                    const Math::Vector3F & rotate /*=Math::Vector3F(1, 1, 1)*/):
-GameObject(identifier, position, color, scale, rotate)
+GameObject(logicalDevice, identifier, position, color, scale, rotate)
 {
     //
     // Vertices top face
@@ -75,6 +77,9 @@ GameObject(identifier, position, color, scale, rotate)
          4, 5, 6,
          6, 7, 4
     };
+
+    logicalDevice.createVertexBuffer(m_vertexBuffer, m_verterBufferMemory, m_vertices);
+    logicalDevice.createIndexBuffer(m_indexBuffer, m_indexBufferMemory, m_indices);
 }
 
 const std::vector<graphics::Vertex> & object::Cube::getVertices() const
@@ -85,4 +90,23 @@ const std::vector<graphics::Vertex> & object::Cube::getVertices() const
 const std::vector<uint32_t> & object::Cube::getIndices() const
 {
     return m_indices;
+}
+
+const vk::Buffer & object::Cube::getVertexBuffer() const
+{
+    return m_vertexBuffer;
+}
+
+const vk::Buffer & object::Cube::getIndexBuffer() const
+{
+    return m_indexBuffer;
+}
+
+void object::Cube::release(const graphics::LogicalDevice &logicalDevice)
+{
+    logicalDevice.getVkLogicalDevice().destroyBuffer(m_vertexBuffer);
+    logicalDevice.getVkLogicalDevice().destroyBuffer(m_indexBuffer);
+
+    logicalDevice.getVkLogicalDevice().freeMemory(m_verterBufferMemory);
+    logicalDevice.getVkLogicalDevice().freeMemory(m_indexBufferMemory);
 }

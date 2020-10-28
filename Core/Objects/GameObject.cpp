@@ -5,8 +5,10 @@
 //
 
 #include "GameObject.h"
+#include "LogicalDevice.h"
 
-object::GameObject::GameObject(const std::string & identifier,
+object::GameObject::GameObject(const graphics::LogicalDevice & logicalDevice,
+                               const std::string & identifier,
                                const Math::Vector3F & position,
                                const Math::Vector3F & color,
                                const Math::Vector3F & scale /*=Math::Vector3F(1, 1, 1)*/,
@@ -15,8 +17,11 @@ m_strIdentifier(identifier),
 m_position(position),
 m_color(color),
 m_scale(scale),
-m_rotate(rotate)
+m_rotate(rotate),
+m_vertices(),
+m_indices()
 {
+    (void)logicalDevice; ///< Unused here but in child
 }
 
 const Math::Vector3F & object::GameObject::getColor() const

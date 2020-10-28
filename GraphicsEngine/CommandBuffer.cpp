@@ -9,6 +9,7 @@
 #include "Swapchain.h"
 #include "LogicalDevice.h"
 #include "Pipeline.h"
+#include "Objects/GameObject.h"
 
 void graphics::CommandBuffer::initialize(const Swapchain & swapchain)
 {
@@ -61,17 +62,17 @@ void graphics::CommandBuffer::beginRender(const Swapchain &swapchain, uint32_t i
 void graphics::CommandBuffer::render(const Swapchain &swapchain,
                                      const CommandPool &commandPool,
                                      const Pipeline & pipeline,
-                                     const std::vector<uint32_t> & indices,
+                                     const object::GameObject * object,
                                      uint32_t imageIndex
                                      )
 {
         m_commandBuffers[imageIndex].bindPipeline(vk::PipelineBindPoint::eGraphics, pipeline.getVkPipeline());
 
-        vk::Buffer vertexBuffers[] = {swapchain.getVkVertexBuffer()};
+        vk::Buffer vertexBuffers[] = {object->getVertexBuffer()};
         vk::DeviceSize deviceSize[] = {0};
 
         m_commandBuffers[imageIndex].bindVertexBuffers(0, 1, vertexBuffers, deviceSize);
-        m_commandBuffers[imageIndex].bindIndexBuffer(swapchain.getVkIndexBuffer(), 0, vk::IndexType::eUint32);
+        m_commandBuffers[imageIndex].bindIndexBuffer(object->getIndexBuffer(), 0, vk::IndexType::eUint32);
         m_commandBuffers[imageIndex].bindDescriptorSets(vk::PipelineBindPoint::eGraphics,
                                                pipeline.getVkPipelineLayout(),
                                                0,
@@ -79,7 +80,7 @@ void graphics::CommandBuffer::render(const Swapchain &swapchain,
                                                &swapchain.getVkDescriptorSet(imageIndex),
                                                0,
                                                nullptr);
-        m_commandBuffers[imageIndex].drawIndexed(indices.size(), 1, 0, 0, 0);
+        m_commandBuffers[imageIndex].drawIndexed(object->getIndices().size(), 1, 0, 0, 0);
 }
 
 void graphics::CommandBuffer::endRender(uint32_t imageIndex)

@@ -9,6 +9,11 @@
 
 #include "vulkan/vulkan.hpp"
 
+namespace object
+{
+    class GameObject;
+}
+
 namespace graphics {
 
     class CommandPool;
@@ -26,7 +31,7 @@ namespace graphics {
         void render(const Swapchain & swapchain,
                     const CommandPool & commandPool,
                     const Pipeline & pipeline,
-                    const std::vector<uint32_t> & indices,
+                    const object::GameObject * object,
                     uint32_t imageIndex);
         void endRender(uint32_t imageIndex);
         const vk::CommandBuffer & getCommandBuffer(uint32_t imageIndex) const;

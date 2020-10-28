@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include <string>
 #include "Vector3F.h"
+#include "LogicalDevice.h"
 
 namespace object {
 
@@ -27,7 +28,8 @@ namespace object {
          * @param scale         Scale of the cube
          * @return  instance of Cube
          */
-        Cube * createCube(const std::string & identifier,
+        Cube * createCube(const graphics::LogicalDevice & logicalDevice,
+                          const std::string & identifier,
                           const Math::Vector3F & position,
                           const Math::Vector3F & color,
                           const Math::Vector3F & scale = Math::Vector3F(1.f, 1.f, 1.f),
@@ -40,7 +42,8 @@ namespace object {
          * @param scale     Scale of the cube
          * @return  instance of Cube
          */
-        Cube * createCubeAutoName(const Math::Vector3F & position,
+        Cube * createCubeAutoName(const graphics::LogicalDevice & logicalDevice,
+                                  const Math::Vector3F & position,
                                   const Math::Vector3F & color,
                                   const Math::Vector3F & scale = Math::Vector3F(1.f, 1.f, 1.f),
                                   const Math::Vector3F & rotate = Math::Vector3F(0.f, 0.f, 0.f));
@@ -56,7 +59,9 @@ namespace object {
          * @param identifier    Identifier of the Cube
          * @return true if success else false if the Cube identifier doesn't exist in the pool
          */
-        bool deleteCube(const std::string identifier);
+        bool deleteCube(const std::string identifier, const graphics::LogicalDevice & logicalDevice);
+
+        void release(const graphics::LogicalDevice & logicalDevice); ///< Release all element in the pool
 
     private:
         CubeManager() = default;

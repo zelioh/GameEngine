@@ -37,8 +37,6 @@ namespace graphics {
         const vk::Extent2D & getVkSwapchainExtent() const;
         const RenderPass & getRenderPass() const;
         const std::vector<vk::Framebuffer> & getVkFrameBuffers() const;
-        const vk::Buffer & getVkVertexBuffer() const;
-        const vk::Buffer & getVkIndexBuffer() const;
         const vk::Semaphore & getVkImageAvaibleSemaphore(int iIndex) const;
         const vk::Semaphore & getVkRenderFinishSemaphore(int iIndex) const;
         const vk::Fence & getVkFence(int iIndex) const;
@@ -47,8 +45,6 @@ namespace graphics {
         const vk::DescriptorSet & getVkDescriptorSet(int iIndex) const;
 
         uint32_t acquireNextImage(size_t currentFrame) const;
-        void initializeVertexIndexBuffers(const std::vector<Vertex> & vertices, const std::vector<uint32_t> & indices);
-        void releaseVertexIndexBuffers();
 
         void updateUniformBuffer(int imageIndex, const SUniformBufferObject & ubo) const;
 
@@ -61,8 +57,6 @@ namespace graphics {
         void initializeFrameBuffer(); ///< Must be call after renderPass initialization
         void createColorResources();
         void createDepthResources();
-        void createVertexBuffer(const std::vector<Vertex> & vertices);
-        void createIndexBuffer(const std::vector<uint32_t> & indices);
         void createUniformBuffers();
         void createDescriptorPool();
         void createDescriptorSet(const Texture & texture);
@@ -90,16 +84,6 @@ namespace graphics {
         vk::Image m_depthImage;
         vk::DeviceMemory m_depthMemory;
         vk::ImageView m_depthView;
-
-        //
-        // Vertex buffer
-        vk::Buffer m_vertexBuffer;
-        vk::DeviceMemory m_verterBufferMemory;
-
-        //
-        // Index buffer
-        vk::Buffer m_indexBuffer;
-        vk::DeviceMemory m_indexBufferMemory;
 
         //
         // Unifom buffer

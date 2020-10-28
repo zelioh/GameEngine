@@ -7,13 +7,13 @@
 #ifndef GAMEENGINE_SUNIFORMBUFFEROBJECT_H
 #define GAMEENGINE_SUNIFORMBUFFEROBJECT_H
 
-#include "Matrix.h"
+#include "Matrix4F.h"
 
 struct SUniformBufferObject
 {
-    alignas(16) Math::Matrix model;
-    alignas(16) Math::Matrix view;
-    alignas(16) Math::Matrix proj;
+    alignas(16) Math::Matrix4F model;
+    alignas(16) Math::Matrix4F view;
+    alignas(16) Math::Matrix4F proj;
 };
 
 #endif //GAMEENGINE_SUNIFORMBUFFEROBJECT_H

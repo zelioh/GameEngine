@@ -21,9 +21,6 @@
 #include "Objects/CubeManager.h"
 #include "SUniformBufferObject.h"
 
-#include "Vector4F.h"
-#include "Matrix.h"
-
 #include <chrono>
 
 void update(const graphics::Swapchain & swapchain, int imageIndex)
@@ -39,13 +36,22 @@ void update(const graphics::Swapchain & swapchain, int imageIndex)
 
     //
     // TODO: use object Transform
-    ubo.model = Math::Matrix(Math::Vector4F(1.f, 0.00004f, 0.f, 0.f), Math::Vector4F(-0.00004f, 1.f, 0.f, 0.f), Math::Vector4F(0.f, 0.f, 1.f, 0.f), Math::Vector4F(0.f, 0.f, 0.f, 1.f));
+    ubo.model = Math::Matrix4F(Math::Vector4F(1.f, 0.00004f, 0.f, 0.f),
+                               Math::Vector4F(-0.00004f, 1.f, 0.f, 0.f),
+                               Math::Vector4F(0.f, 0.f, 1.f, 0.f),
+                               Math::Vector4F(0.f, 0.f, 0.f, 1.f));
     //
     // TODO: use camera look at
-    ubo.view = Math::Matrix(Math::Vector4F(-0.7071f, -0.4082f, 0.57735f, 0.f), Math::Vector4F(0.7071f, -0.4082f, 0.57735f, 0.f), Math::Vector4F(0.f, 0.81649f, 0.57735f, 0.f), Math::Vector4F(-0.f, -0.f, -3.4641f, 1.f));;
+    ubo.view = Math::Matrix4F(Math::Vector4F(-0.7071f, -0.4082f, 0.57735f, 0.f),
+                              Math::Vector4F(0.7071f, -0.4082f, 0.57735f, 0.f),
+                              Math::Vector4F(0.f, 0.81649f, 0.57735f, 0.f),
+                              Math::Vector4F(-0.f, -0.f, -3.4641f, 1.f));;
     //
     // TODO: use perspectif compute
-    ubo.proj = Math::Matrix(Math::Vector4F(1.81066f, 0.f, 0.f, 0.f), Math::Vector4F(0.f, -2.4142f, 0.f, 0.f), Math::Vector4F(0.f, 0.f, -1.01010f, -1.f), Math::Vector4F(0.f, 0.f, -0.10101010f, 0.f));;
+    ubo.proj = Math::Matrix4F(Math::Vector4F(1.81066f, 0.f, 0.f, 0.f),
+                              Math::Vector4F(0.f, -2.4142f, 0.f, 0.f),
+                              Math::Vector4F(0.f, 0.f, -1.01010f, -1.f),
+                              Math::Vector4F(0.f, 0.f, -0.10101010f, 0.f));;
     //ubo[1][1] *= -1;
 
     swapchain.updateUniformBuffer(imageIndex, ubo);

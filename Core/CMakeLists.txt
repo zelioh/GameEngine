@@ -12,19 +12,20 @@ add_library(Core OBJECT
 			Vector2F.h Vector2F.cpp
 			Vector3F.h Vector3F.cpp
 			Vector4F.h Vector4F.cpp
-			Matrix.h Matrix.cpp
+			Matrix.h
+			Matrix4F.cpp Matrix4F.h
 			${OBJECT_SRC}
-		)
+			)
 
 find_package(Vulkan REQUIRED)
 
 target_link_libraries(Core PUBLIC ${Vulkan_LIBRARIES})
 target_link_libraries(Core PRIVATE ${GraphicsEngine})
 
+set(Core_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/Core/" CACHE INTERNAL "")
+
 target_include_directories(Core PUBLIC ${Core_INCLUDE_DIR} ${Core_INCLUDE_DIR}/Objects/)
 target_include_directories(Core PUBLIC ${GraphicsEngine_INCLUDE_DIR})
-
-set(Core_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/Core/" CACHE INTERNAL "")
 
 set_target_properties(Core PROPERTIES
 		IMPORTED_LOCATION "${DEPENDENCIES_DIR}/core/bin/Core.dll"

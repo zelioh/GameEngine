@@ -68,9 +68,8 @@ void graphics::Instance::initialize(const Window & window)
 void graphics::Instance::release()
 {
     m_surface.release(*this);
-    m_instance.destroy(nullptr); ///< Realease instance
     m_validationLayer.release(*this);
-
+    m_instance.destroy(nullptr); ///< Realease instance
 }
 
 const vk::Instance & graphics::Instance::getVkInstance() const

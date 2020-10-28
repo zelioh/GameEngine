@@ -72,6 +72,7 @@ void graphics::Swapchain::release()
         logicalDevice.destroyBuffer(m_uniformBuffers[i]);
         logicalDevice.freeMemory(m_uniformBufferMemories[i]);
     }
+    logicalDevice.destroyDescriptorPool(m_descriptorPool);
 }
 
 
@@ -107,7 +108,6 @@ void graphics::Swapchain::recreate(const Window & window)
         }
         logicalDevice.destroyDescriptorPool(m_descriptorPool);
     }
-    ///< TODO: destroy command pool and pipeline
     initializeInternal(window);
     initializeImageViews();
     m_renderPass.initialize(*this);
@@ -117,7 +117,6 @@ void graphics::Swapchain::recreate(const Window & window)
     createUniformBuffers();
     createDescriptorPool();
     createDescriptorSet(Texture()); ///< TODO: remove
-    ///< TODO: create pipeline, command pool
 }
 
 const graphics::LogicalDevice & graphics::Swapchain::getParentLogicalDevice() const

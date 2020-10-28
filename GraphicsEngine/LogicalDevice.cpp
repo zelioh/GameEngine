@@ -32,6 +32,7 @@ void graphics::LogicalDevice::releaseCommandPool()
 
 void graphics::LogicalDevice::release()
 {
+    m_logicalDevice.destroyDescriptorSetLayout(m_descriptorLayout);
     m_commandPool.release(*this);
     m_logicalDevice.destroy(nullptr);
 }

@@ -9,8 +9,9 @@
 object::Cube::Cube(const std::string & identifier,
                    const Math::Vector3F &position,
                    const Math::Vector3F &color,
-                   const Math::Vector3F & scale /*=Math::Vector3F(1, 1, 1)*/):
-GameObject(identifier, position, color, scale)
+                   const Math::Vector3F & scale /*=Math::Vector3F(1, 1, 1)*/,
+                   const Math::Vector3F & rotate /*=Math::Vector3F(1, 1, 1)*/):
+GameObject(identifier, position, color, scale, rotate)
 {
     //
     // Vertices top face

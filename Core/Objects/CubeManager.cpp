@@ -21,7 +21,8 @@
 object::Cube * object::CubeManager::createCube(const std::string &identifier,
                                                const Math::Vector3F &position,
                                                const Math::Vector3F &color,
-                                               const Math::Vector3F & scale /*=Math::Vector3F(1,1,1)*/
+                                               const Math::Vector3F & scale /*=Math::Vector3F(1,1,1)*/,
+                                               const Math::Vector3F & rotate /*=Math::Vector3F(0,0,0)*/
                                                )
 {
     //
@@ -33,19 +34,20 @@ object::Cube * object::CubeManager::createCube(const std::string &identifier,
     }
 
     // Create cube instance
-    m_pool[identifier.c_str()] = new Cube(identifier, position, color, scale);
+    m_pool[identifier.c_str()] = new Cube(identifier, position, color, scale, rotate);
     return m_pool[identifier.c_str()];
 }
 
 object::Cube * object::CubeManager::createCubeAutoName(const Math::Vector3F &position,
                                                        const Math::Vector3F &color,
-                                                       const Math::Vector3F & scale /*=Math::Vector3F(1,1,1)*/
+                                                       const Math::Vector3F & scale /*=Math::Vector3F(1,1,1)*/,
+                                                       const Math::Vector3F & rotate /*=Math::Vector3F(0,0,0)*/
                                                         )
 {
     const size_t size = m_pool.size();
     std::string identifier = "CUBE_" + std::to_string(size);
 
-    return createCube(identifier, position, color, scale);
+    return createCube(identifier, position, color, scale, rotate);
 }
 
 object::Cube * object::CubeManager::findCube(const std::string identifier)

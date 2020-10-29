@@ -5,9 +5,6 @@
 #include <windows.h>
 #include "Window.h"
 #include "WindowParameters.h"
-#define STB_IMAGE_IMPLEMENTATION
-
-#include "stb_image.h"
 
 #include "Instance.h"
 #include "InstanceParameter.h"
@@ -20,6 +17,8 @@
 #include "Objects/Cube.h"
 #include "Objects/CubeManager.h"
 #include "SUniformBufferObject.h"
+#include "TextureManager.h"
+#include "Texture.h"
 
 #include <chrono>
 
@@ -36,8 +35,8 @@ void update(const graphics::Swapchain & swapchain, int imageIndex)
 
     //
     // TODO: use object Transform
-    ubo.model = Math::Matrix4F(Math::Vector4F(1.f, 0.00004f, 0.f, 0.f),
-                               Math::Vector4F(-0.00004f, 1.f, 0.f, 0.f),
+    ubo.model = Math::Matrix4F(Math::Vector4F(1.f, 0.f, 0.f, 0.f),
+                               Math::Vector4F(0.f, 1.f, 0.f, 0.f),
                                Math::Vector4F(0.f, 0.f, 1.f, 0.f),
                                Math::Vector4F(0.f, 0.f, 0.f, 1.f));
     //
@@ -95,8 +94,14 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     object::CubeManager * manager = object::CubeManager::getInstance();
     object::Cube * cube = manager->createCube(logicalDevice,
                                               "TestCube",
-                                              Math::Vector3F(0, 0, 0),
-                                              Math::Vector3F(0.5f, 0.5f, 0.5f));
+                                              Math::Vector3F(0, 0, 0));
+
+    graphics::TextureManager * textureManager = graphics::TextureManager::getInstance();
+
+    graphics::Texture * texture = textureManager->createTexture(swapchain, "../assets/box.png", "Phoenix");
+
+    cube->setTexture(texture);
+
     renderer.setUpdateCallback(update);
     while (window)
     {
@@ -116,6 +121,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     }
     logicalDevice.getVkLogicalDevice().waitIdle();
     manager->release(logicalDevice);
+    textureManager->release(logicalDevice);
     pipeline.release(logicalDevice);
     swapchain.release();
     logicalDevice.release();

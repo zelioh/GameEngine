@@ -61,7 +61,6 @@ namespace graphics {
         void createDepthResources();
         void createUniformBuffers();
         void createDescriptorPool();
-        void createDescriptorSet(const Texture & texture);
         void initializeSyncObj();
 
     private:

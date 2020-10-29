@@ -4,6 +4,8 @@
 // Contain texture data usable by the engine
 //
 
+#define STB_IMAGE_IMPLEMENTATION
+
 #include "Texture.h"
 #include "LogicalDevice.h"
 #include "Swapchain.h"
@@ -21,6 +23,16 @@ m_size(width * height * 4)
 {
     initializeInternal(swapchain.getParentLogicalDevice(), pixels);
     createDescriptorSet(swapchain);
+}
+
+void graphics::Texture::release(const LogicalDevice &logicalDevice)
+{
+    const vk::Device & device = logicalDevice.getVkLogicalDevice();
+
+    device.destroyImage(m_texture);
+    device.destroyImageView(m_textureView);
+    device.destroySampler(m_textureSampler);
+    device.freeMemory(m_textureMemory);
 }
 
 const std::string & graphics::Texture::getName() const

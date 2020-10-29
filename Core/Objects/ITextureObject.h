@@ -1,5 +1,5 @@
 //
-// Created by FiercePC on 29/10/2020.
+// Created by tangt on 28/10/2020.
 //
 
 #ifndef GAMEENGINE_ITEXTUREOBJECT_H

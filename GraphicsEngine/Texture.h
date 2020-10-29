@@ -7,8 +7,8 @@
 #ifndef GAMEENGINE_TEXTURE_H
 #define GAMEENGINE_TEXTURE_H
 
-#include "stb_image.h"
 #include "vulkan/vulkan.hpp"
+#include "../dependencies/stb/stb_image.h"
 
 namespace graphics {
     class LogicalDevice;
@@ -36,6 +36,8 @@ namespace graphics {
 
     private:
         Texture(const Swapchain & swapchain, const std::string & name, stbi_uc *pixels, int width, int heiht, int channels);
+
+        void release(const LogicalDevice & logicalDevice);
 
         void initializeInternal(const LogicalDevice & logicalDevice, stbi_uc *pixels);
         void createSampler(const vk::Device & logicalDevice);

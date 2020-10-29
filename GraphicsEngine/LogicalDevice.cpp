@@ -147,6 +147,7 @@ void graphics::LogicalDevice::initializeDescriptorLayout()
     uboBinding.pImmutableSamplers = nullptr;
 
     samplerBinding.binding = 1;
+    samplerBinding.descriptorCount = 1;
     samplerBinding.descriptorType = vk::DescriptorType::eCombinedImageSampler;
     samplerBinding.stageFlags = vk::ShaderStageFlagBits::eFragment;
     samplerBinding.pImmutableSamplers = nullptr;

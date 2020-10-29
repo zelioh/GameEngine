@@ -10,6 +10,7 @@
 #include "LogicalDevice.h"
 #include "Pipeline.h"
 #include "Objects/GameObject.h"
+#include "Texture.h"
 
 void graphics::CommandBuffer::initialize(const Swapchain & swapchain)
 {
@@ -77,10 +78,11 @@ void graphics::CommandBuffer::render(const Swapchain &swapchain,
                                                pipeline.getVkPipelineLayout(),
                                                0,
                                                1,
-                                               &swapchain.getVkDescriptorSet(imageIndex),
+                                               &object->getTexture()->getVkDescriptorSet(imageIndex),
                                                0,
                                                nullptr);
         m_commandBuffers[imageIndex].drawIndexed(object->getIndices().size(), 1, 0, 0, 0);
+        //m_commandBuffers[imageIndex].draw(object->getVertices().size(), 1, 0, 0);
 }
 
 void graphics::CommandBuffer::endRender(uint32_t imageIndex)

@@ -8,10 +8,11 @@
 #define GAMEENGINE_CUBE_H
 
 #include "GameObject.h"
+#include "ITextureObject.h"
 
 namespace object {
 
-    class Cube : public GameObject
+    class Cube : public GameObject, ITextureObject
     {
 
         friend class CubeManager;

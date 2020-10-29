@@ -43,6 +43,8 @@ namespace graphics {
         const vk::Fence & getVkFenceInFlight(int iIndex) const;
         void setVkFenceInFlight(int iIndex, const vk::Fence & fence);
         const vk::DescriptorSet & getVkDescriptorSet(int iIndex) const;
+        const vk::DescriptorPool & getVkDescriptorPool() const;
+        const vk::Buffer & getVkGetUniformBuffer(int iIndex) const;
 
         uint32_t acquireNextImage(size_t currentFrame) const;
 

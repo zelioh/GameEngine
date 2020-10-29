@@ -179,6 +179,16 @@ const vk::DescriptorSet & graphics::Swapchain::getVkDescriptorSet(int iIndex) co
     return m_descriptorSets[iIndex];
 }
 
+const vk::DescriptorPool & graphics::Swapchain::getVkDescriptorPool() const
+{
+    return m_descriptorPool;
+}
+
+const vk::Buffer & graphics::Swapchain::getVkGetUniformBuffer(int iIndex) const
+{
+    return m_uniformBuffers[iIndex];
+}
+
 uint32_t graphics::Swapchain::acquireNextImage(size_t currentFrame) const
 {
     return m_parentLogicalDevice.getVkLogicalDevice().acquireNextImageKHR(m_swapchain,

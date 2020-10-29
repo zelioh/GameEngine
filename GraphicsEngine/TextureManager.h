@@ -13,6 +13,7 @@
 namespace graphics {
 
     class LogicalDevice;
+    class Swapchain;
     class Texture;
 
     class TextureManager {

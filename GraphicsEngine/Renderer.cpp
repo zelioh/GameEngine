@@ -32,9 +32,14 @@ bool graphics::Renderer::renderObject(Swapchain &swapchain,
 
 bool graphics::Renderer::renderBegin(Swapchain & swapchain, const object::GameObject * object)
 {
-    ///< TODO: initialize descriptor set
-
     const vk::Device logicalDevice = swapchain.getParentLogicalDevice().getVkLogicalDevice();
+
+    if (nullptr != object->getTexture())
+    {
+        ///< TODO: do not do that see to create descriptor set in object
+        ///< and bind it like the update function (see github pipeline render)
+        //swapchain.updateDescriptorSet(object->getTexture());
+    }
 
     logicalDevice.waitForFences(1, &swapchain.getVkFence(m_currentFrame), true, UINT64_MAX);
     try

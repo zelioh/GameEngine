@@ -11,7 +11,7 @@
 
 namespace object {
 
-    class Cube : public GameObject
+class Cube : public GameObject
     {
 
         friend class CubeManager;
@@ -28,7 +28,7 @@ namespace object {
         Cube(const graphics::LogicalDevice & logicalDevice,
              const std::string & identifier,
              const Math::Vector3F & position,
-             const Math::Vector3F & color,
+             const Math::Vector3F & color = Math::Vector3F(1.f, 1.f, 1.f),
              const Math::Vector3F & scale = Math::Vector3F(1.f, 1.f, 1.f),
              const Math::Vector3F & rotate = Math::Vector3F(0.f, 0.f, 0.f));
     };

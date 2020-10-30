@@ -30,7 +30,6 @@ void graphics::Swapchain::initialize(const Window & window)
     initializeFrameBuffer();
     createUniformBuffers();
     createDescriptorPool();
-    createDescriptorSet(Texture()); ///< TODO: use object TextureTODO
     initializeSyncObj();
 }
 
@@ -116,7 +115,6 @@ void graphics::Swapchain::recreate(const Window & window)
     initializeFrameBuffer();
     createUniformBuffers();
     createDescriptorPool();
-    createDescriptorSet(Texture()); ///< TODO: remove
 }
 
 const graphics::LogicalDevice & graphics::Swapchain::getParentLogicalDevice() const
@@ -177,6 +175,16 @@ void graphics::Swapchain::setVkFenceInFlight(int iIndex, const vk::Fence &fence)
 const vk::DescriptorSet & graphics::Swapchain::getVkDescriptorSet(int iIndex) const
 {
     return m_descriptorSets[iIndex];
+}
+
+const vk::DescriptorPool & graphics::Swapchain::getVkDescriptorPool() const
+{
+    return m_descriptorPool;
+}
+
+const vk::Buffer & graphics::Swapchain::getVkGetUniformBuffer(int iIndex) const
+{
+    return m_uniformBuffers[iIndex];
 }
 
 uint32_t graphics::Swapchain::acquireNextImage(size_t currentFrame) const
@@ -406,71 +414,6 @@ void graphics::Swapchain::createDescriptorPool()
     if (!(m_descriptorPool = m_parentLogicalDevice.getVkLogicalDevice().createDescriptorPool(poolInfo)))
     {
         throw std::runtime_error("Error while creating pool descriptor");
-    }
-}
-
-void graphics::Swapchain::createDescriptorSet(const Texture & texture)
-{
-    const size_t size = m_vImages.size();
-    std::vector<vk::DescriptorSetLayout> layouts(size, m_parentLogicalDevice.getDescriptorSetLayout());
-    vk::DescriptorSetAllocateInfo allocateInfo{};
-    const vk::Device & logicalDevice = m_parentLogicalDevice.getVkLogicalDevice();
-
-    allocateInfo.descriptorPool = m_descriptorPool;
-    allocateInfo.descriptorSetCount = size;
-    allocateInfo.pSetLayouts = layouts.data();
-    m_descriptorSets.resize(size);
-    m_descriptorSets = logicalDevice.allocateDescriptorSets(allocateInfo);
-    for (size_t i = 0; i < size; ++i)
-    {
-        vk::DescriptorBufferInfo bufferInfo{};
-
-        bufferInfo.buffer = m_uniformBuffers[i];
-        bufferInfo.offset = 0;
-        bufferInfo.range = sizeof(SUniformBufferObject);
-
-        vk::DescriptorImageInfo imageInfo{};
-
-        imageInfo.sampler = texture.getVkTextureSampler();
-        imageInfo.imageView = texture.getVkTextureView();
-        imageInfo.imageLayout = vk::ImageLayout::eShaderReadOnlyOptimal;
-
-        if (texture.getVkTextureView() == nullptr)
-        {
-            vk::WriteDescriptorSet writeSet;
-
-            writeSet.dstSet = m_descriptorSets[i];
-            writeSet.dstBinding = 0;
-            writeSet.dstArrayElement = 0;
-            writeSet.descriptorType = vk::DescriptorType::eUniformBuffer;
-            writeSet.descriptorCount = 1;
-            writeSet.pBufferInfo = &bufferInfo;
-            writeSet.pImageInfo = nullptr;
-            writeSet.pTexelBufferView = nullptr;
-
-            logicalDevice.updateDescriptorSets(1, &writeSet, 0, nullptr);
-        } else {
-            std::array<vk::WriteDescriptorSet, 2> writeSets{};
-
-            writeSets[0].dstSet = m_descriptorSets[i];
-            writeSets[0].dstBinding = 0;
-            writeSets[0].dstArrayElement = 0;
-            writeSets[0].descriptorType = vk::DescriptorType::eUniformBuffer;
-            writeSets[0].descriptorCount = 1;
-            writeSets[0].pBufferInfo = &bufferInfo;
-            writeSets[0].pImageInfo = nullptr;
-            writeSets[0].pTexelBufferView = nullptr;
-            writeSets[1].dstSet = m_descriptorSets[i];
-            writeSets[1].dstBinding = 1;
-            writeSets[1].dstArrayElement = 0;
-            writeSets[1].descriptorType = vk::DescriptorType::eCombinedImageSampler;
-            writeSets[1].descriptorCount = 1;
-            writeSets[1].pBufferInfo = nullptr;
-            writeSets[1].pImageInfo = &imageInfo;
-            writeSets[1].pTexelBufferView = nullptr;
-
-            logicalDevice.updateDescriptorSets(writeSets.size(), writeSets.data(), 0, nullptr);
-        }
     }
 }
 

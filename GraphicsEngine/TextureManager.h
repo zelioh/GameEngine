@@ -13,6 +13,7 @@
 namespace graphics {
 
     class LogicalDevice;
+    class Swapchain;
     class Texture;
 
     class TextureManager {
@@ -25,7 +26,7 @@ namespace graphics {
          * @param textureName   name of the texture in the map. If nullptr the name will be the file name before the '.'
          * @return  a Texture instance
          */
-        const graphics::Texture * createTexture(const LogicalDevice & logicalDevice,
+        graphics::Texture * createTexture(const Swapchain & swapchain,
                                                 const std::string & texturePath,
                                                 const std::string & textureName = nullptr);
         /**
@@ -33,8 +34,9 @@ namespace graphics {
          * @param textureName   name of the texture
          * @return  Texture instance or nullptr if the texture doesn't exist
          */
-        const graphics::Texture * findTexture(const std::string & textureName);
+        graphics::Texture * findTexture(const std::string & textureName);
 
+        void release(const LogicalDevice & logicalDevice);
     private:
         TextureManager() = default; ///< Private constructor use in getInstance
     private:

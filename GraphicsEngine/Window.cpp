@@ -4,6 +4,7 @@
 
 #include "Window.h"
 #include "WindowParameters.h"
+#include <stdexcept>
 
 graphics::Window::Window(HINSTANCE const &hInstance, const WindowParameters & parameters):
 m_hInstance(hInstance),

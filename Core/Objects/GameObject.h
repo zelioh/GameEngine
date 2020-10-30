@@ -12,6 +12,8 @@
 #include <vector>
 #include <string>
 
+#include "ITextureObject.h"
+
 namespace graphics
 {
     class LogicalDevice;
@@ -19,7 +21,8 @@ namespace graphics
 
 namespace object {
 
-    class GameObject {
+    class GameObject: public ITextureObject
+    {
     public:
         const Math::Vector3F & getPosition() const;
         const Math::Vector3F & getColor() const;
@@ -45,7 +48,7 @@ namespace object {
         GameObject(const graphics::LogicalDevice & logicalDevice,
                    const std::string & identifier,
                    const Math::Vector3F & position,
-                   const Math::Vector3F & color,
+                   const Math::Vector3F & color = Math::Vector3F(1.f, 1.f, 1.f),
                    const Math::Vector3F & scale = Math::Vector3F(1.f, 1.f, 1.f),
                    const Math::Vector3F & rotate = Math::Vector3F(0.f, 0.f, 0.f));
 

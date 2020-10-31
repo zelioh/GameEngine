@@ -94,7 +94,8 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     object::CubeManager * manager = object::CubeManager::getInstance();
     object::Cube * cube = manager->createCube(logicalDevice,
                                               "TestCube",
-                                              Math::Vector3F(0, 0, 0));
+                                              Math::Vector3F(0, 0, 0),
+                                              Math::Vector3F(0.5f, 0.5f, 0.5f));
 
     graphics::TextureManager * textureManager = graphics::TextureManager::getInstance();
 

@@ -34,13 +34,6 @@ bool graphics::Renderer::renderBegin(Swapchain & swapchain, const object::GameOb
 {
     const vk::Device logicalDevice = swapchain.getParentLogicalDevice().getVkLogicalDevice();
 
-    if (nullptr != object->getTexture())
-    {
-        ///< TODO: do not do that see to create descriptor set in object
-        ///< and bind it like the update function (see github pipeline render)
-        //swapchain.updateDescriptorSet(object->getTexture());
-    }
-
     logicalDevice.waitForFences(1, &swapchain.getVkFence(m_currentFrame), true, UINT64_MAX);
     try
     {
@@ -67,7 +60,7 @@ bool graphics::Renderer::renderEnd(Swapchain & swapchain, const Pipeline & pipel
     const LogicalDevice & device = swapchain.getParentLogicalDevice();
     const vk::Device & logicalDevice = device.getVkLogicalDevice();
 
-    m_commandBuffer.endRender(m_imageIndex);
+    m_commandBuffer.endRender(m_imageIndex, swapchain);
 
     if (swapchain.getVkFenceInFlight(m_imageIndex))
     {

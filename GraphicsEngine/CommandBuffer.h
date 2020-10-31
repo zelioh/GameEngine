@@ -33,7 +33,7 @@ namespace graphics {
                     const Pipeline & pipeline,
                     const object::GameObject * object,
                     uint32_t imageIndex);
-        void endRender(uint32_t imageIndex);
+        void endRender(uint32_t imageIndex, const Swapchain & swapchain);
         const vk::CommandBuffer & getCommandBuffer(uint32_t imageIndex) const;
 
     private:

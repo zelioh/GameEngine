@@ -32,7 +32,8 @@ namespace graphics {
         const vk::Sampler & getVkTextureSampler() const;
         uint32_t getMipLevel() const;
 
-        const vk::DescriptorSet & getVkDescriptorSet(int iIndex) const;
+        const vk::DescriptorSet & getVkDescriptorSet(const Swapchain & swapchain, int iIndex);
+
 
     private:
         Texture(const Swapchain & swapchain, const std::string & name, stbi_uc *pixels, int width, int heiht, int channels);
@@ -55,7 +56,7 @@ namespace graphics {
         vk::Sampler m_textureSampler;
         uint32_t m_iMipLevel;
 
-        std::vector<vk::DescriptorSet> m_descriptorSets;
+        vk::UniqueDescriptorSet m_descriptorSet;
     };
 }
 #endif //GAMEENGINE_TEXTURE_H

@@ -72,20 +72,21 @@ void graphics::CommandBuffer::render(const Swapchain &swapchain,
         vk::Buffer vertexBuffers[] = {object->getVertexBuffer()};
         vk::DeviceSize deviceSize[] = {0};
 
+        const vk::DescriptorSet & descriptorSet{object->getTexture()->getVkDescriptorSet(swapchain ,imageIndex)};
+
         m_commandBuffers[imageIndex].bindVertexBuffers(0, 1, vertexBuffers, deviceSize);
         m_commandBuffers[imageIndex].bindIndexBuffer(object->getIndexBuffer(), 0, vk::IndexType::eUint32);
         m_commandBuffers[imageIndex].bindDescriptorSets(vk::PipelineBindPoint::eGraphics,
                                                pipeline.getVkPipelineLayout(),
                                                0,
                                                1,
-                                               &object->getTexture()->getVkDescriptorSet(imageIndex),
+                                               &descriptorSet,
                                                0,
                                                nullptr);
         m_commandBuffers[imageIndex].drawIndexed(object->getIndices().size(), 1, 0, 0, 0);
-        //m_commandBuffers[imageIndex].draw(object->getVertices().size(), 1, 0, 0);
 }
 
-void graphics::CommandBuffer::endRender(uint32_t imageIndex)
+void graphics::CommandBuffer::endRender(uint32_t imageIndex, const Swapchain & swapchain)
 {
     m_commandBuffers[imageIndex].endRenderPass();
     m_commandBuffers[imageIndex].end();

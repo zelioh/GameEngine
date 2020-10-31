@@ -85,9 +85,9 @@ uint32_t graphics::Texture::getMipLevel() const
     return m_iMipLevel;
 }
 
-const vk::DescriptorSet & graphics::Texture::getVkDescriptorSet(int iIndex) const
+const vk::DescriptorSet & graphics::Texture::getVkDescriptorSet(const Swapchain &swapchain, int iIndex)
 {
-    return m_descriptorSets[iIndex];
+    return m_descriptorSet.get();
 }
 
 void graphics::Texture::initializeInternal(const graphics::LogicalDevice &logicalDevice, stbi_uc *pixels)
@@ -177,40 +177,38 @@ void graphics::Texture::createDescriptorSet(const Swapchain & swapchain)
     allocateInfo.descriptorPool = swapchain.getVkDescriptorPool();
     allocateInfo.descriptorSetCount = size;
     allocateInfo.pSetLayouts = layouts.data();
-    m_descriptorSets = logicalDevice.allocateDescriptorSets(allocateInfo);
-    for (size_t i = 0; i < size; ++i)
-    {
-        vk::DescriptorBufferInfo bufferInfo{};
+    m_descriptorSet = {std::move(logicalDevice.allocateDescriptorSetsUnique(allocateInfo)[0])};
 
-        bufferInfo.buffer = swapchain.getVkGetUniformBuffer(i);
-        bufferInfo.offset = 0;
-        bufferInfo.range = sizeof(SUniformBufferObject);
+    vk::DescriptorBufferInfo bufferInfo{};
 
-        vk::DescriptorImageInfo imageInfo{};
+    bufferInfo.buffer = swapchain.getVkGetUniformBuffer(0);
+    bufferInfo.offset = 0;
+    bufferInfo.range = sizeof(SUniformBufferObject);
 
-        imageInfo.sampler = m_textureSampler;
-        imageInfo.imageView = m_textureView;
-        imageInfo.imageLayout = vk::ImageLayout::eShaderReadOnlyOptimal;
+    vk::DescriptorImageInfo imageInfo{};
 
-        std::array<vk::WriteDescriptorSet, 2> writeSets{};
+    imageInfo.sampler = m_textureSampler;
+    imageInfo.imageView = m_textureView;
+    imageInfo.imageLayout = vk::ImageLayout::eShaderReadOnlyOptimal;
 
-        writeSets[0].dstSet = m_descriptorSets[i];
-        writeSets[0].dstBinding = 0;
-        writeSets[0].dstArrayElement = 0;
-        writeSets[0].descriptorType = vk::DescriptorType::eUniformBuffer;
-        writeSets[0].descriptorCount = 1;
-        writeSets[0].pBufferInfo = &bufferInfo;
-        writeSets[0].pImageInfo = nullptr;
-        writeSets[0].pTexelBufferView = nullptr;
-        writeSets[1].dstSet = m_descriptorSets[i];
-        writeSets[1].dstBinding = 1;
-        writeSets[1].dstArrayElement = 0;
-        writeSets[1].descriptorType = vk::DescriptorType::eCombinedImageSampler;
-        writeSets[1].descriptorCount = 1;
-        writeSets[1].pBufferInfo = nullptr;
-        writeSets[1].pImageInfo = &imageInfo;
-        writeSets[1].pTexelBufferView = nullptr;
+    std::array<vk::WriteDescriptorSet, 2> writeSets{};
 
-        logicalDevice.updateDescriptorSets(writeSets.size(), writeSets.data(), 0, nullptr);
-    }
+    writeSets[0].dstSet = m_descriptorSet.get();
+    writeSets[0].dstBinding = 0;
+    writeSets[0].dstArrayElement = 0;
+    writeSets[0].descriptorType = vk::DescriptorType::eUniformBuffer;
+    writeSets[0].descriptorCount = 1;
+    writeSets[0].pBufferInfo = &bufferInfo;
+    writeSets[0].pImageInfo = nullptr;
+    writeSets[0].pTexelBufferView = nullptr;
+    writeSets[1].dstSet = m_descriptorSet.get();
+    writeSets[1].dstBinding = 1;
+    writeSets[1].dstArrayElement = 0;
+    writeSets[1].descriptorType = vk::DescriptorType::eCombinedImageSampler;
+    writeSets[1].descriptorCount = 1;
+    writeSets[1].pBufferInfo = nullptr;
+    writeSets[1].pImageInfo = &imageInfo;
+    writeSets[1].pTexelBufferView = nullptr;
+
+    logicalDevice.updateDescriptorSets(writeSets.size(), writeSets.data(), 0, nullptr);
 }

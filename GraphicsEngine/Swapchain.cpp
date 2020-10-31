@@ -172,10 +172,10 @@ void graphics::Swapchain::setVkFenceInFlight(int iIndex, const vk::Fence &fence)
     m_fencesInFlight[iIndex] = fence;
 }
 
-const vk::DescriptorSet & graphics::Swapchain::getVkDescriptorSet(int iIndex) const
-{
-    return m_descriptorSets[iIndex];
-}
+//const vk::DescriptorSet & graphics::Swapchain::getVkDescriptorSet(int iIndex) const
+//{
+//    return m_descriptorSets[iIndex];
+//}
 
 const vk::DescriptorPool & graphics::Swapchain::getVkDescriptorPool() const
 {
@@ -410,6 +410,7 @@ void graphics::Swapchain::createDescriptorPool()
     poolInfo.poolSizeCount = static_cast<uint32_t>(poolSizes.size());
     poolInfo.pPoolSizes = poolSizes.data();
     poolInfo.maxSets = static_cast<uint32_t>(m_vImages.size());
+    poolInfo.flags = vk::DescriptorPoolCreateFlagBits::eFreeDescriptorSet;
 
     if (!(m_descriptorPool = m_parentLogicalDevice.getVkLogicalDevice().createDescriptorPool(poolInfo)))
     {

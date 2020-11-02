@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\BoundingBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\BoundingSphere.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\Plane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\Collider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\IntersectData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\PhysicsObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\BoundingBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\BoundingSphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\Plane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\Collider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\IntersectData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\PhysicsObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{4AC40187-4040-317F-B45C-2040F4E62437}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{98AC9FB1-61A3-3B35-8766-B8A0E6184257}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

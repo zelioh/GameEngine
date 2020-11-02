@@ -17,6 +17,7 @@ namespace object
         Math::Vector3F axis; ///< axis value of rotation
 
         Math::Matrix4F toMatrix() const;
+        void rotateMatrix(Math::Matrix4F & matrix) const;
     };
 }
 

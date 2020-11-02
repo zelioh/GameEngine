@@ -23,6 +23,7 @@ namespace Math {
 		Vector4F operator*=(const Vector4F& value);
 		Vector4F operator/(const Vector4F& value) const;
 		Vector4F operator/=(const Vector4F& value);
+		Vector4F operator*(float scalar) const;
 		bool operator==(const Vector4F& value) const;
 		bool operator!=(const Vector4F& value) const;
 	};

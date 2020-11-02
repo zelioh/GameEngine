@@ -87,3 +87,8 @@ bool Math::Vector4F::operator!=(const Vector4F& V) const
 {
 	return ((X != V.X) || (Y != V.Y) || (Z != V.Z) || (W != V.W));
 }
+
+Vector4F Math::Vector4F::operator*(float scalar) const
+{
+    return Math::Vector4F(X * scalar, Y * scalar, Z * scalar, W * scalar);
+}

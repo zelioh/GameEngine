@@ -10,6 +10,7 @@
 #include "Vertex.h"
 #include "Swapchain.h"
 #include "PhysicalDevice.h"
+#include "SUniformBufferObject.h"
 
 graphics::Pipeline::Pipeline(const LogicalDevice &logicalDevice,
                              const Swapchain & swapchain,
@@ -138,10 +139,16 @@ void graphics::Pipeline::initialize(const LogicalDevice &logicalDevice,
     // Set pipeline layout
     vk::PipelineLayoutCreateInfo layoutInfo{};
 
+    vk::PushConstantRange pushConstantRange{
+            vk::ShaderStageFlagBits::eAllGraphics,
+            0,
+            sizeof(SUniformBufferObject)
+    };
+
     layoutInfo.setLayoutCount = 1;
     layoutInfo.pSetLayouts = &logicalDevice.getDescriptorSetLayout();
-    layoutInfo.pushConstantRangeCount = 0;
-    layoutInfo.pPushConstantRanges = nullptr;
+    layoutInfo.pushConstantRangeCount = 1;
+    layoutInfo.pPushConstantRanges = &pushConstantRange;
     m_pipelineLayout = logicalDevice.getVkLogicalDevice().createPipelineLayout(layoutInfo);
     if (!m_pipelineLayout)
     {

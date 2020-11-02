@@ -11,6 +11,7 @@
 #include "Pipeline.h"
 #include "Objects/GameObject.h"
 #include "Texture.h"
+#include "SUniformBufferObject.h"
 
 void graphics::CommandBuffer::initialize(const Swapchain & swapchain)
 {
@@ -67,23 +68,51 @@ void graphics::CommandBuffer::render(const Swapchain &swapchain,
                                      uint32_t imageIndex
                                      )
 {
-        m_commandBuffers[imageIndex].bindPipeline(vk::PipelineBindPoint::eGraphics, pipeline.getVkPipeline());
+    //
+    // Here ugly brut values do not do that !!!
+    SUniformBufferObject ubo;
 
-        vk::Buffer vertexBuffers[] = {object->getVertexBuffer()};
-        vk::DeviceSize deviceSize[] = {0};
+    ubo.model = object->getTransformationMatrix();
 
-        const vk::DescriptorSet & descriptorSet{object->getTexture()->getVkDescriptorSet(swapchain ,imageIndex)};
+    //
+    // TODO: use camera look at
+    ubo.view = Math::Matrix4F(Math::Vector4F(-0.7071f, -0.4082f, 0.57735f, 0.f),
+                              Math::Vector4F(0.7071f, -0.4082f, 0.57735f, 0.f),
+                              Math::Vector4F(0.f, 0.81649f, 0.57735f, 0.f),
+                              Math::Vector4F(-0.f, -0.f, -3.4641f, 1.f));
+    //
+    // TODO: use perspectif compute
+    ubo.proj = Math::Matrix4F(Math::Vector4F(1.81066f, 0.f, 0.f, 0.f),
+                              Math::Vector4F(0.f, -2.4142f, 0.f, 0.f),
+                              Math::Vector4F(0.f, 0.f, -1.01010f, -1.f),
+                              Math::Vector4F(0.f, 0.f, -0.10101010f, 0.f));;
+    //ubo[1][1] *= -1;
 
-        m_commandBuffers[imageIndex].bindVertexBuffers(0, 1, vertexBuffers, deviceSize);
-        m_commandBuffers[imageIndex].bindIndexBuffer(object->getIndexBuffer(), 0, vk::IndexType::eUint32);
+    m_commandBuffers[imageIndex].pushConstants(pipeline.getVkPipelineLayout(),
+                                               vk::ShaderStageFlagBits::eAllGraphics,
+                                               0,
+                                               sizeof(SUniformBufferObject),
+                                               &ubo);
+
+    m_commandBuffers[imageIndex].bindPipeline(vk::PipelineBindPoint::eGraphics, pipeline.getVkPipeline());
+
+    vk::Buffer vertexBuffers[] = {object->getVertexBuffer()};
+    vk::DeviceSize deviceSize[] = {0};
+
+    const vk::DescriptorSet & descriptorSet{object->getTexture()->getVkDescriptorSet(swapchain ,imageIndex)};
+
+    m_commandBuffers[imageIndex].bindVertexBuffers(0, 1, vertexBuffers, deviceSize);
+    m_commandBuffers[imageIndex].bindIndexBuffer(object->getIndexBuffer(), 0, vk::IndexType::eUint32);
+    if (nullptr != object->getTexture()) {
         m_commandBuffers[imageIndex].bindDescriptorSets(vk::PipelineBindPoint::eGraphics,
-                                               pipeline.getVkPipelineLayout(),
-                                               0,
-                                               1,
-                                               &descriptorSet,
-                                               0,
-                                               nullptr);
-        m_commandBuffers[imageIndex].drawIndexed(object->getIndices().size(), 1, 0, 0, 0);
+                                                        pipeline.getVkPipelineLayout(),
+                                                        0,
+                                                        1,
+                                                        &descriptorSet,
+                                                        0,
+                                                        nullptr);
+    }
+    m_commandBuffers[imageIndex].drawIndexed(object->getIndices().size(), 1, 0, 0, 0);
 }
 
 void graphics::CommandBuffer::endRender(uint32_t imageIndex, const Swapchain & swapchain)

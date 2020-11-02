@@ -17,7 +17,7 @@ namespace object {
         graphics::Texture * getTexture() const;
         void setTexture(graphics::Texture  * texture);
 
-    private:
+    protected:
         graphics::Texture * m_texture;
     };
 

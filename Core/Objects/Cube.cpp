@@ -21,22 +21,22 @@ GameObject(logicalDevice, levelIdentifier, identifier, position, color, scale, r
     m_vertices.push_back(graphics::Vertex(
                     Math::Vector3F(-0.5f, -0.5f, 0.5f),
                     m_color,
-                    Math::Vector2F(0.f, 0.f)
+                    Math::Vector2F(1.f, 0.f)
                     ));
     m_vertices.push_back(graphics::Vertex(
                     Math::Vector3F(0.5f, -0.5f, 0.5f),
                     m_color,
-                    Math::Vector2F(1.f, 0.f)
+                    Math::Vector2F(0.f, 0.f)
                     ));
     m_vertices.push_back(graphics::Vertex(
             Math::Vector3F(0.5f, 0.5f, 0.5f),
             m_color,
-            Math::Vector2F(1.f, 1.f)
+            Math::Vector2F(0.f, 1.f)
     ));
     m_vertices.push_back(graphics::Vertex(
             Math::Vector3F(-0.5f, 0.5f, 0.5f),
             m_color,
-            Math::Vector2F(0.f, 1.f)
+            Math::Vector2F(1.f, 1.f)
     ));
 
     //
@@ -44,22 +44,22 @@ GameObject(logicalDevice, levelIdentifier, identifier, position, color, scale, r
     m_vertices.push_back(graphics::Vertex(
             Math::Vector3F(-0.5f, -0.5f, -0.5f),
             m_color,
-            Math::Vector2F(0.f, 0.f)
+            Math::Vector2F(0.f, 1.f)
     ));
     m_vertices.push_back(graphics::Vertex(
             Math::Vector3F(0.5f, -0.5f, -0.5f),
             m_color,
-            Math::Vector2F(1.f, 0.f)
+            Math::Vector2F(1.f, 1.f)
     ));
     m_vertices.push_back(graphics::Vertex(
             Math::Vector3F(0.5f, -0.5f, 0.5f),
             m_color,
-            Math::Vector2F(1.f, 1.f)
+            Math::Vector2F(1.f, 0.f)
     ));
     m_vertices.push_back(graphics::Vertex(
             Math::Vector3F(-0.5f, -0.5f, 0.5f),
             m_color,
-            Math::Vector2F(0.f, 1.f)
+            Math::Vector2F(0.f, 0.f)
     ));
 
     //
@@ -113,22 +113,22 @@ GameObject(logicalDevice, levelIdentifier, identifier, position, color, scale, r
     m_vertices.push_back(graphics::Vertex(
             Math::Vector3F(0.5f, 0.5f, -0.5f),
             m_color,
-            Math::Vector2F(0.f, 0.f)
+            Math::Vector2F(0.f, 1.f)
     ));
     m_vertices.push_back(graphics::Vertex(
             Math::Vector3F(-0.5f, 0.5f, -0.5f),
             m_color,
-            Math::Vector2F(1.f, 0.f)
+            Math::Vector2F(1.f, 1.f)
     ));
     m_vertices.push_back(graphics::Vertex(
             Math::Vector3F(-0.5f, 0.5f, 0.5f),
             m_color,
-            Math::Vector2F(1.f, 1.f)
+            Math::Vector2F(1.f, 0.f)
     ));
     m_vertices.push_back(graphics::Vertex(
             Math::Vector3F(0.5f, 0.5f, 0.5f),
             m_color,
-            Math::Vector2F(0.f, 1.f)
+            Math::Vector2F(0.f, 0.f)
     ));
 
     //
@@ -162,7 +162,7 @@ GameObject(logicalDevice, levelIdentifier, identifier, position, color, scale, r
             8, 9, 10, 10, 11, 8,
             12, 13, 14, 14, 15, 12,
             16, 17, 18, 18, 19, 16,
-            20, 21, 22, 22, 24, 20
+            20, 21, 22, 22, 23, 20
     };
 
     logicalDevice.createVertexBuffer(m_vertexBuffer, m_verterBufferMemory, m_vertices);

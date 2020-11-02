@@ -402,14 +402,14 @@ void graphics::Swapchain::createDescriptorPool()
 {
     std::array<vk::DescriptorPoolSize, 2> poolSizes{};
 
-    poolSizes[0].descriptorCount = static_cast<uint32_t>(m_vImages.size());
-    poolSizes[1].descriptorCount = static_cast<uint32_t>(m_vImages.size());
+    poolSizes[0].descriptorCount = 64;
+    poolSizes[1].descriptorCount = 64;
 
     vk::DescriptorPoolCreateInfo poolInfo{};
 
     poolInfo.poolSizeCount = static_cast<uint32_t>(poolSizes.size());
     poolInfo.pPoolSizes = poolSizes.data();
-    poolInfo.maxSets = static_cast<uint32_t>(m_vImages.size());
+    poolInfo.maxSets = 64;
     poolInfo.flags = vk::DescriptorPoolCreateFlagBits::eFreeDescriptorSet;
 
     if (!(m_descriptorPool = m_parentLogicalDevice.getVkLogicalDevice().createDescriptorPool(poolInfo)))

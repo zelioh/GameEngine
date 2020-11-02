@@ -63,7 +63,7 @@ bool graphics::Renderer::renderBegin(Swapchain & swapchain)
 
 void graphics::Renderer::renderElement(Swapchain & swapchain, const object::GameObject * object, const Pipeline & pipeline)
 {
-    update(swapchain, m_imageIndex, object);
+    //update(swapchain, m_imageIndex, object);
     m_commandBuffer.render(swapchain, swapchain.getParentLogicalDevice().getCommandPool(), pipeline, object, m_imageIndex);
 }
 
@@ -130,8 +130,6 @@ void graphics::Renderer::update(const graphics::Swapchain &swapchain, int imageI
     // Here ugly brut values do not do that !!!
     SUniformBufferObject ubo;
 
-    //
-    // TODO: use object Transform
     ubo.model = object->getTransformationMatrix();
 
     //

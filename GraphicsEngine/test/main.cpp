@@ -69,7 +69,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     }
 
     object::CubeManager * manager = object::CubeManager::getInstance();
-    object::Cube * cube = manager->createCube(logicalDevice,
+    object::Cube * cube1 = manager->createCube(logicalDevice,
                                               myLevelIdentifier,
                                               "TestCube",
                                               Math::Vector3F(0.f, 0.f, 0.f),
@@ -77,10 +77,47 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
                                               Math::Vector3F(1.f, 1.f, 1.f),
                                               object::SRotation{90.f, Math::Vector3F(0.f, 0.f, 1.f)});
 
-    graphics::TextureManager * textureManager = graphics::TextureManager::getInstance();
-    graphics::Texture * texture = textureManager->createTexture(swapchain, "../assets/box.png", "Phoenix");
+    object::Cube * cube2 = manager->createCube(logicalDevice,
+                                              myLevelIdentifier,
+                                              "TestCube2",
+                                              Math::Vector3F(1.f, 0.5f, 0.f),
+                                              Math::Vector3F(0.5f, 0.5f, 0.5f),
+                                              Math::Vector3F(0.5f, 0.5f, 0.5f),
+                                              object::SRotation{90.f, Math::Vector3F(0.f, 0.f, 1.f)});
 
-    cube->setTexture(texture);
+    object::Cube * cube3 = manager->createCube(logicalDevice,
+                                              myLevelIdentifier,
+                                              "TestCube3",
+                                              Math::Vector3F(1.f, -1.f, 0.f),
+                                              Math::Vector3F(0.f, 1.5f, 0.f),
+                                              Math::Vector3F(1.5f, 1.5f, 1.5f),
+                                              object::SRotation{180.f, Math::Vector3F(0.f, 0.f, 1.f)});
+
+    object::Cube * cube4 = manager->createCube(logicalDevice,
+                                              myLevelIdentifier,
+                                              "TestCube4",
+                                              Math::Vector3F(0.f, 2.f, 0.f),
+                                              Math::Vector3F(0.5f, 0.5f, 0.5f),
+                                              Math::Vector3F(0.5f, 0.5f, 0.5f),
+                                              object::SRotation{90.f, Math::Vector3F(0.f, 0.f, 1.f)});
+
+    object::Cube * cube5 = manager->createCube(logicalDevice,
+                                              myLevelIdentifier,
+                                              "TestCube5",
+                                              Math::Vector3F(-1.f, 0.5f, 0.f),
+                                              Math::Vector3F(0.f, 0.f, 0.5f),
+                                              Math::Vector3F(0.5f, 0.5f, 0.5f),
+                                              object::SRotation{0.f, Math::Vector3F(0.f, 0.f, 1.f)});
+
+    graphics::TextureManager * textureManager = graphics::TextureManager::getInstance();
+    graphics::Texture * boxTexture = textureManager->createTexture(swapchain, "../assets/box.png", "Box");
+    graphics::Texture * phoenixTexture = textureManager->createTexture(swapchain, "../assets/texture.jpg", "Phoenix");
+
+    cube1->setTexture(boxTexture);
+    cube2->setTexture(phoenixTexture);
+    cube3->setTexture(phoenixTexture);
+    cube4->setTexture(phoenixTexture);
+    cube5->setTexture(phoenixTexture);
 
     auto startTime = std::chrono::high_resolution_clock::now();
 
@@ -94,7 +131,9 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
         {
             break;
         }
-        cube->setRotate(object::SRotation{90.f * time, cube->getRotate().axis});
+        cube1->setRotate(object::SRotation{90.f * time, cube1->getRotate().axis});
+        cube2->setRotate(object::SRotation{90.f * -time, cube2->getRotate().axis});
+        cube3->setRotate(object::SRotation{90.f * time, Math::Vector3F(1.f, 0.f, 0.f)});
         if (!renderer.render(swapchain, pipeline))
         {
             logicalDevice.releaseCommandPool();

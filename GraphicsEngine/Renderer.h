@@ -22,11 +22,15 @@ namespace graphics {
         void setUpdateCallback(const UpdateCallback & callback);
 
         //
-        // Care here swapchain is not constant because we need to create the vertex and index buffer inside of it
-        bool renderObject(Swapchain & swapchain, const object::GameObject * object, const Pipeline & pipeline);
+        // Depreased
+        //bool renderObject(Swapchain & swapchain, const object::GameObject * object, const Pipeline & pipeline);
+
+        //
+        // Render the current Scene
+        bool render(Swapchain & swapchain, const Pipeline & pipeline);
     private:
-        bool renderBegin(Swapchain & swapchain, const object::GameObject * object);
-        void render(Swapchain & swapchain, const object::GameObject * object, const Pipeline & pipeline);
+        bool renderBegin(Swapchain & swapchain);
+        void renderElement(Swapchain & swapchain, const object::GameObject * object, const Pipeline & pipeline);
         bool renderEnd(Swapchain & swapchain, const Pipeline & pipeline);
 
         size_t m_currentFrame;

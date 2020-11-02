@@ -6,6 +6,8 @@
 #include "Swapchain.h"
 #include "LogicalDevice.h"
 #include "Pipeline.h"
+#include "Objects/SceneManager.h"
+#include "Objects/Scene.h"
 
 graphics::Renderer::Renderer(const Swapchain & swapchain):
 m_currentFrame(0),
@@ -20,17 +22,35 @@ void graphics::Renderer::setUpdateCallback(const UpdateCallback &callback)
     m_update = callback;
 }
 
-bool graphics::Renderer::renderObject(Swapchain &swapchain,
-                                      const object::GameObject *object,
-                                      const Pipeline & pipeline)
+//bool graphics::Renderer::renderObject(Swapchain &swapchain,
+//                                      const object::GameObject *object,
+//                                      const Pipeline & pipeline)
+//{
+//    if (!renderBegin(swapchain, object))
+//        return false;
+//    renderElement(swapchain, object, pipeline);
+//    return renderEnd(swapchain, pipeline);
+//}
+
+bool graphics::Renderer::render(Swapchain &swapchain, const Pipeline &pipeline)
 {
-    if (!renderBegin(swapchain, object))
+    if (!renderBegin(swapchain))
+    {
         return false;
-    render(swapchain, object, pipeline);
+    }
+
+    object::Scene * scene = object::SceneManager::getInstance()->getCurrentScene();
+
+    std::vector<object::GameObject *> sceneObject = scene->getSceneObjects();
+
+    for (object::GameObject * object : sceneObject)
+    {
+        renderElement(swapchain, object, pipeline);
+    }
     return renderEnd(swapchain, pipeline);
 }
 
-bool graphics::Renderer::renderBegin(Swapchain & swapchain, const object::GameObject * object)
+bool graphics::Renderer::renderBegin(Swapchain & swapchain)
 {
     const vk::Device logicalDevice = swapchain.getParentLogicalDevice().getVkLogicalDevice();
 
@@ -46,7 +66,7 @@ bool graphics::Renderer::renderBegin(Swapchain & swapchain, const object::GameOb
     return true;
 }
 
-void graphics::Renderer::render(Swapchain & swapchain, const object::GameObject * object, const Pipeline & pipeline)
+void graphics::Renderer::renderElement(Swapchain & swapchain, const object::GameObject * object, const Pipeline & pipeline)
 {
     if (nullptr != m_update)
     {

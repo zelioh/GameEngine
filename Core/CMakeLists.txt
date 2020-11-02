@@ -5,7 +5,10 @@
 set(OBJECT_SRC
 		Objects/GameObject.cpp Objects/GameObject.h
 		Objects/Cube.cpp Objects/Cube.h
-		Objects/CubeManager.cpp Objects/CubeManager.h Objects/ITextureObject.cpp Objects/ITextureObject.h)
+		Objects/CubeManager.cpp Objects/CubeManager.h
+		Objects/ITextureObject.cpp Objects/ITextureObject.h
+		Objects/Scene.cpp Objects/Scene.h
+		Objects/SceneManager.cpp Objects/SceneManager.h)
 
 add_library(Core OBJECT
 			Core.cpp Core.h

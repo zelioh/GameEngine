@@ -19,6 +19,8 @@
 #include "SUniformBufferObject.h"
 #include "TextureManager.h"
 #include "Texture.h"
+#include "Objects/SceneManager.h"
+#include "Objects/Scene.h"
 
 #include <chrono>
 
@@ -91,8 +93,18 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     graphics::Pipeline pipeline(logicalDevice, swapchain, shader);
     graphics::Renderer renderer(swapchain);
 
+    const std::string myLevelIdentifier = "MyLevel";
+
+    object::Scene * myLevel = object::SceneManager::getInstance()->createScene(myLevelIdentifier);
+
+    if (!object::SceneManager::getInstance()->setCurrentScene(myLevelIdentifier))
+    {
+        return 84;
+    }
+
     object::CubeManager * manager = object::CubeManager::getInstance();
     object::Cube * cube = manager->createCube(logicalDevice,
+                                              myLevelIdentifier,
                                               "TestCube",
                                               Math::Vector3F(0, 0, 0),
                                               Math::Vector3F(0.5f, 0.5f, 0.5f));
@@ -111,7 +123,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
         {
             break;
         }
-        if (!renderer.renderObject(swapchain, cube, pipeline))
+        if (!renderer.render(swapchain, pipeline))
         {
             logicalDevice.releaseCommandPool();
             logicalDevice.initializeCommandPool();
@@ -127,6 +139,5 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     swapchain.release();
     logicalDevice.release();
     instance.release();
-    ///< TODO: destroy more think, see validation layer
     return 0;
 }

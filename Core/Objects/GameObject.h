@@ -35,6 +35,7 @@ namespace object {
         void setRotate(const Math::Vector3F & rotate);
 
         const std::string & getIdentifier() const;
+        const std::string & getLevelIdentifier() const;
 
         virtual const std::vector<graphics::Vertex> & getVertices() const = 0;
         virtual const std::vector<uint32_t> & getIndices() const = 0;
@@ -46,6 +47,7 @@ namespace object {
 
     protected:
         GameObject(const graphics::LogicalDevice & logicalDevice,
+                   const std::string & levelIdentifier,
                    const std::string & identifier,
                    const Math::Vector3F & position,
                    const Math::Vector3F & color = Math::Vector3F(1.f, 1.f, 1.f),
@@ -59,6 +61,7 @@ namespace object {
         std::vector<graphics::Vertex> m_vertices;
         std::vector<uint32_t> m_indices;
         std::string m_strIdentifier;
+        std::string m_strLevelIdentifier;
 
         //
         // Vertex buffer

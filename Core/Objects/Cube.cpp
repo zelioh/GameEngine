@@ -8,12 +8,13 @@
 #include "LogicalDevice.h"
 
 object::Cube::Cube(const graphics::LogicalDevice & logicalDevice,
+                   const std::string & levelIdentifier,
                    const std::string & identifier,
                    const Math::Vector3F &position,
-                   const Math::Vector3F &color,
+                   const Math::Vector3F &color /*=Math::Vector3F(1, 1, 1)*/,
                    const Math::Vector3F & scale /*=Math::Vector3F(1, 1, 1)*/,
-                   const Math::Vector3F & rotate /*=Math::Vector3F(1, 1, 1)*/):
-GameObject(logicalDevice, identifier, position, color, scale, rotate)
+                   const Math::Vector3F & rotate /*=Math::Vector3F(0, 0, 0)*/):
+GameObject(logicalDevice, levelIdentifier, identifier, position, color, scale, rotate)
 {
     //
     // Vertices top face

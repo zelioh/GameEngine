@@ -7,12 +7,12 @@
 #ifndef GAMEENGINE_TEXTURE_H
 #define GAMEENGINE_TEXTURE_H
 
-#include "stb_image.h"
 #include "vulkan/vulkan.hpp"
+#include "../dependencies/stb/stb_image.h"
 
 namespace graphics {
-
     class LogicalDevice;
+    class Swapchain;
 
     class Texture {
 
@@ -32,11 +32,17 @@ namespace graphics {
         const vk::Sampler & getVkTextureSampler() const;
         uint32_t getMipLevel() const;
 
+        const vk::DescriptorSet & getVkDescriptorSet(const Swapchain & swapchain, int iIndex);
+
+
     private:
-        Texture(const LogicalDevice & logicalDevice, const std::string & name, stbi_uc *pixels, int width, int heiht, int channels);
+        Texture(const Swapchain & swapchain, const std::string & name, stbi_uc *pixels, int width, int heiht, int channels);
+
+        void release(const LogicalDevice & logicalDevice);
 
         void initializeInternal(const LogicalDevice & logicalDevice, stbi_uc *pixels);
         void createSampler(const vk::Device & logicalDevice);
+        void createDescriptorSet(const Swapchain & swapchain);
 
     private:
         std::string m_strName;
@@ -49,6 +55,8 @@ namespace graphics {
         vk::ImageView m_textureView;
         vk::Sampler m_textureSampler;
         uint32_t m_iMipLevel;
+
+        vk::UniqueDescriptorSet m_descriptorSet;
     };
 }
 #endif //GAMEENGINE_TEXTURE_H

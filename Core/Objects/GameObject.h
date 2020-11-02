@@ -12,26 +12,30 @@
 #include <vector>
 #include <string>
 
+#include "ITextureObject.h"
+#include "SRotation.h"
+
 namespace graphics
 {
     class LogicalDevice;
 }
 
 namespace object {
-
-    class GameObject {
+    class GameObject: public ITextureObject
+    {
     public:
         const Math::Vector3F & getPosition() const;
         const Math::Vector3F & getColor() const;
         const Math::Vector3F & getScale() const;
-        const Math::Vector3F & getRotate() const;
+        const SRotation & getRotate() const;
 
         void setPosition(const Math::Vector3F & position);
         void setColor(const Math::Vector3F & color);
         void setScale(const Math::Vector3F & scale);
-        void setRotate(const Math::Vector3F & rotate);
+        void setRotate(const SRotation & rotate);
 
         const std::string & getIdentifier() const;
+        const std::string & getLevelIdentifier() const;
 
         virtual const std::vector<graphics::Vertex> & getVertices() const = 0;
         virtual const std::vector<uint32_t> & getIndices() const = 0;
@@ -43,19 +47,21 @@ namespace object {
 
     protected:
         GameObject(const graphics::LogicalDevice & logicalDevice,
+                   const std::string & levelIdentifier,
                    const std::string & identifier,
                    const Math::Vector3F & position,
-                   const Math::Vector3F & color,
+                   const Math::Vector3F & color = Math::Vector3F(1.f, 1.f, 1.f),
                    const Math::Vector3F & scale = Math::Vector3F(1.f, 1.f, 1.f),
-                   const Math::Vector3F & rotate = Math::Vector3F(0.f, 0.f, 0.f));
+                   const SRotation & rotate = SRotation{0.f, Math::Vector3F(0.f, 0.f, 0.f)});
 
         Math::Vector3F m_position;
         Math::Vector3F m_color;
         Math::Vector3F m_scale;
-        Math::Vector3F m_rotate;
+        SRotation m_rotate;
         std::vector<graphics::Vertex> m_vertices;
         std::vector<uint32_t> m_indices;
         std::string m_strIdentifier;
+        std::string m_strLevelIdentifier;
 
         //
         // Vertex buffer

@@ -17,10 +17,17 @@ namespace Math {
                  const Vector4F & secondLine,
                  const Vector4F & thirdLine,
                  const Vector4F & lastLine);
+        Matrix4F(float values[4][4]);
 
-        Vector4F operator[](int rowIndex);
+        Matrix4F operator*(const Matrix4F & other);
     };
 
+#define MATRIX4F_IDENTITY Math::Matrix4F({ \
+                                    {1.f, 0.f, 0.f, 0.f}, \
+                                    {0.f, 1.f, 0.f, 0.f}, \
+                                    {0.f, 0.f, 1.f, 0.f}, \
+                                    {0.f, 0.f, 0.f, 1.f}  \
+                                    })
 }
 
 #endif //GAMEENGINE_MATRIX4F_H

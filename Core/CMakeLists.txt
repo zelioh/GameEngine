@@ -5,7 +5,10 @@
 set(OBJECT_SRC
 		Objects/GameObject.cpp Objects/GameObject.h
 		Objects/Cube.cpp Objects/Cube.h
-		Objects/CubeManager.cpp Objects/CubeManager.h)
+		Objects/CubeManager.cpp Objects/CubeManager.h
+		Objects/ITextureObject.cpp Objects/ITextureObject.h
+		Objects/Scene.cpp Objects/Scene.h
+		Objects/SceneManager.cpp Objects/SceneManager.h Objects/SRotation.cpp Objects/SRotation.h)
 
 add_library(Core OBJECT
 			Core.cpp Core.h
@@ -25,6 +28,7 @@ target_link_libraries(Core PRIVATE ${GraphicsEngine})
 set(Core_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/Core/" CACHE INTERNAL "")
 
 target_include_directories(Core PUBLIC ${Core_INCLUDE_DIR} ${Core_INCLUDE_DIR}/Objects/)
+message(${GraphicsEngine_INCLUDE_DIR})
 target_include_directories(Core PUBLIC ${GraphicsEngine_INCLUDE_DIR})
 
 set_target_properties(Core PROPERTIES

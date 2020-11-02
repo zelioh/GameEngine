@@ -19,12 +19,12 @@
     return manager;
 }
 
-const graphics::Texture * graphics::TextureManager::createTexture(const LogicalDevice & logicalDevice,
+graphics::Texture * graphics::TextureManager::createTexture(const Swapchain & swapchain,
                                                                   const std::string &texturePath,
                                                                   const std::string &textureName) {
     //
     // Create texture name
-    std::string name = nullptr;
+    std::string name = "";
 
     if (nullptr == textureName.c_str()) {
         name = texturePath.substr(0, texturePath.find('.'));
@@ -45,12 +45,12 @@ const graphics::Texture * graphics::TextureManager::createTexture(const LogicalD
     int width = 0, height = 0, channels = 0;
     stbi_uc *pixels = stbi_load(texturePath.c_str(), &width, &height, &channels, STBI_rgb_alpha);
 
-    graphics::Texture *texture = new Texture(logicalDevice, name, pixels, width, height, channels);
+    graphics::Texture *texture = new Texture(swapchain, name, pixels, width, height, channels);
     m_pool[name] = texture;
     return m_pool[name];
 }
 
-const graphics::Texture * graphics::TextureManager::findTexture(const std::string &textureName)
+graphics::Texture * graphics::TextureManager::findTexture(const std::string &textureName)
 {
     auto search = m_pool.find(textureName);
 
@@ -59,4 +59,14 @@ const graphics::Texture * graphics::TextureManager::findTexture(const std::strin
     }
     assert(false); ///< Assert always. TODO: use Engine assert system
     return nullptr;
+}
+
+void graphics::TextureManager::release(const LogicalDevice &logicalDevice)
+{
+    for (auto texture : m_pool)
+    {
+        texture.second->release(logicalDevice);
+        delete texture.second;
+        texture.second = nullptr;
+    }
 }

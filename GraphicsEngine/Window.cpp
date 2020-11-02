@@ -4,6 +4,7 @@
 
 #include "Window.h"
 #include "WindowParameters.h"
+#include <stdexcept>
 
 graphics::Window::Window(HINSTANCE const &hInstance, const WindowParameters & parameters):
 m_hInstance(hInstance),
@@ -114,6 +115,7 @@ void graphics::Window::handleEvent()
 {
     TranslateMessage(&m_message);
     DispatchMessage(&m_message);
+    InvalidateRect(m_hwnd, NULL, FALSE );   // invalidate whole window
 }
 
 LRESULT graphics::Window::WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM lparam)
@@ -146,7 +148,7 @@ DWORD graphics::Window::getWindowStyle(const WindowParameters &parameters)
         style |= WS_POPUP;
         return style;
     } else {
-        style |= WS_OVERLAPPED;
+        style |= WS_OVERLAPPEDWINDOW;
     }
 
     if (parameters.m_bCanMinize)

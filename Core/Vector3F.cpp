@@ -50,6 +50,11 @@ Vector3F Math::Vector3F::operator*(const Vector3F& V) const
 	return Vector3F(X * V.X, Y * V.Y, Z * V.Z);
 }
 
+Vector3F Math::Vector3F::operator*(float scalar) const
+{
+    return Vector3F(X * scalar, Y * scalar, Z * scalar);
+}
+
 Vector3F Math::Vector3F::operator*=(const Vector3F& V)
 {
 	X *= V.X;
@@ -61,6 +66,12 @@ Vector3F Math::Vector3F::operator*=(const Vector3F& V)
 Vector3F Math::Vector3F::operator/(const Vector3F& V) const
 {
 	return Vector3F(X / V.X, Y / V.Y, Z / V.Z);
+}
+
+Vector3F Math::Vector3F::operator/(float scalar) const
+{
+
+    return (0.f == scalar) ? Vector3F(0.f, 0.f, 0.f) : Vector3F(X / scalar, Y / scalar, Z / scalar);
 }
 
 Vector3F Math::Vector3F::operator/=(const Vector3F& V)

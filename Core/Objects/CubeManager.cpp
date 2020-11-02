@@ -6,6 +6,8 @@
 
 #include "CubeManager.h"
 #include "Cube.h"
+#include "SceneManager.h"
+#include "GameObject.h"
 
 /*static*/ object::CubeManager * object::CubeManager::getInstance()
 {
@@ -19,68 +21,97 @@
 }
 
 object::Cube * object::CubeManager::createCube(const graphics::LogicalDevice & logicalDevice,
-                                               const std::string &identifier,
+                                               const std::string & levelIdentifier,
+                                               const std::string & cubeIdentifier,
                                                const Math::Vector3F &position,
                                                const Math::Vector3F &color,
                                                const Math::Vector3F & scale /*=Math::Vector3F(1,1,1)*/,
-                                               const Math::Vector3F & rotate /*=Math::Vector3F(0,0,0)*/
+                                               const SRotation & rotate /*=Math::Vector3F(0,0,0)*/
                                                )
 {
+    if (!SceneManager::getInstance()->isExisting(levelIdentifier))
+    {
+        return nullptr;
+    }
+
     //
     // Search if cube already exist
-    auto search = m_pool.find(identifier.c_str());
+    auto search = m_pool[levelIdentifier].find(cubeIdentifier);
 
-    if (search != m_pool.end() && m_pool[identifier.c_str()] != nullptr) {
-        return m_pool[identifier.c_str()];
+    if (search != m_pool[levelIdentifier].end() && m_pool[levelIdentifier][cubeIdentifier] != nullptr) {
+        return m_pool[levelIdentifier][cubeIdentifier];
     }
 
     // Create cube instance
-    m_pool[identifier.c_str()] = new Cube(logicalDevice, identifier, position, color, scale, rotate);
-    return m_pool[identifier.c_str()];
+    m_pool[levelIdentifier][cubeIdentifier] = new Cube(logicalDevice, levelIdentifier, cubeIdentifier, position, color, scale, rotate);
+    return m_pool[levelIdentifier][cubeIdentifier];
 }
 
 object::Cube * object::CubeManager::createCubeAutoName(const graphics::LogicalDevice & logicalDevice,
+                                                       const std::string & levelIdentifier,
                                                        const Math::Vector3F &position,
                                                        const Math::Vector3F &color,
                                                        const Math::Vector3F & scale /*=Math::Vector3F(1,1,1)*/,
-                                                       const Math::Vector3F & rotate /*=Math::Vector3F(0,0,0)*/
+                                                       const SRotation & rotate /*=Math::Vector3F(0,0,0)*/
                                                         )
 {
     const size_t size = m_pool.size();
     std::string identifier = "CUBE_" + std::to_string(size);
 
-    return createCube(logicalDevice, identifier, position, color, scale, rotate);
+    return createCube(logicalDevice, identifier, levelIdentifier, position, color, scale, rotate);
 }
 
-object::Cube * object::CubeManager::findCube(const std::string identifier)
+object::Cube * object::CubeManager::findCube(const std::string & levelIdentifier, const std::string & cubeIdentifier)
 {
-    auto search = m_pool.find(identifier.c_str());
+    if (!SceneManager::getInstance()->isExisting(levelIdentifier))
+    {
+        return nullptr;
+    }
 
-    if (search != m_pool.end()) {
-        return m_pool[identifier.c_str()];
+    auto search = m_pool[levelIdentifier].find(cubeIdentifier);
+
+    if (search != m_pool[levelIdentifier].end()) {
+        return m_pool[levelIdentifier][cubeIdentifier];
     }
     return nullptr;
 }
 
-bool object::CubeManager::deleteCube(const std::string identifier, const graphics::LogicalDevice & logicalDevice)
+bool object::CubeManager::deleteCube(const std::string & identifier,
+                                     const std::string & levelIdentifier,
+                                     const graphics::LogicalDevice & logicalDevice)
 {
-    auto search = m_pool.find(identifier.c_str());
+
+    auto search = m_pool.find(identifier);
 
     if (search == m_pool.end()) {
         return false;
     }
-    m_pool[identifier.c_str()]->release(logicalDevice);
-    delete m_pool[identifier.c_str()];
-    m_pool[identifier.c_str()] = nullptr;
+    m_pool[levelIdentifier][identifier]->release(logicalDevice);
+    delete m_pool[levelIdentifier][identifier];
+    m_pool[levelIdentifier][identifier] = nullptr;
     return true;
 }
 
 void object::CubeManager::release(const graphics::LogicalDevice &logicalDevice)
 {
-    for (std::pair<const char *const, Cube *> & cube : m_pool)
+    for (auto & map : m_pool)
     {
-        cube.second->release(logicalDevice);
-        delete cube.second;
-        cube.second = nullptr;
+        for (auto & cube : map.second)
+        {
+            cube.second->release(logicalDevice);
+            delete cube.second;
+            cube.second = nullptr;
+        }
     }
+}
+
+std::vector<object::GameObject *> object::CubeManager::getObjectOfLevel(const std::string &levelIdentifier)
+{
+    std::vector<object::GameObject *> objects;
+
+    for (const std::pair<std::string const, Cube *> & pair : m_pool[levelIdentifier])
+    {
+        objects.emplace_back(pair.second);
+    }
+    return objects;
 }

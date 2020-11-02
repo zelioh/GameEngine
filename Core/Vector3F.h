@@ -23,8 +23,10 @@ namespace Math {
 		Vector3F operator-(const Vector3F& value) const;
 		Vector3F operator-=(const Vector3F& value);
 		Vector3F operator*(const Vector3F& value) const;
+		Vector3F operator*(float scalar) const;
 		Vector3F operator*=(const Vector3F& value);
 		Vector3F operator/(const Vector3F& value) const;
+		Vector3F operator/(float scalar) const;
 		Vector3F operator/=(const Vector3F& value);
 		Vector3F operator/(float value) const;
 		Vector3F operator*(float value) const;

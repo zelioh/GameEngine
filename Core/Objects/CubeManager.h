@@ -11,13 +11,18 @@
 #include <string>
 #include "Vector3F.h"
 #include "LogicalDevice.h"
+#include "SRotation.h"
 
 namespace object {
 
     class Cube;
+    class GameObject;
 
     class CubeManager {
     public:
+
+        friend class Scene;
+
         static CubeManager * getInstance();
 
         /**
@@ -29,11 +34,13 @@ namespace object {
          * @return  instance of Cube
          */
         Cube * createCube(const graphics::LogicalDevice & logicalDevice,
+                          const std::string & levelIdentifier,
                           const std::string & identifier,
                           const Math::Vector3F & position,
-                          const Math::Vector3F & color,
+                          const Math::Vector3F & color = Math::Vector3F(1.f, 1.f, 1.f),
                           const Math::Vector3F & scale = Math::Vector3F(1.f, 1.f, 1.f),
-                          const Math::Vector3F & rotate = Math::Vector3F(0.f, 0.f, 0.f));
+                          const SRotation & rotate = {0.f, Math::Vector3F(0.f, 0.f, 0.f)});
+
         /**
          * Work like createCube but the identifier is create automaticly
          * with the patern CUBE_XXX where XXX is it number in the pool
@@ -43,30 +50,35 @@ namespace object {
          * @return  instance of Cube
          */
         Cube * createCubeAutoName(const graphics::LogicalDevice & logicalDevice,
+                                  const std::string & levelIdentifier,
                                   const Math::Vector3F & position,
-                                  const Math::Vector3F & color,
+                                  const Math::Vector3F & color = Math::Vector3F(1.f, 1.f, 1.f),
                                   const Math::Vector3F & scale = Math::Vector3F(1.f, 1.f, 1.f),
-                                  const Math::Vector3F & rotate = Math::Vector3F(0.f, 0.f, 0.f));
+                                  const SRotation & rotate = {0.f, Math::Vector3F(0.f, 0.f, 0.f)});
         /**
          * Find a Cube instance in the pool. Assert if the cube doesn't exist
          * @param identifier    Cube identifier in the pool
          * @return Cube instance if find else nullptr
          */
-        Cube * findCube(const std::string identifier);
+        Cube * findCube(const std::string & cubeIdentifier, const std::string & levelIdentifier);
 
         /**
          * Delete a Cube instance in the pool
          * @param identifier    Identifier of the Cube
          * @return true if success else false if the Cube identifier doesn't exist in the pool
          */
-        bool deleteCube(const std::string identifier, const graphics::LogicalDevice & logicalDevice);
+        bool deleteCube(const std::string & identifier,
+                        const std::string & levelIdentifier,
+                        const graphics::LogicalDevice & logicalDevice);
 
         void release(const graphics::LogicalDevice & logicalDevice); ///< Release all element in the pool
 
     private:
         CubeManager() = default;
 
-        std::unordered_map<const char *, Cube *> m_pool;
+        std::vector<GameObject *> getObjectOfLevel(const std::string & levelIdentifier);
+
+        std::unordered_map<std::string, std::unordered_map<std::string, Cube *>> m_pool;
     };
 
 }

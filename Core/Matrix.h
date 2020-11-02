@@ -30,7 +30,7 @@ namespace Math {
         {
             for (int i = 0; i < rowSize; ++i)
             {
-                for (int j = 0; i < colSize; ++i)
+                for (int j = 0; j < colSize; ++j)
                 {
                     m_matrix[i][j] = value_init[i][j];
                 }
@@ -38,9 +38,13 @@ namespace Math {
         };
         Matrix(const Matrix& B)
         {
-            this->m_colSize = B.getCols();
-            this->m_rowSize = B.getRows();
-            this->m_matrix = B.m_matrix;
+            for (int i = 0; i < rowSize; ++i)
+            {
+                for (int j = 0; j < colSize; ++j)
+                {
+                    m_matrix[i][j] = B.m_matrix[i][j];
+                }
+            }
         };
 
         // Matrix Operations
@@ -75,7 +79,7 @@ namespace Math {
         };
         Matrix operator*(const Matrix & B)
         {
-            Matrix multip(rowSize, B.getCols(), 0.0);
+            Matrix multip(0.0);
             if (colSize == B.getRows())
             {
                 int i;
@@ -153,7 +157,7 @@ namespace Math {
         };
 
         //get value of matrix at (row, col)
-        double & operator()(int row, int col)
+        T & operator()(int row, int col)
         {
             return this->m_matrix[row][col];
         };

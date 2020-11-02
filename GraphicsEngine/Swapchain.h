@@ -42,7 +42,9 @@ namespace graphics {
         const vk::Fence & getVkFence(int iIndex) const;
         const vk::Fence & getVkFenceInFlight(int iIndex) const;
         void setVkFenceInFlight(int iIndex, const vk::Fence & fence);
-        const vk::DescriptorSet & getVkDescriptorSet(int iIndex) const;
+        //const vk::DescriptorSet & getVkDescriptorSet(int iIndex) const;
+        const vk::DescriptorPool & getVkDescriptorPool() const;
+        const vk::Buffer & getVkGetUniformBuffer(int iIndex) const;
 
         uint32_t acquireNextImage(size_t currentFrame) const;
 
@@ -59,7 +61,6 @@ namespace graphics {
         void createDepthResources();
         void createUniformBuffers();
         void createDescriptorPool();
-        void createDescriptorSet(const Texture & texture);
         void initializeSyncObj();
 
     private:
@@ -93,7 +94,7 @@ namespace graphics {
         //
         // Descriptor
         vk::DescriptorPool m_descriptorPool;
-        std::vector<vk::DescriptorSet> m_descriptorSets;
+        //std::vector<vk::DescriptorSet> m_descriptorSets;
 
         //
         // Fence and semaphore

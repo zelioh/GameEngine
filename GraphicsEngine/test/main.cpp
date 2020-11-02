@@ -5,9 +5,6 @@
 #include <windows.h>
 #include "Window.h"
 #include "WindowParameters.h"
-#define STB_IMAGE_IMPLEMENTATION
-
-#include "stb_image.h"
 
 #include "Instance.h"
 #include "InstanceParameter.h"
@@ -20,6 +17,10 @@
 #include "Objects/Cube.h"
 #include "Objects/CubeManager.h"
 #include "SUniformBufferObject.h"
+#include "TextureManager.h"
+#include "Texture.h"
+#include "Objects/SceneManager.h"
+#include "Objects/Scene.h"
 
 #include <chrono>
 
@@ -36,16 +37,14 @@ void update(const graphics::Swapchain & swapchain, int imageIndex)
 
     //
     // TODO: use object Transform
-    ubo.model = Math::Matrix4F(Math::Vector4F(1.f, 0.00004f, 0.f, 0.f),
-                               Math::Vector4F(-0.00004f, 1.f, 0.f, 0.f),
-                               Math::Vector4F(0.f, 0.f, 1.f, 0.f),
-                               Math::Vector4F(0.f, 0.f, 0.f, 1.f));
+    ubo.model = object::SRotation{90.f * time, Math::Vector3F(0.f, 0.f, 1.f)}.toMatrix();
+
     //
     // TODO: use camera look at
     ubo.view = Math::Matrix4F(Math::Vector4F(-0.7071f, -0.4082f, 0.57735f, 0.f),
                               Math::Vector4F(0.7071f, -0.4082f, 0.57735f, 0.f),
                               Math::Vector4F(0.f, 0.81649f, 0.57735f, 0.f),
-                              Math::Vector4F(-0.f, -0.f, -3.4641f, 1.f));;
+                              Math::Vector4F(-0.f, -0.f, -3.4641f, 1.f));
     //
     // TODO: use perspectif compute
     ubo.proj = Math::Matrix4F(Math::Vector4F(1.81066f, 0.f, 0.f, 0.f),
@@ -92,11 +91,28 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     graphics::Pipeline pipeline(logicalDevice, swapchain, shader);
     graphics::Renderer renderer(swapchain);
 
+    const std::string myLevelIdentifier = "MyLevel";
+
+    object::Scene * myLevel = object::SceneManager::getInstance()->createScene(myLevelIdentifier);
+
+    if (!object::SceneManager::getInstance()->setCurrentScene(myLevelIdentifier))
+    {
+        return 84;
+    }
+
     object::CubeManager * manager = object::CubeManager::getInstance();
     object::Cube * cube = manager->createCube(logicalDevice,
+                                              myLevelIdentifier,
                                               "TestCube",
                                               Math::Vector3F(0, 0, 0),
                                               Math::Vector3F(0.5f, 0.5f, 0.5f));
+
+    graphics::TextureManager * textureManager = graphics::TextureManager::getInstance();
+
+    graphics::Texture * texture = textureManager->createTexture(swapchain, "../assets/box.png", "Phoenix");
+
+    cube->setTexture(texture);
+
     renderer.setUpdateCallback(update);
     while (window)
     {
@@ -105,7 +121,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
         {
             break;
         }
-        if (!renderer.renderObject(swapchain, cube, pipeline))
+        if (!renderer.render(swapchain, pipeline))
         {
             logicalDevice.releaseCommandPool();
             logicalDevice.initializeCommandPool();
@@ -116,10 +132,10 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     }
     logicalDevice.getVkLogicalDevice().waitIdle();
     manager->release(logicalDevice);
+    textureManager->release(logicalDevice);
     pipeline.release(logicalDevice);
     swapchain.release();
     logicalDevice.release();
     instance.release();
-    ///< TODO: destroy more think, see validation layer
     return 0;
 }

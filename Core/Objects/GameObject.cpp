@@ -8,12 +8,14 @@
 #include "LogicalDevice.h"
 
 object::GameObject::GameObject(const graphics::LogicalDevice & logicalDevice,
+                               const std::string & levelIdentifier,
                                const std::string & identifier,
                                const Math::Vector3F & position,
                                const Math::Vector3F & color,
                                const Math::Vector3F & scale /*=Math::Vector3F(1, 1, 1)*/,
-                               const Math::Vector3F & rotate /*=Math::Vector3F(0, 0, 0)*/):
+                               const SRotation & rotate /*=SRotation{0, Vector3F(0, 0, 0)}*/):
 m_strIdentifier(identifier),
+m_strLevelIdentifier(levelIdentifier),
 m_position(position),
 m_color(color),
 m_scale(scale),
@@ -39,7 +41,7 @@ const Math::Vector3F & object::GameObject::getScale() const
     return m_scale;
 }
 
-const Math::Vector3F & object::GameObject::getRotate() const
+const object::SRotation & object::GameObject::getRotate() const
 {
     return m_rotate;
 }
@@ -59,7 +61,7 @@ void object::GameObject::setScale(const Math::Vector3F &scale)
     m_scale = scale;
 }
 
-void object::GameObject::setRotate(const Math::Vector3F &rotate)
+void object::GameObject::setRotate(const SRotation &rotate)
 {
     m_rotate = rotate;
 }
@@ -67,4 +69,9 @@ void object::GameObject::setRotate(const Math::Vector3F &rotate)
 const std::string & object::GameObject::getIdentifier() const
 {
     return m_strIdentifier;
+}
+
+const std::string & object::GameObject::getLevelIdentifier() const
+{
+    return m_strLevelIdentifier;
 }

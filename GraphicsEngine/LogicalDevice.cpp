@@ -147,6 +147,7 @@ void graphics::LogicalDevice::initializeDescriptorLayout()
     uboBinding.pImmutableSamplers = nullptr;
 
     samplerBinding.binding = 1;
+    samplerBinding.descriptorCount = 1;
     samplerBinding.descriptorType = vk::DescriptorType::eCombinedImageSampler;
     samplerBinding.stageFlags = vk::ShaderStageFlagBits::eFragment;
     samplerBinding.pImmutableSamplers = nullptr;
@@ -478,7 +479,7 @@ void graphics::LogicalDevice::generateMipmap(const vk::Image &image, vk::Format 
     barrier.oldLayout = vk::ImageLayout::eTransferDstOptimal;
     barrier.newLayout = vk::ImageLayout::eShaderReadOnlyOptimal;
     barrier.srcAccessMask = vk::AccessFlagBits::eTransferWrite;
-    barrier.dstAccessMask = vk::AccessFlagBits::eTransferRead;
+    barrier.dstAccessMask = vk::AccessFlagBits::eShaderRead;
 
     buffer.pipelineBarrier(
                          vk::PipelineStageFlagBits::eTransfer,

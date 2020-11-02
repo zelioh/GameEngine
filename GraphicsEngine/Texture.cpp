@@ -4,10 +4,14 @@
 // Contain texture data usable by the engine
 //
 
+#define STB_IMAGE_IMPLEMENTATION
+
 #include "Texture.h"
 #include "LogicalDevice.h"
+#include "Swapchain.h"
+#include "SUniformBufferObject.h"
 
-graphics::Texture::Texture(const LogicalDevice & logicalDevice,
+graphics::Texture::Texture(const Swapchain & swapchain,
                            const std::string & name,
                            stbi_uc *pixels,
                            int width, int height, int channels):
@@ -17,7 +21,18 @@ m_iHeight(height),
 m_iChannels(channels),
 m_size(width * height * 4)
 {
-    initializeInternal(logicalDevice, pixels);
+    initializeInternal(swapchain.getParentLogicalDevice(), pixels);
+    createDescriptorSet(swapchain);
+}
+
+void graphics::Texture::release(const LogicalDevice &logicalDevice)
+{
+    const vk::Device & device = logicalDevice.getVkLogicalDevice();
+
+    device.destroyImage(m_texture);
+    device.destroyImageView(m_textureView);
+    device.destroySampler(m_textureSampler);
+    device.freeMemory(m_textureMemory);
 }
 
 const std::string & graphics::Texture::getName() const
@@ -68,6 +83,11 @@ const vk::Sampler & graphics::Texture::getVkTextureSampler() const
 uint32_t graphics::Texture::getMipLevel() const
 {
     return m_iMipLevel;
+}
+
+const vk::DescriptorSet & graphics::Texture::getVkDescriptorSet(const Swapchain &swapchain, int iIndex)
+{
+    return m_descriptorSet.get();
 }
 
 void graphics::Texture::initializeInternal(const graphics::LogicalDevice &logicalDevice, stbi_uc *pixels)
@@ -145,4 +165,50 @@ void graphics::Texture::createSampler(const vk::Device &logicalDevice)
     {
         throw std::runtime_error("Error while creating texture sampler");
     }
+}
+
+void graphics::Texture::createDescriptorSet(const Swapchain & swapchain)
+{
+    const size_t size = swapchain.getVkSwapchainImage().size();
+    std::vector<vk::DescriptorSetLayout> layouts(size, swapchain.getParentLogicalDevice().getDescriptorSetLayout());
+    vk::DescriptorSetAllocateInfo allocateInfo{};
+    const vk::Device & logicalDevice = swapchain.getParentLogicalDevice().getVkLogicalDevice();
+
+    allocateInfo.descriptorPool = swapchain.getVkDescriptorPool();
+    allocateInfo.descriptorSetCount = size;
+    allocateInfo.pSetLayouts = layouts.data();
+    m_descriptorSet = {std::move(logicalDevice.allocateDescriptorSetsUnique(allocateInfo)[0])};
+
+    vk::DescriptorBufferInfo bufferInfo{};
+
+    bufferInfo.buffer = swapchain.getVkGetUniformBuffer(0);
+    bufferInfo.offset = 0;
+    bufferInfo.range = sizeof(SUniformBufferObject);
+
+    vk::DescriptorImageInfo imageInfo{};
+
+    imageInfo.sampler = m_textureSampler;
+    imageInfo.imageView = m_textureView;
+    imageInfo.imageLayout = vk::ImageLayout::eShaderReadOnlyOptimal;
+
+    std::array<vk::WriteDescriptorSet, 2> writeSets{};
+
+    writeSets[0].dstSet = m_descriptorSet.get();
+    writeSets[0].dstBinding = 0;
+    writeSets[0].dstArrayElement = 0;
+    writeSets[0].descriptorType = vk::DescriptorType::eUniformBuffer;
+    writeSets[0].descriptorCount = 1;
+    writeSets[0].pBufferInfo = &bufferInfo;
+    writeSets[0].pImageInfo = nullptr;
+    writeSets[0].pTexelBufferView = nullptr;
+    writeSets[1].dstSet = m_descriptorSet.get();
+    writeSets[1].dstBinding = 1;
+    writeSets[1].dstArrayElement = 0;
+    writeSets[1].descriptorType = vk::DescriptorType::eCombinedImageSampler;
+    writeSets[1].descriptorCount = 1;
+    writeSets[1].pBufferInfo = nullptr;
+    writeSets[1].pImageInfo = &imageInfo;
+    writeSets[1].pTexelBufferView = nullptr;
+
+    logicalDevice.updateDescriptorSets(writeSets.size(), writeSets.data(), 0, nullptr);
 }

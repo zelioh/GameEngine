@@ -79,7 +79,7 @@ namespace Math {
         };
         Matrix operator*(const Matrix & B)
         {
-            Matrix multip(rowSize, B.getCols(), 0.0);
+            Matrix multip(0.0);
             if (colSize == B.getRows())
             {
                 int i;

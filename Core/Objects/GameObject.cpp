@@ -75,3 +75,22 @@ const std::string & object::GameObject::getLevelIdentifier() const
 {
     return m_strLevelIdentifier;
 }
+
+Math::Matrix4F object::GameObject::getTransformationMatrix() const
+{
+    Math::Matrix4F translation = MATRIX4F_IDENTITY;
+
+    translation(3, 0) = m_position.X;
+    translation(3,  1) = m_position.Y;
+    translation(3, 2) = m_position.Z;
+
+    Math::Matrix4F scale = MATRIX4F_IDENTITY;
+
+    scale(0, 0) *= m_scale.X;
+    scale(1, 1) *= m_scale.Y;
+    scale(2, 2) *= m_scale.Z;
+
+    Math::Matrix4F transformation = translation * m_rotate.toMatrix() * scale;
+
+    return transformation;
+}

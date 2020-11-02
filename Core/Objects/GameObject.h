@@ -45,6 +45,8 @@ namespace object {
 
         virtual void release(const graphics::LogicalDevice & logicalDevice) = 0;
 
+        Math::Matrix4F getTransformationMatrix() const;
+
     protected:
         GameObject(const graphics::LogicalDevice & logicalDevice,
                    const std::string & levelIdentifier,

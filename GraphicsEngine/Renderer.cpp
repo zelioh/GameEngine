@@ -8,18 +8,13 @@
 #include "Pipeline.h"
 #include "Objects/SceneManager.h"
 #include "Objects/Scene.h"
+#include "SUniformBufferObject.h"
 
 graphics::Renderer::Renderer(const Swapchain & swapchain):
 m_currentFrame(0),
-m_imageIndex(0),
-m_update(nullptr)
+m_imageIndex(0)
 {
     m_commandBuffer.initialize(swapchain);
-}
-
-void graphics::Renderer::setUpdateCallback(const UpdateCallback &callback)
-{
-    m_update = callback;
 }
 
 //bool graphics::Renderer::renderObject(Swapchain &swapchain,
@@ -68,10 +63,7 @@ bool graphics::Renderer::renderBegin(Swapchain & swapchain)
 
 void graphics::Renderer::renderElement(Swapchain & swapchain, const object::GameObject * object, const Pipeline & pipeline)
 {
-    if (nullptr != m_update)
-    {
-        m_update(swapchain, m_imageIndex);
-    }
+    update(swapchain, m_imageIndex, object);
     m_commandBuffer.render(swapchain, swapchain.getParentLogicalDevice().getCommandPool(), pipeline, object, m_imageIndex);
 }
 
@@ -129,4 +121,32 @@ bool graphics::Renderer::renderEnd(Swapchain & swapchain, const Pipeline & pipel
     }
     m_currentFrame = (m_currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
     return true;
+}
+
+void graphics::Renderer::update(const graphics::Swapchain &swapchain, int imageIndex,
+                                const object::GameObject *object)
+{
+    //
+    // Here ugly brut values do not do that !!!
+    SUniformBufferObject ubo;
+
+    //
+    // TODO: use object Transform
+    ubo.model = object->getTransformationMatrix();
+
+    //
+    // TODO: use camera look at
+    ubo.view = Math::Matrix4F(Math::Vector4F(-0.7071f, -0.4082f, 0.57735f, 0.f),
+                              Math::Vector4F(0.7071f, -0.4082f, 0.57735f, 0.f),
+                              Math::Vector4F(0.f, 0.81649f, 0.57735f, 0.f),
+                              Math::Vector4F(-0.f, -0.f, -3.4641f, 1.f));
+    //
+    // TODO: use perspectif compute
+    ubo.proj = Math::Matrix4F(Math::Vector4F(1.81066f, 0.f, 0.f, 0.f),
+                              Math::Vector4F(0.f, -2.4142f, 0.f, 0.f),
+                              Math::Vector4F(0.f, 0.f, -1.01010f, -1.f),
+                              Math::Vector4F(0.f, 0.f, -0.10101010f, 0.f));;
+    //ubo[1][1] *= -1;
+
+    swapchain.updateUniformBuffer(imageIndex, ubo);
 }

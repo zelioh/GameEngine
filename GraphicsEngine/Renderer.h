@@ -15,12 +15,7 @@ namespace graphics {
     class Renderer
     {
     public:
-        using UpdateCallback = std::function<void(const Swapchain &, int)>;
-
         Renderer(const Swapchain & swapchain);
-
-        void setUpdateCallback(const UpdateCallback & callback);
-
         //
         // Depreased
         //bool renderObject(Swapchain & swapchain, const object::GameObject * object, const Pipeline & pipeline);
@@ -33,10 +28,11 @@ namespace graphics {
         void renderElement(Swapchain & swapchain, const object::GameObject * object, const Pipeline & pipeline);
         bool renderEnd(Swapchain & swapchain, const Pipeline & pipeline);
 
+        void update(const graphics::Swapchain & swapchain, int imageIndex, const object::GameObject * object);
+
         size_t m_currentFrame;
         uint32_t m_imageIndex;
         CommandBuffer m_commandBuffer;
-        UpdateCallback m_update;
     };
 
 }

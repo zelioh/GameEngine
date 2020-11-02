@@ -16,7 +16,7 @@ namespace object
         float angle; ///< degree value of the rotation
         Math::Vector3F axis; ///< axis value of rotation
 
-        Math::Matrix4F toMatrix();
+        Math::Matrix4F toMatrix() const;
     };
 }
 

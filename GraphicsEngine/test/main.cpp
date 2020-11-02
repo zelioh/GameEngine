@@ -24,38 +24,6 @@
 
 #include <chrono>
 
-void update(const graphics::Swapchain & swapchain, int imageIndex)
-{
-    static auto startTime = std::chrono::high_resolution_clock::now();
-
-    auto currentTime = std::chrono::high_resolution_clock::now();
-    float time = std::chrono::duration<float, std::chrono::seconds::period>(currentTime - startTime).count();
-
-    //
-    // Here ugly brut values do not do that !!!
-    SUniformBufferObject ubo;
-
-    //
-    // TODO: use object Transform
-    ubo.model = object::SRotation{90.f * time, Math::Vector3F(0.f, 0.f, 1.f)}.toMatrix();
-
-    //
-    // TODO: use camera look at
-    ubo.view = Math::Matrix4F(Math::Vector4F(-0.7071f, -0.4082f, 0.57735f, 0.f),
-                              Math::Vector4F(0.7071f, -0.4082f, 0.57735f, 0.f),
-                              Math::Vector4F(0.f, 0.81649f, 0.57735f, 0.f),
-                              Math::Vector4F(-0.f, -0.f, -3.4641f, 1.f));
-    //
-    // TODO: use perspectif compute
-    ubo.proj = Math::Matrix4F(Math::Vector4F(1.81066f, 0.f, 0.f, 0.f),
-                              Math::Vector4F(0.f, -2.4142f, 0.f, 0.f),
-                              Math::Vector4F(0.f, 0.f, -1.01010f, -1.f),
-                              Math::Vector4F(0.f, 0.f, -0.10101010f, 0.f));;
-    //ubo[1][1] *= -1;
-
-    swapchain.updateUniformBuffer(imageIndex, ubo);
-}
-
 int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR cmdLine, INT cmdCount)
 {
     graphics::WindowParameters parameters;
@@ -104,23 +72,29 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     object::Cube * cube = manager->createCube(logicalDevice,
                                               myLevelIdentifier,
                                               "TestCube",
-                                              Math::Vector3F(0, 0, 0),
-                                              Math::Vector3F(0.5f, 0.5f, 0.5f));
+                                              Math::Vector3F(0.f, 0.f, 0.f),
+                                              Math::Vector3F(0.5f, 0.5f, 0.5f),
+                                              Math::Vector3F(1.f, 1.f, 1.f),
+                                              object::SRotation{90.f, Math::Vector3F(0.f, 0.f, 1.f)});
 
     graphics::TextureManager * textureManager = graphics::TextureManager::getInstance();
-
     graphics::Texture * texture = textureManager->createTexture(swapchain, "../assets/box.png", "Phoenix");
 
     cube->setTexture(texture);
 
-    renderer.setUpdateCallback(update);
+    auto startTime = std::chrono::high_resolution_clock::now();
+
     while (window)
     {
+        auto currentTime = std::chrono::high_resolution_clock::now();
+        float time = std::chrono::duration<float, std::chrono::seconds::period>(currentTime - startTime).count();
+
         window.handleEvent();
         if (!window)
         {
             break;
         }
+        cube->setRotate(object::SRotation{90.f * time, cube->getRotate().axis});
         if (!renderer.render(swapchain, pipeline))
         {
             logicalDevice.releaseCommandPool();

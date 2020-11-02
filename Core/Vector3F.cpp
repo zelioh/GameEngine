@@ -71,6 +71,17 @@ Vector3F Math::Vector3F::operator/=(const Vector3F& V)
 	return *this;
 }
 
+Vector3F Math::Vector3F::operator/(float value) const
+{
+	const float RScale = 1.f / value;
+	return Vector3F(X * RScale, Y * RScale, Z * RScale);
+}
+
+Vector3F Math::Vector3F::operator*(float value) const
+{
+	return Vector3F(X * value, Y * value, Z * value);
+}
+
 bool Math::Vector3F::operator==(const Vector3F& V) const
 {
 	return X == V.X && Y == V.Y && Z == V.Z;
@@ -79,4 +90,14 @@ bool Math::Vector3F::operator==(const Vector3F& V) const
 bool Math::Vector3F::operator!=(const Vector3F& V) const
 {
 	return X != V.X || Y != V.Y || Z != V.Z;
+}
+
+float Math::Vector3F::Max() const
+{
+	return 0.0f;
+}
+
+Vector3F Math::Vector3F::Max(const Vector3F& value) const
+{
+	return Vector3F();
 }

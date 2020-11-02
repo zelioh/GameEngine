@@ -1,4 +1,7 @@
 #pragma once
+
+#include <math.h>
+
 namespace Math {
 	class Vector3F
 	{
@@ -14,6 +17,7 @@ namespace Math {
 
 		// operator 
 
+
 		Vector3F operator+(const Vector3F& value) const;
 		Vector3F operator+=(const Vector3F& value);
 		Vector3F operator-(const Vector3F& value) const;
@@ -22,8 +26,15 @@ namespace Math {
 		Vector3F operator*=(const Vector3F& value);
 		Vector3F operator/(const Vector3F& value) const;
 		Vector3F operator/=(const Vector3F& value);
+		Vector3F operator/(float value) const;
+		Vector3F operator*(float value) const;
 		bool operator==(const Vector3F& value) const;
 		bool operator!=(const Vector3F& value) const;
+			
+		float Max() const;
+		Vector3F Max(const Vector3F& value) const;
+		float Length() const { return sqrtf(this->X * this->X + this->Y * this->Y + this->Z * this->Z); }
+		float Dot(const Vector3F& v) const { return this->X * v.X + this->Y * v.Y + this->Z * v.Z; }
 	};
 };
 

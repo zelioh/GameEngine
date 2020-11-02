@@ -11,6 +11,7 @@
 #include <string>
 #include "Vector3F.h"
 #include "LogicalDevice.h"
+#include "SRotation.h"
 
 namespace object {
 
@@ -38,7 +39,8 @@ namespace object {
                           const Math::Vector3F & position,
                           const Math::Vector3F & color = Math::Vector3F(1.f, 1.f, 1.f),
                           const Math::Vector3F & scale = Math::Vector3F(1.f, 1.f, 1.f),
-                          const Math::Vector3F & rotate = Math::Vector3F(0.f, 0.f, 0.f));
+                          const SRotation & rotate = {0.f, Math::Vector3F(0.f, 0.f, 0.f)});
+
         /**
          * Work like createCube but the identifier is create automaticly
          * with the patern CUBE_XXX where XXX is it number in the pool
@@ -52,7 +54,7 @@ namespace object {
                                   const Math::Vector3F & position,
                                   const Math::Vector3F & color = Math::Vector3F(1.f, 1.f, 1.f),
                                   const Math::Vector3F & scale = Math::Vector3F(1.f, 1.f, 1.f),
-                                  const Math::Vector3F & rotate = Math::Vector3F(0.f, 0.f, 0.f));
+                                  const SRotation & rotate = {0.f, Math::Vector3F(0.f, 0.f, 0.f)});
         /**
          * Find a Cube instance in the pool. Assert if the cube doesn't exist
          * @param identifier    Cube identifier in the pool

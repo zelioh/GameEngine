@@ -26,7 +26,7 @@ object::Cube * object::CubeManager::createCube(const graphics::LogicalDevice & l
                                                const Math::Vector3F &position,
                                                const Math::Vector3F &color,
                                                const Math::Vector3F & scale /*=Math::Vector3F(1,1,1)*/,
-                                               const Math::Vector3F & rotate /*=Math::Vector3F(0,0,0)*/
+                                               const SRotation & rotate /*=Math::Vector3F(0,0,0)*/
                                                )
 {
     if (!SceneManager::getInstance()->isExisting(levelIdentifier))
@@ -52,7 +52,7 @@ object::Cube * object::CubeManager::createCubeAutoName(const graphics::LogicalDe
                                                        const Math::Vector3F &position,
                                                        const Math::Vector3F &color,
                                                        const Math::Vector3F & scale /*=Math::Vector3F(1,1,1)*/,
-                                                       const Math::Vector3F & rotate /*=Math::Vector3F(0,0,0)*/
+                                                       const SRotation & rotate /*=Math::Vector3F(0,0,0)*/
                                                         )
 {
     const size_t size = m_pool.size();

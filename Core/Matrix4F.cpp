@@ -36,10 +36,6 @@ Matrix<float, 4, 4>(0.f)
     m_matrix[3][3] = lastLine.W;
 }
 
-Math::Vector4F Math::Matrix4F::operator[](int rowIndex)
-{
-    return Vector4F(m_matrix[rowIndex][0],
-                    m_matrix[rowIndex][1],
-                    m_matrix[rowIndex][2],
-                    m_matrix[rowIndex][3]);
-}
+Math::Matrix4F::Matrix4F(float values[4][4]):
+Matrix<float, 4, 4>(values)
+{}

@@ -37,16 +37,14 @@ void update(const graphics::Swapchain & swapchain, int imageIndex)
 
     //
     // TODO: use object Transform
-    ubo.model = Math::Matrix4F(Math::Vector4F(1.f, 0.f, 0.f, 0.f),
-                               Math::Vector4F(0.f, 1.f, 0.f, 0.f),
-                               Math::Vector4F(0.f, 0.f, 1.f, 0.f),
-                               Math::Vector4F(0.f, 0.f, 0.f, 1.f));
+    ubo.model = object::SRotation{90.f * time, Math::Vector3F(0.f, 0.f, 1.f)}.toMatrix();
+
     //
     // TODO: use camera look at
     ubo.view = Math::Matrix4F(Math::Vector4F(-0.7071f, -0.4082f, 0.57735f, 0.f),
                               Math::Vector4F(0.7071f, -0.4082f, 0.57735f, 0.f),
                               Math::Vector4F(0.f, 0.81649f, 0.57735f, 0.f),
-                              Math::Vector4F(-0.f, -0.f, -3.4641f, 1.f));;
+                              Math::Vector4F(-0.f, -0.f, -3.4641f, 1.f));
     //
     // TODO: use perspectif compute
     ubo.proj = Math::Matrix4F(Math::Vector4F(1.81066f, 0.f, 0.f, 0.f),

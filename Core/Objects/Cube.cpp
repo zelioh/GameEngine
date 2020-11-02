@@ -13,7 +13,7 @@ object::Cube::Cube(const graphics::LogicalDevice & logicalDevice,
                    const Math::Vector3F &position,
                    const Math::Vector3F &color /*=Math::Vector3F(1, 1, 1)*/,
                    const Math::Vector3F & scale /*=Math::Vector3F(1, 1, 1)*/,
-                   const Math::Vector3F & rotate /*=Math::Vector3F(0, 0, 0)*/):
+                   const SRotation & rotate /*=Math::Vector3F(0, 0, 0)*/):
 GameObject(logicalDevice, levelIdentifier, identifier, position, color, scale, rotate)
 {
     //

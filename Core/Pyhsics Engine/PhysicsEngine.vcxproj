@@ -264,7 +264,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PhysicsEngine.cpp" />
     <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\BoundingBox.h" />
     <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\BoundingBox.cpp" />
     <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\BoundingSphere.h" />
@@ -277,7 +276,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\IntersectData.cpp" />
     <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\PhysicsObject.h" />
     <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\PhysicsObject.cpp" />
-    <ClInclude Include="PhysicsEngine.h" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\PhysicsEngine.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\PhysicsEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\ZERO_CHECK.vcxproj">

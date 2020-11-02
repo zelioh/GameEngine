@@ -19,7 +19,7 @@
     <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\PhysicsObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicsEngine.cpp">
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\PhysicsEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -42,7 +42,7 @@
     <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\PhysicsObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicsEngine.h">
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Pyhsics Engine\PhysicsEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

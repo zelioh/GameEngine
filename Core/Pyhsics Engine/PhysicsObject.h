@@ -15,6 +15,7 @@ public:
 	Vector3F GetPosition() const { return position; };
 	Vector3F GetOldPosition() const { return oldPosition; };
 	Vector3F GetVelocity() const { return velocity; };
+	const Collider& GetCollider();
 	void SetPosition(Vector3F& Pos) { this->position = Pos; };
 	void SetOldPosition(Vector3F& OldPos) { this->oldPosition = OldPos; };
 	void SetVelocity(Vector3F& Velocity) { this->velocity = Velocity; };

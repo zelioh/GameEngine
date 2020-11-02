@@ -1,6 +1,6 @@
 #include "IntersectData.h"
 
-IntersectData::IntersectData(const bool DoesIntersect, const float Distance) : doesIntersect(DoesIntersect), distance(Distance)
+IntersectData::IntersectData(const bool DoesIntersect, const Vector3F& Direction) : doesIntersect(DoesIntersect), direction(Direction)
 {
 }
 

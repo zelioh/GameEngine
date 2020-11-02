@@ -35,6 +35,9 @@ namespace Math {
 		Vector3F Max(const Vector3F& value) const;
 		float Length() const { return sqrtf(this->X * this->X + this->Y * this->Y + this->Z * this->Z); }
 		float Dot(const Vector3F& v) const { return this->X * v.X + this->Y * v.Y + this->Z * v.Z; }
+		Vector3F Normalized() const;
+		Vector3F Reflection(Vector3F& normal) const;
+		
 	};
 };
 

@@ -25,5 +25,5 @@ IntersectData Collider::Intersect(const Collider& other) const
 	// add other Collider
 
 
-	return IntersectData(false, 0);
+	return IntersectData(false, Vector3F(0,0,0));
 }

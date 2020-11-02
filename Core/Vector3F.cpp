@@ -101,3 +101,15 @@ Vector3F Math::Vector3F::Max(const Vector3F& value) const
 {
 	return Vector3F();
 }
+
+Vector3F Math::Vector3F::Normalized() const
+{
+		float length = Length();
+		return Vector3F(X / length, Y / length, Z / length);
+}
+
+Vector3F Math::Vector3F::Reflection(Vector3F& normal) const
+{
+	Vector3F temp = *this - (normal * (this->Dot(normal) * 2));
+	return temp;
+}

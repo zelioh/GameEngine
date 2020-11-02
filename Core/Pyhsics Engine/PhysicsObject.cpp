@@ -18,4 +18,14 @@ void PhysicsObject::Calculate(float DeltaTime)
 	this->position += this->velocity * DeltaTime;
 }
 
+const Collider& PhysicsObject::GetCollider()
+{
+	Vector3F translation = position - oldPosition;
+	//Update old position
+	oldPosition = position;
+	//Move collider by distance moved.
+	collider->Transform(translation);
+	return *collider;
+}
+
 

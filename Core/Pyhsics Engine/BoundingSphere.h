@@ -18,7 +18,7 @@ public:
 
 	float GetRadius()const { return radius; }
 private:
-	const Vector3F center;
+	Vector3F center;
 	const float radius;
 
 };

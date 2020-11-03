@@ -12,6 +12,8 @@
 #include "Objects/GameObject.h"
 #include "Texture.h"
 #include "SUniformBufferObject.h"
+#include "Math_utils.h"
+#include "TextureManager.h"
 
 void graphics::CommandBuffer::initialize(const Swapchain & swapchain)
 {
@@ -82,11 +84,11 @@ void graphics::CommandBuffer::render(const Swapchain &swapchain,
                               Math::Vector4F(-0.f, -0.f, -3.4641f, 1.f));
     //
     // TODO: use perspectif compute
-    ubo.proj = Math::Matrix4F(Math::Vector4F(1.81066f, 0.f, 0.f, 0.f),
-                              Math::Vector4F(0.f, -2.4142f, 0.f, 0.f),
-                              Math::Vector4F(0.f, 0.f, -1.01010f, -1.f),
-                              Math::Vector4F(0.f, 0.f, -0.10101010f, 0.f));;
-    //ubo[1][1] *= -1;
+    vk::Extent2D extent = swapchain.getVkSwapchainExtent();
+    float width = static_cast<float>(extent.width);
+    float height = static_cast<float>(extent.height);
+    ubo.proj = Math::utils::perspective(45.0f, width / height, 0.1f, 10.f);
+    ubo.proj(1, 1) *= -1;
 
     m_commandBuffers[imageIndex].pushConstants(pipeline.getVkPipelineLayout(),
                                                vk::ShaderStageFlagBits::eAllGraphics,
@@ -99,11 +101,24 @@ void graphics::CommandBuffer::render(const Swapchain &swapchain,
     vk::Buffer vertexBuffers[] = {object->getVertexBuffer()};
     vk::DeviceSize deviceSize[] = {0};
 
-    const vk::DescriptorSet & descriptorSet{object->getTexture()->getVkDescriptorSet(swapchain ,imageIndex)};
-
     m_commandBuffers[imageIndex].bindVertexBuffers(0, 1, vertexBuffers, deviceSize);
     m_commandBuffers[imageIndex].bindIndexBuffer(object->getIndexBuffer(), 0, vk::IndexType::eUint32);
     if (nullptr != object->getTexture()) {
+        const vk::DescriptorSet & descriptorSet{object->getTexture()->getVkDescriptorSet(swapchain ,imageIndex)};
+
+        m_commandBuffers[imageIndex].bindDescriptorSets(vk::PipelineBindPoint::eGraphics,
+                                                        pipeline.getVkPipelineLayout(),
+                                                        0,
+                                                        1,
+                                                        &descriptorSet,
+                                                        0,
+                                                        nullptr);
+    } else {
+        Texture * defaultTexture = TextureManager::getInstance()->createTexture(swapchain,
+                                                                                "../assets/white.png",
+                                                                              "Default_texture_engine");
+        const vk::DescriptorSet & descriptorSet{defaultTexture->getVkDescriptorSet(swapchain ,imageIndex)};
+
         m_commandBuffers[imageIndex].bindDescriptorSets(vk::PipelineBindPoint::eGraphics,
                                                         pipeline.getVkPipelineLayout(),
                                                         0,

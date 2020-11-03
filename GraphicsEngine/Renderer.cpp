@@ -17,16 +17,6 @@ m_imageIndex(0)
     m_commandBuffer.initialize(swapchain);
 }
 
-//bool graphics::Renderer::renderObject(Swapchain &swapchain,
-//                                      const object::GameObject *object,
-//                                      const Pipeline & pipeline)
-//{
-//    if (!renderBegin(swapchain, object))
-//        return false;
-//    renderElement(swapchain, object, pipeline);
-//    return renderEnd(swapchain, pipeline);
-//}
-
 bool graphics::Renderer::render(Swapchain &swapchain, const Pipeline &pipeline)
 {
     if (!renderBegin(swapchain))
@@ -63,7 +53,6 @@ bool graphics::Renderer::renderBegin(Swapchain & swapchain)
 
 void graphics::Renderer::renderElement(Swapchain & swapchain, const object::GameObject * object, const Pipeline & pipeline)
 {
-    //update(swapchain, m_imageIndex, object);
     m_commandBuffer.render(swapchain, swapchain.getParentLogicalDevice().getCommandPool(), pipeline, object, m_imageIndex);
 }
 

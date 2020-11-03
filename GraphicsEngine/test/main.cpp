@@ -81,7 +81,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
                                               myLevelIdentifier,
                                               "TestCube2",
                                               Math::Vector3F(1.f, 0.5f, 0.f),
-                                              Math::Vector3F(0.5f, 0.5f, 0.5f),
+                                              Math::Vector3F(1.f, 1.f, 1.f),
                                               Math::Vector3F(0.5f, 0.5f, 0.5f),
                                               object::SRotation{90.f, Math::Vector3F(0.f, 0.f, 1.f)});
 
@@ -114,7 +114,6 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     graphics::Texture * phoenixTexture = textureManager->createTexture(swapchain, "../assets/texture.jpg", "Phoenix");
 
     cube1->setTexture(boxTexture);
-    cube2->setTexture(phoenixTexture);
     cube3->setTexture(phoenixTexture);
     cube4->setTexture(phoenixTexture);
     cube5->setTexture(phoenixTexture);
@@ -146,6 +145,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     logicalDevice.getVkLogicalDevice().waitIdle();
     manager->release(logicalDevice);
     textureManager->release(logicalDevice);
+    object::SceneManager::getInstance()->release();
     pipeline.release(logicalDevice);
     swapchain.release();
     logicalDevice.release();

@@ -8,7 +8,8 @@ set(OBJECT_SRC
 		Objects/CubeManager.cpp Objects/CubeManager.h
 		Objects/ITextureObject.cpp Objects/ITextureObject.h
 		Objects/Scene.cpp Objects/Scene.h
-		Objects/SceneManager.cpp Objects/SceneManager.h Objects/SRotation.cpp Objects/SRotation.h)
+		Objects/SceneManager.cpp Objects/SceneManager.h
+		Objects/SRotation.cpp Objects/SRotation.h)
 
 add_library(Core OBJECT
 			Core.cpp Core.h
@@ -17,6 +18,7 @@ add_library(Core OBJECT
 			Vector4F.h Vector4F.cpp
 			Matrix.h
 			Matrix4F.cpp Matrix4F.h
+			Math_utils.inl Math_utils.h
 			${OBJECT_SRC}
 			)
 

@@ -28,31 +28,38 @@ namespace object {
 
         /**
          * Create a Light instance. If Light already exist return the existing Light
+		 * @param levelIdentifier       Identifier of the scene where the light is created
+		 * @param cameraIdentifier      Identifier of the light in a scene
          * @param position				Light position in the world
 		 * @param strength				Light strength
          * @param specular              Light reflection by an object
          * @param color					Light color
          * @return new Light instance or existing instance
          */
-        Light * createLight(const std::string & levelIdentifier,
+        Light * createLight(  const std::string & levelIdentifier,
                               const std::string & LightIdentifier,
                               const Math::Vector3F & position,
-                              const Math::Vector3F & target,
-                              const Math::Vector3F & upAxis);
+                              const float & strength,
+							  const float & specular,
+                              const Math::Vector3F & color);
 
         /**
          * Work like createCube but the identifier is create automaticly
          * with the patern Light_XXX where XXX is it number in the pool
-         * @param levelIdentifier   Identifier of scene where the Light must be create
-         * @param position          Light position in the world
-         * @param target            Where the Light is looking
-         * @param upAxis            Up axis of the world. In this engine Z.
+        * @param levelIdentifier       Identifier of the scene where the light is created
+		 * @param cameraIdentifier      Identifier of the light in a scene
+         * @param position				Light position in the world
+		 * @param strength				Light strength
+         * @param specular              Light reflection by an object
+         * @param color					Light color
          * @return new Light instance or existing instance
          */
-        Light * createLightAutoName(const std::string & levelIdentifier,
-                                      const Math::Vector3F & position,
-                                      const Math::Vector3F & target,
-                                      const Math::Vector3F & upAxis);
+        Light * createLightAutoName(const std::string& levelIdentifier,
+									const std::string& LightIdentifier,
+									const Math::Vector3F& position,
+									const float & strength,
+									const float & specular,
+									const Math::Vector3F& color);
 
         /**
          * Find a Light in the pool
@@ -82,4 +89,4 @@ namespace object {
 
 }
 
-#endif //GAMEENGINE_LightMANAGER_H
+#endif //GAMEENGINE_LIGHTMANAGER_H

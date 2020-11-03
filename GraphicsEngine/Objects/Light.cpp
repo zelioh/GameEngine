@@ -25,6 +25,16 @@ const Math::Vector3F & object::Light::getColor() const
 	return m_color;
 }
 
+const std::string & object::Light::getLevelIdentifier() const
+{
+	return m_strLevelIdentifier;
+}
+
+const std::string & object::Light::getIdentifier() const
+{
+	return m_strIdentifier;
+}
+
 void object::Light::setPosition(const Math::Vector3F &position)
 {
     m_position = position;

@@ -21,6 +21,8 @@ namespace object {
         const float & getStrength() const;
         const float & getSpecular() const;
 		const Math::Vector3F & getColor() const;
+		const std::string & getLevelIdentifier() const;
+		const std::string & getIdentifier() const;
 
         void setPosition(const Math::Vector3F & position);
         void setStrength(const float & strength);
@@ -28,15 +30,20 @@ namespace object {
 		void setColor(const Math::Vector3F & color);
 
     private:
-        Light( const Math::Vector3F & position,
-               const Math::float & strength,
-			   const Math::float & specular,
+        Light( const std::string & levelIdentifier,
+			   const std::string & identifier,
+			   const Math::Vector3F & position,
+               const float & strength,
+			   const float & specular,
                const Math::Vector3F & color);
 
         Math::Vector3F m_position;
         float m_strength;
         float m_specular;
         Math::Vector3F m_color;
+
+		std::string m_strLevelIdentifier;
+		std::string m_strIdentifier;
     };
 
 }

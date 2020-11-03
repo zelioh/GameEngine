@@ -17,11 +17,12 @@ object::LightManager * object::LightManager::getInstance()
     return manager;
 }
 
-object::Light * object::LightManager::createLight(const std::string &levelIdentifier,
-                                                     const std::string &LightIdentifier,
-                                                     const Math::Vector3F &position,
-                                                     const Math::Vector3F &target,
-                                                     const Math::Vector3F &upAxis)
+object::Light * object::LightManager::createLight(const std::string& levelIdentifier,
+												  const std::string& LightIdentifier,
+												  const Math::Vector3F& position,
+												  const float & strength,
+												  const float & specular,
+												  const Math::Vector3F& color)
 {
     if (!SceneManager::getInstance()->isExisting(levelIdentifier))
     {
@@ -29,22 +30,24 @@ object::Light * object::LightManager::createLight(const std::string &levelIdenti
     }
 
     //
-    // Search if cube already exist
+    // Search if light already exist
     auto search = m_pool[levelIdentifier].find(LightIdentifier);
 
     if (search != m_pool[levelIdentifier].end() && m_pool[levelIdentifier][LightIdentifier] != nullptr) {
         return m_pool[levelIdentifier][LightIdentifier];
     }
 
-    // Create cube instance
+    // Create light instance
     m_pool[levelIdentifier][LightIdentifier] = new Light(levelIdentifier, LightIdentifier, position, target, upAxis);
     return m_pool[levelIdentifier][LightIdentifier];
 }
 
-object::Light * object::LightManager::createLightAutoName(const std::string &levelIdentifier,
-                                                             const Math::Vector3F &position,
-                                                             const Math::Vector3F &target,
-                                                             const Math::Vector3F &upAxis)
+object::Light * object::LightManager::createLightAutoName(const std::string& levelIdentifier,
+														  const std::string& LightIdentifier,
+														  const Math::Vector3F& position,
+														  const float & strength,
+														  const float & specular,
+														  const Math::Vector3F& color)
 {
     if (!SceneManager::getInstance()->isExisting(levelIdentifier))
     {

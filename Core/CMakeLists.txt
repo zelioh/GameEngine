@@ -2,17 +2,6 @@
 # project specific logic here.
 #
 
-set(OBJECT_SRC
-		Objects/GameObject.cpp Objects/GameObject.h
-		Objects/Cube.cpp Objects/Cube.h
-		Objects/CubeManager.cpp Objects/CubeManager.h
-		Objects/ITextureObject.cpp Objects/ITextureObject.h
-		Objects/Scene.cpp Objects/Scene.h
-		Objects/SceneManager.cpp Objects/SceneManager.h
-		Objects/SRotation.cpp Objects/SRotation.h
-		Objects/CameraManager.cpp Objects/CameraManager.h
-		Objects/Camera.cpp Objects/Camera.h)
-
 add_library(Core OBJECT
 			Core.cpp Core.h
 			Vector2F.h Vector2F.cpp
@@ -21,7 +10,6 @@ add_library(Core OBJECT
 			Matrix.h
 			Matrix4F.cpp Matrix4F.h
 			Math_utils.inl Math_utils.h
-			${OBJECT_SRC}
 			)
 
 find_package(Vulkan REQUIRED)

@@ -24,7 +24,7 @@ class Cube : public GameObject
 
         void release(const graphics::LogicalDevice &logicalDevice) final;
 
-    private:
+    protected:
         Cube(const graphics::LogicalDevice & logicalDevice,
              const std::string & levelIdentifier,
              const std::string & identifier,

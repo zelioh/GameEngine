@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "CubeManager.h"
 #include "CameraManager.h"
+#include "PlaneManager.h"
 
 object::Scene::Scene(const std::string &identifier):
 m_strIdentifier(identifier),
@@ -20,6 +21,11 @@ std::vector<object::GameObject *> object::Scene::getSceneObjects() const
         auto cubes = CubeManager::getInstance()->getObjectOfLevel(m_strIdentifier);
 
         objects.insert(objects.end(), cubes.begin(), cubes.end());
+    }
+    {
+        auto planes = PlaneManager::getInstance()->getObjectOfLevel(m_strIdentifier);
+
+        objects.insert(objects.end(), planes.begin(), planes.end());
     }
     return objects;
 }

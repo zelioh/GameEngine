@@ -24,6 +24,8 @@
 #include "Math_utils.h"
 #include "Objects/Camera.h"
 #include "Objects/CameraManager.h"
+#include "Objects/Plane.h"
+#include "Objects/PlaneManager.h"
 
 #include <chrono>
 
@@ -121,6 +123,15 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     cube4->setTexture(phoenixTexture);
     cube5->setTexture(phoenixTexture);
 
+    object::PlaneManager * planeManager = object::PlaneManager::getInstance();
+
+    object::Plane * plane = planeManager->createPlane(logicalDevice,
+                                                      myLevelIdentifier,
+                                                      "Cool_plane",
+                                                      Math::Vector3F(0.f, 0.f, -2.f),
+                                                      Math::Vector3F(1.f, 0.2f, 0.4f),
+                                                      Math::Vector3F(3.f, 3.f, 3.f));
+
     object::Camera * camera = object::CameraManager::getInstance()->createCamera(myLevelIdentifier,
                                                                                  "Camera_one",
                                                                                  Math::Vector3F(0.f, 3.f, -2.f),
@@ -152,7 +163,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
         cube3->setRotate(object::SRotation{90.f * time, Math::Vector3F(1.f, 0.f, 0.f)});
         Math::Vector3F p = camera->getPosition();
 
-        float camZ = sin(time) * 10.0f;
+        float camZ = sin(time) + 2.0f;
 
         p.Z = camZ;
 

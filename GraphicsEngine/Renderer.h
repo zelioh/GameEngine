@@ -37,7 +37,8 @@ namespace graphics {
         void renderElement(Swapchain & swapchain,
                            const object::GameObject * object,
                            const Pipeline & pipeline,
-                           const Math::Matrix4F & projectionMatrix);
+                           const Math::Matrix4F & projectionMatrix,
+                           const Math::Matrix4F & viewMatrix);
         bool renderEnd(Swapchain & swapchain, const Pipeline & pipeline);
 
         void update(const graphics::Swapchain & swapchain, int imageIndex, const object::GameObject * object);

@@ -12,7 +12,6 @@
 #include "Objects/GameObject.h"
 #include "Texture.h"
 #include "SUniformBufferObject.h"
-#include "Math_utils.h"
 #include "TextureManager.h"
 
 void graphics::CommandBuffer::initialize(const Swapchain & swapchain)
@@ -68,21 +67,14 @@ void graphics::CommandBuffer::render(const Swapchain &swapchain,
                                      const Pipeline & pipeline,
                                      const object::GameObject * object,
                                      uint32_t imageIndex,
-                                     const Math::Matrix4F & projectionMatrix
+                                     const Math::Matrix4F & projectionMatrix,
+                                     const Math::Matrix4F & viewMatrix
                                      )
 {
-    //
-    // Here ugly brut values do not do that !!!
     SUniformBufferObject ubo;
 
     ubo.model = object->getTransformationMatrix();
-
-    //
-    // TODO: use camera look at
-    ubo.view = Math::Matrix4F(Math::Vector4F(-0.7071f, -0.4082f, 0.57735f, 0.f),
-                              Math::Vector4F(0.7071f, -0.4082f, 0.57735f, 0.f),
-                              Math::Vector4F(0.f, 0.81649f, 0.57735f, 0.f),
-                              Math::Vector4F(-0.f, -0.f, -3.4641f, 1.f));
+    ubo.view = viewMatrix;
     ubo.proj = projectionMatrix;
     ubo.proj(1, 1) *= -1;
 

@@ -9,7 +9,9 @@ set(OBJECT_SRC
 		Objects/ITextureObject.cpp Objects/ITextureObject.h
 		Objects/Scene.cpp Objects/Scene.h
 		Objects/SceneManager.cpp Objects/SceneManager.h
-		Objects/SRotation.cpp Objects/SRotation.h)
+		Objects/SRotation.cpp Objects/SRotation.h
+		Objects/CameraManager.cpp Objects/CameraManager.h
+		Objects/Camera.cpp Objects/Camera.h)
 
 add_library(Core OBJECT
 			Core.cpp Core.h

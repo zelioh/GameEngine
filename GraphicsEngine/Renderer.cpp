@@ -9,6 +9,8 @@
 #include "Objects/SceneManager.h"
 #include "Objects/Scene.h"
 #include "SUniformBufferObject.h"
+#include "Objects/Camera.h"
+#include "Objects/CameraManager.h"
 
 graphics::Renderer::Renderer(const Swapchain & swapchain):
 m_currentFrame(0),
@@ -26,12 +28,19 @@ bool graphics::Renderer::render(Swapchain &swapchain, const Pipeline &pipeline)
     }
 
     object::Scene * scene = object::SceneManager::getInstance()->getCurrentScene();
-
     std::vector<object::GameObject *> sceneObject = scene->getSceneObjects();
+
+    Math::Matrix4F viewMatrix = MATRIX4F_IDENTITY;
+    object::Camera * camera = scene->getCurrentCamera();
+
+    if (nullptr != camera)
+    {
+        viewMatrix = camera->getViewMatrix();
+    }
 
     for (object::GameObject * object : sceneObject)
     {
-        renderElement(swapchain, object, pipeline, m_projection);
+        renderElement(swapchain, object, pipeline, m_projection, viewMatrix);
     }
     return renderEnd(swapchain, pipeline);
 }
@@ -60,14 +69,16 @@ bool graphics::Renderer::renderBegin(Swapchain & swapchain)
 void graphics::Renderer::renderElement(Swapchain & swapchain,
                                        const object::GameObject * object,
                                        const Pipeline & pipeline,
-                                       const Math::Matrix4F & projectionMatrix)
+                                       const Math::Matrix4F & projectionMatrix,
+                                       const Math::Matrix4F & viewMatrix)
 {
     m_commandBuffer.render(swapchain,
                            swapchain.getParentLogicalDevice().getCommandPool(),
                            pipeline,
                            object,
                            m_imageIndex,
-                           m_projection);
+                           m_projection,
+                           viewMatrix);
 }
 
 bool graphics::Renderer::renderEnd(Swapchain & swapchain, const Pipeline & pipeline)

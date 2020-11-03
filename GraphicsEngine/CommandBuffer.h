@@ -38,7 +38,8 @@ namespace graphics {
                     const Pipeline & pipeline,
                     const object::GameObject * object,
                     uint32_t imageIndex,
-                    const Math::Matrix4F & projectionMatrix);
+                    const Math::Matrix4F & projectionMatrix,
+                    const Math::Matrix4F & viewMatrix);
         void endRender(uint32_t imageIndex, const Swapchain & swapchain);
         const vk::CommandBuffer & getCommandBuffer(uint32_t imageIndex) const;
 

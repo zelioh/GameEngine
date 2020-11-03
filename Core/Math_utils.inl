@@ -20,3 +20,22 @@ Math::Matrix4F Math::utils::perspective(float fovy, float aspect, float zNear, f
     result(3, 2) = -(zFar * zNear) / (zFar - zNear);
     return result;
 }
+
+Math::Vector3F Math::utils::normalize(const Vector3F &vector)
+{
+    return vector / sqrt((vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z));
+}
+
+Math::Vector3F Math::utils::cross(const Vector3F &first, const Vector3F &second)
+{
+    return Vector3F(first.Y * second.Z - second.Y * first.Z,
+                    first.Z * second.X - second.Z * first.X,
+                    first.X * second.Y - second.X * first.Y);
+}
+
+float Math::utils::dot(const Vector3F &first, const Vector3F &second)
+{
+    Vector3F tmp = first * second;
+
+    return tmp.X + tmp.Y + tmp.Z;
+}

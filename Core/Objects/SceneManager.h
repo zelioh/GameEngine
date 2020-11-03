@@ -11,6 +11,7 @@
 namespace object {
 
     class Scene;
+    class Camera;
 
     class SceneManager
     {
@@ -21,9 +22,7 @@ namespace object {
         Scene * getCurrentScene();
         const std::string & getCurrentSceneIdentifier() const;
         bool releaseScene(const std::string & identifier);
-
         void release();
-
         bool isExisting(const std::string & identifier);
 
     private:

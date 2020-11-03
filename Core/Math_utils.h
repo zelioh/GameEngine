@@ -8,10 +8,14 @@
 namespace Math
 {
     class Matrix4F;
+    class Vector3F;
 
     namespace utils
     {
         inline Matrix4F perspective(float fovy, float aspect, float zNear, float zFar);
+        inline Vector3F normalize(const Vector3F & vector);
+        inline Vector3F cross(const Vector3F & first, const Vector3F & second);
+        inline float dot(const Vector3F & first, const Vector3F & second);
     }
 }
 

@@ -4,6 +4,7 @@
 
 #include "SceneManager.h"
 #include "Scene.h"
+#include "Camera.h"
 
 object::SceneManager * object::SceneManager::getInstance()
 {

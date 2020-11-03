@@ -55,7 +55,11 @@ object::Cube * object::CubeManager::createCubeAutoName(const graphics::LogicalDe
                                                        const SRotation & rotate /*=Math::Vector3F(0,0,0)*/
                                                         )
 {
-    const size_t size = m_pool.size();
+    if (!SceneManager::getInstance()->isExisting(levelIdentifier))
+    {
+        return nullptr;
+    }
+    const size_t size = m_pool[levelIdentifier].size();
     std::string identifier = "CUBE_" + std::to_string(size);
 
     return createCube(logicalDevice, identifier, levelIdentifier, position, color, scale, rotate);
@@ -80,12 +84,11 @@ bool object::CubeManager::deleteCube(const std::string & identifier,
                                      const std::string & levelIdentifier,
                                      const graphics::LogicalDevice & logicalDevice)
 {
-
-    auto search = m_pool.find(identifier);
-
-    if (search == m_pool.end()) {
+    if (m_pool.find(levelIdentifier) == m_pool.end() ||
+        m_pool[levelIdentifier].find(identifier) == m_pool[levelIdentifier].end()) {
         return false;
     }
+    
     m_pool[levelIdentifier][identifier]->release(logicalDevice);
     delete m_pool[levelIdentifier][identifier];
     m_pool[levelIdentifier][identifier] = nullptr;

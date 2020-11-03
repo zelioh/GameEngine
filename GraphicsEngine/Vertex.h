@@ -13,19 +13,16 @@
 
 namespace graphics {
 
-    class Vertex {
-    public:
-        Vertex() = default;
-        Vertex(const Math::Vector3F & position, const Math::Vector3F & color, const Math::Vector2F & texCoord);
+    struct Vertex {
 
-        static vk::VertexInputBindingDescription getBindDescription();
-        static std::array<vk::VertexInputAttributeDescription, 3> getAttributeDescription();
-        bool operator==(const Vertex &other) const;
-
-    public:
         Math::Vector3F m_position;
         Math::Vector3F m_color;
         Math::Vector2F m_texCoord;
+        Math::Vector3F m_normal;
+
+        static vk::VertexInputBindingDescription getBindDescription();
+        static std::array<vk::VertexInputAttributeDescription, 4> getAttributeDescription();
+        bool operator==(const Vertex &other) const;
     };
 }
 

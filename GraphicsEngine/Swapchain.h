@@ -18,7 +18,7 @@ struct SUniformBufferObject;
 namespace graphics {
 
     class LogicalDevice;
-    class Vertex;
+    struct Vertex;
     class Texture;
     class Window;
 

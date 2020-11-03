@@ -46,7 +46,7 @@ void graphics::Pipeline::initialize(const LogicalDevice &logicalDevice,
     // Set vertex input information
     vk::PipelineVertexInputStateCreateInfo vertexInputInfo{};
     vk::VertexInputBindingDescription bind = graphics::Vertex::getBindDescription();
-    std::array<vk::VertexInputAttributeDescription, 3> attributes = graphics::Vertex::getAttributeDescription();
+    std::array<vk::VertexInputAttributeDescription, 4> attributes = graphics::Vertex::getAttributeDescription();
 
     vertexInputInfo.vertexBindingDescriptionCount = 1;
     vertexInputInfo.pVertexBindingDescriptions = &bind;

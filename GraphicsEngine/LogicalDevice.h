@@ -13,7 +13,7 @@
 namespace graphics {
 
     class PhysicalDevice;
-    class Vertex;
+    struct Vertex;
 
     class LogicalDevice
     {

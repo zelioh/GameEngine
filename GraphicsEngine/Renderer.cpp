@@ -12,7 +12,8 @@
 
 graphics::Renderer::Renderer(const Swapchain & swapchain):
 m_currentFrame(0),
-m_imageIndex(0)
+m_imageIndex(0),
+m_projection()
 {
     m_commandBuffer.initialize(swapchain);
 }
@@ -30,9 +31,14 @@ bool graphics::Renderer::render(Swapchain &swapchain, const Pipeline &pipeline)
 
     for (object::GameObject * object : sceneObject)
     {
-        renderElement(swapchain, object, pipeline);
+        renderElement(swapchain, object, pipeline, m_projection);
     }
     return renderEnd(swapchain, pipeline);
+}
+
+void graphics::Renderer::setProjectionMatrix(const Math::Matrix4F &projection)
+{
+    m_projection = projection;
 }
 
 bool graphics::Renderer::renderBegin(Swapchain & swapchain)
@@ -51,9 +57,17 @@ bool graphics::Renderer::renderBegin(Swapchain & swapchain)
     return true;
 }
 
-void graphics::Renderer::renderElement(Swapchain & swapchain, const object::GameObject * object, const Pipeline & pipeline)
+void graphics::Renderer::renderElement(Swapchain & swapchain,
+                                       const object::GameObject * object,
+                                       const Pipeline & pipeline,
+                                       const Math::Matrix4F & projectionMatrix)
 {
-    m_commandBuffer.render(swapchain, swapchain.getParentLogicalDevice().getCommandPool(), pipeline, object, m_imageIndex);
+    m_commandBuffer.render(swapchain,
+                           swapchain.getParentLogicalDevice().getCommandPool(),
+                           pipeline,
+                           object,
+                           m_imageIndex,
+                           m_projection);
 }
 
 bool graphics::Renderer::renderEnd(Swapchain & swapchain, const Pipeline & pipeline)

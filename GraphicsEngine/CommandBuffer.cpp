@@ -67,7 +67,8 @@ void graphics::CommandBuffer::render(const Swapchain &swapchain,
                                      const CommandPool &commandPool,
                                      const Pipeline & pipeline,
                                      const object::GameObject * object,
-                                     uint32_t imageIndex
+                                     uint32_t imageIndex,
+                                     const Math::Matrix4F & projectionMatrix
                                      )
 {
     //
@@ -82,12 +83,7 @@ void graphics::CommandBuffer::render(const Swapchain &swapchain,
                               Math::Vector4F(0.7071f, -0.4082f, 0.57735f, 0.f),
                               Math::Vector4F(0.f, 0.81649f, 0.57735f, 0.f),
                               Math::Vector4F(-0.f, -0.f, -3.4641f, 1.f));
-    //
-    // TODO: use perspectif compute
-    vk::Extent2D extent = swapchain.getVkSwapchainExtent();
-    float width = static_cast<float>(extent.width);
-    float height = static_cast<float>(extent.height);
-    ubo.proj = Math::utils::perspective(45.0f, width / height, 0.1f, 10.f);
+    ubo.proj = projectionMatrix;
     ubo.proj(1, 1) *= -1;
 
     m_commandBuffers[imageIndex].pushConstants(pipeline.getVkPipelineLayout(),

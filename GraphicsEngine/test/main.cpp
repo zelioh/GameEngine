@@ -21,6 +21,7 @@
 #include "Texture.h"
 #include "Objects/SceneManager.h"
 #include "Objects/Scene.h"
+#include "Math_utils.h"
 
 #include <chrono>
 
@@ -119,6 +120,12 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     cube5->setTexture(phoenixTexture);
 
     auto startTime = std::chrono::high_resolution_clock::now();
+
+    vk::Extent2D extent = swapchain.getVkSwapchainExtent();
+    float width = static_cast<float>(extent.width);
+    float height = static_cast<float>(extent.height);
+
+    renderer.setProjectionMatrix(Math::utils::perspective(90.0f, width / height, 0.1f, 10.f));
 
     while (window)
     {

@@ -14,6 +14,11 @@ namespace object
     class GameObject;
 }
 
+namespace Math
+{
+    class Matrix4F;
+}
+
 namespace graphics {
 
     class CommandPool;
@@ -32,7 +37,8 @@ namespace graphics {
                     const CommandPool & commandPool,
                     const Pipeline & pipeline,
                     const object::GameObject * object,
-                    uint32_t imageIndex);
+                    uint32_t imageIndex,
+                    const Math::Matrix4F & projectionMatrix);
         void endRender(uint32_t imageIndex, const Swapchain & swapchain);
         const vk::CommandBuffer & getCommandBuffer(uint32_t imageIndex) const;
 

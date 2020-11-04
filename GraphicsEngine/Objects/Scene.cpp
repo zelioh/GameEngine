@@ -63,3 +63,8 @@ object::Camera * object::Scene::getCurrentCamera() const
 {
     return m_camera;
 }
+
+PhysicsEngine &object::Scene::getPhysicsEngine()
+{
+    return m_physicsEngine;
+}

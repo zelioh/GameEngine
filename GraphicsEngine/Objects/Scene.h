@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include "GameObject.h"
+#include "PhysicsEngine.h"
 
 namespace object {
 
@@ -27,11 +28,14 @@ namespace object {
 
         Camera * getCurrentCamera() const;
 
+        PhysicsEngine & getPhysicsEngine();
+
     private:
         Scene(const std::string &identifier);
 
         const std::string m_strIdentifier;
         Camera * m_camera;
+        PhysicsEngine m_physicsEngine;
     };
 
 }

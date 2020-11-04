@@ -9,14 +9,14 @@ public:
 	PhysicsEngine();
 	~PhysicsEngine();
 
-	void AddPhysicsObject(const PhysicsObject& object);
+	void AddPhysicsObject(PhysicsObject * object);
 	void Update(float DeltaTime);
 	void CollisionHandler();
 
-	const PhysicsObject& GetPhysicsObject(int index) { return PhysicsObjectList[index]; }
+	PhysicsObject * GetPhysicsObject(int index) { return PhysicsObjectList[index]; }
 
 private:
-	std::vector<PhysicsObject> PhysicsObjectList;
+	std::vector<PhysicsObject *> PhysicsObjectList;
 
 };
 

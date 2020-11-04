@@ -7,7 +7,7 @@ using namespace Math;
 class PhysicsObject
 {
 public:
-	PhysicsObject(Vector3F& Velocity ,Collider *Collider);
+	PhysicsObject(Collider *Collider, Vector3F& Velocity);
 	PhysicsObject(const PhysicsObject& other);
 	~PhysicsObject();
 	

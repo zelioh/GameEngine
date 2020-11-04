@@ -1,6 +1,6 @@
 #include "PhysicsObject.h"
 
-PhysicsObject::PhysicsObject(Vector3F& Velocity, Collider* Collider) : velocity(Velocity), collider(Collider), position(Collider->GetCenter()), oldPosition(Collider->GetCenter())
+PhysicsObject::PhysicsObject(Collider* Collider ,Vector3F& Velocity) : velocity(Velocity), collider(Collider), position(Collider->GetCenter()), oldPosition(Collider->GetCenter())
 {
 }
 

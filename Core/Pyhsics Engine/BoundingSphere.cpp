@@ -10,12 +10,12 @@ BoundingSphere::~BoundingSphere()
 
 IntersectData BoundingSphere::IntersectBoundingSphere(const BoundingSphere& other) const
 {
-	float radiusDistance = radius + other.GetRadius(); 
-	
+	float radiusDistance = radius + other.GetRadius();
 	Vector3F direction = (other.GetCenter() - center);
-	float centerDistance = (other.GetCenter() - center).Length();
-	float distance = direction.Length();
+	float centerDistance = direction.Length();
 	direction = direction / centerDistance;
+	float distance = centerDistance - radiusDistance;
+
 
 	return IntersectData(distance < 0, direction * distance);
 }

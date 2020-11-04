@@ -18,6 +18,9 @@ void PhysicsEngine::Update(float DeltaTime)
 {
 	for (int i = 0; i < this->PhysicsObjectList.size(); i++) {
 		this->PhysicsObjectList[i].Calculate(DeltaTime);
+		std::cout << "Object : " << i << "  " <<"  X = " <<this->PhysicsObjectList[i].GetPosition().X <<
+			"  Y = " << this->PhysicsObjectList[i].GetPosition().Y <<
+			"  Z = " << this->PhysicsObjectList[i].GetPosition().Z << "\n\n";
 	}
 }
 

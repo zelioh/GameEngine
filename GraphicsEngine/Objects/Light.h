@@ -33,8 +33,8 @@ namespace object {
         Light( const std::string & levelIdentifier,
 			   const std::string & identifier,
 			   const Math::Vector3F & position,
-               const float & strength,
-			   const float & specular,
+               float strength,
+			   float specular,
                const Math::Vector3F & color);
 
         Math::Vector3F m_position;

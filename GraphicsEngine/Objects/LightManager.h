@@ -19,6 +19,9 @@ namespace object {
 
     class LightManager
     {
+
+        friend class Scene;
+
     public:
         /**
          * Get a singleton instance of LightManager
@@ -29,7 +32,7 @@ namespace object {
         /**
          * Create a Light instance. If Light already exist return the existing Light
 		 * @param levelIdentifier       Identifier of the scene where the light is created
-		 * @param cameraIdentifier      Identifier of the light in a scene
+		 * @param lightIdentifier      Identifier of the light in a scene
          * @param position				Light position in the world
 		 * @param strength				Light strength
          * @param specular              Light reflection by an object
@@ -39,15 +42,14 @@ namespace object {
         Light * createLight(  const std::string & levelIdentifier,
                               const std::string & LightIdentifier,
                               const Math::Vector3F & position,
-                              const float & strength,
-							  const float & specular,
+                              float strength,
+                              float specular,
                               const Math::Vector3F & color);
 
         /**
-         * Work like createCube but the identifier is create automaticly
-         * with the patern Light_XXX where XXX is it number in the pool
+         * Work like createLight but the identifier is create automaticly
+         * with the patern LIGHT_XXX where XXX is it number in the pool
         * @param levelIdentifier       Identifier of the scene where the light is created
-		 * @param cameraIdentifier      Identifier of the light in a scene
          * @param position				Light position in the world
 		 * @param strength				Light strength
          * @param specular              Light reflection by an object
@@ -55,10 +57,9 @@ namespace object {
          * @return new Light instance or existing instance
          */
         Light * createLightAutoName(const std::string& levelIdentifier,
-									const std::string& LightIdentifier,
 									const Math::Vector3F& position,
-									const float & strength,
-									const float & specular,
+									float strength,
+									float specular,
 									const Math::Vector3F& color);
 
         /**
@@ -83,6 +84,8 @@ namespace object {
         void release();
     private:
         LightManager() = default;
+
+        std::vector<object::Light *> getLightOfScene(const std::string & levelIdentifier);
 
         std::unordered_map<std::string, std::unordered_map<std::string, Light *>> m_pool;
     };

@@ -20,8 +20,8 @@ object::LightManager * object::LightManager::getInstance()
 object::Light * object::LightManager::createLight(const std::string& levelIdentifier,
 												  const std::string& LightIdentifier,
 												  const Math::Vector3F& position,
-												  const float & strength,
-												  const float & specular,
+												  float strength,
+												  float specular,
 												  const Math::Vector3F& color)
 {
     if (!SceneManager::getInstance()->isExisting(levelIdentifier))
@@ -38,15 +38,14 @@ object::Light * object::LightManager::createLight(const std::string& levelIdenti
     }
 
     // Create light instance
-    m_pool[levelIdentifier][LightIdentifier] = new Light(levelIdentifier, LightIdentifier, position, target, upAxis);
+    m_pool[levelIdentifier][LightIdentifier] = new Light(levelIdentifier, LightIdentifier, position, strength, specular, color);
     return m_pool[levelIdentifier][LightIdentifier];
 }
 
 object::Light * object::LightManager::createLightAutoName(const std::string& levelIdentifier,
-														  const std::string& LightIdentifier,
 														  const Math::Vector3F& position,
-														  const float & strength,
-														  const float & specular,
+														  float strength,
+														  float specular,
 														  const Math::Vector3F& color)
 {
     if (!SceneManager::getInstance()->isExisting(levelIdentifier))
@@ -54,9 +53,9 @@ object::Light * object::LightManager::createLightAutoName(const std::string& lev
         return nullptr;
     }
     const size_t size = m_pool[levelIdentifier].size();
-    std::string identifier = "Light_" + std::to_string(size);
+    std::string identifier = "LIGHT_" + std::to_string(size);
 
-    return createLight(levelIdentifier, identifier, position, target, upAxis);
+    return createLight(levelIdentifier, identifier, position, strength, specular, color);
 }
 
 object::Light * object::LightManager::findLight(const std::string &levelIdentifier, const std::string &LightIdentifier)
@@ -96,4 +95,18 @@ void object::LightManager::release()
             Light.second = nullptr;
         }
     }
+}
+
+std::vector<object::Light *> object::LightManager::getLightOfScene(const std::string &levelIdentifier)
+{
+    std::vector<object::Light *> lights;
+
+    for (auto level : m_pool)
+    {
+        for (auto element : level.second)
+        {
+            lights.emplace_back(element.second);
+        }
+    }
+    return lights;
 }

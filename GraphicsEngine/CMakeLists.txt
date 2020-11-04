@@ -9,7 +9,10 @@ set(OBJECT_SRC
         Objects/SceneManager.cpp Objects/SceneManager.h
         Objects/SRotation.cpp Objects/SRotation.h
         Objects/CameraManager.cpp Objects/CameraManager.h
-        Objects/Camera.cpp Objects/Camera.h)
+        Objects/Camera.cpp Objects/Camera.h
+        Objects/LightManager.h Objects/LightManager.cpp
+        Objects/Light.h Objects/Light.cpp
+        )
 
 add_library(GraphicsEngine OBJECT
         Instance.cpp Instance.h

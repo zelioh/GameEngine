@@ -12,13 +12,14 @@
 namespace object {
 
     class Camera;
+    class Light;
 
     class Scene {
 
         friend class SceneManager;
 
     public:
-        std::vector<object::GameObject *> getSceneObjects() const;
+        std::vector<object::GameObject *> getSceneObjects();
 
         const std::string & getIndentifier();
 
@@ -26,12 +27,13 @@ namespace object {
         bool setCurrentCamera(const std::string & cameraIdentifier);
 
         Camera * getCurrentCamera() const;
-
+        Light * getLight() const;
     private:
         Scene(const std::string &identifier);
 
         const std::string m_strIdentifier;
         Camera * m_camera;
+        Light * m_light;
     };
 
 }

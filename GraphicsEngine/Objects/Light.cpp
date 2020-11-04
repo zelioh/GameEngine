@@ -56,11 +56,17 @@ void object::Light::setColor(const Math::Vector3F& color)
 
 }
 
-object::Light::Light(const Math::Vector3F& position,
-					 const Math::float& strength,
-					 const Math::float& specular,
+object::Light::Light(const std::string & levelIdentifier,
+                     const std::string & lightIdentifier,
+                     const Math::Vector3F & position,
+					 float strength,
+					 float specular,
 					 const Math::Vector3F& color) :
 m_position(position),
 m_strength(strength),
 m_specular(specular),
-m_color(color)
+m_color(color),
+m_strIdentifier(lightIdentifier),
+m_strLevelIdentifier(levelIdentifier)
+{
+}

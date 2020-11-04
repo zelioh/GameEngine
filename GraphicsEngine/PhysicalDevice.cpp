@@ -10,14 +10,31 @@
 #include "Instance.h"
 #include <set>
 
-graphics::PhysicalDevice::PhysicalDevice(const graphics::Instance &instance):
-m_parentInstance(instance),
+graphics::PhysicalDevice * graphics::PhysicalDevice::getInstance()
+{
+    static graphics::PhysicalDevice * physicalDevice = nullptr;
+
+    if (nullptr == physicalDevice)
+    {
+        physicalDevice = new PhysicalDevice();
+    }
+    return physicalDevice;
+}
+
+graphics::PhysicalDevice::PhysicalDevice():
 m_vDeviceExtensions({VK_KHR_SWAPCHAIN_EXTENSION_NAME}),
 m_mssaSamples(vk::SampleCountFlagBits::e1)
 {
+    graphics::Instance * instance = graphics::Instance::getInstance();
+
+    if (!instance)
+    {
+        throw std::runtime_error("Instance must be initialize before creating physical device");
+    }
+
     uint32_t iDeviceNumber = 0;
 
-    std::vector<vk::PhysicalDevice> result  = m_parentInstance.getVkInstance().enumeratePhysicalDevices();
+    std::vector<vk::PhysicalDevice> result  = instance->getVkInstance().enumeratePhysicalDevices();
 
     for (const vk::PhysicalDevice & device : result)
     {
@@ -39,11 +56,6 @@ m_mssaSamples(vk::SampleCountFlagBits::e1)
 const vk::PhysicalDevice & graphics::PhysicalDevice::getVkPhysicalDevice() const
 {
     return m_physicalDevice;
-}
-
-const graphics::Instance & graphics::PhysicalDevice::getParentInstance() const
-{
-    return m_parentInstance;
 }
 
 const std::vector<const char *> & graphics::PhysicalDevice::getDeviceExtensions() const

@@ -55,15 +55,15 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     instanceParam.setApplicationName("Test graphic engine");
     instanceParam.setProjectVersions(1, 0, 0);
 
-    graphics::Instance instance(instanceParam);
+    graphics::Instance * instance = graphics::Instance::getInstance();
 
-    instance.initialize(window);
+    instance->initialize(instanceParam, window);
 
-    graphics::PhysicalDevice physicalDevice(instance);
-    graphics::LogicalDevice logicalDevice(physicalDevice);
-    graphics::Swapchain swapchain(logicalDevice, window);
+    graphics::PhysicalDevice * physicalDevice = graphics::PhysicalDevice::getInstance();
+    graphics::LogicalDevice * logicalDevice = graphics::LogicalDevice::getInstance();
+    graphics::Swapchain swapchain(*logicalDevice, window);
     graphics::Shader shader("../shaders/defaultVert.spv", "../shaders/defaultFrag.spv");
-    graphics::Pipeline pipeline(logicalDevice, swapchain, shader);
+    graphics::Pipeline pipeline(*logicalDevice, swapchain, shader);
     graphics::Renderer renderer(swapchain);
 
     const std::string myLevelIdentifier = "MyLevel";
@@ -76,7 +76,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     }
 
     object::CubeManager * manager = object::CubeManager::getInstance();
-    object::Cube * cube1 = manager->createCube(logicalDevice,
+    object::Cube * cube1 = manager->createCube(*logicalDevice,
                                               myLevelIdentifier,
                                               "TestCube",
                                               Math::Vector3F(0.f, 0.f, 0.f),
@@ -84,7 +84,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
                                               Math::Vector3F(1.f, 1.f, 1.f),
                                               object::SRotation{90.f, Math::Vector3F(0.f, 0.f, 1.f)});
 
-    object::Cube * cube2 = manager->createCube(logicalDevice,
+    object::Cube * cube2 = manager->createCube(*logicalDevice,
                                               myLevelIdentifier,
                                               "TestCube2",
                                               Math::Vector3F(1.f, 0.5f, 0.f),
@@ -92,7 +92,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
                                               Math::Vector3F(0.5f, 0.5f, 0.5f),
                                               object::SRotation{90.f, Math::Vector3F(0.f, 0.f, 1.f)});
 
-    object::Cube * cube3 = manager->createCube(logicalDevice,
+    object::Cube * cube3 = manager->createCube(*logicalDevice,
                                               myLevelIdentifier,
                                               "TestCube3",
                                               Math::Vector3F(2.f, -1.f, 0.f),
@@ -100,7 +100,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
                                               Math::Vector3F(1.5f, 1.5f, 1.5f),
                                               object::SRotation{180.f, Math::Vector3F(0.f, 0.f, 1.f)});
 
-    object::Cube * cube4 = manager->createCube(logicalDevice,
+    object::Cube * cube4 = manager->createCube(*logicalDevice,
                                               myLevelIdentifier,
                                               "TestCube4",
                                               Math::Vector3F(0.f, 2.f, 0.f),
@@ -108,7 +108,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
                                               Math::Vector3F(0.5f, 0.5f, 0.5f),
                                               object::SRotation{90.f, Math::Vector3F(0.f, 0.f, 1.f)});
 
-    object::Cube * cube5 = manager->createCube(logicalDevice,
+    object::Cube * cube5 = manager->createCube(*logicalDevice,
                                               myLevelIdentifier,
                                               "TestCube5",
                                               Math::Vector3F(-1.f, 0.5f, 0.f),
@@ -127,7 +127,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
     object::PlaneManager * planeManager = object::PlaneManager::getInstance();
 
-    object::Plane * plane = planeManager->createPlane(logicalDevice,
+    object::Plane * plane = planeManager->createPlane(*logicalDevice,
                                                       myLevelIdentifier,
                                                       "Cool_plane",
                                                       Math::Vector3F(0.f, -10.f, 0.f),
@@ -154,7 +154,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
     object::Model3DManager * modelsManager = object::Model3DManager::getInstance();
 
-    object::Model3D * viking_room = modelsManager->createModel3D(logicalDevice,
+    object::Model3D * viking_room = modelsManager->createModel3D(*logicalDevice,
                                                                  myLevelIdentifier,
                                                                  "Viking_room",
                                                                  "../models/viking_room.obj",
@@ -190,20 +190,20 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
         if (!renderer.render(swapchain, pipeline))
         {
-            logicalDevice.releaseCommandPool();
-            logicalDevice.initializeCommandPool();
+            logicalDevice->releaseCommandPool();
+            logicalDevice->initializeCommandPool();
             swapchain.recreate(window);
-            pipeline.release(logicalDevice);
-            pipeline.initialize(logicalDevice, swapchain, shader);
+            pipeline.release(*logicalDevice);
+            pipeline.initialize(*logicalDevice, swapchain, shader);
         }
     }
-    logicalDevice.getVkLogicalDevice().waitIdle();
-    manager->release(logicalDevice);
-    textureManager->release(logicalDevice);
+    logicalDevice->getVkLogicalDevice().waitIdle();
+    manager->release(*logicalDevice);
+    textureManager->release(*logicalDevice);
     object::SceneManager::getInstance()->release();
-    pipeline.release(logicalDevice);
+    pipeline.release(*logicalDevice);
     swapchain.release();
-    logicalDevice.release();
-    instance.release();
+    logicalDevice->release();
+    instance->release();
     return 0;
 }

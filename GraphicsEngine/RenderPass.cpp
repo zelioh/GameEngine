@@ -14,9 +14,10 @@ void graphics::RenderPass::initialize(const Swapchain &swapchain)
     //
     // Set color attachment
     vk::AttachmentDescription colorAttachement{};
+    PhysicalDevice * physicalDevice = PhysicalDevice::getInstance();
 
     colorAttachement.format = swapchain.getVkSwapchainFormat();
-    colorAttachement.samples = swapchain.getParentLogicalDevice().getParentPhysicalDevice().getVkMSSASample();
+    colorAttachement.samples = physicalDevice->getVkMSSASample();
     colorAttachement.loadOp = vk::AttachmentLoadOp::eClear;
     colorAttachement.storeOp = vk::AttachmentStoreOp::eStore;
     colorAttachement.stencilLoadOp = vk::AttachmentLoadOp::eDontCare;
@@ -33,14 +34,12 @@ void graphics::RenderPass::initialize(const Swapchain &swapchain)
     // Set depth attachment
     vk::AttachmentDescription depthAttachment{};
 
-    depthAttachment.format = swapchain.getParentLogicalDevice()
-                                      .getParentPhysicalDevice()
-                                      .findVkSupportedFormat(
+    depthAttachment.format = physicalDevice->findVkSupportedFormat(
                                     {vk::Format::eD32Sfloat, vk::Format::eD32SfloatS8Uint, vk::Format::eD24UnormS8Uint},
                                     vk::ImageTiling::eOptimal,
                                     vk::FormatFeatureFlagBits::eDepthStencilAttachment);
 
-    depthAttachment.samples = swapchain.getParentLogicalDevice().getParentPhysicalDevice().getVkMSSASample();
+    depthAttachment.samples = physicalDevice->getVkMSSASample();
     depthAttachment.loadOp = vk::AttachmentLoadOp::eClear;
     depthAttachment.storeOp = vk::AttachmentStoreOp::eDontCare;
     depthAttachment.stencilLoadOp = vk::AttachmentLoadOp::eDontCare;

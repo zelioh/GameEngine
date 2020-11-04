@@ -100,9 +100,10 @@ void graphics::Pipeline::initialize(const LogicalDevice &logicalDevice,
     //
     // Set multisampling information
     vk::PipelineMultisampleStateCreateInfo multisampleInfo{};
+    PhysicalDevice * physicalDevice = PhysicalDevice::getInstance();
 
     multisampleInfo.sampleShadingEnable = false;
-    multisampleInfo.rasterizationSamples = logicalDevice.getParentPhysicalDevice().getVkMSSASample();
+    multisampleInfo.rasterizationSamples = physicalDevice->getVkMSSASample();
     multisampleInfo.minSampleShading = 1.f;
     multisampleInfo.pSampleMask = nullptr;
     multisampleInfo.alphaToCoverageEnable = false;

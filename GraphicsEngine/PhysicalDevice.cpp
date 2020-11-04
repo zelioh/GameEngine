@@ -46,10 +46,12 @@ m_mssaSamples(vk::SampleCountFlagBits::e1)
             break;
         }
     }
+    /*
     if (m_physicalDevice == nullptr)
     {
         throw std::runtime_error("Error while creating physical device");
     }
+    */
     m_mssaSamples = getMaxUsageSampleCount();
 }
 

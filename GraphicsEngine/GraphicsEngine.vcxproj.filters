@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Instance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\InstanceParameter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\ValidationLayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\PhysicalDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\QueueFamilyHint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Surface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\SwapchainDetails.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\LogicalDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Queue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Swapchain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\RenderPass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Pipeline.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Vertex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\CommandPool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\CommandBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\TextureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\WindowParameters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Cube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\CubeManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\ITextureObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\SceneManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\SRotation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\CameraManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Plane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\PlaneManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Objects_utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Model3D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Model3DManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Instance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\InstanceParameter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\ValidationLayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\PhysicalDevice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\QueueFamilyHint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Surface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\SwapchainDetails.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\LogicalDevice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Queue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Swapchain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\RenderPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Pipeline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Vertex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\CommandPool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\CommandBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\SUniformBufferObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\TextureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\WindowParameters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Cube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\CubeManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\ITextureObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\SceneManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\SRotation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\CameraManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Plane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\PlaneManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Objects_utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Model3D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Model3DManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{941A65DD-AA95-3D24-8FA2-47812D4DB3C2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{98461658-0443-3202-8FFD-E4A8C2FFC166}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

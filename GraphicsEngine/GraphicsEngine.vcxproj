@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6894E3AC-B241-318E-83EC-4CDFFA76F89C}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>GraphicsEngine</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">GraphicsEngine.dir\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">GraphicsEngine.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">GraphicsEngine</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">GraphicsEngine.dir\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">GraphicsEngine.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">GraphicsEngine</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">GraphicsEngine.dir\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">GraphicsEngine.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">GraphicsEngine</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">GraphicsEngine.dir\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">GraphicsEngine.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">GraphicsEngine</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;ENGINE_VERSION_MAJOR=0;ENGINE_VERSION_MINOR=1;ENGINE_VERSION_PATCH=0;ENGINE_NAME="GameEngine";ENGINE_DEBUG=1;UNICODE;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;ENGINE_VERSION_MAJOR=0;ENGINE_VERSION_MINOR=1;ENGINE_VERSION_PATCH=0;ENGINE_NAME=\"GameEngine\";ENGINE_DEBUG=1;UNICODE;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;ENGINE_VERSION_MAJOR=0;ENGINE_VERSION_MINOR=1;ENGINE_VERSION_PATCH=0;ENGINE_NAME="GameEngine";ENGINE_DEBUG=1;UNICODE;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;ENGINE_VERSION_MAJOR=0;ENGINE_VERSION_MINOR=1;ENGINE_VERSION_PATCH=0;ENGINE_NAME=\"GameEngine\";ENGINE_DEBUG=1;UNICODE;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;ENGINE_VERSION_MAJOR=0;ENGINE_VERSION_MINOR=1;ENGINE_VERSION_PATCH=0;ENGINE_NAME="GameEngine";ENGINE_DEBUG=1;UNICODE;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;ENGINE_VERSION_MAJOR=0;ENGINE_VERSION_MINOR=1;ENGINE_VERSION_PATCH=0;ENGINE_NAME=\"GameEngine\";ENGINE_DEBUG=1;UNICODE;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;ENGINE_VERSION_MAJOR=0;ENGINE_VERSION_MINOR=1;ENGINE_VERSION_PATCH=0;ENGINE_NAME="GameEngine";ENGINE_DEBUG=1;UNICODE;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;ENGINE_VERSION_MAJOR=0;ENGINE_VERSION_MINOR=1;ENGINE_VERSION_PATCH=0;ENGINE_NAME=\"GameEngine\";ENGINE_DEBUG=1;UNICODE;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Pierre/Desktop/GameEngineGit/GameEngine/GraphicsEngine/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Pierre/Desktop/GameEngineGit/GameEngine -BC:/Users/Pierre/Desktop/GameEngineGit/GameEngine --check-stamp-file C:/Users/Pierre/Desktop/GameEngineGit/GameEngine/GraphicsEngine/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.18\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\FindVulkan.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Pierre/Desktop/GameEngineGit/GameEngine/GraphicsEngine/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Pierre/Desktop/GameEngineGit/GameEngine -BC:/Users/Pierre/Desktop/GameEngineGit/GameEngine --check-stamp-file C:/Users/Pierre/Desktop/GameEngineGit/GameEngine/GraphicsEngine/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.18\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\FindVulkan.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/Pierre/Desktop/GameEngineGit/GameEngine/GraphicsEngine/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Pierre/Desktop/GameEngineGit/GameEngine -BC:/Users/Pierre/Desktop/GameEngineGit/GameEngine --check-stamp-file C:/Users/Pierre/Desktop/GameEngineGit/GameEngine/GraphicsEngine/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.18\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\FindVulkan.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/Pierre/Desktop/GameEngineGit/GameEngine/GraphicsEngine/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Pierre/Desktop/GameEngineGit/GameEngine -BC:/Users/Pierre/Desktop/GameEngineGit/GameEngine --check-stamp-file C:/Users/Pierre/Desktop/GameEngineGit/GameEngine/GraphicsEngine/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.18\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.18\Modules\FindVulkan.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Instance.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Instance.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\InstanceParameter.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\InstanceParameter.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\ValidationLayer.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\ValidationLayer.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\PhysicalDevice.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\PhysicalDevice.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\QueueFamilyHint.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\QueueFamilyHint.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Surface.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Surface.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\SwapchainDetails.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\SwapchainDetails.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\LogicalDevice.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\LogicalDevice.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Queue.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Queue.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Swapchain.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Swapchain.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\RenderPass.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\RenderPass.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Pipeline.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Pipeline.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Shader.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Shader.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Vertex.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Vertex.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\CommandPool.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\CommandPool.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\CommandBuffer.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\CommandBuffer.h" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\SUniformBufferObject.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\TextureManager.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\TextureManager.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Texture.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Texture.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Window.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Window.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\WindowParameters.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\WindowParameters.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Renderer.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Renderer.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\GameObject.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\GameObject.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Cube.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Cube.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\CubeManager.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\CubeManager.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\ITextureObject.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\ITextureObject.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Scene.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Scene.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\SceneManager.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\SceneManager.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\SRotation.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\SRotation.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\CameraManager.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\CameraManager.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Camera.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Camera.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Plane.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Plane.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\PlaneManager.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\PlaneManager.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Objects_utils.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Objects_utils.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Model3D.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Model3D.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Model3DManager.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Model3DManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\ZERO_CHECK.vcxproj">
+      <Project>{008DDE47-61F5-3CA3-89DE-2E9DD614649E}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.vcxproj">
+      <Project>{129021E3-572B-3C17-B0E4-60FA007A5C33}</Project>
+      <Name>Core</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine\PhysicsEngine.vcxproj">
+      <Project>{6985F8E1-6DB1-34AE-9277-E068D650841B}</Project>
+      <Name>PhysicsEngine</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

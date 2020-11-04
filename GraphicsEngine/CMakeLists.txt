@@ -42,7 +42,7 @@ find_package(Vulkan REQUIRED)
 find_library(ws2_32_LIBRARY_PATH ws2_32)
 
 target_link_libraries(GraphicsEngine PUBLIC ${Vulkan_LIBRARIES})
-target_link_libraries(GraphicsEngine PUBLIC ${ws2_32_LIBRARY_PATH})
+#target_link_libraries(GraphicsEngine PUBLIC ${ws2_32_LIBRARY_PATH})
 target_link_libraries(GraphicsEngine PUBLIC Core)
 target_link_libraries(GraphicsEngine PUBLIC PhysicsEngine)
 

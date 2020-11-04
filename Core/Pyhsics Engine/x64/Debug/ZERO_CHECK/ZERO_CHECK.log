@@ -1,0 +1,7 @@
+﻿  Checking Build System
+  CMake is re-running because C:/Users/Pierre/Desktop/GameEngineGit/GameEngine/Core/Pyhsics Engine/CMakeFiles/generate.stamp is out-of-date.
+    the file 'C:/Users/Pierre/Desktop/GameEngineGit/GameEngine/Core/Pyhsics Engine/CMakeLists.txt'
+    is newer than 'C:/Users/Pierre/Desktop/GameEngineGit/GameEngine/Core/Pyhsics Engine/CMakeFiles/generate.stamp.depend'
+    result='0'
+CUSTOMBUILD : CMake error : The source directory "C:/Users/Pierre/Desktop/GameEngineGit/GameEngine/Core/Pyhsics Engine" does not appear to contain CMakeLists.txt.
+  Specify --help for usage, or press the help button on the CMake GUI.

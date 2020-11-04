@@ -166,10 +166,12 @@ void graphics::LogicalDevice::initializeDescriptorLayout()
     layoutInfo.bindingCount = static_cast<uint32_t>(bindings.size());
     layoutInfo.pBindings = bindings.data();
     m_descriptorLayout = m_logicalDevice.createDescriptorSetLayout(layoutInfo);
+    /*
     if (m_descriptorLayout == nullptr)
     {
         throw std::runtime_error("Error while creating descriptor set layout");
     }
+    */
 }
 
 void graphics::LogicalDevice::createVkImage(uint32_t width, uint32_t height, uint32_t mipLevel,

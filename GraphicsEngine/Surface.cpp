@@ -16,10 +16,12 @@ void graphics::Surface::initialize(const Instance &instance, const Window & wind
     surfaceInfo.hinstance = window.getHInstance();
 
     m_surface = instance.getVkInstance().createWin32SurfaceKHR(surfaceInfo);
+    /*
     if (m_surface == nullptr)
     {
         throw std::runtime_error("Error while creating window surface");
     }
+    */
 }
 
 void graphics::Surface::release(const Instance &instance)

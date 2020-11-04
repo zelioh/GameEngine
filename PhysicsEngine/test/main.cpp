@@ -8,9 +8,9 @@
 int main(void) {
 	PhysicsEngine physicsEngineInstance;
 
-	physicsEngineInstance.AddPhysicsObject(PhysicsObject(new BoundingSphere(Vector3F(0.0f, 0.0f, 0.0f), 1.0f), Vector3F(0.1f, 0.0f, 0.0f)));
+	physicsEngineInstance.AddPhysicsObject(new PhysicsObject(new BoundingSphere(Vector3F(0.0f, 0.0f, 0.0f), 1.0f), Vector3F(0.1f, 0.0f, 0.0f)));
 
-	physicsEngineInstance.AddPhysicsObject(PhysicsObject(new BoundingSphere(Vector3F(10.0f, 0.0f, 0.0f), 1.0f), Vector3F(-0.1f, 0.0f, 0.0f)));
+	physicsEngineInstance.AddPhysicsObject(new PhysicsObject(new BoundingSphere(Vector3F(10.0f, 0.0f, 0.0f), 1.0f), Vector3F(-0.1f, 0.0f, 0.0f)));
 
 	while (true)
 	{

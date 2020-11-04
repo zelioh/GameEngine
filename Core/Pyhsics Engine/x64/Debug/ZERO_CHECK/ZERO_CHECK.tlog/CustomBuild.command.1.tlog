@@ -1,0 +1,10 @@
+^C:\USERS\PIERRE\DESKTOP\GAMEENGINEGIT\GAMEENGINE\CORE\PYHSICS ENGINE\CMAKEFILES\AB4828653D74DD22FE289C74070F3988\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/Pierre/Desktop/GameEngineGit/GameEngine/Core/Pyhsics Engine" "-BC:/Users/Pierre/Desktop/GameEngineGit/GameEngine/Core/Pyhsics Engine" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/Pierre/Desktop/GameEngineGit/GameEngine/Core/Pyhsics Engine/Project.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

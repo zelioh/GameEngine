@@ -21,10 +21,12 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
 
 add_subdirectory(AudioEngine)
 add_subdirectory(Core)
+add_subdirectory(PhysicsEngine)
 add_subdirectory(GraphicsEngine)
 
 add_library(gameEngine SHARED null.cpp)
 target_link_libraries(gameEngine PRIVATE
                                 ${Core}
                                 ${audio}
-                                ${GraphicsEngine})
+                                ${GraphicsEngine}
+                                ${PhysicsEngine})

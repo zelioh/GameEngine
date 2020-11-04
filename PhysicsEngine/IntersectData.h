@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Vector3F.h"
+#include "Vector3F.h"
 
 using namespace Math;
 

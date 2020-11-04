@@ -1,8 +1,9 @@
-#include <windows.h>
 #include "PhysicsEngine.h"
 #include "Collider.h"
 #include "BoundingSphere.h"
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 int main(void) {
 	PhysicsEngine physicsEngineInstance;
@@ -17,6 +18,6 @@ int main(void) {
 		//printf("Update");
 		physicsEngineInstance.CollisionHandler();
 		physicsEngineInstance.Update(2);
-		Sleep(10);
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
 	}
 }

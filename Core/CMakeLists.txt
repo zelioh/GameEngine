@@ -20,7 +20,6 @@ target_link_libraries(Core PRIVATE ${GraphicsEngine})
 set(Core_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/Core/" CACHE INTERNAL "")
 
 target_include_directories(Core PUBLIC ${Core_INCLUDE_DIR} ${Core_INCLUDE_DIR}/Objects/)
-message(${GraphicsEngine_INCLUDE_DIR})
 target_include_directories(Core PUBLIC ${GraphicsEngine_INCLUDE_DIR})
 
 set_target_properties(Core PROPERTIES

@@ -11,8 +11,10 @@
 
 graphics::QueueFamilyHint::QueueFamilyHint(const PhysicalDevice &physicalDevice)
 {
+    graphics::Instance * instance = graphics::Instance::getInstance();
+
     const vk::PhysicalDevice & vkDevice = physicalDevice.getVkPhysicalDevice();
-    const vk::SurfaceKHR & vkSurface = physicalDevice.getParentInstance().getSurface().getVulkanSurface();
+    const vk::SurfaceKHR & vkSurface = instance->getSurface().getVulkanSurface();
     std::vector<vk::QueueFamilyProperties> properties = vkDevice.getQueueFamilyProperties();
     uint32_t i = 0;
 

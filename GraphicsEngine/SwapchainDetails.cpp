@@ -10,7 +10,9 @@
 
 graphics::SwapchainDetails::SwapchainDetails(const graphics::PhysicalDevice &physicalDevice)
 {
-    const vk::SurfaceKHR & surface = physicalDevice.getParentInstance().getSurface().getVulkanSurface();
+    graphics::Instance * instance = graphics::Instance::getInstance();
+
+    const vk::SurfaceKHR & surface = instance->getSurface().getVulkanSurface();
     const vk::PhysicalDevice & vkDevice = physicalDevice.getVkPhysicalDevice();
 
     m_capabilities = vkDevice.getSurfaceCapabilitiesKHR(surface);

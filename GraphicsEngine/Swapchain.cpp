@@ -207,13 +207,16 @@ void graphics::Swapchain::updateUniformBuffer(int imageIndex, const SUniformBuff
 
 void graphics::Swapchain::initializeInternal(const Window & window)
 {
-    SwapchainDetails details(m_parentLogicalDevice.getParentPhysicalDevice());
+    Instance * instance = Instance::getInstance();
+    graphics::PhysicalDevice * physicalDevice = PhysicalDevice::getInstance();
+
+    SwapchainDetails details(*physicalDevice);
     vk::SurfaceFormatKHR format = chooseSwapchainFormat(details.getSurfaceFormats());
     vk::PresentModeKHR presentMode = chooseSwapchainPrensentMode(details.getPrensentModes());
     vk::SurfaceCapabilitiesKHR capabilities = details.getSurfaceCapabilities();
     vk::Extent2D surfaceExtent = chooseSwapchainExtent(capabilities, window);
     uint32_t imageCount = capabilities.minImageCount + 1;
-    QueueFamilyHint hints(m_parentLogicalDevice.getParentPhysicalDevice());
+    QueueFamilyHint hints(*physicalDevice);
     uint32_t queueFamilyHints[] = {hints.getGraphicsFamilyValue(), hints.getPresentFamilyValue()};
     vk::SwapchainCreateInfoKHR swapchainInfo{};
 
@@ -221,7 +224,7 @@ void graphics::Swapchain::initializeInternal(const Window & window)
     {
         imageCount = capabilities.maxImageCount;
     }
-    swapchainInfo.surface = m_parentLogicalDevice.getParentPhysicalDevice().getParentInstance().getSurface().getVulkanSurface();
+    swapchainInfo.surface = instance->getSurface().getVulkanSurface();
     swapchainInfo.minImageCount = imageCount;
     swapchainInfo.imageFormat = format.format;
     swapchainInfo.presentMode = presentMode;
@@ -348,9 +351,11 @@ void graphics::Swapchain::initializeFrameBuffer()
 
 void graphics::Swapchain::createColorResources()
 {
+    PhysicalDevice * physicalDevice = PhysicalDevice::getInstance();
+
     m_parentLogicalDevice.createVkImage(m_extent.width, m_extent.height,
                                         1,
-                                        m_parentLogicalDevice.getParentPhysicalDevice().getVkMSSASample(),
+                                        physicalDevice->getVkMSSASample(),
                                         m_format,
                                         vk::ImageTiling::eOptimal,
                                         vk::ImageUsageFlagBits::eTransientAttachment | vk::ImageUsageFlagBits::eColorAttachment,
@@ -361,9 +366,9 @@ void graphics::Swapchain::createColorResources()
 
 void graphics::Swapchain::createDepthResources()
 {
-    vk::Format format = m_parentLogicalDevice
-            .getParentPhysicalDevice()
-            .findVkSupportedFormat(
+    PhysicalDevice * physicalDevice = PhysicalDevice::getInstance();
+
+    vk::Format format = physicalDevice->findVkSupportedFormat(
                     {vk::Format::eD32Sfloat, vk::Format::eD32SfloatS8Uint, vk::Format::eD24UnormS8Uint},
                     vk::ImageTiling::eOptimal,
                     vk::FormatFeatureFlagBits::eDepthStencilAttachment);
@@ -371,7 +376,7 @@ void graphics::Swapchain::createDepthResources()
 
     m_parentLogicalDevice.createVkImage(m_extent.width, m_extent.height,
                                         1,
-                                        m_parentLogicalDevice.getParentPhysicalDevice().getVkMSSASample(),
+                                        physicalDevice->getVkMSSASample(),
                                         format,
                                         vk::ImageTiling::eOptimal,
                                         vk::ImageUsageFlagBits::eDepthStencilAttachment,

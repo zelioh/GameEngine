@@ -16,10 +16,9 @@ namespace graphics {
     class PhysicalDevice
     {
     public:
-        PhysicalDevice(const graphics::Instance & instance);
+        static PhysicalDevice * getInstance();
 
         const vk::PhysicalDevice & getVkPhysicalDevice() const;
-        const Instance & getParentInstance() const;
         const std::vector<const char *> & getDeviceExtensions() const;
         vk::Format findVkSupportedFormat(const std::vector<vk::Format> & candidates,
                                          vk::ImageTiling tiling,
@@ -28,13 +27,13 @@ namespace graphics {
         vk::SampleCountFlagBits getVkMSSASample() const;
 
     private:
+        PhysicalDevice();
+
         bool checkDeviceUsable();
         bool checkDeviceExtensionsSupport();
         vk::SampleCountFlagBits getMaxUsageSampleCount();
 
     private:
-        const Instance & m_parentInstance;
-
         vk::PhysicalDevice m_physicalDevice;
         const std::vector<const char *> m_vDeviceExtensions;
         vk::SampleCountFlagBits m_mssaSamples;

@@ -19,10 +19,9 @@ namespace graphics
 
     class Instance {
     public:
-            Instance(); ///< Constructor that implement m_instance;
-            Instance(const InstanceParameter & parameters); ///< Constructor that implement m_instance with user parameters
+            static Instance * getInstance();
 
-            void initialize(const Window & window); ///< Initialize vulkan instance
+            void initialize(const InstanceParameter & parameters, const Window & window); ///< Initialize vulkan instance
             void release(); ///< Destroy the vulkan instance
 
             const vk::Instance & getVkInstance() const; ///< Returns the Vulkan instance for use it
@@ -30,8 +29,12 @@ namespace graphics
 
             const ValidationLayer & getValidationLayer() const; ///< Returns validation layer
 
+            explicit operator bool() const;
+
     protected:
     private:
+        Instance(); ///< Constructor that implement m_instance;
+
         void initializeInternal();
         void fillRequiredExtension();
 
@@ -45,6 +48,7 @@ namespace graphics
 
             std::vector<const char *> m_vExtensions;
             const bool m_bIsDebug;
+            bool m_isInitialize;
     };
 }
 

@@ -11,7 +11,8 @@
 
 void graphics::CommandPool::initialize(const LogicalDevice &logicalDevice)
 {
-    QueueFamilyHint hints(logicalDevice.getParentPhysicalDevice());
+    PhysicalDevice * physicalDevice = PhysicalDevice::getInstance();
+    QueueFamilyHint hints(*physicalDevice);
     vk::CommandPoolCreateInfo commandPoolInfo{};
 
     commandPoolInfo.queueFamilyIndex = hints.getGraphicsFamilyValue();

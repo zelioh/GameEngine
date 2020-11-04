@@ -18,7 +18,7 @@ namespace graphics {
     class LogicalDevice
     {
     public:
-        LogicalDevice(const graphics::PhysicalDevice & physicalDevice);
+        static LogicalDevice * getInstance();
 
         void initializeCommandPool();
 
@@ -26,7 +26,6 @@ namespace graphics {
         void release();
 
         const vk::Device & getVkLogicalDevice() const;
-        const PhysicalDevice & getParentPhysicalDevice() const;
         const Queue & getGraphicQueue() const;
         const Queue & getPresentQueue() const;
 
@@ -72,11 +71,12 @@ namespace graphics {
         void createIndexBuffer(vk::Buffer & indexBuffer, vk::DeviceMemory & memory, const std::vector<uint32_t> & m_indices) const;
 
     private:
+        LogicalDevice();
+
         void initializeInternal();
         void initializeDescriptorLayout();
 
     private:
-        const PhysicalDevice & m_parentPhysicalDevice;
         vk::Device m_logicalDevice;
         Queue m_graphicQueue;
         Queue m_presentQueue;

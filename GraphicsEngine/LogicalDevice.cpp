@@ -13,8 +13,18 @@
 #include <set>
 #include "Vertex.h"
 
-graphics::LogicalDevice::LogicalDevice(const graphics::PhysicalDevice &physicalDevice):
-m_parentPhysicalDevice(physicalDevice)
+graphics::LogicalDevice * graphics::LogicalDevice::getInstance()
+{
+    static LogicalDevice * logicalDevice = nullptr;
+
+    if (nullptr == logicalDevice)
+    {
+        logicalDevice = new LogicalDevice();
+    }
+    return logicalDevice;
+}
+
+graphics::LogicalDevice::LogicalDevice()
 {
     initializeInternal();
     initializeDescriptorLayout();
@@ -41,11 +51,6 @@ void graphics::LogicalDevice::release()
 const vk::Device & graphics::LogicalDevice::getVkLogicalDevice() const
 {
     return m_logicalDevice;
-}
-
-const graphics::PhysicalDevice & graphics::LogicalDevice::getParentPhysicalDevice() const
-{
-    return m_parentPhysicalDevice;
 }
 
 const graphics::Queue & graphics::LogicalDevice::getGraphicQueue() const
@@ -89,7 +94,10 @@ const graphics::CommandPool & graphics::LogicalDevice::getCommandPool() const
 
 void graphics::LogicalDevice::initializeInternal()
 {
-    QueueFamilyHint hints(m_parentPhysicalDevice);
+    Instance * instance = Instance::getInstance();
+    PhysicalDevice * physicalDevice = PhysicalDevice::getInstance();
+
+    QueueFamilyHint hints(*physicalDevice);
     std::vector<vk::DeviceQueueCreateInfo> queueInfos;
     std::set<uint32_t> uniqueQueueFamily = {hints.getGraphicsFamilyValue(), hints.getPresentFamilyValue()};
     float queuePriority = 1.f;
@@ -106,7 +114,7 @@ void graphics::LogicalDevice::initializeInternal()
 
     vk::PhysicalDeviceFeatures featues{};
     vk::DeviceCreateInfo deviceInfo{};
-    const std::vector<const char *> deviceExtension = m_parentPhysicalDevice.getDeviceExtensions();
+    const std::vector<const char *> deviceExtension = physicalDevice->getDeviceExtensions();
 
     featues.samplerAnisotropy = true;
     deviceInfo.queueCreateInfoCount = static_cast<uint32_t>(queueInfos.size());
@@ -116,7 +124,7 @@ void graphics::LogicalDevice::initializeInternal()
     deviceInfo.ppEnabledExtensionNames = deviceExtension.data();
     if (ENGINE_DEBUG)
     {
-        const std::vector<const char *> & layerName = m_parentPhysicalDevice.getParentInstance().getValidationLayer().getValidationLayerNames();
+        const std::vector<const char *> & layerName = instance->getValidationLayer().getValidationLayerNames();
 
         deviceInfo.enabledLayerCount = 1;
         deviceInfo.ppEnabledLayerNames = layerName.data();
@@ -125,7 +133,7 @@ void graphics::LogicalDevice::initializeInternal()
         deviceInfo.ppEnabledLayerNames = nullptr;
     }
 
-    m_logicalDevice = m_parentPhysicalDevice.getVkPhysicalDevice().createDevice(deviceInfo);
+    m_logicalDevice = physicalDevice->getVkPhysicalDevice().createDevice(deviceInfo);
 
     if (!m_logicalDevice)
     {
@@ -194,9 +202,10 @@ void graphics::LogicalDevice::createVkImage(uint32_t width, uint32_t height, uin
 
     vk::MemoryRequirements memoryRequirements = m_logicalDevice.getImageMemoryRequirements(image);
     vk::MemoryAllocateInfo allocateInfo{};
+    PhysicalDevice * physicalDevice = PhysicalDevice::getInstance();
 
     allocateInfo.allocationSize = memoryRequirements.size;
-    allocateInfo.memoryTypeIndex = m_parentPhysicalDevice.findMemoryType(memoryRequirements.memoryTypeBits, properties);
+    allocateInfo.memoryTypeIndex = physicalDevice->findMemoryType(memoryRequirements.memoryTypeBits, properties);
     memory = m_logicalDevice.allocateMemory(allocateInfo);
     if (!memory)
     {
@@ -222,9 +231,10 @@ void graphics::LogicalDevice::createVkBuffer(vk::DeviceSize size, vk::BufferUsag
 
     vk::MemoryRequirements requirements = m_logicalDevice.getBufferMemoryRequirements(buffer);
     vk::MemoryAllocateInfo allocationInfo{};
+    PhysicalDevice * physicalDevice = PhysicalDevice::getInstance();
 
     allocationInfo.allocationSize = requirements.size;
-    allocationInfo.memoryTypeIndex = m_parentPhysicalDevice.findMemoryType(requirements.memoryTypeBits, properties);
+    allocationInfo.memoryTypeIndex = physicalDevice->findMemoryType(requirements.memoryTypeBits, properties);
     memory = m_logicalDevice.allocateMemory(allocationInfo);
     if (!memory)
     {
@@ -303,9 +313,10 @@ void graphics::LogicalDevice::createImage(uint32_t width, uint32_t height, uint3
 
     vk::MemoryRequirements memoryRequirements = m_logicalDevice.getImageMemoryRequirements(image);
     vk::MemoryAllocateInfo allocateInfo{};
+    PhysicalDevice * physicalDevice = PhysicalDevice::getInstance();
 
     allocateInfo.allocationSize = memoryRequirements.size;
-    allocateInfo.memoryTypeIndex = m_parentPhysicalDevice.findMemoryType(memoryRequirements.memoryTypeBits, properties);
+    allocateInfo.memoryTypeIndex = physicalDevice->findMemoryType(memoryRequirements.memoryTypeBits, properties);
     memory = m_logicalDevice.allocateMemory(allocateInfo);
     if (!memory)
     {
@@ -401,7 +412,8 @@ void graphics::LogicalDevice::copyVkBufferToImage(const vk::Buffer & buffer,
 void graphics::LogicalDevice::generateMipmap(const vk::Image &image, vk::Format format, uint32_t texWidth,
                                              uint32_t texHeight, uint32_t mipLevel) const
 {
-    vk::FormatProperties formatProperties = m_parentPhysicalDevice.getVkPhysicalDevice().getFormatProperties(format);
+    PhysicalDevice * physicalDevice = PhysicalDevice::getInstance();
+    vk::FormatProperties formatProperties = physicalDevice->getVkPhysicalDevice().getFormatProperties(format);
 
     if (!(formatProperties.optimalTilingFeatures & vk::FormatFeatureFlagBits::eSampledImageFilterLinear))
     {

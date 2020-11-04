@@ -46,6 +46,8 @@ namespace object {
         virtual void release(const graphics::LogicalDevice & logicalDevice) = 0;
 
         Math::Matrix4F getTransformationMatrix() const;
+        void setPhysicsObject(const PhysicsObject& object) { this->m_physicsObject = object; };
+        PhysicsObject& getPhysicsObject() const { return this->m_physicsObject; };
 
     protected:
         GameObject(const graphics::LogicalDevice & logicalDevice,
@@ -74,6 +76,7 @@ namespace object {
         // Index buffer
         vk::Buffer m_indexBuffer;
         vk::DeviceMemory m_indexBufferMemory;
+        PhysicsObject* m_physicsObject;
     };
 
 }

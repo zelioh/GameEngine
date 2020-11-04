@@ -9,6 +9,7 @@
 #include <iostream>
 #include "Vector3F.h"
 #include "Vector2F.h"
+#include <unordered_map>
 
 std::vector<std::string> object::utils::splitString(const std::string & str, const std::string & delimiter)
 {
@@ -26,7 +27,10 @@ std::vector<std::string> object::utils::splitString(const std::string & str, con
     return result;
 }
 
-bool object::utils::loadObj(const std::string &fileName, std::vector<graphics::Vertex> &vertices, std::vector<unsigned int> & indices)
+bool object::utils::loadObj(const std::string &fileName,
+                            std::vector<graphics::Vertex> &vertices,
+                            std::vector<unsigned int> & indices,
+                            const Math::Vector3F & vertexColor)
 {
     std::fstream file;
 
@@ -96,10 +100,14 @@ bool object::utils::loadObj(const std::string &fileName, std::vector<graphics::V
         graphics::Vertex vertex{};
 
         vertex.m_position = position;
+        vertex.m_color = vertexColor;
         //vertex.m_normal = normal; ///< TODO: use set normal when light will be push
-        vertex.m_texCoord = uv;
+        vertex.m_texCoord.X = uv.X;
+        vertex.m_texCoord.Y = 1.0f - uv.Y; ///< need to inverse because vulkan is opposite than standar obj
+
         vertices.push_back(vertex);
-        indices.push_back(vertexIndex);
+        indices.push_back(indices.size());
     }
+
     return true;
 }

@@ -26,6 +26,8 @@
 #include "Objects/CameraManager.h"
 #include "Objects/Plane.h"
 #include "Objects/PlaneManager.h"
+#include "Objects/Model3D.h"
+#include "Objects/Model3DManager.h"
 
 #include <chrono>
 
@@ -128,9 +130,10 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     object::Plane * plane = planeManager->createPlane(logicalDevice,
                                                       myLevelIdentifier,
                                                       "Cool_plane",
-                                                      Math::Vector3F(0.f, 0.f, -2.f),
+                                                      Math::Vector3F(0.f, -10.f, 0.f),
                                                       Math::Vector3F(1.f, 0.2f, 0.4f),
-                                                      Math::Vector3F(3.f, 3.f, 3.f));
+                                                      Math::Vector3F(5.f, 5.f, 5.f),
+                                                      object::SRotation{270.f, Math::Vector3F(1.f, 0.f, 0.f)});
 
     object::Camera * camera = object::CameraManager::getInstance()->createCamera(myLevelIdentifier,
                                                                                  "Camera_one",
@@ -147,6 +150,22 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     float height = static_cast<float>(extent.height);
 
     renderer.setProjectionMatrix(Math::utils::perspective(90.0f, width / height, 0.01f, 25.f));
+
+
+    object::Model3DManager * modelsManager = object::Model3DManager::getInstance();
+
+    object::Model3D * viking_room = modelsManager->createModel3D(logicalDevice,
+                                                                 myLevelIdentifier,
+                                                                 "Viking_room",
+                                                                 "../models/viking_room.obj",
+                                                                 Math::Vector3F(0.f, 0.f, 0.f),
+                                                                 Math::Vector3F(1.f, 1.f, 1.f),
+                                                                 Math::Vector3F(2.f, 2.f, 2.f));
+
+    graphics::Texture * viking_room_texture = textureManager->createTexture(swapchain, "../assets/viking_room.png", "Viking_room");
+
+    viking_room->setTexture(viking_room_texture);
+    viking_room->setRotate(object::SRotation{90.f, Math::Vector3F(0.f, 0.f, 1.f)});
 
     while (window)
     {

@@ -10,7 +10,14 @@ set(OBJECT_SRC
         Objects/SRotation.cpp Objects/SRotation.h
         Objects/CameraManager.cpp Objects/CameraManager.h
         Objects/Camera.cpp Objects/Camera.h
-        Objects/Plane.cpp Objects/Plane.h Objects/PlaneManager.cpp Objects/PlaneManager.h Objects/Objects_utils.cpp Objects/Objects_utils.h Objects/Model3D.cpp Objects/Model3D.h Objects/Model3DManager.cpp Objects/Model3DManager.h)
+		Objects/Plane.cpp Objects/Plane.h
+		Objects/PlaneManager.cpp Objects/PlaneManager.h
+		Objects/Objects_utils.cpp Objects/Objects_utils.h
+		Objects/Model3D.cpp Objects/Model3D.h
+		Objects/Model3DManager.cpp Objects/Model3DManager.h
+        Objects/LightManager.h Objects/LightManager.cpp
+        Objects/Light.h Objects/Light.cpp
+        )
 
 add_library(GraphicsEngine OBJECT
         Instance.cpp Instance.h

@@ -8,12 +8,18 @@
 #define GAMEENGINE_SUNIFORMBUFFEROBJECT_H
 
 #include "Matrix4F.h"
+#include "Vector3F.h"
 
 struct SUniformBufferObject
 {
     alignas(16) Math::Matrix4F model;
     alignas(16) Math::Matrix4F view;
     alignas(16) Math::Matrix4F proj;
+    alignas(16) Math::Vector3F position;
+    alignas(16) Math::Vector3F color;
+    alignas(4) float strenght;
+    alignas(4) float specular;
+    alignas(16) Math::Vector3F cameraPosition;
 };
 
 #endif //GAMEENGINE_SUNIFORMBUFFEROBJECT_H

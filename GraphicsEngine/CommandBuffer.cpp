@@ -13,6 +13,10 @@
 #include "Texture.h"
 #include "SUniformBufferObject.h"
 #include "TextureManager.h"
+#include "SceneManager.h"
+#include "Scene.h"
+#include "Light.h"
+#include "Camera.h"
 
 void graphics::CommandBuffer::initialize(const Swapchain & swapchain)
 {
@@ -77,6 +81,23 @@ void graphics::CommandBuffer::render(const Swapchain &swapchain,
     ubo.view = viewMatrix;
     ubo.proj = projectionMatrix;
     ubo.proj(1, 1) *= -1;
+
+    object::Light * light = object::SceneManager::getInstance()->getCurrentScene()->getLight();
+
+    if (nullptr != light)
+    {
+        ubo.position = light->getPosition();
+        ubo.color = light->getColor();
+        ubo.specular = light->getSpecular();
+        ubo.strenght = light->getStrength();
+    } else {
+        ubo.position = Math::Vector3F(0.f, 0.f, 0.f);
+        ubo.color = Math::Vector3F(1.f, 1.f, 1.f);
+        ubo.strenght = 0.f;
+        ubo.specular = 0.f;
+    }
+
+    ubo.cameraPosition = object::SceneManager::getInstance()->getCurrentScene()->getCurrentCamera()->getPosition();
 
     m_commandBuffers[imageIndex].pushConstants(pipeline.getVkPipelineLayout(),
                                                vk::ShaderStageFlagBits::eAllGraphics,

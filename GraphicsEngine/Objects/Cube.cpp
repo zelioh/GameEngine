@@ -18,141 +18,325 @@ GameObject(logicalDevice, levelIdentifier, identifier, position, color, scale, r
 {
     //
     // Vertices top face
-    m_vertices.push_back(graphics::Vertex(
-                    Math::Vector3F(-0.5f, -0.5f, 0.5f),
-                    m_color,
-                    Math::Vector2F(1.f, 0.f)
-                    ));
-    m_vertices.push_back(graphics::Vertex(
-                    Math::Vector3F(0.5f, -0.5f, 0.5f),
-                    m_color,
-                    Math::Vector2F(0.f, 0.f)
-                    ));
-    m_vertices.push_back(graphics::Vertex(
-            Math::Vector3F(0.5f, 0.5f, 0.5f),
-            m_color,
-            Math::Vector2F(0.f, 1.f)
-    ));
-    m_vertices.push_back(graphics::Vertex(
-            Math::Vector3F(-0.5f, 0.5f, 0.5f),
-            m_color,
-            Math::Vector2F(1.f, 1.f)
-    ));
+//    m_vertices.push_back({
+//                    Math::Vector3F(-0.5f, -0.5f, 0.5f),
+//                    m_color,
+//                    Math::Vector2F(1.f, 0.f),
+//                    Math::Vector3F(0.f, 0.f, 1.f)
+//                    });
+//    m_vertices.push_back({
+//                    Math::Vector3F(0.5f, -0.5f, 0.5f),
+//                    m_color,
+//                    Math::Vector2F(0.f, 0.f),
+//                    Math::Vector3F(0.f, 0.f, 1.f)
+//    });
+//    m_vertices.push_back({
+//            Math::Vector3F(0.5f, 0.5f, 0.5f),
+//            m_color,
+//            Math::Vector2F(0.f, 1.f),
+//            Math::Vector3F(0.f, 0.f, 1.f)
+//    });
+//    m_vertices.push_back({
+//            Math::Vector3F(-0.5f, 0.5f, 0.5f),
+//            m_color,
+//            Math::Vector2F(1.f, 1.f),
+//            Math::Vector3F(0.f, 0.f, 1.f)
+//    });
+//
+//    //
+//    // Vertices front face
+//    m_vertices.push_back({
+//            Math::Vector3F(-0.5f, -0.5f, -0.5f),
+//            m_color,
+//            Math::Vector2F(0.f, 1.f),
+//            Math::Vector3F(0.f, 1.f, 0.f)
+//    });
+//    m_vertices.push_back({
+//            Math::Vector3F(0.5f, -0.5f, -0.5f),
+//            m_color,
+//            Math::Vector2F(1.f, 1.f),
+//            Math::Vector3F(0.f, 1.f, 0.f)
+//    });
+//    m_vertices.push_back({
+//            Math::Vector3F(0.5f, -0.5f, 0.5f),
+//            m_color,
+//            Math::Vector2F(1.f, 0.f),
+//            Math::Vector3F(0.f, 1.f, 0.f)
+//    });
+//    m_vertices.push_back({
+//            Math::Vector3F(-0.5f, -0.5f, 0.5f),
+//            m_color,
+//            Math::Vector2F(0.f, 0.f),
+//            Math::Vector3F(0.f, 1.f, 0.f)
+//    });
+//
+//    //
+//    // Vertices left face
+//    m_vertices.push_back({
+//            Math::Vector3F(-0.5f, 0.5f, -0.5f),
+//            m_color,
+//            Math::Vector2F(0.f, 0.f),
+//            Math::Vector3F(-1.f, 0.f, 0.f)
+//    });
+//    m_vertices.push_back({
+//            Math::Vector3F(-0.5f, -0.5f, -0.5f),
+//            m_color,
+//            Math::Vector2F(1.f, 0.f),
+//            Math::Vector3F(-1.f, 0.f, 0.f)
+//    });
+//    m_vertices.push_back({
+//            Math::Vector3F(-0.5f, -0.5f, 0.5f),
+//            m_color,
+//            Math::Vector2F(1.f, 1.f),
+//            Math::Vector3F(-1.f, 0.f, 0.f)
+//    });
+//    m_vertices.push_back({
+//            Math::Vector3F(-0.5f, 0.5f, 0.5f),
+//            m_color,
+//            Math::Vector2F(0.f, 1.f),
+//            Math::Vector3F(-1.f, 0.f, 0.f)
+//    });
+//
+//    //
+//    // Vertices right face
+//    m_vertices.push_back({
+//            Math::Vector3F(0.5f, -0.5f, -0.5f),
+//            m_color,
+//            Math::Vector2F(0.f, 0.f),
+//            Math::Vector3F(1.f, 0.f, 0.f)
+//    });
+//    m_vertices.push_back({
+//            Math::Vector3F(0.5f, 0.5f, -0.5f),
+//            m_color,
+//            Math::Vector2F(1.f, 0.f),
+//            Math::Vector3F(1.f, 0.f, 0.f)
+//    });
+//    m_vertices.push_back({
+//            Math::Vector3F(0.5f, 0.5f, 0.5f),
+//            m_color,
+//            Math::Vector2F(1.f, 1.f),
+//            Math::Vector3F(1.f, 0.f, 0.f)
+//    });
+//    m_vertices.push_back({
+//            Math::Vector3F(0.5f, -0.5f, 0.5f),
+//            m_color,
+//            Math::Vector2F(0.f, 1.f),
+//            Math::Vector3F(1.f, 0.f, 0.f)
+//    });
+//
+//    //
+//    // Vertices back face
+//    m_vertices.push_back({
+//            Math::Vector3F(0.5f, 0.5f, -0.5f),
+//            m_color,
+//            Math::Vector2F(0.f, 1.f),
+//            Math::Vector3F(0.f, -1.f, 0.f)
+//    });
+//    m_vertices.push_back({
+//            Math::Vector3F(-0.5f, 0.5f, -0.5f),
+//            m_color,
+//            Math::Vector2F(1.f, 1.f),
+//            Math::Vector3F(0.f, -1.f, 0.f)
+//    });
+//    m_vertices.push_back({
+//            Math::Vector3F(-0.5f, 0.5f, 0.5f),
+//            m_color,
+//            Math::Vector2F(1.f, 0.f),
+//            Math::Vector3F(0.f, -1.f, 0.f)
+//    });
+//    m_vertices.push_back({
+//            Math::Vector3F(0.5f, 0.5f, 0.5f),
+//            m_color,
+//            Math::Vector2F(0.f, 0.f),
+//            Math::Vector3F(0.f, -1.f, 0.f)
+//    });
+//
+//    //
+//    // Vertices down face
+//    m_vertices.push_back({
+//            Math::Vector3F(-0.5f, 0.5f, -0.5f),
+//            m_color,
+//            Math::Vector2F(0.f, 0.f),
+//            Math::Vector3F(0.f, 0.f, -1.f)
+//    });
+//    m_vertices.push_back({
+//            Math::Vector3F(0.5f, 0.5f, -0.5f),
+//            m_color,
+//            Math::Vector2F(1.f, 0.f),
+//            Math::Vector3F(0.f, 0.f, -1.f)
+//    });
+//    m_vertices.push_back({
+//            Math::Vector3F(0.5f, -0.5f, -0.5f),
+//            m_color,
+//            Math::Vector2F(1.f, 1.f),
+//            Math::Vector3F(0.f, 0.f, -1.f)
+//    });
+//    m_vertices.push_back({
+//            Math::Vector3F(-0.5f, -0.5f, -0.5f),
+//            m_color,
+//            Math::Vector2F(0.f, 1.f),
+//            Math::Vector3F(0.f, 0.f, -1.f)
+//    });
+
+    m_vertices.push_back({
+                     Math::Vector3F(-0.5f, -0.5f, 0.5f),
+                     m_color,
+         Math::Vector2F(1.f, 0.f),
+         Math::Vector3F(0.f, 0.f, 1.f)
+                         });
+    m_vertices.push_back({
+                                 Math::Vector3F(0.5f, -0.5f, 0.5f),
+                                 m_color,
+                                 Math::Vector2F(0.f, 0.f),
+                                 Math::Vector3F(0.f, 0.f, 1.f)
+                         });
+    m_vertices.push_back({
+                                 Math::Vector3F(0.5f, 0.5f, 0.5f),
+                                 m_color,
+                                 Math::Vector2F(0.f, 1.f),
+                                 Math::Vector3F(0.f, 0.f, 1.f)
+                         });
+    m_vertices.push_back({
+                                 Math::Vector3F(-0.5f, 0.5f, 0.5f),
+                                 m_color,
+                                 Math::Vector2F(1.f, 1.f),
+                                 Math::Vector3F(0.f, 0.f, 1.f)
+                         });
 
     //
     // Vertices front face
-    m_vertices.push_back(graphics::Vertex(
-            Math::Vector3F(-0.5f, -0.5f, -0.5f),
-            m_color,
-            Math::Vector2F(0.f, 1.f)
-    ));
-    m_vertices.push_back(graphics::Vertex(
-            Math::Vector3F(0.5f, -0.5f, -0.5f),
-            m_color,
-            Math::Vector2F(1.f, 1.f)
-    ));
-    m_vertices.push_back(graphics::Vertex(
-            Math::Vector3F(0.5f, -0.5f, 0.5f),
-            m_color,
-            Math::Vector2F(1.f, 0.f)
-    ));
-    m_vertices.push_back(graphics::Vertex(
-            Math::Vector3F(-0.5f, -0.5f, 0.5f),
-            m_color,
-            Math::Vector2F(0.f, 0.f)
-    ));
+    m_vertices.push_back({
+                                 Math::Vector3F(-0.5f, -0.5f, -0.5f),
+                                 m_color,
+                                 Math::Vector2F(0.f, 1.f),
+                                 Math::Vector3F(0.f, 1.f, 0.f)
+                         });
+    m_vertices.push_back({
+                                 Math::Vector3F(0.5f, -0.5f, -0.5f),
+                                 m_color,
+                                 Math::Vector2F(1.f, 1.f),
+                                 Math::Vector3F(0.f, 1.f, 0.f)
+                         });
+    m_vertices.push_back({
+                                 Math::Vector3F(0.5f, -0.5f, 0.5f),
+                                 m_color,
+                                 Math::Vector2F(1.f, 0.f),
+                                 Math::Vector3F(0.f, 1.f, 0.f)
+                         });
+    m_vertices.push_back({
+                                 Math::Vector3F(-0.5f, -0.5f, 0.5f),
+                                 m_color,
+                                 Math::Vector2F(0.f, 0.f),
+                                 Math::Vector3F(0.f, 1.f, 0.f)
+                         });
 
     //
     // Vertices left face
-    m_vertices.push_back(graphics::Vertex(
-            Math::Vector3F(-0.5f, 0.5f, -0.5f),
-            m_color,
-            Math::Vector2F(0.f, 0.f)
-    ));
-    m_vertices.push_back(graphics::Vertex(
-            Math::Vector3F(-0.5f, -0.5f, -0.5f),
-            m_color,
-            Math::Vector2F(1.f, 0.f)
-    ));
-    m_vertices.push_back(graphics::Vertex(
-            Math::Vector3F(-0.5f, -0.5f, 0.5f),
-            m_color,
-            Math::Vector2F(1.f, 1.f)
-    ));
-    m_vertices.push_back(graphics::Vertex(
-            Math::Vector3F(-0.5f, 0.5f, 0.5f),
-            m_color,
-            Math::Vector2F(0.f, 1.f)
-    ));
+    m_vertices.push_back({
+                                 Math::Vector3F(-0.5f, 0.5f, -0.5f),
+                                 m_color,
+                                 Math::Vector2F(0.f, 0.f),
+                                 Math::Vector3F(-1.f, 0.f, 0.f)
+                         });
+    m_vertices.push_back({
+                                 Math::Vector3F(-0.5f, -0.5f, -0.5f),
+                                 m_color,
+                                 Math::Vector2F(1.f, 0.f),
+                                 Math::Vector3F(-1.f, 0.f, 0.f)
+                         });
+    m_vertices.push_back({
+                                 Math::Vector3F(-0.5f, -0.5f, 0.5f),
+                                 m_color,
+                                 Math::Vector2F(1.f, 1.f),
+                                 Math::Vector3F(-1.f, 0.f, 0.f)
+                         });
+    m_vertices.push_back({
+                                 Math::Vector3F(-0.5f, 0.5f, 0.5f),
+                                 m_color,
+                                 Math::Vector2F(0.f, 1.f),
+                                 Math::Vector3F(-1.f, 0.f, 0.f)
+                         });
 
     //
     // Vertices right face
-    m_vertices.push_back(graphics::Vertex(
-            Math::Vector3F(0.5f, -0.5f, -0.5f),
-            m_color,
-            Math::Vector2F(0.f, 0.f)
-    ));
-    m_vertices.push_back(graphics::Vertex(
-            Math::Vector3F(0.5f, 0.5f, -0.5f),
-            m_color,
-            Math::Vector2F(1.f, 0.f)
-    ));
-    m_vertices.push_back(graphics::Vertex(
-            Math::Vector3F(0.5f, 0.5f, 0.5f),
-            m_color,
-            Math::Vector2F(1.f, 1.f)
-    ));
-    m_vertices.push_back(graphics::Vertex(
-            Math::Vector3F(0.5f, -0.5f, 0.5f),
-            m_color,
-            Math::Vector2F(0.f, 1.f)
-    ));
+    m_vertices.push_back({
+                                 Math::Vector3F(0.5f, -0.5f, -0.5f),
+                                 m_color,
+                                 Math::Vector2F(0.f, 0.f),
+                                 Math::Vector3F(1.f, 0.f, 0.f)
+                         });
+    m_vertices.push_back({
+                                 Math::Vector3F(0.5f, 0.5f, -0.5f),
+                                 m_color,
+                                 Math::Vector2F(1.f, 0.f),
+                                 Math::Vector3F(1.f, 0.f, 0.f)
+                         });
+    m_vertices.push_back({
+                                 Math::Vector3F(0.5f, 0.5f, 0.5f),
+                                 m_color,
+                                 Math::Vector2F(1.f, 1.f),
+                                 Math::Vector3F(1.f, 0.f, 0.f)
+                         });
+    m_vertices.push_back({
+                                 Math::Vector3F(0.5f, -0.5f, 0.5f),
+                                 m_color,
+                                 Math::Vector2F(0.f, 1.f),
+                                 Math::Vector3F(1.f, 0.f, 0.f)
+                         });
 
     //
     // Vertices back face
-    m_vertices.push_back(graphics::Vertex(
+    m_vertices.push_back({
             Math::Vector3F(0.5f, 0.5f, -0.5f),
             m_color,
-            Math::Vector2F(0.f, 1.f)
-    ));
-    m_vertices.push_back(graphics::Vertex(
+            Math::Vector2F(0.f, 1.f),
+            Math::Vector3F(0.f, -1.f, 0.f)
+    });
+    m_vertices.push_back({
             Math::Vector3F(-0.5f, 0.5f, -0.5f),
             m_color,
-            Math::Vector2F(1.f, 1.f)
-    ));
-    m_vertices.push_back(graphics::Vertex(
+            Math::Vector2F(1.f, 1.f),
+            Math::Vector3F(0.f, -1.f, 0.f)
+    });
+    m_vertices.push_back({
             Math::Vector3F(-0.5f, 0.5f, 0.5f),
             m_color,
-            Math::Vector2F(1.f, 0.f)
-    ));
-    m_vertices.push_back(graphics::Vertex(
+            Math::Vector2F(1.f, 0.f),
+            Math::Vector3F(0.f, -1.f, 0.f)
+    });
+    m_vertices.push_back({
             Math::Vector3F(0.5f, 0.5f, 0.5f),
             m_color,
-            Math::Vector2F(0.f, 0.f)
-    ));
+            Math::Vector2F(0.f, 0.f),
+            Math::Vector3F(0.f, -1.f, 0.f)
+    });
 
     //
     // Vertices down face
-    m_vertices.push_back(graphics::Vertex(
+    m_vertices.push_back({
             Math::Vector3F(-0.5f, 0.5f, -0.5f),
             m_color,
-            Math::Vector2F(0.f, 0.f)
-    ));
-    m_vertices.push_back(graphics::Vertex(
+            Math::Vector2F(0.f, 0.f),
+            Math::Vector3F(0.f, 0.f, -1.f)
+    });
+    m_vertices.push_back({
             Math::Vector3F(0.5f, 0.5f, -0.5f),
             m_color,
-            Math::Vector2F(1.f, 0.f)
-    ));
-    m_vertices.push_back(graphics::Vertex(
+            Math::Vector2F(1.f, 0.f),
+            Math::Vector3F(0.f, 0.f, -1.f)
+    });
+    m_vertices.push_back({
             Math::Vector3F(0.5f, -0.5f, -0.5f),
             m_color,
-            Math::Vector2F(1.f, 1.f)
-    ));
-    m_vertices.push_back(graphics::Vertex(
+            Math::Vector2F(1.f, 1.f),
+            Math::Vector3F(0.f, 0.f, -1.f)
+    });
+    m_vertices.push_back({
             Math::Vector3F(-0.5f, -0.5f, -0.5f),
             m_color,
-            Math::Vector2F(0.f, 1.f)
-    ));
+            Math::Vector2F(0.f, 1.f),
+            Math::Vector3F(0.f, 0.f, -1.f)
+    });
 
     //
     // Indices

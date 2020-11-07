@@ -7,14 +7,16 @@
 #include "CameraManager.h"
 #include "PlaneManager.h"
 #include "Model3DManager.h"
+#include "LightManager.h"
 
 object::Scene::Scene(const std::string &identifier):
 m_strIdentifier(identifier),
-m_camera(nullptr)
+m_camera(nullptr),
+m_light(nullptr)
 {
 }
 
-std::vector<object::GameObject *> object::Scene::getSceneObjects() const
+std::vector<object::GameObject *> object::Scene::getSceneObjects()
 {
     std::vector<object::GameObject *> objects;
 
@@ -33,6 +35,16 @@ std::vector<object::GameObject *> object::Scene::getSceneObjects() const
 
         objects.insert(objects.end(), models.begin(), models.end());
     }
+	{
+		auto lights = LightManager::getInstance()->getLightOfScene(m_strIdentifier);
+
+        if (lights.size() <= 0)
+        {
+            m_light = nullptr;
+        } else {
+            m_light = lights[0]; ///< Take the first available light. TODO: multi-lighting
+        }
+	}
     return objects;
 }
 
@@ -64,7 +76,12 @@ object::Camera * object::Scene::getCurrentCamera() const
     return m_camera;
 }
 
-PhysicsEngine &object::Scene::getPhysicsEngine()
+PhysicsEngine & object::Scene::getPhysicsEngine()
 {
     return m_physicsEngine;
+}
+
+object::Light * object::Scene::getLight() const
+{
+    return m_light;
 }

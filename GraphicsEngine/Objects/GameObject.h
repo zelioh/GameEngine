@@ -44,15 +44,14 @@ namespace object {
         virtual const vk::Buffer & getVertexBuffer() const = 0;
         virtual const vk::Buffer & getIndexBuffer() const = 0;
 
-        virtual void release(const graphics::LogicalDevice & logicalDevice) = 0;
+        virtual void release() = 0;
 
         Math::Matrix4F getTransformationMatrix() const;
         void setPhysicsObject(PhysicsObject * object) { this->m_physicsObject = object; };
         PhysicsObject * getPhysicsObject() const { return this->m_physicsObject; };
 
     protected:
-        GameObject(const graphics::LogicalDevice & logicalDevice,
-                   const std::string & levelIdentifier,
+        GameObject(const std::string & levelIdentifier,
                    const std::string & identifier,
                    const Math::Vector3F & position,
                    const Math::Vector3F & color = Math::Vector3F(1.f, 1.f, 1.f),

@@ -7,11 +7,6 @@
 
 #include "GameObject.h"
 
-namespace graphics
-{
-    class LogicalDevice;
-}
-
 namespace object {
 
     class Model3D: public GameObject
@@ -25,11 +20,10 @@ namespace object {
         const std::vector<graphics::Vertex> & getVertices() const final;
         const std::vector<uint32_t> & getIndices() const final;
 
-        void release(const graphics::LogicalDevice &logicalDevice) override;
+        void release() final;
 
     private:
-        Model3D(const graphics::LogicalDevice & logicalDevice,
-                const std::string & levelIdentifier,
+        Model3D(const std::string & levelIdentifier,
                 const std::string & identifier,
                 const std::string & fileModel,
                 const Math::Vector3F & position,

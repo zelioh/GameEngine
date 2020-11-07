@@ -82,7 +82,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     }
 
     object::CubeManager * manager = object::CubeManager::getInstance();
-    object::Cube * cube1 = manager->createCube(*logicalDevice,
+    object::Cube * cube1 = manager->createCube(
                                               myLevelIdentifier,
                                               "TestCube",
                                               Math::Vector3F(-5.f, 0.f, 0.f),
@@ -92,7 +92,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 											  );
 
 
-    object::Cube * cube2 = manager->createCube(*logicalDevice,
+    object::Cube * cube2 = manager->createCube(
                                               myLevelIdentifier,
                                               "TestCube2",
                                               Math::Vector3F(5.f, 0.f, 0.f),
@@ -101,7 +101,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
                                               object::SRotation{0.f, Math::Vector3F(0.f, 0.f, 1.f)}
                                               );
 
-    object::Cube * cube3 = manager->createCube(*logicalDevice,
+    object::Cube * cube3 = manager->createCube(
                                               myLevelIdentifier,
                                               "TestCube3",
                                               Math::Vector3F(2.f, -1.f, 0.f),
@@ -109,7 +109,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
                                               Math::Vector3F(1.5f, 1.5f, 1.5f),
                                               object::SRotation{180.f, Math::Vector3F(0.f, 0.f, 1.f)});
 
-    object::Cube * cube4 = manager->createCube(*logicalDevice,
+    object::Cube * cube4 = manager->createCube(
                                               myLevelIdentifier,
                                               "TestCube4",
                                               Math::Vector3F(0.f, 2.f, 0.f),
@@ -117,7 +117,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
                                               Math::Vector3F(0.5f, 0.5f, 0.5f),
                                               object::SRotation{90.f, Math::Vector3F(0.f, 0.f, 1.f)});
 
-    object::Cube * cube5 = manager->createCube(*logicalDevice,
+    object::Cube * cube5 = manager->createCube(
                                               myLevelIdentifier,
                                               "TestCube5",
                                               Math::Vector3F(-1.f, 0.5f, 0.f),
@@ -136,7 +136,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
     object::PlaneManager * planeManager = object::PlaneManager::getInstance();
 
-    object::Plane * plane = planeManager->createPlane(*logicalDevice,
+    object::Plane * plane = planeManager->createPlane(
                                                       myLevelIdentifier,
                                                       "Cool_plane",
                                                       Math::Vector3F(0.f, -10.f, 0.f),
@@ -163,7 +163,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
     object::Model3DManager * modelsManager = object::Model3DManager::getInstance();
 
-    object::Model3D * viking_room = modelsManager->createModel3D(*logicalDevice,
+    object::Model3D * viking_room = modelsManager->createModel3D(
                                                                  myLevelIdentifier,
                                                                  "Viking_room",
                                                                  "../models/viking_room.obj",
@@ -250,7 +250,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
         if (HID::mouse::IsRightMouseKeyDown())
         {
             p.X -= (0.1f * (1.f / 60.f));
-            p.Y -= (0.2f * (1.f / 60.f));
+            p.Y += (0.2f * (1.f / 60.f));
         }
 
         camera->setPosition(p);
@@ -272,7 +272,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
         }
     }
     logicalDevice->getVkLogicalDevice().waitIdle();
-    manager->release(*logicalDevice);
+    manager->release();
     textureManager->release(*logicalDevice);
     object::SceneManager::getInstance()->release();
     pipeline.release(*logicalDevice);

@@ -15,8 +15,7 @@ namespace object {
         friend class PlaneManager;
 
     private:
-        Plane(const graphics::LogicalDevice & logicalDevice,
-             const std::string & levelIdentifier,
+        Plane(const std::string & levelIdentifier,
              const std::string & identifier,
              const Math::Vector3F & position,
              const Math::Vector3F & color = Math::Vector3F(1.f, 1.f, 1.f),

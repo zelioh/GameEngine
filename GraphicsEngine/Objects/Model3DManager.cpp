@@ -20,14 +20,13 @@
     return manager;
 }
 
-object::Model3D * object::Model3DManager::createModel3D(const graphics::LogicalDevice & logicalDevice,
-                                               const std::string & levelIdentifier,
-                                               const std::string & model3DIdentifier,
-                                               const std::string & fileName,
-                                               const Math::Vector3F &position,
-                                               const Math::Vector3F &color,
-                                               const Math::Vector3F & scale /*=Math::Vector3F(1,1,1)*/,
-                                               const SRotation & rotate /*=Math::Vector3F(0,0,0)*/
+object::Model3D * object::Model3DManager::createModel3D(const std::string & levelIdentifier,
+                                                        const std::string & model3DIdentifier,
+                                                        const std::string & fileName,
+                                                        const Math::Vector3F &position,
+                                                        const Math::Vector3F &color,
+                                                        const Math::Vector3F & scale /*=Math::Vector3F(1,1,1)*/,
+                                                        const SRotation & rotate /*=Math::Vector3F(0,0,0)*/
 )
 {
     if (!SceneManager::getInstance()->isExisting(levelIdentifier))
@@ -44,15 +43,14 @@ object::Model3D * object::Model3DManager::createModel3D(const graphics::LogicalD
     }
 
     // Create cube instance
-    m_pool[levelIdentifier][model3DIdentifier] = new Model3D(logicalDevice,
-                                                             levelIdentifier,
+    m_pool[levelIdentifier][model3DIdentifier] = new Model3D(levelIdentifier,
                                                              model3DIdentifier,
                                                              fileName,
                                                              position, color, scale, rotate);
     return m_pool[levelIdentifier][model3DIdentifier];
 }
 
-object::Model3D * object::Model3DManager::createModel3DAutoName(const graphics::LogicalDevice & logicalDevice,
+object::Model3D * object::Model3DManager::createModel3DAutoName(
                                                        const std::string & levelIdentifier,
                                                        const std::string & fileName,
                                                        const Math::Vector3F &position,
@@ -66,9 +64,9 @@ object::Model3D * object::Model3DManager::createModel3DAutoName(const graphics::
         return nullptr;
     }
     const size_t size = m_pool[levelIdentifier].size();
-    std::string identifier = "CUBE_" + std::to_string(size);
+    std::string identifier = "MODEL_" + std::to_string(size);
 
-    return createModel3D(logicalDevice, identifier, levelIdentifier, fileName, position, color, scale, rotate);
+    return createModel3D(identifier, levelIdentifier, fileName, position, color, scale, rotate);
 }
 
 object::Model3D * object::Model3DManager::findModel3D(const std::string & levelIdentifier, const std::string & model3DIdentifier)
@@ -87,27 +85,26 @@ object::Model3D * object::Model3DManager::findModel3D(const std::string & levelI
 }
 
 bool object::Model3DManager::deleteModel3D(const std::string & identifier,
-                                     const std::string & levelIdentifier,
-                                     const graphics::LogicalDevice & logicalDevice)
+                                     const std::string & levelIdentifier)
 {
     if (m_pool.find(levelIdentifier) == m_pool.end() ||
         m_pool[levelIdentifier].find(identifier) == m_pool[levelIdentifier].end()) {
         return false;
     }
 
-    m_pool[levelIdentifier][identifier]->release(logicalDevice);
+    m_pool[levelIdentifier][identifier]->release();
     delete m_pool[levelIdentifier][identifier];
     m_pool[levelIdentifier][identifier] = nullptr;
     return true;
 }
 
-void object::Model3DManager::release(const graphics::LogicalDevice &logicalDevice)
+void object::Model3DManager::release()
 {
     for (auto & map : m_pool)
     {
         for (auto & cube : map.second)
         {
-            cube.second->release(logicalDevice);
+            cube.second->release();
             delete cube.second;
             cube.second = nullptr;
         }

@@ -7,27 +7,22 @@
 
 #include "Vector3F.h"
 #include "Matrix4F.h"
+#include "Cube.h"
 
 #include <string>
 
 namespace object {
 
-    class Light
+    class Light: public Cube
     {
         friend class LightManager;
 
     public:
-        const Math::Vector3F & getPosition() const;
         const float & getStrength() const;
         const float & getSpecular() const;
-		const Math::Vector3F & getColor() const;
-		const std::string & getLevelIdentifier() const;
-		const std::string & getIdentifier() const;
 
-        void setPosition(const Math::Vector3F & position);
         void setStrength(const float & strength);
         void setSpecular(const float & specular);
-		void setColor(const Math::Vector3F & color);
 
     private:
         Light( const std::string & levelIdentifier,

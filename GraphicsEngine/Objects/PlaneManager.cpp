@@ -17,7 +17,7 @@
     return manager;
 }
 
-object::Plane * object::PlaneManager::createPlane(const graphics::LogicalDevice & logicalDevice,
+object::Plane * object::PlaneManager::createPlane(
                                                const std::string & levelIdentifier,
                                                const std::string & cubeIdentifier,
                                                const Math::Vector3F &position,
@@ -40,11 +40,11 @@ object::Plane * object::PlaneManager::createPlane(const graphics::LogicalDevice 
     }
 
     // Create cube instance
-    m_pool[levelIdentifier][cubeIdentifier] = new Plane(logicalDevice, levelIdentifier, cubeIdentifier, position, color, scale, rotate);
+    m_pool[levelIdentifier][cubeIdentifier] = new Plane(levelIdentifier, cubeIdentifier, position, color, scale, rotate);
     return m_pool[levelIdentifier][cubeIdentifier];
 }
 
-object::Plane * object::PlaneManager::createPlaneAutoName(const graphics::LogicalDevice & logicalDevice,
+object::Plane * object::PlaneManager::createPlaneAutoName(
                                                        const std::string & levelIdentifier,
                                                        const Math::Vector3F &position,
                                                        const Math::Vector3F &color,
@@ -59,7 +59,7 @@ object::Plane * object::PlaneManager::createPlaneAutoName(const graphics::Logica
     const size_t size = m_pool[levelIdentifier].size();
     std::string identifier = "PLANE_" + std::to_string(size);
 
-    return createPlane(logicalDevice, identifier, levelIdentifier, position, color, scale, rotate);
+    return createPlane(identifier, levelIdentifier, position, color, scale, rotate);
 }
 
 object::Plane * object::PlaneManager::findPlane(const std::string & levelIdentifier, const std::string & cubeIdentifier)
@@ -78,27 +78,27 @@ object::Plane * object::PlaneManager::findPlane(const std::string & levelIdentif
 }
 
 bool object::PlaneManager::deletePlane(const std::string & identifier,
-                                     const std::string & levelIdentifier,
-                                     const graphics::LogicalDevice & logicalDevice)
+                                     const std::string & levelIdentifier
+                                     )
 {
     if (m_pool.find(levelIdentifier) == m_pool.end() ||
         m_pool[levelIdentifier].find(identifier) == m_pool[levelIdentifier].end()) {
         return false;
     }
 
-    m_pool[levelIdentifier][identifier]->release(logicalDevice);
+    m_pool[levelIdentifier][identifier]->release();
     delete m_pool[levelIdentifier][identifier];
     m_pool[levelIdentifier][identifier] = nullptr;
     return true;
 }
 
-void object::PlaneManager::release(const graphics::LogicalDevice &logicalDevice)
+void object::PlaneManager::release()
 {
     for (auto & map : m_pool)
     {
         for (auto & plane : map.second)
         {
-            plane.second->release(logicalDevice);
+            plane.second->release();
             delete plane.second;
             plane.second = nullptr;
         }

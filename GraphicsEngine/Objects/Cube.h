@@ -22,11 +22,10 @@ class Cube : public GameObject
         const vk::Buffer & getVertexBuffer() const final;
         const vk::Buffer & getIndexBuffer() const final;
 
-        void release(const graphics::LogicalDevice &logicalDevice) final;
+        void release() final;
 
     protected:
-        Cube(const graphics::LogicalDevice & logicalDevice,
-             const std::string & levelIdentifier,
+        Cube(const std::string & levelIdentifier,
              const std::string & identifier,
              const Math::Vector3F & position,
              const Math::Vector3F & color = Math::Vector3F(1.f, 1.f, 1.f),

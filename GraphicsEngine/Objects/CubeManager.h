@@ -33,8 +33,7 @@ namespace object {
          * @param scale         Scale of the cube
          * @return  instance of Cube
          */
-        Cube * createCube(const graphics::LogicalDevice & logicalDevice,
-                          const std::string & levelIdentifier,
+        Cube * createCube(const std::string & levelIdentifier,
                           const std::string & identifier,
                           const Math::Vector3F & position,
                           const Math::Vector3F & color = Math::Vector3F(1.f, 1.f, 1.f),
@@ -49,8 +48,7 @@ namespace object {
          * @param scale     Scale of the cube
          * @return  instance of Cube
          */
-        Cube * createCubeAutoName(const graphics::LogicalDevice & logicalDevice,
-                                  const std::string & levelIdentifier,
+        Cube * createCubeAutoName(const std::string & levelIdentifier,
                                   const Math::Vector3F & position,
                                   const Math::Vector3F & color = Math::Vector3F(1.f, 1.f, 1.f),
                                   const Math::Vector3F & scale = Math::Vector3F(1.f, 1.f, 1.f),
@@ -68,10 +66,9 @@ namespace object {
          * @return true if success else false if the Cube identifier doesn't exist in the pool
          */
         bool deleteCube(const std::string & identifier,
-                        const std::string & levelIdentifier,
-                        const graphics::LogicalDevice & logicalDevice);
+                        const std::string & levelIdentifier);
 
-        void release(const graphics::LogicalDevice & logicalDevice); ///< Release all element in the pool
+        void release(); ///< Release all element in the pool
 
     private:
         CubeManager() = default;

@@ -32,8 +32,7 @@ namespace object {
          * @param scale         Scale of the model3D
          * @return  instance of Model3D
          */
-        Model3D * createModel3D(const graphics::LogicalDevice & logicalDevice,
-                          const std::string & levelIdentifier,
+        Model3D * createModel3D(const std::string & levelIdentifier,
                           const std::string & identifier,
                           const std::string & fileName,
                           const Math::Vector3F & position,
@@ -43,14 +42,13 @@ namespace object {
 
         /**
          * Work like createModel3D but the identifier is create automaticly
-         * with the patern MODEL3D_XXX where XXX is it number in the pool
+         * with the patern MODEL_XXX where XXX is it number in the pool
          * @param position  Position of the model3D in the world
          * @param color     Color of the model3D
          * @param scale     Scale of the model3D
          * @return  instance of Model3D
          */
-        Model3D * createModel3DAutoName(const graphics::LogicalDevice & logicalDevice,
-                                  const std::string & levelIdentifier,
+        Model3D * createModel3DAutoName(const std::string & levelIdentifier,
                                   const std::string & fileName,
                                   const Math::Vector3F & position,
                                   const Math::Vector3F & color = Math::Vector3F(1.f, 1.f, 1.f),
@@ -69,10 +67,9 @@ namespace object {
          * @return true if success else false if the Model3D identifier doesn't exist in the pool
          */
         bool deleteModel3D(const std::string & identifier,
-                        const std::string & levelIdentifier,
-                        const graphics::LogicalDevice & logicalDevice);
+                        const std::string & levelIdentifier);
 
-        void release(const graphics::LogicalDevice & logicalDevice); ///< Release all element in the pool
+        void release(); ///< Release all element in the pool
 
     private:
         Model3DManager() = default;

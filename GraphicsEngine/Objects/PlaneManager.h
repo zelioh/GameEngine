@@ -32,7 +32,7 @@ namespace object {
          * @param scale         Scale of the cube
          * @return  instance of Plane
          */
-        Plane *createPlane(const graphics::LogicalDevice &logicalDevice,
+        Plane *createPlane(
                          const std::string &levelIdentifier,
                          const std::string &identifier,
                          const Math::Vector3F &position,
@@ -48,7 +48,7 @@ namespace object {
          * @param scale     Scale of the cube
          * @return  instance of Plane
          */
-        Plane *createPlaneAutoName(const graphics::LogicalDevice &logicalDevice,
+        Plane *createPlaneAutoName(
                                  const std::string &levelIdentifier,
                                  const Math::Vector3F &position,
                                  const Math::Vector3F &color = Math::Vector3F(1.f, 1.f, 1.f),
@@ -68,10 +68,9 @@ namespace object {
          * @return true if success else false if the Plane identifier doesn't exist in the pool
          */
         bool deletePlane(const std::string &identifier,
-                        const std::string &levelIdentifier,
-                        const graphics::LogicalDevice &logicalDevice);
+                        const std::string &levelIdentifier);
 
-        void release(const graphics::LogicalDevice &logicalDevice); ///< Release all element in the pool
+        void release(); ///< Release all element in the pool
 
     private:
         PlaneManager() = default;

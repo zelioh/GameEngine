@@ -8,6 +8,9 @@
 #include "PlaneManager.h"
 #include "Model3DManager.h"
 #include "LightManager.h"
+#include "Light.h"
+#include "Cube.h"
+#include "GameObject.h"
 
 object::Scene::Scene(const std::string &identifier):
 m_strIdentifier(identifier),
@@ -44,6 +47,7 @@ std::vector<object::GameObject *> object::Scene::getSceneObjects()
         } else {
             m_light = lights[0]; ///< Take the first available light. TODO: multi-lighting
         }
+        objects.push_back(lights[0]);
 	}
     return objects;
 }

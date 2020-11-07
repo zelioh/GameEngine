@@ -20,8 +20,7 @@
     return manager;
 }
 
-object::Cube * object::CubeManager::createCube(const graphics::LogicalDevice & logicalDevice,
-                                               const std::string & levelIdentifier,
+object::Cube * object::CubeManager::createCube(const std::string & levelIdentifier,
                                                const std::string & cubeIdentifier,
                                                const Math::Vector3F &position,
                                                const Math::Vector3F &color,
@@ -43,12 +42,11 @@ object::Cube * object::CubeManager::createCube(const graphics::LogicalDevice & l
     }
 
     // Create cube instance
-    m_pool[levelIdentifier][cubeIdentifier] = new Cube(logicalDevice, levelIdentifier, cubeIdentifier, position, color, scale, rotate);
+    m_pool[levelIdentifier][cubeIdentifier] = new Cube(levelIdentifier, cubeIdentifier, position, color, scale, rotate);
     return m_pool[levelIdentifier][cubeIdentifier];
 }
 
-object::Cube * object::CubeManager::createCubeAutoName(const graphics::LogicalDevice & logicalDevice,
-                                                       const std::string & levelIdentifier,
+object::Cube * object::CubeManager::createCubeAutoName(const std::string & levelIdentifier,
                                                        const Math::Vector3F &position,
                                                        const Math::Vector3F &color,
                                                        const Math::Vector3F & scale /*=Math::Vector3F(1,1,1)*/,
@@ -62,7 +60,7 @@ object::Cube * object::CubeManager::createCubeAutoName(const graphics::LogicalDe
     const size_t size = m_pool[levelIdentifier].size();
     std::string identifier = "CUBE_" + std::to_string(size);
 
-    return createCube(logicalDevice, identifier, levelIdentifier, position, color, scale, rotate);
+    return createCube(identifier, levelIdentifier, position, color, scale, rotate);
 }
 
 object::Cube * object::CubeManager::findCube(const std::string & levelIdentifier, const std::string & cubeIdentifier)
@@ -81,27 +79,26 @@ object::Cube * object::CubeManager::findCube(const std::string & levelIdentifier
 }
 
 bool object::CubeManager::deleteCube(const std::string & identifier,
-                                     const std::string & levelIdentifier,
-                                     const graphics::LogicalDevice & logicalDevice)
+                                     const std::string & levelIdentifier)
 {
     if (m_pool.find(levelIdentifier) == m_pool.end() ||
         m_pool[levelIdentifier].find(identifier) == m_pool[levelIdentifier].end()) {
         return false;
     }
     
-    m_pool[levelIdentifier][identifier]->release(logicalDevice);
+    m_pool[levelIdentifier][identifier]->release();
     delete m_pool[levelIdentifier][identifier];
     m_pool[levelIdentifier][identifier] = nullptr;
     return true;
 }
 
-void object::CubeManager::release(const graphics::LogicalDevice &logicalDevice)
+void object::CubeManager::release()
 {
     for (auto & map : m_pool)
     {
         for (auto & cube : map.second)
         {
-            cube.second->release(logicalDevice);
+            cube.second->release();
             delete cube.second;
             cube.second = nullptr;
         }

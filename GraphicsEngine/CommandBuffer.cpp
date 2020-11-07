@@ -16,6 +16,7 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "Light.h"
+#include "Camera.h"
 
 void graphics::CommandBuffer::initialize(const Swapchain & swapchain)
 {
@@ -95,6 +96,8 @@ void graphics::CommandBuffer::render(const Swapchain &swapchain,
         ubo.strenght = 0.f;
         ubo.specular = 0.f;
     }
+
+    ubo.cameraPosition = object::SceneManager::getInstance()->getCurrentScene()->getCurrentCamera()->getPosition();
 
     m_commandBuffers[imageIndex].pushConstants(pipeline.getVkPipelineLayout(),
                                                vk::ShaderStageFlagBits::eAllGraphics,

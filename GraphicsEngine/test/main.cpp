@@ -24,6 +24,8 @@
 #include "Math_utils.h"
 #include "Objects/Camera.h"
 #include "Objects/CameraManager.h"
+#include "Objects/LightManager.h"
+#include "Objects/Light.h"
 
 #include <chrono>
 
@@ -78,7 +80,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
                                               Math::Vector3F(0.f, 0.f, 0.f),
                                               Math::Vector3F(0.5f, 0.5f, 0.5f),
                                               Math::Vector3F(1.f, 1.f, 1.f),
-                                              object::SRotation{90.f, Math::Vector3F(0.f, 0.f, 1.f)});
+                                              object::SRotation{0.f, Math::Vector3F(0.f, 0.f, 1.f)});
 
     object::Cube * cube2 = manager->createCube(logicalDevice,
                                               myLevelIdentifier,
@@ -86,7 +88,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
                                               Math::Vector3F(1.f, 0.5f, 0.f),
                                               Math::Vector3F(1.f, 1.f, 1.f),
                                               Math::Vector3F(0.5f, 0.5f, 0.5f),
-                                              object::SRotation{90.f, Math::Vector3F(0.f, 0.f, 1.f)});
+                                              object::SRotation{0.f, Math::Vector3F(0.f, 0.f, 1.f)});
 
     object::Cube * cube3 = manager->createCube(logicalDevice,
                                               myLevelIdentifier,
@@ -123,7 +125,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
     object::Camera * camera = object::CameraManager::getInstance()->createCamera(myLevelIdentifier,
                                                                                  "Camera_one",
-                                                                                 Math::Vector3F(0.f, 3.f, -2.f),
+                                                                                 Math::Vector3F(0.f, 3.f, 2.f),
                                                                                  Math::Vector3F(0.f, 0.f, 0.f),
                                                                                  Math::Vector3F(0.f, 0.f, 1.f));
 
@@ -137,6 +139,13 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
     renderer.setProjectionMatrix(Math::utils::perspective(90.0f, width / height, 0.01f, 25.f));
 
+    object::LightManager::getInstance()->createLight(myLevelIdentifier,
+                                                     "ligth_000",
+                                                     Math::Vector3F(0.f, 0.f, 1.f),
+                                                     0.2f,
+                                                     0.3f,
+                                                     Math::Vector3F(1.f, 1.f, 1.f));
+
     while (window)
     {
         auto currentTime = std::chrono::high_resolution_clock::now();
@@ -147,16 +156,16 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
         {
             break;
         }
-        cube1->setRotate(object::SRotation{90.f * time, cube1->getRotate().axis});
-        cube2->setRotate(object::SRotation{90.f * -time, cube2->getRotate().axis});
-        cube3->setRotate(object::SRotation{90.f * time, Math::Vector3F(1.f, 0.f, 0.f)});
+        //cube1->setRotate(object::SRotation{90.f * time, cube1->getRotate().axis});
+        //cube2->setRotate(object::SRotation{90.f * -time, cube2->getRotate().axis});
+        //cube3->setRotate(object::SRotation{90.f * time, Math::Vector3F(1.f, 0.f, 0.f)});
         Math::Vector3F p = camera->getPosition();
 
         float camZ = sin(time) * 10.0f;
 
         p.Z = camZ;
 
-        camera->setPosition(p);
+        //camera->setPosition(p);
 
         if (!renderer.render(swapchain, pipeline))
         {

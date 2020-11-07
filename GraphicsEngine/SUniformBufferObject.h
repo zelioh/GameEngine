@@ -19,6 +19,7 @@ struct SUniformBufferObject
     alignas(16) Math::Vector3F color;
     alignas(4) float strenght;
     alignas(4) float specular;
+    alignas(16) Math::Vector3F cameraPosition;
 };
 
 #endif //GAMEENGINE_SUNIFORMBUFFEROBJECT_H

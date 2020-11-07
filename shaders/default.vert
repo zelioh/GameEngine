@@ -9,6 +9,7 @@ layout(push_constant) uniform UniformBufferObject {
     vec3 color;
     float strenght;
     float specular;
+    vec3 cameraPosition;
 } ubo;
 
 layout(location = 0) in vec3 inPosition;
@@ -23,7 +24,8 @@ layout(location = 3) out vec3 lightPosition;
 layout(location = 4) out vec3 lightColor;
 layout(location = 5) out float lightStrenght;
 layout(location = 6) out float lightSpecular;
-
+layout(location = 7) out vec3 fragPos;
+layout(location = 8) out vec3 cameraPosition;
 
 void main() {
     gl_Position = ubo.proj * ubo.view * ubo.model * vec4(inPosition, 1.0);
@@ -34,4 +36,6 @@ void main() {
     lightColor = ubo.color;
     lightStrenght = ubo.strenght;
     lightSpecular = ubo.specular;
+    fragPos = vec3(ubo.model * vec4(inPosition, 1.0));
+    cameraPosition = ubo.cameraPosition;
 }

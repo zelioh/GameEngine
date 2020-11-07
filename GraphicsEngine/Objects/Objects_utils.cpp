@@ -101,7 +101,7 @@ bool object::utils::loadObj(const std::string &fileName,
 
         vertex.m_position = position;
         vertex.m_color = vertexColor;
-        //vertex.m_normal = normal; ///< TODO: use set normal when light will be push
+        vertex.m_normal = normal;
         vertex.m_texCoord.X = uv.X;
         vertex.m_texCoord.Y = 1.0f - uv.Y; ///< need to inverse because vulkan is opposite than standar obj
 

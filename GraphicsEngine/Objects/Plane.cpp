@@ -20,26 +20,30 @@ object::Plane::Plane(const graphics::LogicalDevice & logicalDevice,
 
     release(logicalDevice);
 
-    m_vertices.push_back(graphics::Vertex(
+    m_vertices.push_back(graphics::Vertex{
             Math::Vector3F(-0.5f, -0.5f, 0.f),
             m_color,
-            Math::Vector2F(1.f, 0.f)
-    ));
-    m_vertices.push_back(graphics::Vertex(
+            Math::Vector2F(1.f, 0.f),
+            Math::Vector3F(0.f, 0.f, 1.f)
+    });
+    m_vertices.push_back(graphics::Vertex{
             Math::Vector3F(0.5f, -0.5f, 0.f),
             m_color,
-            Math::Vector2F(0.f, 0.f)
-    ));
-    m_vertices.push_back(graphics::Vertex(
+            Math::Vector2F(0.f, 0.f),
+            Math::Vector3F(0.f, 0.f, 1.f)
+    });
+    m_vertices.push_back(graphics::Vertex{
             Math::Vector3F(0.5f, 0.5f, 0.f),
             m_color,
-            Math::Vector2F(0.f, 1.f)
-    ));
-    m_vertices.push_back(graphics::Vertex(
+            Math::Vector2F(0.f, 1.f),
+            Math::Vector3F(0.f, 0.f, 1.f)
+    });
+    m_vertices.push_back(graphics::Vertex{
             Math::Vector3F(-0.5f, 0.5f, 0.f),
             m_color,
-            Math::Vector2F(1.f, 1.f)
-    ));
+            Math::Vector2F(1.f, 1.f),
+            Math::Vector3F(0.f, 0.f, 1.f)
+    });
 
 
     //

@@ -32,6 +32,7 @@
 #include "BoundingSphere.h"
 #include "Objects/LightManager.h"
 #include "Objects/Light.h"
+#include "Event.h"
 
 #include <chrono>
 #include <thread>
@@ -208,13 +209,52 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
         //cube1->setRotate(object::SRotation{90.f * time, cube1->getRotate().axis});
         //cube2->setRotate(object::SRotation{90.f * -time, cube2->getRotate().axis});
         cube3->setRotate(object::SRotation{90.f * time, Math::Vector3F(1.f, 0.f, 0.f)});
-//        Math::Vector3F p = camera->getPosition();
-//
-//        float camZ = sin(time) + 2.0f;
-//
-//        p.Z = camZ;
-//
-//        camera->setPosition(p);
+        Math::Vector3F p = camera->getPosition();
+        Math::Vector3F t = camera->getTarget();
+
+        if (HID::keyboard::IsKeyDown(HID::KEY::S))
+        {
+            p.Y += (0.1f * (1.f / 60.f));
+            t.Y += (0.1f * (1.f / 60.f));
+        }
+        if (HID::keyboard::IsKeyDown(HID::KEY::Z))
+        {
+            p.Y -= (0.1f * (1.f / 60.f));
+            t.Y -= (0.1f * (1.f / 60.f));
+        }
+        if (HID::keyboard::IsKeyDown(HID::KEY::D))
+        {
+            p.X -= (0.1f * (1.f / 60.f));
+            t.X -= (0.1f * (1.f / 60.f));
+        }
+        if (HID::keyboard::IsKeyDown(HID::KEY::Q))
+        {
+            p.X += (0.1f * (1.f / 60.f));
+            t.X += (0.1f * (1.f / 60.f));
+        }
+        if (HID::keyboard::IsKeyDown(HID::KEY::A))
+        {
+            p.Z -= (0.1f * (1.f / 60.f));
+            t.Z -= (0.1f * (1.f / 60.f));
+        }
+        if (HID::keyboard::IsKeyDown(HID::KEY::E))
+        {
+            p.Z += (0.1f * (1.f / 60.f));
+            t.Z += (0.1f * (1.f / 60.f));
+        }
+        if (HID::mouse::IsLeftMouseKeyDown())
+        {
+            p.X += (0.1f * (1.f / 60.f));
+            p.Y -= (0.2f * (1.f / 60.f));
+        }
+        if (HID::mouse::IsRightMouseKeyDown())
+        {
+            p.X -= (0.1f * (1.f / 60.f));
+            p.Y -= (0.2f * (1.f / 60.f));
+        }
+
+        camera->setPosition(p);
+        camera->setTarget(t);
 
         object::SceneManager::getInstance()->getCurrentScene()->getPhysicsEngine().CollisionHandler();
         object::SceneManager::getInstance()->getCurrentScene()->getPhysicsEngine().Update(0.01f);

@@ -1,43 +1,51 @@
 #include "Event.h"
+#include "WinUser.h"
 
-bool Event::IsKeyDown(Event::KEY key) const {
-	if (GetKeyState(key) < 0)
+bool HID::keyboard::IsKeyDown(KEY key)
+{
+	if (GetKeyState(static_cast<int>(key)) < 0)
 		return true;
 	return false;
 }
 
-bool Event::IsKeyUp(Event::KEY key) const {
-	if (GetKeyState(key) >= 0)
+bool HID::keyboard::IsKeyUp(KEY key)
+{
+	if (GetKeyState(static_cast<int>(key)) >= 0)
 		return true;
 	return false;
 }
 
-bool Event::IsLeftMouseKeyDown() const {
+bool HID::mouse::IsLeftMouseKeyDown()
+{
 	if (GetAsyncKeyState(VK_LBUTTON) < 0)
 		return true;
 	return false;
 }
 
-bool Event::IsRightMouseKeyDown() const {
+bool HID::mouse::IsRightMouseKeyDown()
+{
 	if (GetAsyncKeyState(VK_RBUTTON) < 0)
 		return true;
 	return false;
 }
 
-bool Event::IsMidleMouseKeyDown() const {
+bool HID::mouse::IsMidleMouseKeyDown()
+{
 	if (GetAsyncKeyState(MK_MBUTTON) < 0)
 		return true;
 	return false;
 }
 
-std::pair<int, int> Event::GetMousePosition() const {
+std::pair<int, int> HID::mouse::GetMousePosition()
+{
 	POINT p;
 
 	GetCursorPos(&p);
 	return std::make_pair(p.x, p.y);
 }
 
-bool Event::MouseMove() const {
+bool HID::mouse::MouseMove()
+{
 	if (GetKeyState(WM_MOUSEMOVE) < 0)
 		return true;
 	return false;

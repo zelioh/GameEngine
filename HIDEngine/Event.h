@@ -1,13 +1,11 @@
 #pragma once
 
 #include <iostream>
-#include <windows.h>
+#include <Windows.h>
 
-
-class Event
+namespace HID
 {
-public:
-	enum KEY {
+	enum class KEY {
 		A = 'A',
 		B = 'B',
 		C = 'C',
@@ -54,13 +52,18 @@ public:
 		DOWN = VK_DOWN,
 		TAB = VK_TAB,
 	};
-	bool IsKeyDown(Event::KEY) const;
-	bool IsKeyUp(Event::KEY) const;
-	bool IsLeftMouseKeyDown() const;
-	bool IsRightMouseKeyDown() const;
-	bool IsMidleMouseKeyDown() const;
-	std::pair<int, int> GetMousePosition() const;
-	bool MouseMove() const;
-private:
-};
 
+    namespace keyboard
+    {
+        bool IsKeyDown(KEY keyId);
+        bool IsKeyUp(KEY keyId);
+    }
+
+    namespace mouse {
+        bool IsLeftMouseKeyDown();
+        bool IsRightMouseKeyDown();
+        bool IsMidleMouseKeyDown();
+        std::pair<int, int> GetMousePosition();
+        bool MouseMove();
+    }
+}

@@ -20,6 +20,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
 
 add_subdirectory(AudioEngine)
+add_subdirectory(HIDEngine)
 add_subdirectory(Core)
 add_subdirectory(PhysicsEngine)
 add_subdirectory(GraphicsEngine)
@@ -30,3 +31,6 @@ target_link_libraries(gameEngine PRIVATE
                                 ${audio}
                                 ${GraphicsEngine}
                                 ${PhysicsEngine})
+
+target_link_libraries(gameEngine PUBLIC
+                                ${HIDEngine})

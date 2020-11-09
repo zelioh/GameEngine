@@ -255,19 +255,19 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
         {
             if (delta.first > 0)
             {
-                p.X += (0.3 * (1.f / 60.f));
+                t.X -= (0.1 * (1.f / 60.f));
             }
             if (delta.first < 0)
             {
-                p.X -= (0.3 * (1.f / 60.f));
+                t.X += (0.1 * (1.f / 60.f));
             }
             if (delta.second > 0)
             {
-                p.Z += (0.3 * (1.f / 60.f));
+                t.Z -= (0.1 * (1.f / 60.f));
             }
             if (delta.second < 0)
             {
-                p.Z -= (0.3 * (1.f / 60.f));
+                t.Z += (0.1 * (1.f / 60.f));
             }
         }
 

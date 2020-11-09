@@ -38,6 +38,7 @@ namespace graphics {
                          bool canMinimize,
                          bool canMaximaze,
                          bool canResize,
+                         bool clipCursorToWindow,
                          int width, int height,
                          int left = 0, int top = 0);
 
@@ -49,6 +50,7 @@ namespace graphics {
         bool m_bCanMinize;
         bool m_bCanMaximaze;
         bool m_bCanResize;
+        bool m_bClipCursorToWindow;
         int m_iWidth;
         int m_iHeight;
         int m_iLeft;

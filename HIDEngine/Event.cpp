@@ -44,9 +44,39 @@ std::pair<int, int> HID::mouse::GetMousePosition()
 	return std::make_pair(p.x, p.y);
 }
 
-bool HID::mouse::MouseMove()
+std::pair<int, int> HID::mouse::MouseMove()
 {
-	if (GetKeyState(WM_MOUSEMOVE) < 0)
-		return true;
-	return false;
+    static std::pair<int, int> previousPos(-1, -1);
+    std::pair<int, int> delta(0, 0);
+    std::pair<int, int> currentPosition = GetMousePosition();
+
+    if (previousPos == std::pair<int, int>(-1, -1))
+    {
+        previousPos = currentPosition;
+    }
+
+    if (previousPos != currentPosition)
+    {
+        delta.first = currentPosition.first - previousPos.first;
+        delta.second = currentPosition.second - previousPos.second;
+        if (delta.first >= 1)
+        {
+            delta.first = 1;
+            previousPos.first += 1;
+        } else if (delta.first <= -1) {
+            delta.first = -1;
+            previousPos.first -= 1;
+        }
+        if (delta.second >= 1)
+        {
+            delta.second = 1;
+            previousPos.second += 1;
+        }
+        if (delta.second <= -1)
+        {
+            delta.second = -1;
+            previousPos.second -= 1;
+        }
+    }
+	return delta;
 }

@@ -45,6 +45,8 @@ namespace graphics {
         operator bool(); ///< Check if the window is able to getMessage and so if it open.
         void handleEvent(); ///< Handle event must be call in the game loop
 
+        void close();
+
     private:
         static LRESULT CALLBACK WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM lparam); ///< Process event
 

@@ -64,6 +64,9 @@ namespace HID
         bool IsRightMouseKeyDown();
         bool IsMidleMouseKeyDown();
         std::pair<int, int> GetMousePosition();
-        bool MouseMove();
+
+        //
+        // Return the delta of previous and current mouse position. If the delta is egal to 0, 0 there was not mouse movement
+        std::pair<int, int> MouseMove();
     }
 }

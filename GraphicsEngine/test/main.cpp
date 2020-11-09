@@ -52,6 +52,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     parameters.m_bIsBorderLess = true;
     parameters.m_bCanMaximaze = true;
     parameters.m_bCanMinize = true;
+    parameters.m_bClipCursorToWindow = true;
     parameters.m_strName = "Test graphic engine";
 
     graphics::Window window(currentInstance, parameters);
@@ -206,6 +207,11 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
         {
             break;
         }
+        if (HID::keyboard::IsKeyDown(HID::KEY::ESCAPE))
+        {
+            window.close();
+            break;
+        }
         //cube1->setRotate(object::SRotation{90.f * time, cube1->getRotate().axis});
         //cube2->setRotate(object::SRotation{90.f * -time, cube2->getRotate().axis});
         cube3->setRotate(object::SRotation{90.f * time, Math::Vector3F(1.f, 0.f, 0.f)});
@@ -242,15 +248,27 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
             p.Z += (0.1f * (1.f / 60.f));
             t.Z += (0.1f * (1.f / 60.f));
         }
-        if (HID::mouse::IsLeftMouseKeyDown())
+
+        std::pair<int, int> delta = HID::mouse::MouseMove();
+
+        if (delta != std::pair<int, int>(0, 0))
         {
-            p.X += (0.1f * (1.f / 60.f));
-            p.Y -= (0.2f * (1.f / 60.f));
-        }
-        if (HID::mouse::IsRightMouseKeyDown())
-        {
-            p.X -= (0.1f * (1.f / 60.f));
-            p.Y += (0.2f * (1.f / 60.f));
+            if (delta.first > 0)
+            {
+                p.X += (0.3 * (1.f / 60.f));
+            }
+            if (delta.first < 0)
+            {
+                p.X -= (0.3 * (1.f / 60.f));
+            }
+            if (delta.second > 0)
+            {
+                p.Z += (0.3 * (1.f / 60.f));
+            }
+            if (delta.second < 0)
+            {
+                p.Z -= (0.3 * (1.f / 60.f));
+            }
         }
 
         camera->setPosition(p);
@@ -273,6 +291,9 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     }
     logicalDevice->getVkLogicalDevice().waitIdle();
     manager->release();
+    planeManager->release();
+    modelsManager->release();
+    object::LightManager::getInstance()->release();
     textureManager->release(*logicalDevice);
     object::SceneManager::getInstance()->release();
     pipeline.release(*logicalDevice);

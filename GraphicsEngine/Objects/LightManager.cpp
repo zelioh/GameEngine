@@ -91,6 +91,7 @@ void object::LightManager::release()
     {
         for (auto & Light : map.second)
         {
+            Light.second->release();
             delete Light.second;
             Light.second = nullptr;
         }

@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "WindowParameters.h"
 #include <stdexcept>
+#include "WinUser.h"
 
 graphics::Window::Window(HINSTANCE const &hInstance, const WindowParameters & parameters):
 m_hInstance(hInstance),
@@ -53,6 +54,23 @@ m_iHeight(parameters.m_iHeight)
                         m_hInstance, // Current Instance
                         nullptr // Extra parameters
                         );
+
+    if (parameters.m_bClipCursorToWindow)
+    {
+        RECT _clip;
+
+        GetWindowRect(m_hwnd, &_clip);
+
+        _clip.left += 5;
+        _clip.top += 30;
+        _clip.right -= 5;
+        _clip.bottom -= 5;
+
+        //Clip the RECT
+        ClipCursor(&_clip);
+        SetCursorPos(m_iWidth / 2, m_iHeight / 2);
+        ShowCursor(false);
+    }
 }
 
 graphics::Window::~Window()
@@ -118,10 +136,13 @@ void graphics::Window::handleEvent()
     InvalidateRect(m_hwnd, NULL, FALSE );   // invalidate whole window
 }
 
+void graphics::Window::close()
+{
+    DestroyWindow(m_hwnd);
+}
+
 LRESULT graphics::Window::WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM lparam)
 {
-    ///< TODO: Add events and then call all Callback with event
-
     switch (msg) {
         case WM_DESTROY:
             PostQuitMessage(0);

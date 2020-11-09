@@ -18,6 +18,7 @@ namespace sdk {
     class Camera {
 
         friend class CameraManager;
+        friend class Scene;
 
     public:
         const Math::Vector3F & getPosition() const;

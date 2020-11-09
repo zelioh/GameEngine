@@ -18,11 +18,11 @@ namespace object {
         friend class LightManager;
 
     public:
-        const float & getStrength() const;
-        const float & getSpecular() const;
+        float getStrength() const;
+        float getSpecular() const;
 
-        void setStrength(const float & strength);
-        void setSpecular(const float & specular);
+        void setStrength(float strength);
+        void setSpecular(float specular);
 
     private:
         Light( const std::string & levelIdentifier,

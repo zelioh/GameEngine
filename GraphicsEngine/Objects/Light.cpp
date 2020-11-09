@@ -6,22 +6,22 @@
 #include "Math_utils.h"
 #include "LogicalDevice.h"
 
-const float & object::Light::getStrength() const
+float object::Light::getStrength() const
 {
     return m_strength;
 }
 
-const float & object::Light::getSpecular() const
+float object::Light::getSpecular() const
 {
     return m_specular;
 }
 
-void object::Light::setStrength(const float & strength)
+void object::Light::setStrength(float strength)
 {
 	m_strength = strength;
 }
 
-void object::Light::setSpecular(const float & specular)
+void object::Light::setSpecular(float specular)
 {
 	m_specular = specular;
 }

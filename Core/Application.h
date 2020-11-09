@@ -10,7 +10,7 @@
 namespace graphics
 {
     class InstanceParameter;
-    class WindowParameter;
+    class WindowParameters;
 }
 
 namespace core {
@@ -19,7 +19,7 @@ namespace core {
     {
     public:
         using PreInitializeCallback = std::function<void(graphics::InstanceParameter & instanceParameter,
-                                                         graphics::WindowParameter & windowParameter)>;
+                                                         graphics::WindowParameters & windowParameter)>;
         using PostInitializeCallback = std::function<void(void)>;
         using UpdateCallback = std::function<void(float)>;
         using ReleaseCallback = std::function<void()>;

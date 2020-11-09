@@ -4,8 +4,8 @@
 // Use for create a Texture instance
 //
 
-#include "TextureManager.h"
-#include "Texture.h"
+#include "public/GraphicsEngine/TextureManager.h"
+#include "public/GraphicsEngine/Texture.h"
 #include "LogicalDevice.h"
 
 /*static*/ graphics::TextureManager * graphics::TextureManager::getInstance()

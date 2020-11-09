@@ -6,7 +6,7 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 
-#include "Texture.h"
+#include "public/GraphicsEngine/Texture.h"
 #include "LogicalDevice.h"
 #include "Swapchain.h"
 #include "SUniformBufferObject.h"

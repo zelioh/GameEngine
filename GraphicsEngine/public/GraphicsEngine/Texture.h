@@ -8,7 +8,7 @@
 #define GAMEENGINE_TEXTURE_H
 
 #include "vulkan/vulkan.hpp"
-#include "../dependencies/stb/stb_image.h"
+#include "stb_image.h"
 
 namespace graphics {
     class LogicalDevice;

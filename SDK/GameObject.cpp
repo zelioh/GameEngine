@@ -69,3 +69,13 @@ void sdk::GameObject::setPhysicalObject(PhysicsObject *physicsObject)
 {
     m_pObject->setPhysicsObject(physicsObject);
 }
+
+sdk::Texture sdk::GameObject::getTexture() const
+{
+    return Texture(m_pObject->getTexture());
+}
+
+void sdk::GameObject::setTexture(const Texture & texture)
+{
+    m_pObject->setTexture(texture.m_pTexture);
+}

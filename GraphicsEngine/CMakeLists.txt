@@ -36,8 +36,8 @@ add_library(GraphicsEngine OBJECT
         CommandPool.cpp CommandPool.h
         CommandBuffer.cpp CommandBuffer.h
         SUniformBufferObject.h
-        TextureManager.cpp TextureManager.h
-        Texture.cpp Texture.h
+        TextureManager.cpp public/GraphicsEngine/TextureManager.h
+        Texture.cpp public/GraphicsEngine/Texture.h
         Window.cpp Window.h
         WindowParameters.cpp WindowParameters.h
         Renderer.cpp Renderer.h
@@ -58,10 +58,11 @@ target_include_directories(GraphicsEngine PUBLIC ${PhysicalEngine_INCLUDE_DIR})
 target_include_directories(GraphicsEngine PUBLIC ${CMAKE_SOURCE_DIR}/dependencies/stb)
 target_include_directories(GraphicsEngine PUBLIC Objects/)
 target_include_directories(GraphicsEngine PUBLIC .)
+target_include_directories(GraphicsEngine PUBLIC public/)
 
 add_definitions(-DUNICODE)
 
-set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/GraphicsEngine/ ${Vulkan_INCLUDE_DIR} Objects/)
+set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/GraphicsEngine/ ${Vulkan_INCLUDE_DIR} Objects/ . public/)
 
 set(GraphicsEngine_INCLUDE_DIR "${INCLUDE_DIR}" CACHE INTERNAL "")
 

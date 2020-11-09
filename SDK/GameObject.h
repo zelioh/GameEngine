@@ -8,6 +8,7 @@
 #include "Vector3F.h"
 #include "SRotation.h"
 #include "PhysicsObject.h"
+#include "Texture.h"
 
 namespace object
 {
@@ -34,6 +35,9 @@ namespace sdk {
 
         const PhysicsObject * getPhysicalObject();
         void setPhysicalObject(PhysicsObject * physicsObject);
+
+        Texture getTexture() const;
+        void setTexture(const Texture & texture);
 
     protected:
         GameObject(object::GameObject * pEngineObject);

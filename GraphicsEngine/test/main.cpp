@@ -17,8 +17,8 @@
 #include "Objects/Cube.h"
 #include "Objects/CubeManager.h"
 #include "SUniformBufferObject.h"
-#include "TextureManager.h"
-#include "Texture.h"
+#include "public/GraphicsEngine/TextureManager.h"
+#include "public/GraphicsEngine/Texture.h"
 #include "Objects/SceneManager.h"
 #include "Objects/Scene.h"
 #include "Math_utils.h"
@@ -257,19 +257,19 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
         {
             if (delta.first > 0)
             {
-                t.X -= (0.1 * (1.f / 60.f));
+                t.X -= (0.1f * (1.f / 60.f));
             }
             if (delta.first < 0)
             {
-                t.X += (0.1 * (1.f / 60.f));
+                t.X += (0.1f * (1.f / 60.f));
             }
             if (delta.second > 0)
             {
-                t.Z -= (0.1 * (1.f / 60.f));
+                t.Z -= (0.1f * (1.f / 60.f));
             }
             if (delta.second < 0)
             {
-                t.Z += (0.1 * (1.f / 60.f));
+                t.Z += (0.1f * (1.f / 60.f));
             }
         }
 

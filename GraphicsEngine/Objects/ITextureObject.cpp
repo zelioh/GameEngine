@@ -3,7 +3,7 @@
 //
 
 #include "ITextureObject.h"
-#include "Texture.h"
+#include "public/GraphicsEngine/Texture.h"
 
 graphics::Texture * object::ITextureObject::getTexture() const
 {

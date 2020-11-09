@@ -12,7 +12,7 @@
 #include "Instance.h"
 #include "Vertex.h"
 #include "SUniformBufferObject.h"
-#include "Texture.h"
+#include "public/GraphicsEngine/Texture.h"
 #include "Window.h"
 
 graphics::Swapchain * graphics::Swapchain::getInstance()

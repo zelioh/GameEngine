@@ -12,7 +12,9 @@ add_library(SDK OBJECT
         Plane.cpp Plane.h
         PlaneManager.cpp PlaneManager.h
         Light.cpp Light.h
-        LightManager.cpp LightManager.h)
+        LightManager.cpp LightManager.h
+        Camera.cpp Camera.h
+        CameraManager.cpp CameraManager.h)
 
 set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/SDK/ .)
 set(SDK_INCLUDE_DIR "${INCLUDE_DIR}" CACHE INTERNAL "")

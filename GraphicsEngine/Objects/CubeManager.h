@@ -38,7 +38,7 @@ namespace object {
                           const Math::Vector3F & position,
                           const Math::Vector3F & color = Math::Vector3F(1.f, 1.f, 1.f),
                           const Math::Vector3F & scale = Math::Vector3F(1.f, 1.f, 1.f),
-                          const SRotation & rotate = {0.f, Math::Vector3F(0.f, 0.f, 0.f)});
+                          const Math::SRotation & rotate = {0.f, Math::Vector3F(0.f, 0.f, 0.f)});
 
         /**
          * Work like createCube but the identifier is create automaticly
@@ -52,7 +52,7 @@ namespace object {
                                   const Math::Vector3F & position,
                                   const Math::Vector3F & color = Math::Vector3F(1.f, 1.f, 1.f),
                                   const Math::Vector3F & scale = Math::Vector3F(1.f, 1.f, 1.f),
-                                  const SRotation & rotate = {0.f, Math::Vector3F(0.f, 0.f, 0.f)});
+                                  const Math::SRotation & rotate = {0.f, Math::Vector3F(0.f, 0.f, 0.f)});
         /**
          * Find a Cube instance in the pool. Assert if the cube doesn't exist
          * @param identifier    Cube identifier in the pool

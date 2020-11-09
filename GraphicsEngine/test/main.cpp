@@ -89,7 +89,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
                                               Math::Vector3F(-5.f, 0.f, 0.f),
                                               Math::Vector3F(1.f, 1.f, 1.f),
                                               Math::Vector3F(1.f, 1.f, 1.f),
-                                              object::SRotation{0.f, Math::Vector3F(0.f, 0.f, 1.f)}
+                                              Math::SRotation{0.f, Math::Vector3F(0.f, 0.f, 1.f)}
 											  );
 
 
@@ -99,7 +99,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
                                               Math::Vector3F(5.f, 0.f, 0.f),
                                               Math::Vector3F(1.f, 1.f, 1.f),
                                               Math::Vector3F(1.f, 1.f, 1.f),
-                                              object::SRotation{0.f, Math::Vector3F(0.f, 0.f, 1.f)}
+                                              Math::SRotation{0.f, Math::Vector3F(0.f, 0.f, 1.f)}
                                               );
 
     object::Cube * cube3 = manager->createCube(
@@ -108,7 +108,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
                                               Math::Vector3F(2.f, -1.f, 0.f),
                                               Math::Vector3F(0.f, 1.5f, 0.f),
                                               Math::Vector3F(1.5f, 1.5f, 1.5f),
-                                              object::SRotation{180.f, Math::Vector3F(0.f, 0.f, 1.f)});
+                                              Math::SRotation{180.f, Math::Vector3F(0.f, 0.f, 1.f)});
 
     object::Cube * cube4 = manager->createCube(
                                               myLevelIdentifier,
@@ -116,7 +116,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
                                               Math::Vector3F(0.f, 2.f, 0.f),
                                               Math::Vector3F(0.5f, 0.5f, 0.5f),
                                               Math::Vector3F(0.5f, 0.5f, 0.5f),
-                                              object::SRotation{90.f, Math::Vector3F(0.f, 0.f, 1.f)});
+                                              Math::SRotation{90.f, Math::Vector3F(0.f, 0.f, 1.f)});
 
     object::Cube * cube5 = manager->createCube(
                                               myLevelIdentifier,
@@ -124,7 +124,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
                                               Math::Vector3F(-1.f, 0.5f, 0.f),
                                               Math::Vector3F(0.f, 0.f, 0.5f),
                                               Math::Vector3F(0.5f, 0.5f, 0.5f),
-                                              object::SRotation{0.f, Math::Vector3F(0.f, 0.f, 1.f)});
+                                              Math::SRotation{0.f, Math::Vector3F(0.f, 0.f, 1.f)});
 
     graphics::TextureManager * textureManager = graphics::TextureManager::getInstance();
     graphics::Texture * boxTexture = textureManager->createTexture(swapchain, "../assets/box.png", "Box");
@@ -143,7 +143,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
                                                       Math::Vector3F(0.f, -10.f, 0.f),
                                                       Math::Vector3F(1.f, 0.2f, 0.4f),
                                                       Math::Vector3F(5.f, 5.f, 5.f),
-                                                      object::SRotation{270.f, Math::Vector3F(1.f, 0.f, 0.f)});
+                                                      Math::SRotation{270.f, Math::Vector3F(1.f, 0.f, 0.f)});
 
     object::Camera * camera = object::CameraManager::getInstance()->createCamera(myLevelIdentifier,
                                                                                  "Camera_one",
@@ -175,7 +175,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     graphics::Texture * viking_room_texture = textureManager->createTexture(swapchain, "../assets/viking_room.png", "Viking_room");
 
     viking_room->setTexture(viking_room_texture);
-    viking_room->setRotate(object::SRotation{90.f, Math::Vector3F(0.f, 0.f, 1.f)});
+    viking_room->setRotate(Math::SRotation{90.f, Math::Vector3F(0.f, 0.f, 1.f)});
 
     PhysicsObject * box1 = new PhysicsObject(new BoundingSphere(Vector3F(0.0f, 0.0f, 0.0f), 0.5f), Vector3F(0.1f, 0.0f, 0.0f));
 
@@ -214,7 +214,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
         }
         //cube1->setRotate(object::SRotation{90.f * time, cube1->getRotate().axis});
         //cube2->setRotate(object::SRotation{90.f * -time, cube2->getRotate().axis});
-        cube3->setRotate(object::SRotation{90.f * time, Math::Vector3F(1.f, 0.f, 0.f)});
+        cube3->setRotate(Math::SRotation{90.f * time, Math::Vector3F(1.f, 0.f, 0.f)});
         Math::Vector3F p = camera->getPosition();
         Math::Vector3F t = camera->getTarget();
 

@@ -10,6 +10,7 @@ add_library(Core OBJECT
 			Matrix.h
 			Matrix4F.cpp Matrix4F.h
 			Math_utils.inl Math_utils.h
+			SRotation.h SRotation.cpp
 			)
 
 find_package(Vulkan REQUIRED)

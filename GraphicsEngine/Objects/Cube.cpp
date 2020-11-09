@@ -12,7 +12,7 @@ object::Cube::Cube(const std::string & levelIdentifier,
                    const Math::Vector3F &position,
                    const Math::Vector3F &color /*=Math::Vector3F(1, 1, 1)*/,
                    const Math::Vector3F & scale /*=Math::Vector3F(1, 1, 1)*/,
-                   const SRotation & rotate /*=Math::Vector3F(0, 0, 0)*/):
+                   const Math::SRotation & rotate /*=Math::Vector3F(0, 0, 0)*/):
 GameObject(levelIdentifier, identifier, position, color, scale, rotate)
 {
     m_vertices.push_back({

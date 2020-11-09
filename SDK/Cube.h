@@ -5,7 +5,7 @@
 #ifndef GAMEENGINE_SDK_CUBE_H
 #define GAMEENGINE_SDK_CUBE_H
 
-namespace graphics
+namespace object
 {
     class Cube;
 }
@@ -14,10 +14,12 @@ namespace sdk {
 
     class Cube
     {
-    public:
+        friend class CubeManager;
 
     private:
-        ::graphics::Cube * m_pCube;
+        Cube(object::Cube * engineCube);
+
+        ::object::Cube * m_pCube;
     };
 
 }

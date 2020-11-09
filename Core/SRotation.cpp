@@ -5,7 +5,7 @@
 #include "SRotation.h"
 #include <cmath>
 
-Math::Matrix4F object::SRotation::toMatrix() const
+Math::Matrix4F Math::SRotation::toMatrix() const
 {
     Math::Matrix4F identity = MATRIX4F_IDENTITY;
     float radian = (angle * (PI / 180.f));
@@ -61,7 +61,7 @@ Math::Matrix4F object::SRotation::toMatrix() const
     return result;
 }
 
-void object::SRotation::rotateMatrix(Math::Matrix4F &matrix) const
+void Math::SRotation::rotateMatrix(Math::Matrix4F &matrix) const
 {
     float radian = (angle * (PI / 180.f));
     float cRadian = cos(radian);

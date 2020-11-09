@@ -12,7 +12,7 @@ object::Model3D::Model3D(const std::string &levelIdentifier,
                          const Math::Vector3F &position,
                          const Math::Vector3F &color,
                          const Math::Vector3F &scale,
-                         const SRotation &rotate):
+                         const Math::SRotation &rotate):
  GameObject(levelIdentifier, identifier, position, color, scale, rotate)
 {
     object::utils::loadObj(fileModel, m_vertices, m_indices, m_color);

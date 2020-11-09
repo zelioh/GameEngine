@@ -3,3 +3,8 @@
 //
 
 #include "Cube.h"
+
+sdk::Cube::Cube(object::Cube *engineCube):
+m_pCube(engineCube)
+{
+}

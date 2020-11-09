@@ -10,7 +10,7 @@ object::Plane::Plane(const std::string & levelIdentifier,
                    const Math::Vector3F &position,
                    const Math::Vector3F &color /*=Math::Vector3F(1, 1, 1)*/,
                    const Math::Vector3F & scale /*=Math::Vector3F(1, 1, 1)*/,
-                   const SRotation & rotate /*=Math::Vector3F(0, 0, 0)*/):
+                   const Math::SRotation & rotate /*=Math::Vector3F(0, 0, 0)*/):
         Cube(levelIdentifier, identifier, position, color, scale, rotate)
 {
     bool emptyStatus = true;

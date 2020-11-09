@@ -10,7 +10,7 @@
 
 #define PI 3.14159265359f
 
-namespace object
+namespace Math
 {
     struct SRotation {
         float angle; ///< degree value of the rotation

@@ -28,12 +28,12 @@ namespace object {
         const Math::Vector3F & getPosition() const;
         const Math::Vector3F & getColor() const;
         const Math::Vector3F & getScale() const;
-        const SRotation & getRotate() const;
+        const Math::SRotation & getRotate() const;
 
         void setPosition(const Math::Vector3F & position);
         void setColor(const Math::Vector3F & color);
         void setScale(const Math::Vector3F & scale);
-        void setRotate(const SRotation & rotate);
+        void setRotate(const Math::SRotation & rotate);
 
         const std::string & getIdentifier() const;
         const std::string & getLevelIdentifier() const;
@@ -56,12 +56,12 @@ namespace object {
                    const Math::Vector3F & position,
                    const Math::Vector3F & color = Math::Vector3F(1.f, 1.f, 1.f),
                    const Math::Vector3F & scale = Math::Vector3F(1.f, 1.f, 1.f),
-                   const SRotation & rotate = SRotation{0.f, Math::Vector3F(0.f, 0.f, 0.f)});
+                   const Math::SRotation & rotate = Math::SRotation{0.f, Math::Vector3F(0.f, 0.f, 0.f)});
 
         Math::Vector3F m_position;
         Math::Vector3F m_color;
         Math::Vector3F m_scale;
-        SRotation m_rotate;
+        Math::SRotation m_rotate;
         std::vector<graphics::Vertex> m_vertices;
         std::vector<uint32_t> m_indices;
         std::string m_strIdentifier;

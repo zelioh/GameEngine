@@ -26,7 +26,7 @@ object::Model3D * object::Model3DManager::createModel3D(const std::string & leve
                                                         const Math::Vector3F &position,
                                                         const Math::Vector3F &color,
                                                         const Math::Vector3F & scale /*=Math::Vector3F(1,1,1)*/,
-                                                        const SRotation & rotate /*=Math::Vector3F(0,0,0)*/
+                                                        const Math::SRotation & rotate /*=Math::Vector3F(0,0,0)*/
 )
 {
     if (!SceneManager::getInstance()->isExisting(levelIdentifier))
@@ -56,7 +56,7 @@ object::Model3D * object::Model3DManager::createModel3DAutoName(
                                                        const Math::Vector3F &position,
                                                        const Math::Vector3F &color,
                                                        const Math::Vector3F & scale /*=Math::Vector3F(1,1,1)*/,
-                                                       const SRotation & rotate /*=Math::Vector3F(0,0,0)*/
+                                                       const Math::SRotation & rotate /*=Math::Vector3F(0,0,0)*/
 )
 {
     if (!SceneManager::getInstance()->isExisting(levelIdentifier))

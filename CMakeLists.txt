@@ -30,8 +30,9 @@ add_library(gameEngine SHARED null.cpp)
 target_link_libraries(gameEngine PRIVATE
                                 Core
                                 audioEngine
+                                PhysicsEngine
                                 GraphicsEngine
-                                PhysicsEngine)
+                                )
 
 target_link_libraries(gameEngine PUBLIC
                                 HIDEngine

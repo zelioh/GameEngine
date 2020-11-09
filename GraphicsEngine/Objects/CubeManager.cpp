@@ -25,7 +25,7 @@ object::Cube * object::CubeManager::createCube(const std::string & levelIdentifi
                                                const Math::Vector3F &position,
                                                const Math::Vector3F &color,
                                                const Math::Vector3F & scale /*=Math::Vector3F(1,1,1)*/,
-                                               const SRotation & rotate /*=Math::Vector3F(0,0,0)*/
+                                               const Math::SRotation & rotate /*=Math::Vector3F(0,0,0)*/
                                                )
 {
     if (!SceneManager::getInstance()->isExisting(levelIdentifier))
@@ -50,7 +50,7 @@ object::Cube * object::CubeManager::createCubeAutoName(const std::string & level
                                                        const Math::Vector3F &position,
                                                        const Math::Vector3F &color,
                                                        const Math::Vector3F & scale /*=Math::Vector3F(1,1,1)*/,
-                                                       const SRotation & rotate /*=Math::Vector3F(0,0,0)*/
+                                                       const Math::SRotation & rotate /*=Math::Vector3F(0,0,0)*/
                                                         )
 {
     if (!SceneManager::getInstance()->isExisting(levelIdentifier))

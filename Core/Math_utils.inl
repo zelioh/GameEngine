@@ -5,7 +5,7 @@
 #include "Math_utils.h"
 #include "Matrix4F.h"
 #include <cmath>
-#include "Objects/SRotation.h"
+#include "SRotation.h"
 
 Math::Matrix4F Math::utils::perspective(float fovy, float aspect, float zNear, float zFar)
 {

@@ -5,6 +5,8 @@
 #ifndef GAMEENGINE_SDK_CUBE_H
 #define GAMEENGINE_SDK_CUBE_H
 
+#include "GameObject.h"
+
 namespace object
 {
     class Cube;
@@ -12,7 +14,7 @@ namespace object
 
 namespace sdk {
 
-    class Cube
+    class Cube: public GameObject
     {
         friend class CubeManager;
 

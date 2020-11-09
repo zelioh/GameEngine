@@ -3,7 +3,7 @@
 #
 add_library(SDK OBJECT
         Cube.cpp Cube.h
-        CubeManager.cpp CubeManager.h)
+        CubeManager.cpp CubeManager.h GameObject.cpp GameObject.h)
 
 set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/SDK/ .)
 set(SDK_INCLUDE_DIR "${INCLUDE_DIR}" CACHE INTERNAL "")

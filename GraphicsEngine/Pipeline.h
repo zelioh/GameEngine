@@ -19,16 +19,16 @@ namespace graphics {
     {
     public:
         Pipeline() = default; ///< Default constructor
-        Pipeline(const LogicalDevice & logicalDevice, const Swapchain & swapchain, const Shader & shader); ///< Call initalize
+        Pipeline(const Shader & shader); ///< Call initalize
 
-        void initialize(const LogicalDevice & logicalDevice, const Swapchain & swapchain, const Shader & shader); ///< Initalize the pipeline
-        void release(const LogicalDevice & logicalDevice);
+        void initialize(const Shader & shader); ///< Initalize the pipeline
+        void release();
 
         const vk::Pipeline & getVkPipeline() const;
         const vk::PipelineLayout & getVkPipelineLayout() const;
 
     private:
-        vk::ShaderModule createShaderModule(const LogicalDevice &logicalDevice, const std::vector<char> & data);
+        vk::ShaderModule createShaderModule(const std::vector<char> & data);
 
     private:
         vk::Pipeline m_pipeline;

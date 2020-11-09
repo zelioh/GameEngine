@@ -59,7 +59,7 @@ void core::Application::setPostReleaseCallback(const ReleaseCallback &function)
 void core::Application::intialize()
 {
     graphics::InstanceParameter instanceParameters;
-    graphics::WindowParameter windowParameter;
+    graphics::WindowParameters windowParameter;
 
     m_preInitCallback(instanceParameters, windowParameter);
 

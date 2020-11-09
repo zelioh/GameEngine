@@ -59,3 +59,13 @@ void sdk::GameObject::setRotate(const Math::SRotation &rotate)
 {
     m_pObject->setRotate(rotate);
 }
+
+const PhysicsObject * sdk::GameObject::getPhysicalObject()
+{
+    return m_pObject->getPhysicsObject();
+}
+
+void sdk::GameObject::setPhysicalObject(PhysicsObject *physicsObject)
+{
+    m_pObject->setPhysicsObject(physicsObject);
+}

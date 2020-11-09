@@ -7,6 +7,7 @@
 
 #include "Vector3F.h"
 #include "SRotation.h"
+#include "PhysicsObject.h"
 
 namespace object
 {
@@ -31,7 +32,8 @@ namespace sdk {
         const std::string & getIdentifier() const;
         const std::string & getLevelIdentifier() const;
 
-        ///< TODO physical objects
+        const PhysicsObject * getPhysicalObject();
+        void setPhysicalObject(PhysicsObject * physicsObject);
 
     protected:
         GameObject(object::GameObject * pEngineObject);

@@ -86,6 +86,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
+      <AdditionalIncludeDirectories>\core\include;\physics\include;\graphics\include;\hid\include;\sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -103,9 +104,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;ENGINE_VERSION_MAJOR=0;ENGINE_VERSION_MINOR=1;ENGINE_VERSION_PATCH=0;ENGINE_NAME=\"GameEngine\";ENGINE_DEBUG=1;CMAKE_INTDIR=\"Debug\";gameEngine_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>\core\include;\physics\include;\graphics\include;\hid\include;\sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>\core\include;\physics\include;\graphics\include;\hid\include;\sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -113,7 +115,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\VulkanSDK\1.2.148.1\Lib\vulkan-1.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -128,6 +130,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
+      <AdditionalIncludeDirectories>\core\include;\physics\include;\graphics\include;\hid\include;\sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -145,9 +148,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;ENGINE_VERSION_MAJOR=0;ENGINE_VERSION_MINOR=1;ENGINE_VERSION_PATCH=0;ENGINE_NAME=\"GameEngine\";ENGINE_DEBUG=1;CMAKE_INTDIR=\"Release\";gameEngine_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>\core\include;\physics\include;\graphics\include;\hid\include;\sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>\core\include;\physics\include;\graphics\include;\hid\include;\sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -155,7 +159,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\VulkanSDK\1.2.148.1\Lib\vulkan-1.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -170,6 +174,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
+      <AdditionalIncludeDirectories>\core\include;\physics\include;\graphics\include;\hid\include;\sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
@@ -187,9 +192,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;ENGINE_VERSION_MAJOR=0;ENGINE_VERSION_MINOR=1;ENGINE_VERSION_PATCH=0;ENGINE_NAME=\"GameEngine\";ENGINE_DEBUG=1;CMAKE_INTDIR=\"MinSizeRel\";gameEngine_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>\core\include;\physics\include;\graphics\include;\hid\include;\sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>\core\include;\physics\include;\graphics\include;\hid\include;\sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -197,7 +203,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\VulkanSDK\1.2.148.1\Lib\vulkan-1.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -212,6 +218,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
+      <AdditionalIncludeDirectories>\core\include;\physics\include;\graphics\include;\hid\include;\sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -228,9 +235,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;ENGINE_VERSION_MAJOR=0;ENGINE_VERSION_MINOR=1;ENGINE_VERSION_PATCH=0;ENGINE_NAME=\"GameEngine\";ENGINE_DEBUG=1;CMAKE_INTDIR=\"RelWithDebInfo\";gameEngine_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>\core\include;\physics\include;\graphics\include;\hid\include;\sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>\core\include;\physics\include;\graphics\include;\hid\include;\sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -238,7 +246,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\VulkanSDK\1.2.148.1\Lib\vulkan-1.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -309,11 +317,113 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\null.cpp" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Core.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Vector2F.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Vector3F.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Vector4F.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Matrix4F.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\SRotation.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\AudioEngine\audioEngine.dir\$(Configuration)\AudioEngine.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine\PhysicsEngine.dir\$(Configuration)\BoundingBox.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine\PhysicsEngine.dir\$(Configuration)\BoundingSphere.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine\PhysicsEngine.dir\$(Configuration)\Plane.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine\PhysicsEngine.dir\$(Configuration)\Collider.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine\PhysicsEngine.dir\$(Configuration)\IntersectData.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine\PhysicsEngine.dir\$(Configuration)\PhysicsObject.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine\PhysicsEngine.dir\$(Configuration)\PhysicsEngine.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Instance.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\InstanceParameter.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\ValidationLayer.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\PhysicalDevice.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\QueueFamilyHint.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Surface.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\SwapchainDetails.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\LogicalDevice.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Queue.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Swapchain.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\RenderPass.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Pipeline.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Shader.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Vertex.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\CommandPool.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\CommandBuffer.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\TextureManager.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Texture.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Window.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\WindowParameters.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Renderer.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\GameObject.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Cube.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\CubeManager.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\ITextureObject.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Scene.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\SceneManager.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\CameraManager.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Camera.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Plane.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\PlaneManager.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Objects_utils.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Model3D.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Model3DManager.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\LightManager.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Light.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\HIDEngine\HIDEngine.dir\$(Configuration)\Event.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\Cube.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\CubeManager.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\GameObject.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\Texture.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\TextureManager.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\Model3D.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\Model3DManager.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\Plane.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\PlaneManager.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\Light.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\LightManager.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\Camera.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\CameraManager.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\Scene.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\SceneManager.obj" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\ZERO_CHECK.vcxproj">
       <Project>{008DDE47-61F5-3CA3-89DE-2E9DD614649E}</Project>
       <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.vcxproj">
+      <Project>{129021E3-572B-3C17-B0E4-60FA007A5C33}</Project>
+      <Name>Core</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.vcxproj">
+      <Project>{6894E3AC-B241-318E-83EC-4CDFFA76F89C}</Project>
+      <Name>GraphicsEngine</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\HIDEngine\HIDEngine.vcxproj">
+      <Project>{89D01186-5099-39C1-A012-7A9088068D5E}</Project>
+      <Name>HIDEngine</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine\PhysicsEngine.vcxproj">
+      <Project>{6985F8E1-6DB1-34AE-9277-E068D650841B}</Project>
+      <Name>PhysicsEngine</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.vcxproj">
+      <Project>{75DC16DC-7494-3244-B0C1-FC281383D00A}</Project>
+      <Name>SDK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\AudioEngine\audioEngine.vcxproj">
+      <Project>{305E3057-29F5-3EA8-AD41-9D367151AEAC}</Project>
+      <Name>audioEngine</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>

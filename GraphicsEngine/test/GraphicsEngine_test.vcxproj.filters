@@ -9,6 +9,24 @@
     <CustomBuild Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\test\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Core.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Vector2F.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Vector3F.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Vector4F.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Matrix4F.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\SRotation.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Instance.obj">
       <Filter>Object Libraries</Filter>
     </Object>
@@ -90,9 +108,6 @@
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\SceneManager.obj">
       <Filter>Object Libraries</Filter>
     </Object>
-    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\SRotation.obj">
-      <Filter>Object Libraries</Filter>
-    </Object>
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\CameraManager.obj">
       <Filter>Object Libraries</Filter>
     </Object>
@@ -112,6 +127,12 @@
       <Filter>Object Libraries</Filter>
     </Object>
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Model3DManager.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\LightManager.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Light.obj">
       <Filter>Object Libraries</Filter>
     </Object>
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine\PhysicsEngine.dir\$(Configuration)\BoundingBox.obj">
@@ -135,19 +156,7 @@
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine\PhysicsEngine.dir\$(Configuration)\PhysicsEngine.obj">
       <Filter>Object Libraries</Filter>
     </Object>
-    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Core.obj">
-      <Filter>Object Libraries</Filter>
-    </Object>
-    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Vector2F.obj">
-      <Filter>Object Libraries</Filter>
-    </Object>
-    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Vector3F.obj">
-      <Filter>Object Libraries</Filter>
-    </Object>
-    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Vector4F.obj">
-      <Filter>Object Libraries</Filter>
-    </Object>
-    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Matrix4F.obj">
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\HIDEngine\HIDEngine.dir\$(Configuration)\Event.obj">
       <Filter>Object Libraries</Filter>
     </Object>
   </ItemGroup>

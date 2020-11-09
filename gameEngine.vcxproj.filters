@@ -9,6 +9,209 @@
     <CustomBuild Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Core.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Vector2F.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Vector3F.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Vector4F.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Matrix4F.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\SRotation.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\AudioEngine\audioEngine.dir\$(Configuration)\AudioEngine.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine\PhysicsEngine.dir\$(Configuration)\BoundingBox.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine\PhysicsEngine.dir\$(Configuration)\BoundingSphere.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine\PhysicsEngine.dir\$(Configuration)\Plane.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine\PhysicsEngine.dir\$(Configuration)\Collider.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine\PhysicsEngine.dir\$(Configuration)\IntersectData.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine\PhysicsEngine.dir\$(Configuration)\PhysicsObject.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine\PhysicsEngine.dir\$(Configuration)\PhysicsEngine.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Instance.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\InstanceParameter.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\ValidationLayer.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\PhysicalDevice.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\QueueFamilyHint.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Surface.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\SwapchainDetails.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\LogicalDevice.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Queue.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Swapchain.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\RenderPass.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Pipeline.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Shader.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Vertex.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\CommandPool.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\CommandBuffer.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\TextureManager.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Texture.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Window.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\WindowParameters.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Renderer.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\GameObject.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Cube.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\CubeManager.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\ITextureObject.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Scene.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\SceneManager.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\CameraManager.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Camera.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Plane.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\PlaneManager.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Objects_utils.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Model3D.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Model3DManager.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\LightManager.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Light.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\HIDEngine\HIDEngine.dir\$(Configuration)\Event.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\Cube.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\CubeManager.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\GameObject.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\Texture.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\TextureManager.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\Model3D.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\Model3DManager.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\Plane.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\PlaneManager.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\Light.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\LightManager.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\Camera.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\CameraManager.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\Scene.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\SceneManager.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Object Libraries">
+      <UniqueIdentifier>{9B0CAC46-258F-3C28-93E0-39DEB296C8EE}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{98461658-0443-3202-8FFD-E4A8C2FFC166}</UniqueIdentifier>
     </Filter>

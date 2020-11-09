@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\HIDEngine\Event.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\HIDEngine\Event.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\HIDEngine\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{941A65DD-AA95-3D24-8FA2-47812D4DB3C2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{98461658-0443-3202-8FFD-E4A8C2FFC166}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

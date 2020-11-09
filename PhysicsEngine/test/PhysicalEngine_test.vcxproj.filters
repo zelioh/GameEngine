@@ -45,6 +45,9 @@
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Matrix4F.obj">
       <Filter>Object Libraries</Filter>
     </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\SRotation.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Object Libraries">

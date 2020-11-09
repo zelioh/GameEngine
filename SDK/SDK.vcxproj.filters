@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\Cube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\CubeManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\TextureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\Model3D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\Model3DManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\Plane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\PlaneManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\Light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\LightManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\CameraManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SceneManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\Cube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\CubeManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\TextureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\Model3D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\Model3DManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\Plane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\PlaneManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\LightManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\CameraManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SceneManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{941A65DD-AA95-3D24-8FA2-47812D4DB3C2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{98461658-0443-3202-8FFD-E4A8C2FFC166}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

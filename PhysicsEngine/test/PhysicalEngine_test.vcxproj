@@ -329,6 +329,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Vector3F.obj" />
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Vector4F.obj" />
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Matrix4F.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\SRotation.obj" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\ZERO_CHECK.vcxproj">

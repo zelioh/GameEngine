@@ -78,7 +78,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\public;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -96,10 +96,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;ENGINE_VERSION_MAJOR=0;ENGINE_VERSION_MINOR=1;ENGINE_VERSION_PATCH=0;ENGINE_NAME=\"GameEngine\";ENGINE_DEBUG=1;UNICODE;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\public;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\public;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -112,7 +112,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\public;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -130,10 +130,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;ENGINE_VERSION_MAJOR=0;ENGINE_VERSION_MINOR=1;ENGINE_VERSION_PATCH=0;ENGINE_NAME=\"GameEngine\";ENGINE_DEBUG=1;UNICODE;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\public;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\public;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -146,7 +146,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\public;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
@@ -164,10 +164,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;ENGINE_VERSION_MAJOR=0;ENGINE_VERSION_MINOR=1;ENGINE_VERSION_PATCH=0;ENGINE_NAME=\"GameEngine\";ENGINE_DEBUG=1;UNICODE;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\public;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\public;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -180,7 +180,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\public;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -197,10 +197,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;ENGINE_VERSION_MAJOR=0;ENGINE_VERSION_MINOR=1;ENGINE_VERSION_PATCH=0;ENGINE_NAME=\"GameEngine\";ENGINE_DEBUG=1;UNICODE;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\public;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.148.1\Include;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\.;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\dependencies\stb;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects;C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\public;\core\include;\physics\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -302,9 +302,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\CommandBuffer.h" />
     <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\SUniformBufferObject.h" />
     <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\TextureManager.cpp" />
-    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\TextureManager.h" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\public\GraphicsEngine\TextureManager.h" />
     <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Texture.cpp" />
-    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Texture.h" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\public\GraphicsEngine\Texture.h" />
     <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Window.cpp" />
     <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Window.h" />
     <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\WindowParameters.cpp" />
@@ -323,8 +323,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Scene.h" />
     <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\SceneManager.cpp" />
     <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\SceneManager.h" />
-    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\SRotation.cpp" />
-    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\SRotation.h" />
     <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\CameraManager.cpp" />
     <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\CameraManager.h" />
     <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Camera.cpp" />
@@ -339,6 +337,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Model3D.h" />
     <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Model3DManager.cpp" />
     <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Model3DManager.h" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\LightManager.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\LightManager.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Light.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\Objects\Light.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\ZERO_CHECK.vcxproj">

@@ -24,13 +24,15 @@ add_subdirectory(HIDEngine)
 add_subdirectory(Core)
 add_subdirectory(PhysicsEngine)
 add_subdirectory(GraphicsEngine)
+add_subdirectory(SDK)
 
 add_library(gameEngine SHARED null.cpp)
 target_link_libraries(gameEngine PRIVATE
-                                ${Core}
-                                ${audio}
-                                ${GraphicsEngine}
-                                ${PhysicsEngine})
+                                Core
+                                audioEngine
+                                GraphicsEngine
+                                PhysicsEngine)
 
 target_link_libraries(gameEngine PUBLIC
-                                ${HIDEngine})
+                                HIDEngine
+                                SDK)

@@ -73,7 +73,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     swapchain->initialize(window);
 
     graphics::Shader shader("../shaders/defaultVert.spv", "../shaders/defaultFrag.spv");
-    graphics::Pipeline pipeline(*logicalDevice, *swapchain, shader);
+    graphics::Pipeline pipeline(shader);
     graphics::Renderer renderer;
 
     const std::string myLevelIdentifier = "MyLevel";
@@ -296,8 +296,8 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
             logicalDevice->releaseCommandPool();
             logicalDevice->initializeCommandPool();
             swapchain->recreate(window);
-            pipeline.release(*logicalDevice);
-            pipeline.initialize(*logicalDevice, *swapchain, shader);
+            pipeline.release();
+            pipeline.initialize(shader);
         }
     }
     logicalDevice->getVkLogicalDevice().waitIdle();
@@ -307,7 +307,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     object::LightManager::getInstance()->release();
     textureManager->release();
     object::SceneManager::getInstance()->release();
-    pipeline.release(*logicalDevice);
+    pipeline.release();
     swapchain->release();
     logicalDevice->release();
     instance->release();

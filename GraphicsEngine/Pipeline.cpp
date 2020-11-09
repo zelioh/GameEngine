@@ -12,21 +12,20 @@
 #include "PhysicalDevice.h"
 #include "SUniformBufferObject.h"
 
-graphics::Pipeline::Pipeline(const LogicalDevice &logicalDevice,
-                             const Swapchain & swapchain,
-                             const Shader &shader)
+graphics::Pipeline::Pipeline(const Shader &shader)
 {
-    initialize(logicalDevice, swapchain, shader);
+    initialize(shader);
 }
 
-void graphics::Pipeline::initialize(const LogicalDevice &logicalDevice,
-                                    const Swapchain & swapchain,
-                                    const Shader &shader)
+void graphics::Pipeline::initialize(const Shader &shader)
 {
+    LogicalDevice * logicalDevice = LogicalDevice::getInstance();
+    Swapchain * swapchain = Swapchain::getInstance();
+
     //
     // Set shader stage informations
-    vk::ShaderModule vertShaderModule = createShaderModule(logicalDevice, shader.getVertexData());
-    vk::ShaderModule fragShaderModule = createShaderModule(logicalDevice, shader.getFragmentData());
+    vk::ShaderModule vertShaderModule = createShaderModule(shader.getVertexData());
+    vk::ShaderModule fragShaderModule = createShaderModule(shader.getFragmentData());
 
     vk::PipelineShaderStageCreateInfo vertShaderStageInfo{};
 
@@ -62,7 +61,7 @@ void graphics::Pipeline::initialize(const LogicalDevice &logicalDevice,
 
     //
     // Set viewport and scissor informations
-    vk::Extent2D extent = swapchain.getVkSwapchainExtent();
+    vk::Extent2D extent = swapchain->getVkSwapchainExtent();
     vk::Viewport viewport{};
 
     viewport.x = 0.f;
@@ -147,10 +146,10 @@ void graphics::Pipeline::initialize(const LogicalDevice &logicalDevice,
     };
 
     layoutInfo.setLayoutCount = 1;
-    layoutInfo.pSetLayouts = &logicalDevice.getDescriptorSetLayout();
+    layoutInfo.pSetLayouts = &logicalDevice->getDescriptorSetLayout();
     layoutInfo.pushConstantRangeCount = 1;
     layoutInfo.pPushConstantRanges = &pushConstantRange;
-    m_pipelineLayout = logicalDevice.getVkLogicalDevice().createPipelineLayout(layoutInfo);
+    m_pipelineLayout = logicalDevice->getVkLogicalDevice().createPipelineLayout(layoutInfo);
     if (!m_pipelineLayout)
     {
         throw std::runtime_error("Error while creating layout pipeline");
@@ -185,14 +184,14 @@ void graphics::Pipeline::initialize(const LogicalDevice &logicalDevice,
     pipelineInfo.pDepthStencilState = &depthStencilInfo;
     pipelineInfo.pDynamicState = nullptr;
     pipelineInfo.layout = m_pipelineLayout;
-    pipelineInfo.renderPass = swapchain.getRenderPass().getVkRenderPass();
+    pipelineInfo.renderPass = swapchain->getRenderPass().getVkRenderPass();
     pipelineInfo.subpass = 0;
     pipelineInfo.basePipelineHandle = nullptr;
     pipelineInfo.basePipelineIndex = 0;
 
     vk::Result result;
 
-    std::tie(result, m_pipeline) = logicalDevice.getVkLogicalDevice().createGraphicsPipeline(nullptr, pipelineInfo);
+    std::tie(result, m_pipeline) = logicalDevice->getVkLogicalDevice().createGraphicsPipeline(nullptr, pipelineInfo);
     if (vk::Result::eSuccess != result)
     {
         throw std::runtime_error("Error while creating graphics pipeline");
@@ -200,24 +199,27 @@ void graphics::Pipeline::initialize(const LogicalDevice &logicalDevice,
 
     //
     // Release useless datas
-    logicalDevice.getVkLogicalDevice().destroyShaderModule(vertShaderModule);
-    logicalDevice.getVkLogicalDevice().destroyShaderModule(fragShaderModule);
+    logicalDevice->getVkLogicalDevice().destroyShaderModule(vertShaderModule);
+    logicalDevice->getVkLogicalDevice().destroyShaderModule(fragShaderModule);
 }
 
-void graphics::Pipeline::release(const LogicalDevice &logicalDevice)
+void graphics::Pipeline::release()
 {
-    logicalDevice.getVkLogicalDevice().destroyPipelineLayout(m_pipelineLayout);
-    logicalDevice.getVkLogicalDevice().destroyPipeline(m_pipeline);
+    const vk::Device & logicalDevice = LogicalDevice::getInstance()->getVkLogicalDevice();
+
+    logicalDevice.destroyPipelineLayout(m_pipelineLayout);
+    logicalDevice.destroyPipeline(m_pipeline);
 }
 
-vk::ShaderModule graphics::Pipeline::createShaderModule(const LogicalDevice &logicalDevice, const std::vector<char> &data)
+vk::ShaderModule graphics::Pipeline::createShaderModule(const std::vector<char> &data)
 {
     vk::ShaderModule shaderModule;
     vk::ShaderModuleCreateInfo shaderInfo{};
+    const vk::Device & logicalDevice = LogicalDevice::getInstance()->getVkLogicalDevice();
 
     shaderInfo.codeSize = data.size();
     shaderInfo.pCode = reinterpret_cast<const uint32_t *>(data.data());
-    shaderModule = logicalDevice.getVkLogicalDevice().createShaderModule(shaderInfo);
+    shaderModule = logicalDevice.createShaderModule(shaderInfo);
     if (!shaderModule)
     {
         throw std::runtime_error("Error while creating shader module");

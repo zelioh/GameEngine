@@ -32,17 +32,17 @@ namespace graphics {
         const vk::Sampler & getVkTextureSampler() const;
         uint32_t getMipLevel() const;
 
-        const vk::DescriptorSet & getVkDescriptorSet(const Swapchain & swapchain, int iIndex);
+        const vk::DescriptorSet & getVkDescriptorSet(int iIndex);
 
 
     private:
-        Texture(const Swapchain & swapchain, const std::string & name, stbi_uc *pixels, int width, int heiht, int channels);
+        Texture(const std::string & name, stbi_uc *pixels, int width, int heiht, int channels);
 
-        void release(const LogicalDevice & logicalDevice);
+        void release();
 
-        void initializeInternal(const LogicalDevice & logicalDevice, stbi_uc *pixels);
+        void initializeInternal(stbi_uc *pixels);
         void createSampler(const vk::Device & logicalDevice);
-        void createDescriptorSet(const Swapchain & swapchain);
+        void createDescriptorSet();
 
     private:
         std::string m_strName;

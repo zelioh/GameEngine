@@ -11,8 +11,7 @@
 #include "Swapchain.h"
 #include "SUniformBufferObject.h"
 
-graphics::Texture::Texture(const Swapchain & swapchain,
-                           const std::string & name,
+graphics::Texture::Texture(const std::string & name,
                            stbi_uc *pixels,
                            int width, int height, int channels):
 m_strName(name),
@@ -21,13 +20,13 @@ m_iHeight(height),
 m_iChannels(channels),
 m_size(width * height * 4)
 {
-    initializeInternal(swapchain.getParentLogicalDevice(), pixels);
-    createDescriptorSet(swapchain);
+    initializeInternal(pixels);
+    createDescriptorSet();
 }
 
-void graphics::Texture::release(const LogicalDevice &logicalDevice)
+void graphics::Texture::release()
 {
-    const vk::Device & device = logicalDevice.getVkLogicalDevice();
+    const vk::Device & device = graphics::LogicalDevice::getInstance()->getVkLogicalDevice();
 
     device.destroyImage(m_texture);
     device.destroyImageView(m_textureView);
@@ -85,21 +84,22 @@ uint32_t graphics::Texture::getMipLevel() const
     return m_iMipLevel;
 }
 
-const vk::DescriptorSet & graphics::Texture::getVkDescriptorSet(const Swapchain &swapchain, int iIndex)
+const vk::DescriptorSet & graphics::Texture::getVkDescriptorSet(int iIndex)
 {
     return m_descriptorSet.get();
 }
 
-void graphics::Texture::initializeInternal(const graphics::LogicalDevice &logicalDevice, stbi_uc *pixels)
+void graphics::Texture::initializeInternal(stbi_uc *pixels)
 {
     vk::Buffer stageBuffer;
     vk::DeviceMemory stageMemory;
     void * data;
-    const vk::Device & vkLogicalDevice = logicalDevice.getVkLogicalDevice();
+    LogicalDevice * logicalDevice = graphics::LogicalDevice::getInstance();
+    const vk::Device & vkLogicalDevice = logicalDevice->getVkLogicalDevice();
 
     m_iMipLevel = static_cast<uint32_t>(std::floor(std::log2(std::max(m_iWidth, m_iHeight)))) + 1;
 
-    logicalDevice.createVkBuffer(m_size,
+    logicalDevice->createVkBuffer(m_size,
                                  vk::BufferUsageFlagBits::eTransferSrc,
                                  vk::MemoryPropertyFlagBits::eHostVisible | vk::MemoryPropertyFlagBits::eHostCoherent,
                                 stageBuffer,
@@ -109,7 +109,7 @@ void graphics::Texture::initializeInternal(const graphics::LogicalDevice &logica
     memcpy(data, pixels, static_cast<size_t>(m_size));
     vkLogicalDevice.unmapMemory(stageMemory);
     stbi_image_free(pixels);
-    logicalDevice.createImage(m_iWidth,
+    logicalDevice->createImage(m_iWidth,
                               m_iHeight,
                               m_iMipLevel,
                               vk::SampleCountFlagBits::e1,
@@ -120,19 +120,19 @@ void graphics::Texture::initializeInternal(const graphics::LogicalDevice &logica
                               m_texture,
                               m_textureMemory
     );
-    logicalDevice.transitionImageLayout(m_texture,
+    logicalDevice->transitionImageLayout(m_texture,
                                         vk::Format::eR8G8B8A8Srgb,
                                         vk::ImageLayout::eUndefined,
                                         vk::ImageLayout::eTransferDstOptimal,
                                         m_iMipLevel
     );
-    logicalDevice.copyVkBufferToImage(stageBuffer, m_texture, m_iWidth, m_iHeight);
+    logicalDevice->copyVkBufferToImage(stageBuffer, m_texture, m_iWidth, m_iHeight);
     vkLogicalDevice.destroyBuffer(stageBuffer);
     vkLogicalDevice.freeMemory(stageMemory);
 
-    logicalDevice.generateMipmap(m_texture, vk::Format::eR8G8B8A8Srgb, m_iWidth, m_iHeight, m_iMipLevel);
+    logicalDevice->generateMipmap(m_texture, vk::Format::eR8G8B8A8Srgb, m_iWidth, m_iHeight, m_iMipLevel);
 
-    m_textureView = logicalDevice.createVkImageView(
+    m_textureView = logicalDevice->createVkImageView(
             m_texture,
             vk::Format::eR8G8B8A8Srgb,
             vk::ImageAspectFlags(vk::ImageAspectFlagBits::eColor),
@@ -167,21 +167,24 @@ void graphics::Texture::createSampler(const vk::Device &logicalDevice)
     }
 }
 
-void graphics::Texture::createDescriptorSet(const Swapchain & swapchain)
+void graphics::Texture::createDescriptorSet()
 {
-    const size_t size = swapchain.getVkSwapchainImage().size();
-    std::vector<vk::DescriptorSetLayout> layouts(size, swapchain.getParentLogicalDevice().getDescriptorSetLayout());
-    vk::DescriptorSetAllocateInfo allocateInfo{};
-    const vk::Device & logicalDevice = swapchain.getParentLogicalDevice().getVkLogicalDevice();
+    Swapchain * swapchain = graphics::Swapchain::getInstance();
+    LogicalDevice * logicalDevice = graphics::LogicalDevice::getInstance();
 
-    allocateInfo.descriptorPool = swapchain.getVkDescriptorPool();
+    const size_t size = swapchain->getVkSwapchainImage().size();
+    std::vector<vk::DescriptorSetLayout> layouts(size, logicalDevice->getDescriptorSetLayout());
+    vk::DescriptorSetAllocateInfo allocateInfo{};
+    const vk::Device & vkLogicalDevice = logicalDevice->getVkLogicalDevice();
+
+    allocateInfo.descriptorPool = swapchain->getVkDescriptorPool();
     allocateInfo.descriptorSetCount = size;
     allocateInfo.pSetLayouts = layouts.data();
-    m_descriptorSet = {std::move(logicalDevice.allocateDescriptorSetsUnique(allocateInfo)[0])};
+    m_descriptorSet = {std::move(vkLogicalDevice.allocateDescriptorSetsUnique(allocateInfo)[0])};
 
     vk::DescriptorBufferInfo bufferInfo{};
 
-    bufferInfo.buffer = swapchain.getVkGetUniformBuffer(0);
+    bufferInfo.buffer = swapchain->getVkGetUniformBuffer(0);
     bufferInfo.offset = 0;
     bufferInfo.range = sizeof(SUniformBufferObject);
 
@@ -210,5 +213,5 @@ void graphics::Texture::createDescriptorSet(const Swapchain & swapchain)
     writeSets[1].pImageInfo = &imageInfo;
     writeSets[1].pTexelBufferView = nullptr;
 
-    logicalDevice.updateDescriptorSets(writeSets.size(), writeSets.data(), 0, nullptr);
+    vkLogicalDevice.updateDescriptorSets(writeSets.size(), writeSets.data(), 0, nullptr);
 }

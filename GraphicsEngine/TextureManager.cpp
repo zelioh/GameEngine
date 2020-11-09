@@ -19,9 +19,8 @@
     return manager;
 }
 
-graphics::Texture * graphics::TextureManager::createTexture(const Swapchain & swapchain,
-                                                                  const std::string &texturePath,
-                                                                  const std::string &textureName) {
+graphics::Texture * graphics::TextureManager::createTexture(const std::string &texturePath,
+                                                            const std::string &textureName) {
     //
     // Create texture name
     std::string name = "";
@@ -45,7 +44,7 @@ graphics::Texture * graphics::TextureManager::createTexture(const Swapchain & sw
     int width = 0, height = 0, channels = 0;
     stbi_uc *pixels = stbi_load(texturePath.c_str(), &width, &height, &channels, STBI_rgb_alpha);
 
-    graphics::Texture *texture = new Texture(swapchain, name, pixels, width, height, channels);
+    graphics::Texture *texture = new Texture(name, pixels, width, height, channels);
     m_pool[name] = texture;
     return m_pool[name];
 }
@@ -61,11 +60,11 @@ graphics::Texture * graphics::TextureManager::findTexture(const std::string &tex
     return nullptr;
 }
 
-void graphics::TextureManager::release(const LogicalDevice &logicalDevice)
+void graphics::TextureManager::release()
 {
     for (auto texture : m_pool)
     {
-        texture.second->release(logicalDevice);
+        texture.second->release();
         delete texture.second;
         texture.second = nullptr;
     }

@@ -18,26 +18,29 @@
 #include "Light.h"
 #include "Camera.h"
 
-void graphics::CommandBuffer::initialize(const Swapchain & swapchain)
+void graphics::CommandBuffer::initialize()
 {
-    const vk::Device & logicalDevice = swapchain.getParentLogicalDevice().getVkLogicalDevice();
+    Swapchain * swapchain = Swapchain::getInstance();
+    LogicalDevice * logicalDevice = LogicalDevice::getInstance();
 
-    m_commandBuffers.resize(swapchain.getVkFrameBuffers().size());
+    m_commandBuffers.resize(swapchain->getVkFrameBuffers().size());
 
     vk::CommandBufferAllocateInfo commandBufferInfo{};
 
-    commandBufferInfo.commandPool = swapchain.getParentLogicalDevice().getCommandPool().getVkCommandPool();
+    commandBufferInfo.commandPool = logicalDevice->getCommandPool().getVkCommandPool();
     commandBufferInfo.level = vk::CommandBufferLevel::ePrimary;
     commandBufferInfo.commandBufferCount = static_cast<uint32_t>(m_commandBuffers.size());
-    if (logicalDevice.allocateCommandBuffers(&commandBufferInfo, m_commandBuffers.data()) != vk::Result::eSuccess)
+    if (logicalDevice->getVkLogicalDevice().allocateCommandBuffers(&commandBufferInfo, m_commandBuffers.data()) != vk::Result::eSuccess)
     {
         throw std::runtime_error("Error while creating command buffer");
     }
 }
 
-void graphics::CommandBuffer::release(const LogicalDevice & logicalDevice)
+void graphics::CommandBuffer::release()
 {
-    logicalDevice.getVkLogicalDevice().freeCommandBuffers(logicalDevice.getCommandPool().getVkCommandPool(), m_commandBuffers);
+    LogicalDevice * logicalDevice = LogicalDevice::getInstance();
+
+    logicalDevice->getVkLogicalDevice().freeCommandBuffers(logicalDevice->getCommandPool().getVkCommandPool(), m_commandBuffers);
 }
 
 void graphics::CommandBuffer::beginRender(const Swapchain &swapchain, uint32_t imageIndex)
@@ -113,7 +116,7 @@ void graphics::CommandBuffer::render(const Swapchain &swapchain,
     m_commandBuffers[imageIndex].bindVertexBuffers(0, 1, vertexBuffers, deviceSize);
     m_commandBuffers[imageIndex].bindIndexBuffer(object->getIndexBuffer(), 0, vk::IndexType::eUint32);
     if (nullptr != object->getTexture()) {
-        const vk::DescriptorSet & descriptorSet{object->getTexture()->getVkDescriptorSet(swapchain ,imageIndex)};
+        const vk::DescriptorSet & descriptorSet{object->getTexture()->getVkDescriptorSet(imageIndex)};
 
         m_commandBuffers[imageIndex].bindDescriptorSets(vk::PipelineBindPoint::eGraphics,
                                                         pipeline.getVkPipelineLayout(),
@@ -123,10 +126,9 @@ void graphics::CommandBuffer::render(const Swapchain &swapchain,
                                                         0,
                                                         nullptr);
     } else {
-        Texture * defaultTexture = TextureManager::getInstance()->createTexture(swapchain,
-                                                                                "../assets/white.png",
-                                                                              "Default_texture_engine");
-        const vk::DescriptorSet & descriptorSet{defaultTexture->getVkDescriptorSet(swapchain ,imageIndex)};
+        Texture * defaultTexture = TextureManager::getInstance()->createTexture("../assets/white.png",
+                                                                                "Default_texture_engine");
+        const vk::DescriptorSet & descriptorSet{defaultTexture->getVkDescriptorSet(imageIndex)};
 
         m_commandBuffers[imageIndex].bindDescriptorSets(vk::PipelineBindPoint::eGraphics,
                                                         pipeline.getVkPipelineLayout(),

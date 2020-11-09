@@ -5,18 +5,20 @@
 //
 
 #include "RenderPass.h"
-#include "Swapchain.h"
+#include "swapchain.h"
 #include "LogicalDevice.h"
 #include "PhysicalDevice.h"
 
-void graphics::RenderPass::initialize(const Swapchain &swapchain)
+void graphics::RenderPass::initialize()
 {
+    Swapchain * swapchain = Swapchain::getInstance();
+
     //
     // Set color attachment
     vk::AttachmentDescription colorAttachement{};
     PhysicalDevice * physicalDevice = PhysicalDevice::getInstance();
 
-    colorAttachement.format = swapchain.getVkSwapchainFormat();
+    colorAttachement.format = swapchain->getVkSwapchainFormat();
     colorAttachement.samples = physicalDevice->getVkMSSASample();
     colorAttachement.loadOp = vk::AttachmentLoadOp::eClear;
     colorAttachement.storeOp = vk::AttachmentStoreOp::eStore;
@@ -56,7 +58,7 @@ void graphics::RenderPass::initialize(const Swapchain &swapchain)
     // Set color resolver
     vk::AttachmentDescription colorAttachmentResolver{};
 
-    colorAttachmentResolver.format = swapchain.getVkSwapchainFormat();
+    colorAttachmentResolver.format = swapchain->getVkSwapchainFormat();
     colorAttachmentResolver.samples = vk::SampleCountFlagBits::e1;
     colorAttachmentResolver.loadOp = vk::AttachmentLoadOp::eDontCare;
     colorAttachmentResolver.storeOp = vk::AttachmentStoreOp::eStore;
@@ -98,12 +100,14 @@ void graphics::RenderPass::initialize(const Swapchain &swapchain)
     renderPassInfo.dependencyCount = 1;
     renderPassInfo.pDependencies = &dependency;
 
-    m_renderPass = swapchain.getParentLogicalDevice().getVkLogicalDevice().createRenderPass(renderPassInfo);
+    LogicalDevice * logicalDevice = LogicalDevice::getInstance();
+
+    m_renderPass = logicalDevice->getVkLogicalDevice().createRenderPass(renderPassInfo);
 }
 
-void graphics::RenderPass::release(const Swapchain &swapchain)
+void graphics::RenderPass::release()
 {
-    swapchain.getParentLogicalDevice().getVkLogicalDevice().destroyRenderPass(m_renderPass);
+    LogicalDevice::getInstance()->getVkLogicalDevice().destroyRenderPass(m_renderPass);
 }
 
 const vk::RenderPass & graphics::RenderPass::getVkRenderPass() const

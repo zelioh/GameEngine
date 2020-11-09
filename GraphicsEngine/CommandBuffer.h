@@ -30,8 +30,8 @@ namespace graphics {
     public:
         CommandBuffer() = default;
 
-        void initialize(const Swapchain & swapchain);
-        void release(const LogicalDevice & logicalDevice);
+        void initialize();
+        void release();
         void beginRender(const Swapchain & swapchain, uint32_t imageIndex);
         void render(const Swapchain & swapchain,
                     const CommandPool & commandPool,

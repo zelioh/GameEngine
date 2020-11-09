@@ -17,8 +17,8 @@ namespace graphics {
     public:
         RenderPass() = default;
 
-        void initialize(const Swapchain & swapchain);
-        void release(const Swapchain & swapchain);
+        void initialize();
+        void release();
         const vk::RenderPass & getVkRenderPass() const;
 
     private:

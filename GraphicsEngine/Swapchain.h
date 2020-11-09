@@ -24,13 +24,12 @@ namespace graphics {
 
     class Swapchain {
     public:
-        Swapchain(const LogicalDevice & logicalDevice, const Window & window);
+        static Swapchain * getInstance();
 
         void initialize(const Window & window);
         void release();
         void recreate(const Window & window);
 
-        const LogicalDevice & getParentLogicalDevice() const;
         const vk::SwapchainKHR & getVkSwapchain() const;
         const std::vector<vk::Image> & getVkSwapchainImage() const;
         const vk::Format & getVkSwapchainFormat() const;
@@ -64,7 +63,7 @@ namespace graphics {
         void initializeSyncObj();
 
     private:
-        const graphics::LogicalDevice & m_parentLogicalDevice;
+        Swapchain();
         RenderPass m_renderPass;
 
         vk::SwapchainKHR m_swapchain;

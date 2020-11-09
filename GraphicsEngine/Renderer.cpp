@@ -12,12 +12,12 @@
 #include "Objects/Camera.h"
 #include "Objects/CameraManager.h"
 
-graphics::Renderer::Renderer(const Swapchain & swapchain):
+graphics::Renderer::Renderer():
 m_currentFrame(0),
 m_imageIndex(0),
 m_projection()
 {
-    m_commandBuffer.initialize(swapchain);
+    m_commandBuffer.initialize();
 }
 
 bool graphics::Renderer::render(Swapchain &swapchain, const Pipeline &pipeline)
@@ -52,7 +52,7 @@ void graphics::Renderer::setProjectionMatrix(const Math::Matrix4F &projection)
 
 bool graphics::Renderer::renderBegin(Swapchain & swapchain)
 {
-    const vk::Device logicalDevice = swapchain.getParentLogicalDevice().getVkLogicalDevice();
+    const vk::Device & logicalDevice = LogicalDevice::getInstance()->getVkLogicalDevice();
 
     logicalDevice.waitForFences(1, &swapchain.getVkFence(m_currentFrame), true, UINT64_MAX);
     try
@@ -72,8 +72,10 @@ void graphics::Renderer::renderElement(Swapchain & swapchain,
                                        const Math::Matrix4F & projectionMatrix,
                                        const Math::Matrix4F & viewMatrix)
 {
+    LogicalDevice * logicalDevice = LogicalDevice::getInstance();
+
     m_commandBuffer.render(swapchain,
-                           swapchain.getParentLogicalDevice().getCommandPool(),
+                           logicalDevice->getCommandPool(),
                            pipeline,
                            object,
                            m_imageIndex,
@@ -83,8 +85,8 @@ void graphics::Renderer::renderElement(Swapchain & swapchain,
 
 bool graphics::Renderer::renderEnd(Swapchain & swapchain, const Pipeline & pipeline)
 {
-    const LogicalDevice & device = swapchain.getParentLogicalDevice();
-    const vk::Device & logicalDevice = device.getVkLogicalDevice();
+    LogicalDevice * device = LogicalDevice::getInstance();
+    const vk::Device & logicalDevice = device->getVkLogicalDevice();
 
     m_commandBuffer.endRender(m_imageIndex, swapchain);
 
@@ -110,7 +112,7 @@ bool graphics::Renderer::renderEnd(Swapchain & swapchain, const Pipeline & pipel
     logicalDevice.resetFences(1, &swapchain.getVkFence(m_currentFrame));
 
     vk::Result result = device
-                        .getGraphicQueue()
+                        ->getGraphicQueue()
                         .getVkQueue()
                         .submit(1, &submitInfo,swapchain.getVkFence(m_currentFrame));
     if (result != vk::Result::eSuccess)
@@ -125,7 +127,7 @@ bool graphics::Renderer::renderEnd(Swapchain & swapchain, const Pipeline & pipel
     presentInfo.swapchainCount = 1;
     presentInfo.pSwapchains = swapchains;
     presentInfo.pImageIndices = &m_imageIndex;
-    result = device.getPresentQueue().getVkQueue().presentKHR(presentInfo);
+    result = device->getPresentQueue().getVkQueue().presentKHR(presentInfo);
     if (result == vk::Result::eErrorOutOfDateKHR || result == vk::Result::eSuboptimalKHR)
     {
         return false;
@@ -135,30 +137,4 @@ bool graphics::Renderer::renderEnd(Swapchain & swapchain, const Pipeline & pipel
     }
     m_currentFrame = (m_currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
     return true;
-}
-
-void graphics::Renderer::update(const graphics::Swapchain &swapchain, int imageIndex,
-                                const object::GameObject *object)
-{
-    //
-    // Here ugly brut values do not do that !!!
-    SUniformBufferObject ubo;
-
-    ubo.model = object->getTransformationMatrix();
-
-    //
-    // TODO: use camera look at
-    ubo.view = Math::Matrix4F(Math::Vector4F(-0.7071f, -0.4082f, 0.57735f, 0.f),
-                              Math::Vector4F(0.7071f, -0.4082f, 0.57735f, 0.f),
-                              Math::Vector4F(0.f, 0.81649f, 0.57735f, 0.f),
-                              Math::Vector4F(-0.f, -0.f, -3.4641f, 1.f));
-    //
-    // TODO: use perspectif compute
-    ubo.proj = Math::Matrix4F(Math::Vector4F(1.81066f, 0.f, 0.f, 0.f),
-                              Math::Vector4F(0.f, -2.4142f, 0.f, 0.f),
-                              Math::Vector4F(0.f, 0.f, -1.01010f, -1.f),
-                              Math::Vector4F(0.f, 0.f, -0.10101010f, 0.f));;
-    //ubo[1][1] *= -1;
-
-    swapchain.updateUniformBuffer(imageIndex, ubo);
 }

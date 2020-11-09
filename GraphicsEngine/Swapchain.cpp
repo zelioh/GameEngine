@@ -15,18 +15,26 @@
 #include "Texture.h"
 #include "Window.h"
 
-graphics::Swapchain::Swapchain(const LogicalDevice & logicalDevice, const Window & window):
-m_parentLogicalDevice(logicalDevice),
-m_renderPass()
+graphics::Swapchain * graphics::Swapchain::getInstance()
 {
-    initialize(window);
+    static Swapchain * swapchain = nullptr;
+
+    if (nullptr == swapchain)
+    {
+        swapchain = new Swapchain();
+    }
+    return swapchain;
+}
+
+graphics::Swapchain::Swapchain()
+{
 }
 
 void graphics::Swapchain::initialize(const Window & window)
 {
     initializeInternal(window);
     initializeImageViews();
-    m_renderPass.initialize(*this);
+    m_renderPass.initialize();
     initializeFrameBuffer();
     createUniformBuffers();
     createDescriptorPool();
@@ -35,7 +43,7 @@ void graphics::Swapchain::initialize(const Window & window)
 
 void graphics::Swapchain::release()
 {
-    const vk::Device & logicalDevice = m_parentLogicalDevice.getVkLogicalDevice();
+    const vk::Device & logicalDevice = LogicalDevice::getInstance()->getVkLogicalDevice();
 
     for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i)
     {
@@ -57,7 +65,7 @@ void graphics::Swapchain::release()
         logicalDevice.destroyFramebuffer(framebuffer);
     }
 
-    m_renderPass.release(*this);
+    m_renderPass.release();
     for (const vk::ImageView & imageView : m_vImageViews)
     {
         logicalDevice.destroyImageView(imageView);
@@ -77,7 +85,7 @@ void graphics::Swapchain::release()
 
 void graphics::Swapchain::recreate(const Window & window)
 {
-    const vk::Device & logicalDevice = m_parentLogicalDevice.getVkLogicalDevice();
+    const vk::Device & logicalDevice = LogicalDevice::getInstance()->getVkLogicalDevice();
 
     logicalDevice.waitIdle();
     {
@@ -93,7 +101,7 @@ void graphics::Swapchain::recreate(const Window & window)
             logicalDevice.destroyFramebuffer(framebuffer);
         }
 
-        m_renderPass.release(*this);
+        m_renderPass.release();
         for (const vk::ImageView &imageView : m_vImageViews) {
             logicalDevice.destroyImageView(imageView);
         }
@@ -109,17 +117,12 @@ void graphics::Swapchain::recreate(const Window & window)
     }
     initializeInternal(window);
     initializeImageViews();
-    m_renderPass.initialize(*this);
+    m_renderPass.initialize();
     createColorResources();
     createDepthResources();
     initializeFrameBuffer();
     createUniformBuffers();
     createDescriptorPool();
-}
-
-const graphics::LogicalDevice & graphics::Swapchain::getParentLogicalDevice() const
-{
-    return m_parentLogicalDevice;
 }
 
 const vk::SwapchainKHR & graphics::Swapchain::getVkSwapchain() const
@@ -189,15 +192,17 @@ const vk::Buffer & graphics::Swapchain::getVkGetUniformBuffer(int iIndex) const
 
 uint32_t graphics::Swapchain::acquireNextImage(size_t currentFrame) const
 {
-    return m_parentLogicalDevice.getVkLogicalDevice().acquireNextImageKHR(m_swapchain,
-                                                                   UINT64_MAX,
-                                                                   m_imageAvaibleSemaphores[currentFrame],
-                                                                   nullptr);
+    const vk::Device & logicalDevice = LogicalDevice::getInstance()->getVkLogicalDevice();
+
+    return logicalDevice.acquireNextImageKHR(m_swapchain,
+                                             UINT64_MAX,
+                                             m_imageAvaibleSemaphores[currentFrame],
+                                             nullptr);
 }
 
 void graphics::Swapchain::updateUniformBuffer(int imageIndex, const SUniformBufferObject &ubo) const
 {
-    const vk::Device & logicalDevice = m_parentLogicalDevice.getVkLogicalDevice();
+    const vk::Device & logicalDevice = LogicalDevice::getInstance()->getVkLogicalDevice();
     void *data;
 
     logicalDevice.mapMemory(m_uniformBufferMemories[imageIndex], 0, sizeof(ubo), static_cast<vk::MemoryMapFlags>(0), &data);
@@ -247,12 +252,14 @@ void graphics::Swapchain::initializeInternal(const Window & window)
     swapchainInfo.clipped = true;
     swapchainInfo.oldSwapchain = nullptr;
 
-    m_swapchain = m_parentLogicalDevice.getVkLogicalDevice().createSwapchainKHR(swapchainInfo);
+    const vk::Device & logicalDevice = LogicalDevice::getInstance()->getVkLogicalDevice();
+
+    m_swapchain = logicalDevice.createSwapchainKHR(swapchainInfo);
     if (!m_swapchain)
     {
         throw std::runtime_error("Error while creating swapchain");
     }
-    m_vImages = m_parentLogicalDevice.getVkLogicalDevice().getSwapchainImagesKHR(m_swapchain);
+    m_vImages = logicalDevice.getSwapchainImagesKHR(m_swapchain);
     m_format = format.format;
     m_extent = surfaceExtent;
 }
@@ -305,11 +312,12 @@ vk::Extent2D graphics::Swapchain::chooseSwapchainExtent(const vk::SurfaceCapabil
 void graphics::Swapchain::initializeImageViews()
 {
     const size_t count = m_vImages.size();
+    LogicalDevice * logicalDevice = LogicalDevice::getInstance();
 
     m_vImageViews.resize(count);
     for (size_t i = 0; i < count; ++i)
     {
-        m_vImageViews[i] = m_parentLogicalDevice.createVkImageView(m_vImages[i], m_format, vk::ImageAspectFlagBits::eColor);
+        m_vImageViews[i] = logicalDevice->createVkImageView(m_vImages[i], m_format, vk::ImageAspectFlagBits::eColor);
     }
 }
 
@@ -325,6 +333,7 @@ void graphics::Swapchain::initializeFrameBuffer()
 
     const int count = m_vImageViews.size();
     m_vFrameBuffer.resize(count);
+    const vk::Device & logicalDevice = LogicalDevice::getInstance()->getVkLogicalDevice();
 
     for (int i = 0; i < count; ++i)
     {
@@ -341,7 +350,7 @@ void graphics::Swapchain::initializeFrameBuffer()
         framebufferInfo.layers = 1;
         framebufferInfo.width = m_extent.width;
         framebufferInfo.height = m_extent.height;
-        m_vFrameBuffer[i] = m_parentLogicalDevice.getVkLogicalDevice().createFramebuffer(framebufferInfo);
+        m_vFrameBuffer[i] = logicalDevice.createFramebuffer(framebufferInfo);
         if (!m_vFrameBuffer[i])
         {
             throw std::runtime_error("Error while creating framebuffer");
@@ -352,8 +361,9 @@ void graphics::Swapchain::initializeFrameBuffer()
 void graphics::Swapchain::createColorResources()
 {
     PhysicalDevice * physicalDevice = PhysicalDevice::getInstance();
+    LogicalDevice * logicalDevice = LogicalDevice::getInstance();
 
-    m_parentLogicalDevice.createVkImage(m_extent.width, m_extent.height,
+    logicalDevice->createVkImage(m_extent.width, m_extent.height,
                                         1,
                                         physicalDevice->getVkMSSASample(),
                                         m_format,
@@ -361,12 +371,13 @@ void graphics::Swapchain::createColorResources()
                                         vk::ImageUsageFlagBits::eTransientAttachment | vk::ImageUsageFlagBits::eColorAttachment,
                                         vk::MemoryPropertyFlagBits::eDeviceLocal,
                                         m_colorImage, m_colorMemory);
-    m_colorView = m_parentLogicalDevice.createVkImageView(m_colorImage, m_format, vk::ImageAspectFlagBits::eColor, 1);
+    m_colorView = logicalDevice->createVkImageView(m_colorImage, m_format, vk::ImageAspectFlagBits::eColor, 1);
 }
 
 void graphics::Swapchain::createDepthResources()
 {
     PhysicalDevice * physicalDevice = PhysicalDevice::getInstance();
+    LogicalDevice * logicalDevice = LogicalDevice::getInstance();
 
     vk::Format format = physicalDevice->findVkSupportedFormat(
                     {vk::Format::eD32Sfloat, vk::Format::eD32SfloatS8Uint, vk::Format::eD24UnormS8Uint},
@@ -374,7 +385,7 @@ void graphics::Swapchain::createDepthResources()
                     vk::FormatFeatureFlagBits::eDepthStencilAttachment);
 
 
-    m_parentLogicalDevice.createVkImage(m_extent.width, m_extent.height,
+    logicalDevice->createVkImage(m_extent.width, m_extent.height,
                                         1,
                                         physicalDevice->getVkMSSASample(),
                                         format,
@@ -382,19 +393,20 @@ void graphics::Swapchain::createDepthResources()
                                         vk::ImageUsageFlagBits::eDepthStencilAttachment,
                                         vk::MemoryPropertyFlagBits::eDeviceLocal,
                                         m_depthImage, m_depthMemory);
-    m_depthView = m_parentLogicalDevice.createVkImageView(m_depthImage, format, vk::ImageAspectFlagBits::eDepth, 1);
+    m_depthView = logicalDevice->createVkImageView(m_depthImage, format, vk::ImageAspectFlagBits::eDepth, 1);
 }
 
 void graphics::Swapchain::createUniformBuffers()
 {
     vk::DeviceSize size = sizeof(SUniformBufferObject);
     const size_t buffersize = m_vImages.size();
+    LogicalDevice * logicalDevice = LogicalDevice::getInstance();
 
     m_uniformBuffers.resize(buffersize);
     m_uniformBufferMemories.resize(buffersize);
     for (size_t i = 0; i < buffersize; ++i)
     {
-        m_parentLogicalDevice.createVkBuffer(size,
+        logicalDevice->createVkBuffer(size,
                                              vk::BufferUsageFlagBits::eUniformBuffer,
                                              vk::MemoryPropertyFlagBits::eHostVisible | vk::MemoryPropertyFlagBits::eHostCoherent,
                                              m_uniformBuffers[i],
@@ -417,7 +429,9 @@ void graphics::Swapchain::createDescriptorPool()
     poolInfo.maxSets = 64;
     poolInfo.flags = vk::DescriptorPoolCreateFlagBits::eFreeDescriptorSet;
 
-    if (!(m_descriptorPool = m_parentLogicalDevice.getVkLogicalDevice().createDescriptorPool(poolInfo)))
+    LogicalDevice * logicalDevice = LogicalDevice::getInstance();
+
+    if (!(m_descriptorPool = logicalDevice->getVkLogicalDevice().createDescriptorPool(poolInfo)))
     {
         throw std::runtime_error("Error while creating pool descriptor");
     }
@@ -434,7 +448,7 @@ void graphics::Swapchain::initializeSyncObj()
     m_fencesInFlight.resize(m_vImages.size(), nullptr);
     fenceInfo.flags = vk::FenceCreateFlagBits::eSignaled;
 
-    vk::Device logicalDevice = m_parentLogicalDevice.getVkLogicalDevice();
+    vk::Device logicalDevice = LogicalDevice::getInstance()->getVkLogicalDevice();
 
     for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; ++i)
     {

@@ -26,9 +26,8 @@ namespace graphics {
          * @param textureName   name of the texture in the map. If nullptr the name will be the file name before the '.'
          * @return  a Texture instance
          */
-        graphics::Texture * createTexture(const Swapchain & swapchain,
-                                                const std::string & texturePath,
-                                                const std::string & textureName = nullptr);
+        graphics::Texture * createTexture(const std::string & texturePath,
+                                          const std::string & textureName = nullptr);
         /**
          * Find a texture in the pool of texture
          * @param textureName   name of the texture
@@ -36,7 +35,7 @@ namespace graphics {
          */
         graphics::Texture * findTexture(const std::string & textureName);
 
-        void release(const LogicalDevice & logicalDevice);
+        void release();
     private:
         TextureManager() = default; ///< Private constructor use in getInstance
     private:

@@ -20,7 +20,7 @@ namespace graphics {
     class Renderer
     {
     public:
-        Renderer(const Swapchain & swapchain);
+        Renderer();
 
         //
         // Render the current Scene
@@ -40,8 +40,6 @@ namespace graphics {
                            const Math::Matrix4F & projectionMatrix,
                            const Math::Matrix4F & viewMatrix);
         bool renderEnd(Swapchain & swapchain, const Pipeline & pipeline);
-
-        void update(const graphics::Swapchain & swapchain, int imageIndex, const object::GameObject * object);
 
         size_t m_currentFrame;
         uint32_t m_imageIndex;

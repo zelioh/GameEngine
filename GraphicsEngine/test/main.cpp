@@ -68,10 +68,13 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
     graphics::PhysicalDevice * physicalDevice = graphics::PhysicalDevice::getInstance();
     graphics::LogicalDevice * logicalDevice = graphics::LogicalDevice::getInstance();
-    graphics::Swapchain swapchain(*logicalDevice, window);
+    graphics::Swapchain * swapchain = graphics::Swapchain::getInstance();
+
+    swapchain->initialize(window);
+
     graphics::Shader shader("../shaders/defaultVert.spv", "../shaders/defaultFrag.spv");
-    graphics::Pipeline pipeline(*logicalDevice, swapchain, shader);
-    graphics::Renderer renderer(swapchain);
+    graphics::Pipeline pipeline(*logicalDevice, *swapchain, shader);
+    graphics::Renderer renderer;
 
     const std::string myLevelIdentifier = "MyLevel";
 
@@ -127,8 +130,8 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
                                               Math::SRotation{0.f, Math::Vector3F(0.f, 0.f, 1.f)});
 
     graphics::TextureManager * textureManager = graphics::TextureManager::getInstance();
-    graphics::Texture * boxTexture = textureManager->createTexture(swapchain, "../assets/box.png", "Box");
-    graphics::Texture * phoenixTexture = textureManager->createTexture(swapchain, "../assets/texture.jpg", "Phoenix");
+    graphics::Texture * boxTexture = textureManager->createTexture("../assets/box.png", "Box");
+    graphics::Texture * phoenixTexture = textureManager->createTexture("../assets/texture.jpg", "Phoenix");
 
     cube1->setTexture(boxTexture);
     cube3->setTexture(phoenixTexture);
@@ -155,7 +158,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
     auto startTime = std::chrono::high_resolution_clock::now();
 
-    vk::Extent2D extent = swapchain.getVkSwapchainExtent();
+    vk::Extent2D extent = swapchain->getVkSwapchainExtent();
     float width = static_cast<float>(extent.width);
     float height = static_cast<float>(extent.height);
 
@@ -172,7 +175,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
                                                                  Math::Vector3F(1.f, 1.f, 1.f),
                                                                  Math::Vector3F(2.f, 2.f, 2.f));
 
-    graphics::Texture * viking_room_texture = textureManager->createTexture(swapchain, "../assets/viking_room.png", "Viking_room");
+    graphics::Texture * viking_room_texture = textureManager->createTexture("../assets/viking_room.png", "Viking_room");
 
     viking_room->setTexture(viking_room_texture);
     viking_room->setRotate(Math::SRotation{90.f, Math::Vector3F(0.f, 0.f, 1.f)});
@@ -213,7 +216,6 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
             break;
         }
         //cube1->setRotate(object::SRotation{90.f * time, cube1->getRotate().axis});
-        //cube2->setRotate(object::SRotation{90.f * -time, cube2->getRotate().axis});
         cube3->setRotate(Math::SRotation{90.f * time, Math::Vector3F(1.f, 0.f, 0.f)});
         Math::Vector3F p = camera->getPosition();
         Math::Vector3F t = camera->getTarget();
@@ -271,6 +273,15 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
             }
         }
 
+        if (HID::mouse::IsLeftMouseKeyDown())
+        {
+            static float currentAngle = 0.f;
+
+            currentAngle += 90.f;
+
+            cube4->setRotate(Math::SRotation{currentAngle, cube4->getRotate().axis});
+        }
+
         camera->setPosition(p);
         camera->setTarget(t);
 
@@ -280,13 +291,13 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
         cube1->setPosition(cube1->getPhysicsObject()->GetPosition());
         cube2->setPosition(cube2->getPhysicsObject()->GetPosition());
 
-        if (!renderer.render(swapchain, pipeline))
+        if (!renderer.render(*swapchain, pipeline))
         {
             logicalDevice->releaseCommandPool();
             logicalDevice->initializeCommandPool();
-            swapchain.recreate(window);
+            swapchain->recreate(window);
             pipeline.release(*logicalDevice);
-            pipeline.initialize(*logicalDevice, swapchain, shader);
+            pipeline.initialize(*logicalDevice, *swapchain, shader);
         }
     }
     logicalDevice->getVkLogicalDevice().waitIdle();
@@ -294,10 +305,10 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     planeManager->release();
     modelsManager->release();
     object::LightManager::getInstance()->release();
-    textureManager->release(*logicalDevice);
+    textureManager->release();
     object::SceneManager::getInstance()->release();
     pipeline.release(*logicalDevice);
-    swapchain.release();
+    swapchain->release();
     logicalDevice->release();
     instance->release();
     return 0;

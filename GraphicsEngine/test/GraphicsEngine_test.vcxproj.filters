@@ -27,6 +27,9 @@
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\SRotation.obj">
       <Filter>Object Libraries</Filter>
     </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Application.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Instance.obj">
       <Filter>Object Libraries</Filter>
     </Object>
@@ -157,6 +160,9 @@
       <Filter>Object Libraries</Filter>
     </Object>
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\HIDEngine\HIDEngine.dir\$(Configuration)\Event.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\HIDEngine\HIDEngine.dir\$(Configuration)\WindowEvent.obj">
       <Filter>Object Libraries</Filter>
     </Object>
   </ItemGroup>

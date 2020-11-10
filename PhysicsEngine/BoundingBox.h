@@ -8,16 +8,18 @@ using namespace Math;
 class BoundingBox : public Collider
 {
 public:
-	BoundingBox(const Vector3F& MinBoxExtent, const Vector3F& MaxBoxExtent);
+	BoundingBox(const Vector3F& Position, const Vector3F& scale);
 	~BoundingBox();
 
 	IntersectData IntersectBoundingBox(const BoundingBox& other);
-	const Vector3F& getMaxBoxExtent() const { return MaxBoxExtent; };
-	const Vector3F& getMinBoxExtent() const { return MinBoxExtent; };
+	const Vector3F& getMaxBoxExtent() const;
+	const Vector3F& getMinBoxExtent() const;
 	virtual void Transform(const Vector3F& translation);
+	virtual Vector3F GetCenter() const { return center; }
+
 
 private:
-	const Vector3F MinBoxExtent;
-	const Vector3F MaxBoxExtent;
+	Vector3F center;
+	const Vector3F m_scale;
 };
 

@@ -104,12 +104,19 @@ bool Math::Vector3F::operator!=(const Vector3F& V) const
 
 float Math::Vector3F::Max() const
 {
-	return 0.0f;
+	float MaxValue = this->X;
+	MaxValue = MaxValue > this->Y ? MaxValue : this->Y;
+	MaxValue = MaxValue > this->Z ? MaxValue : this->Z;
+
+	return MaxValue;
 }
 
 Vector3F Math::Vector3F::Max(const Vector3F& value) const
 {
-	return Vector3F();
+	float MaxX = this->X > value.X ? this->X : value.X;
+	float MaxY = this->Y > value.Y ? this->Y : value.Y;
+	float MaxZ = this->Z > value.Z ? this->Z : value.Z;
+	return Vector3F(MaxX, MaxY, MaxZ);
 }
 
 Vector3F Math::Vector3F::Normalized() const

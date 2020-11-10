@@ -1,0 +1,39 @@
+#include "BoundingBox.h"
+#include <iostream>
+
+BoundingBox::BoundingBox(const Vector3F& Position, const Vector3F& scale) : 
+	center(Position), m_scale(scale), Collider(Collider::COLLIDER_BOX)
+{
+}
+
+BoundingBox::~BoundingBox()
+{
+
+}
+
+IntersectData BoundingBox::IntersectBoundingBox(const BoundingBox& other)
+{
+	Vector3F distances1 = other.getMinBoxExtent() - this->getMaxBoxExtent();
+	std::cout << "test extend X = " << other.getMinBoxExtent().X << std::endl;
+	Vector3F distances2 = this->getMinBoxExtent() - other.getMaxBoxExtent();
+	Vector3F distances = Vector3F(distances1.Max(distances2));
+	float maxDistance = distances.Max();
+	std::cout << " max distance = " << maxDistance << std::endl;
+	return IntersectData(maxDistance < 0, distances);
+}
+
+Vector3F& BoundingBox::getMaxBoxExtent() const
+{
+	return Vector3F(this->center.X + this->m_scale.X, this->center.Y + this->m_scale.Y, this->center.Z + this->m_scale.Z);
+}
+
+Vector3F& BoundingBox::getMinBoxExtent() const
+{
+	return Vector3F(this->center.X - this->m_scale.X, this->center.Y - this->m_scale.Y, this->center.Z - this->m_scale.Z);
+}
+
+
+void BoundingBox::Transform(const Vector3F& translation)
+{
+	this->center = translation;
+}

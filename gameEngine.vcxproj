@@ -323,6 +323,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Vector4F.obj" />
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Matrix4F.obj" />
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\SRotation.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\Core\Core.dir\$(Configuration)\Application.obj" />
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\AudioEngine\audioEngine.dir\$(Configuration)\AudioEngine.obj" />
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine\PhysicsEngine.dir\$(Configuration)\BoundingBox.obj" />
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\PhysicsEngine\PhysicsEngine.dir\$(Configuration)\BoundingSphere.obj" />
@@ -368,6 +369,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\LightManager.obj" />
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\GraphicsEngine\GraphicsEngine.dir\$(Configuration)\Light.obj" />
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\HIDEngine\HIDEngine.dir\$(Configuration)\Event.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\HIDEngine\HIDEngine.dir\$(Configuration)\WindowEvent.obj" />
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\Cube.obj" />
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\CubeManager.obj" />
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\GameObject.obj" />
@@ -383,6 +385,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\CameraManager.obj" />
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\Scene.obj" />
     <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\SceneManager.obj" />
+    <Object Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\SDK\SDK.dir\$(Configuration)\Application.obj" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\ZERO_CHECK.vcxproj">

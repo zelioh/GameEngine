@@ -262,6 +262,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\HIDEngine\Event.cpp" />
     <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\HIDEngine\Event.h" />
+    <ClCompile Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\HIDEngine\WindowEvent.cpp" />
+    <ClInclude Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\HIDEngine\WindowEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\Pierre\Desktop\GameEngineGit\GameEngine\ZERO_CHECK.vcxproj">

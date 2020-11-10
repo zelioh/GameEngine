@@ -32,6 +32,9 @@ namespace graphics {
          * @param projection    Matrix of projection
          */
         void setProjectionMatrix(const Math::Matrix4F & projection);
+
+        void release();
+        void initialize();
     private:
         bool renderBegin(Swapchain & swapchain);
         void renderElement(Swapchain & swapchain,

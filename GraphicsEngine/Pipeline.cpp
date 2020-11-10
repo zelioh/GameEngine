@@ -12,13 +12,16 @@
 #include "PhysicalDevice.h"
 #include "SUniformBufferObject.h"
 
-graphics::Pipeline::Pipeline(const Shader &shader)
+graphics::Pipeline::Pipeline(const Shader &shader):
+m_shader(shader)
 {
     initialize(shader);
 }
 
 void graphics::Pipeline::initialize(const Shader &shader)
 {
+    m_shader = shader;
+
     LogicalDevice * logicalDevice = LogicalDevice::getInstance();
     Swapchain * swapchain = Swapchain::getInstance();
 
@@ -203,12 +206,17 @@ void graphics::Pipeline::initialize(const Shader &shader)
     logicalDevice->getVkLogicalDevice().destroyShaderModule(fragShaderModule);
 }
 
+void graphics::Pipeline::initialize()
+{
+    initialize(m_shader);
+}
+
 void graphics::Pipeline::release()
 {
     const vk::Device & logicalDevice = LogicalDevice::getInstance()->getVkLogicalDevice();
 
-    logicalDevice.destroyPipelineLayout(m_pipelineLayout);
     logicalDevice.destroyPipeline(m_pipeline);
+    logicalDevice.destroyPipelineLayout(m_pipelineLayout);
 }
 
 vk::ShaderModule graphics::Pipeline::createShaderModule(const std::vector<char> &data)

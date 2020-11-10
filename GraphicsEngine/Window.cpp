@@ -15,7 +15,9 @@ m_hInstance(hInstance),
 m_hwnd(nullptr),
 m_bIsFullScreen(parameters.m_bIsFullScreen),
 m_iWidth(parameters.m_iWidth),
-m_iHeight(parameters.m_iHeight)
+m_iHeight(parameters.m_iHeight),
+m_bWasResize(false),
+m_isInitialize(false)
 {
     LPCWSTR CLASS_NAME = L"Window";
     WNDCLASS wc{};
@@ -69,6 +71,7 @@ m_iHeight(parameters.m_iHeight)
         SetCursorPos(_clip.right / 2, _clip.bottom / 2);
         ShowCursor(true);
     }
+    m_isInitialize = true;
 }
 
 graphics::Window::~Window()
@@ -120,10 +123,28 @@ void graphics::Window::close() const
     DestroyWindow(m_hwnd);
 }
 
+void graphics::Window::resize(int newWidth, int newHeight)
+{
+    SetWindowPos(m_hwnd, HWND_TOP, 0, 0, newWidth, newHeight, SWP_NOMOVE);
+    m_iWidth = newWidth;
+    m_iHeight = newHeight;
+}
+
+bool graphics::Window::wasResized() const
+{
+    return m_bWasResize;
+}
+
+void graphics::Window::setResizeStatus(bool status)
+{
+    m_bWasResize = status;
+}
+
 LRESULT graphics::Window::WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM lparam)
 {
     HID::WindowEvent * windowEvent = HID::WindowEvent::getInstance();
     const std::string & levelIdentifier = object::SceneManager::getInstance()->getCurrentSceneIdentifier();
+    auto *currentWindow = reinterpret_cast<graphics::Window *>(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
 
     switch (msg) {
         case WM_DESTROY:
@@ -164,8 +185,12 @@ LRESULT graphics::Window::WindowProcessMessages(HWND hwnd, UINT msg, WPARAM para
                                       0);
             break;
 
-        case WM_SIZE:
-            windowEvent->onWindowEvent(HID::window::Event::RESIZE, LOWORD(lparam), HIWORD(lparam));
+        case WM_EXITSIZEMOVE:
+//            currentWindow->setResizeStatus(true);
+//            currentWindow->resize(LOWORD(lparam), HIWORD(lparam));
+            RECT windRect;
+            GetWindowRect(hwnd, &windRect);
+            windowEvent->onWindowEvent(HID::window::Event::RESIZE, windRect.right, windRect.bottom);
             break;
 
         default:

@@ -127,7 +127,12 @@ bool graphics::Renderer::renderEnd(Swapchain & swapchain, const Pipeline & pipel
     presentInfo.swapchainCount = 1;
     presentInfo.pSwapchains = swapchains;
     presentInfo.pImageIndices = &m_imageIndex;
-    result = device->getPresentQueue().getVkQueue().presentKHR(presentInfo);
+    try
+    {
+        result = device->getPresentQueue().getVkQueue().presentKHR(presentInfo);
+    } catch (const vk::OutOfDateKHRError & e) {
+        return false;
+    }
     if (result == vk::Result::eErrorOutOfDateKHR || result == vk::Result::eSuboptimalKHR)
     {
         return false;
@@ -137,4 +142,14 @@ bool graphics::Renderer::renderEnd(Swapchain & swapchain, const Pipeline & pipel
     }
     m_currentFrame = (m_currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
     return true;
+}
+
+void graphics::Renderer::release()
+{
+    m_commandBuffer.release();
+}
+
+void graphics::Renderer::initialize()
+{
+    m_commandBuffer.initialize();
 }

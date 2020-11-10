@@ -33,6 +33,7 @@
 #include "Objects/LightManager.h"
 #include "Objects/Light.h"
 #include "Event.h"
+#include "WindowEvent.h"
 
 #include <chrono>
 #include <thread>
@@ -204,6 +205,13 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
     auto previousFrame = std::chrono::high_resolution_clock::now();
 
+    HID::WindowEvent * event = HID::WindowEvent::getInstance();
+
+    event->registerWindowCallback([&](HID::window::Event id, int width, int height){
+        window.resize(width, height);
+        window.setResizeStatus(true);
+    });
+
     while (window) {
         auto currentTime = std::chrono::high_resolution_clock::now();
         float time = std::chrono::duration<float, std::chrono::seconds::period>(currentTime - startTime).count();
@@ -253,22 +261,24 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
             t.Z += moveFactor;
         }
 
-        auto result = HID::mouse::MouseMove(window.getHWindow());
+        if (HID::mouse::IsRightMouseKeyDown()) {
+            auto result = HID::mouse::MouseMove(window.getHWindow());
 
-        if (result.first > 200) {
-            t.X += 2.5f * deltaTime;
-        } else if (result.first > 100) {
-            t.X += 1.0f * deltaTime;
-        } else if (result.first < -200) {
-            t.X -= 2.5f * deltaTime;
-        } else if (result.first < -100) {
-            t.X -= 1.0f * deltaTime;
-        }
+            if (result.first > 200) {
+                t.X += 2.5f * deltaTime;
+            } else if (result.first > 100) {
+                t.X += 1.0f * deltaTime;
+            } else if (result.first < -200) {
+                t.X -= 2.5f * deltaTime;
+            } else if (result.first < -100) {
+                t.X -= 1.0f * deltaTime;
+            }
 
-        if (result.second > 50) {
-            t.Y -= 2.5f * deltaTime;
-        } else if (result.second < -50) {
-            t.Y += 2.5f * deltaTime;
+            if (result.second > 50) {
+                t.Y -= 2.5f * deltaTime;
+            } else if (result.second < -50) {
+                t.Y += 2.5f * deltaTime;
+            }
         }
 
         camera->setPosition(p);
@@ -288,13 +298,10 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
         cube1->setPosition(cube1->getPhysicsObject()->GetPosition());
         cube2->setPosition(cube2->getPhysicsObject()->GetPosition());
 
-        if (!renderer.render(*swapchain, pipeline))
+        if (window.wasResized() || !renderer.render(*swapchain, pipeline))
         {
-            logicalDevice->releaseCommandPool();
-            logicalDevice->initializeCommandPool();
-            swapchain->recreate(window);
-            pipeline.release();
-            pipeline.initialize(shader);
+            swapchain->recreate(window, pipeline, renderer);
+            window.setResizeStatus(false);
         }
         previousFrame = currentTime;
     }

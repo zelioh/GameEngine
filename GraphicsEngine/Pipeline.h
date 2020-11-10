@@ -9,6 +9,7 @@
 #define GAMEENGINE_PIPELINE_H
 
 #include "vulkan/vulkan.hpp"
+#include "Shader.h"
 
 namespace graphics {
     class LogicalDevice;
@@ -22,6 +23,7 @@ namespace graphics {
         Pipeline(const Shader & shader); ///< Call initalize
 
         void initialize(const Shader & shader); ///< Initalize the pipeline
+        void initialize();
         void release();
 
         const vk::Pipeline & getVkPipeline() const;
@@ -33,6 +35,7 @@ namespace graphics {
     private:
         vk::Pipeline m_pipeline;
         vk::PipelineLayout m_pipelineLayout;
+        Shader m_shader;
     };
 
 }

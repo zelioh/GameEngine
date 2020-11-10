@@ -12,8 +12,10 @@
 #include "Instance.h"
 #include "Vertex.h"
 #include "SUniformBufferObject.h"
-#include "public/GraphicsEngine/Texture.h"
 #include "Window.h"
+#include "Pipeline.h"
+#include "Renderer.h"
+#include "public/GraphicsEngine/TextureManager.h"
 
 graphics::Swapchain * graphics::Swapchain::getInstance()
 {
@@ -83,46 +85,51 @@ void graphics::Swapchain::release()
 }
 
 
-void graphics::Swapchain::recreate(const Window & window)
+void graphics::Swapchain::recreate(const Window & window, graphics::Pipeline & pipeline, Renderer & renderer)
 {
     const vk::Device & logicalDevice = LogicalDevice::getInstance()->getVkLogicalDevice();
 
     logicalDevice.waitIdle();
-    {
-        logicalDevice.destroyImage(m_colorImage);
-        logicalDevice.destroyImageView(m_colorView);
-        logicalDevice.freeMemory(m_colorMemory);
+    logicalDevice.destroyImageView(m_depthView);
+    logicalDevice.destroyImage(m_depthImage);
+    logicalDevice.freeMemory(m_depthMemory);
 
-        logicalDevice.destroyImage(m_depthImage);
-        logicalDevice.destroyImageView(m_depthView);
-        logicalDevice.freeMemory(m_depthMemory);
+    logicalDevice.destroyImageView(m_colorView);
+    logicalDevice.destroyImage(m_colorImage);
+    logicalDevice.freeMemory(m_colorMemory);
 
-        for (const vk::Framebuffer &framebuffer : m_vFrameBuffer) {
-            logicalDevice.destroyFramebuffer(framebuffer);
-        }
-
-        m_renderPass.release();
-        for (const vk::ImageView &imageView : m_vImageViews) {
-            logicalDevice.destroyImageView(imageView);
-        }
-        logicalDevice.destroySwapchainKHR(m_swapchain);
-
-        const size_t count = m_vImages.size();
-
-        for (size_t i = 0; i < count; ++i) {
-            logicalDevice.destroyBuffer(m_uniformBuffers[i]);
-            logicalDevice.freeMemory(m_uniformBufferMemories[i]);
-        }
-        logicalDevice.destroyDescriptorPool(m_descriptorPool);
+    for (const vk::Framebuffer &framebuffer : m_vFrameBuffer) {
+        logicalDevice.destroyFramebuffer(framebuffer);
     }
+
+    renderer.release();
+    pipeline.release();
+    m_renderPass.release();
+
+    for (const vk::ImageView &imageView : m_vImageViews) {
+        logicalDevice.destroyImageView(imageView);
+    }
+
+    logicalDevice.destroySwapchainKHR(m_swapchain);
+
+    const size_t count = m_vImages.size();
+
+    for (size_t i = 0; i < count; ++i) {
+        logicalDevice.destroyBuffer(m_uniformBuffers[i]);
+        logicalDevice.freeMemory(m_uniformBufferMemories[i]);
+    }
+
+    logicalDevice.destroyDescriptorPool(m_descriptorPool);
+
     initializeInternal(window);
     initializeImageViews();
     m_renderPass.initialize();
-    createColorResources();
-    createDepthResources();
+    pipeline.initialize();
     initializeFrameBuffer();
     createUniformBuffers();
     createDescriptorPool();
+    TextureManager::getInstance()->windowSizeChanged();
+    renderer.initialize();
 }
 
 const vk::SwapchainKHR & graphics::Swapchain::getVkSwapchain() const
@@ -174,11 +181,6 @@ void graphics::Swapchain::setVkFenceInFlight(int iIndex, const vk::Fence &fence)
 {
     m_fencesInFlight[iIndex] = fence;
 }
-
-//const vk::DescriptorSet & graphics::Swapchain::getVkDescriptorSet(int iIndex) const
-//{
-//    return m_descriptorSets[iIndex];
-//}
 
 const vk::DescriptorPool & graphics::Swapchain::getVkDescriptorPool() const
 {
@@ -420,7 +422,9 @@ void graphics::Swapchain::createDescriptorPool()
     std::array<vk::DescriptorPoolSize, 2> poolSizes{};
 
     poolSizes[0].descriptorCount = 64;
+    poolSizes[0].type = vk::DescriptorType::eUniformBuffer;
     poolSizes[1].descriptorCount = 64;
+    poolSizes[1].type = vk::DescriptorType::eCombinedImageSampler;
 
     vk::DescriptorPoolCreateInfo poolInfo{};
 

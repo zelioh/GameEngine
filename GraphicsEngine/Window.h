@@ -32,6 +32,9 @@ namespace graphics {
         void handleEvent(); ///< Handle event must be call in the game loop
 
         void close() const;
+        void resize(int newWidth, int newHeight);
+        bool wasResized() const;
+        void setResizeStatus(bool status);
 
     private:
         static LRESULT CALLBACK WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM lparam); ///< Process event
@@ -44,6 +47,8 @@ namespace graphics {
         bool m_bIsFullScreen;
         int m_iWidth;
         int m_iHeight;
+        bool m_bWasResize;
+        bool m_isInitialize;
 
         MSG m_message;
     };

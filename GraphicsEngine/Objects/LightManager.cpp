@@ -34,6 +34,7 @@ object::Light * object::LightManager::createLight(const std::string& levelIdenti
     auto search = m_pool[levelIdentifier].find(LightIdentifier);
 
     if (search != m_pool[levelIdentifier].end() && m_pool[levelIdentifier][LightIdentifier] != nullptr) {
+        WARNING_MESSAGE("Ligth: " + LightIdentifier + " already exist");
         return m_pool[levelIdentifier][LightIdentifier];
     }
 
@@ -70,6 +71,8 @@ object::Light * object::LightManager::findLight(const std::string &levelIdentifi
     if (search != m_pool[levelIdentifier].end()) {
         return m_pool[levelIdentifier][LightIdentifier];
     }
+    ERROR_MESSAGE("Light doesn't exist");
+    ASSERT_ALWAYS();
     return nullptr;
 }
 

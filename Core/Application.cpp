@@ -8,8 +8,6 @@
 
 #include <chrono>
 
-float g_deltaTime = 0.0f;
-
 core::Application::Application():
 m_preInitCallback(),
 m_postInitCallback(),
@@ -17,7 +15,8 @@ m_preUploadCallback(),
 m_postUploadCallback(),
 m_preReleaseCallback(),
 m_postReleaseCallback(),
-m_isRunning(false)
+m_isRunning(false),
+m_fDeltaTime(0.f)
 {
 }
 
@@ -34,12 +33,12 @@ void core::Application::run()
         float deltaTime = std::chrono::duration<float, std::chrono::seconds::period>(
             currentTime - previousFrame).count();
 
-        g_deltaTime = deltaTime;
+        m_fDeltaTime = deltaTime;
         // handle window event
             // code here
         ///////////////////////
 
-        float moveFactor = 2.5f * g_deltaTime;
+        float moveFactor = 2.5f * m_fDeltaTime;
 
         // handle physics with factor
             // code here

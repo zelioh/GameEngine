@@ -7,7 +7,7 @@
 #include "CubeManager.h"
 #include "Cube.h"
 #include "SceneManager.h"
-#include "GameObject.h"
+#include "public/Core/Core_utils.h"
 
 /*static*/ object::CubeManager * object::CubeManager::getInstance()
 {
@@ -38,6 +38,7 @@ object::Cube * object::CubeManager::createCube(const std::string & levelIdentifi
     auto search = m_pool[levelIdentifier].find(cubeIdentifier);
 
     if (search != m_pool[levelIdentifier].end() && m_pool[levelIdentifier][cubeIdentifier] != nullptr) {
+        WARNING_MESSAGE("Cube: " + cubeIdentifier + " already exist");
         return m_pool[levelIdentifier][cubeIdentifier];
     }
 
@@ -75,6 +76,8 @@ object::Cube * object::CubeManager::findCube(const std::string & levelIdentifier
     if (search != m_pool[levelIdentifier].end()) {
         return m_pool[levelIdentifier][cubeIdentifier];
     }
+    ERROR_MESSAGE("Cube doesn't exist");
+    ASSERT_ALWAYS();
     return nullptr;
 }
 

@@ -66,8 +66,12 @@ void Math::SRotation::rotateMatrix(Math::Matrix4F &matrix) const
     float radian = (angle * (PI / 180.f));
     float cRadian = cos(radian);
     float sRadian = sin(radian);
+    Math::Vector3F normalized = axis;
 
-    Math::Vector3F normalized = axis / sqrt((axis.X * axis.X) + (axis.Y * axis.Y) + (axis.Z * axis.Z));
+    if (axis.X != 0.f && axis.Y != 0.f && axis.Z != 0.f )
+    {
+        normalized = axis / sqrt((axis.X * axis.X) + (axis.Y * axis.Y) + (axis.Z * axis.Z));
+    }
     Math::Vector3F tmp(normalized * (1.f - cRadian));
 
     Math::Matrix4F rotateMatrix;

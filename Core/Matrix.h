@@ -1,12 +1,14 @@
 #pragma once
 
-#include <stdio.h>
+#include <cstdio>
 #include <iostream>
-#include <stdlib.h>
+#include <cstdlib>
 #include <sstream>
 #include <string>
 #include <vector>
 #include <cmath>
+
+#include "public/Core/Core_utils.h"
 
 namespace Math {
     template<typename T, int rowSize, int colSize>
@@ -143,6 +145,8 @@ namespace Math {
         };
         Matrix operator/(T scalar)
         {
+            ASSERT_MESSAGE(scalar != 0.f, "Can't divide by 0");
+
             Matrix temp(0);
             int i;
             int j;

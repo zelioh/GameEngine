@@ -20,7 +20,6 @@
 #include "public/GraphicsEngine/TextureManager.h"
 #include "public/GraphicsEngine/Texture.h"
 #include "Objects/SceneManager.h"
-#include "Objects/Scene.h"
 #include "Math_utils.h"
 #include "Objects/Camera.h"
 #include "Objects/CameraManager.h"
@@ -28,15 +27,14 @@
 #include "Objects/PlaneManager.h"
 #include "Objects/Model3D.h"
 #include "Objects/Model3DManager.h"
-#include "BoundingBox.h"
 #include "BoundingSphere.h"
 #include "Objects/LightManager.h"
 #include "Objects/Light.h"
 #include "Event.h"
 #include "WindowEvent.h"
+#include "public/Core/Core_utils.h"
 
 #include <chrono>
-#include <thread>
 
 float g_deltaTime = 0.0f;
 
@@ -212,6 +210,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
         window.setResizeStatus(true);
     });
 
+    LOG_MESSAGE("Game start !!");
     while (window) {
         auto currentTime = std::chrono::high_resolution_clock::now();
         float time = std::chrono::duration<float, std::chrono::seconds::period>(currentTime - startTime).count();
@@ -302,9 +301,11 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
         {
             swapchain->recreate(window, pipeline, renderer);
             window.setResizeStatus(false);
+            LOG_MESSAGE("Window was resized");
         }
         previousFrame = currentTime;
     }
+    LOG_MESSAGE("Game end ...");
     logicalDevice->getVkLogicalDevice().waitIdle();
     manager->release();
     planeManager->release();

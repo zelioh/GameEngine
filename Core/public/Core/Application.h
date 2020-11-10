@@ -50,6 +50,8 @@ namespace core {
         UpdateCallback m_postUploadCallback;
         ReleaseCallback m_preReleaseCallback;
         ReleaseCallback m_postReleaseCallback;
+
+        float m_fDeltaTime;
     };
 
 }

@@ -5,6 +5,7 @@
 #include "CameraManager.h"
 #include "Camera.h"
 #include "SceneManager.h"
+#include "public/Core/Core_utils.h"
 
 object::CameraManager * object::CameraManager::getInstance()
 {
@@ -33,6 +34,7 @@ object::Camera * object::CameraManager::createCamera(const std::string &levelIde
     auto search = m_pool[levelIdentifier].find(cameraIdentifier);
 
     if (search != m_pool[levelIdentifier].end() && m_pool[levelIdentifier][cameraIdentifier] != nullptr) {
+        WARNING_MESSAGE("Camera " + cameraIdentifier + " already exist");
         return m_pool[levelIdentifier][cameraIdentifier];
     }
 
@@ -68,6 +70,8 @@ object::Camera * object::CameraManager::findCamera(const std::string &levelIdent
     if (search != m_pool[levelIdentifier].end()) {
         return m_pool[levelIdentifier][cameraIdentifier];
     }
+    ERROR_MESSAGE("Camera doesn't exist");
+    ASSERT_ALWAYS();
     return nullptr;
 }
 

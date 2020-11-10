@@ -18,7 +18,7 @@ namespace graphics {
     public:
         Surface() = default;
 
-        void initialize(const Instance & instance, const Window & window);  ///< TODO: use WIN32 window in constructor
+        void initialize(const Instance & instance, const Window & window);
         void release(const Instance & instance);
 
         const vk::SurfaceKHR & getVulkanSurface() const;

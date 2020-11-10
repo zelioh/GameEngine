@@ -36,6 +36,7 @@ object::Plane * object::PlaneManager::createPlane(
     auto search = m_pool[levelIdentifier].find(cubeIdentifier);
 
     if (search != m_pool[levelIdentifier].end() && m_pool[levelIdentifier][cubeIdentifier] != nullptr) {
+        WARNING_MESSAGE("Plane: " + cubeIdentifier + " already exist");
         return m_pool[levelIdentifier][cubeIdentifier];
     }
 
@@ -74,6 +75,8 @@ object::Plane * object::PlaneManager::findPlane(const std::string & levelIdentif
     if (search != m_pool[levelIdentifier].end()) {
         return m_pool[levelIdentifier][cubeIdentifier];
     }
+    ERROR_MESSAGE("Camera doesn't exist");
+    ASSERT_ALWAYS();
     return nullptr;
 }
 

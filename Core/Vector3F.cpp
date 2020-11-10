@@ -1,4 +1,5 @@
 #include "Vector3F.h"
+#include "Core_utils.h"
 using namespace Math;
 
 Math::Vector3F::Vector3F()
@@ -65,18 +66,27 @@ Vector3F Math::Vector3F::operator*=(const Vector3F& V)
 
 Vector3F Math::Vector3F::operator/(const Vector3F& V) const
 {
+    ASSERT_MESSAGE(V.X != 0.f, "Can't divide by 0");
+    ASSERT_MESSAGE(V.Y != 0.f, "Can't divide by 0");
+    ASSERT_MESSAGE(V.Z != 0.f, "Can't divide by 0");
+
 	return Vector3F(X / V.X, Y / V.Y, Z / V.Z);
 }
 
 Vector3F Math::Vector3F::operator/(float scalar) const
 {
+    ASSERT_MESSAGE(scalar != 0.f, "Can't divide by 0");
 
     return (0.f == scalar) ? Vector3F(0.f, 0.f, 0.f) : Vector3F(X / scalar, Y / scalar, Z / scalar);
 }
 
 Vector3F Math::Vector3F::operator/=(const Vector3F& V)
 {
-	X /= V.X;
+    ASSERT_MESSAGE(V.X != 0.f, "Can't divide by 0");
+    ASSERT_MESSAGE(V.Y != 0.f, "Can't divide by 0");
+    ASSERT_MESSAGE(V.Z != 0.f, "Can't divide by 0");
+
+    X /= V.X;
 	Y /= V.Y;
 	Z /= V.Z;
 	return *this;

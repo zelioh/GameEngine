@@ -11,7 +11,8 @@ add_library(Core OBJECT
 			Matrix4F.cpp Matrix4F.h
 			Math_utils.inl Math_utils.h
 			SRotation.h SRotation.cpp
-        	Application.cpp public/Core/Application.h)
+        	Application.cpp public/Core/Application.h
+			public/Core/Core_utils.h public/Core/Core_utils.inl)
 
 find_package(Vulkan REQUIRED)
 
@@ -29,5 +30,3 @@ set_target_properties(Core PROPERTIES
 		IMPORTED_IMPLIB "${DEPENDENCIES_DIR}/core/lib/Core.lib"
 		INTERFACE_INCLUDE_DIRECTORIES "${DEPENDENCIES_DIR}/core/include"
 		)
-
-# TODO: Add tests and install targets if needed.

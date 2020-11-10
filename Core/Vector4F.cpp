@@ -1,4 +1,5 @@
 #include "Vector4F.h"
+#include "Core_utils.h"
 
 using namespace Math;
 
@@ -66,11 +67,20 @@ Vector4F Math::Vector4F::operator*=(const Vector4F& V)
 
 Vector4F Math::Vector4F::operator/(const Vector4F& V) const
 {
+    ASSERT_MESSAGE(V.X != 0.f, "Can't divide by 0");
+    ASSERT_MESSAGE(V.Y != 0.f, "Can't divide by 0");
+    ASSERT_MESSAGE(V.Z != 0.f, "Can't divide by 0");
+
 	return Vector4F(X / V.X, Y / V.Y, Z / V.Z, W / V.W);
 }
 
 Vector4F Math::Vector4F::operator/=(const Vector4F& V)
 {
+    ASSERT_MESSAGE(V.X != 0.f, "Can't divide by 0");
+    ASSERT_MESSAGE(V.Y != 0.f, "Can't divide by 0");
+    ASSERT_MESSAGE(V.Z != 0.f, "Can't divide by 0");
+    ASSERT_MESSAGE(V.W != 0.f, "Can't divide by 0");
+
 	X /= V.X;
 	Y /= V.Y;
 	Z /= V.Z;

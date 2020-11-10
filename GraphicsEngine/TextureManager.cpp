@@ -6,7 +6,7 @@
 
 #include "public/GraphicsEngine/TextureManager.h"
 #include "public/GraphicsEngine/Texture.h"
-#include "LogicalDevice.h"
+#include "public/Core/Core_utils.h"
 
 /*static*/ graphics::TextureManager * graphics::TextureManager::getInstance()
 {
@@ -56,7 +56,8 @@ graphics::Texture * graphics::TextureManager::findTexture(const std::string &tex
     if (search != m_pool.end()) {
         return m_pool[textureName];
     }
-    assert(false); ///< Assert always. TODO: use Engine assert system
+    ERROR_MESSAGE("Texture doesn't exist");
+    ASSERT_ALWAYS();
     return nullptr;
 }
 

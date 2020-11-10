@@ -4,10 +4,8 @@
 
 #include "Model3DManager.h"
 #include "Model3D.h"
-#include "GameObject.h"
-#include "LogicalDevice.h"
 #include "SceneManager.h"
-#include "Scene.h"
+#include "public/Core/Core_utils.h"
 
 /*static*/ object::Model3DManager * object::Model3DManager::getInstance()
 {
@@ -39,6 +37,7 @@ object::Model3D * object::Model3DManager::createModel3D(const std::string & leve
     auto search = m_pool[levelIdentifier].find(model3DIdentifier);
 
     if (search != m_pool[levelIdentifier].end() && m_pool[levelIdentifier][model3DIdentifier] != nullptr) {
+        WARNING_MESSAGE("Model3D: " + model3DIdentifier + " already exist");
         return m_pool[levelIdentifier][model3DIdentifier];
     }
 
@@ -81,6 +80,8 @@ object::Model3D * object::Model3DManager::findModel3D(const std::string & levelI
     if (search != m_pool[levelIdentifier].end()) {
         return m_pool[levelIdentifier][model3DIdentifier];
     }
+    ERROR_MESSAGE("Model3D doesn't exist");
+    ASSERT_ALWAYS();
     return nullptr;
 }
 

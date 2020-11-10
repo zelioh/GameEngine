@@ -82,7 +82,12 @@ void object::SceneManager::release()
 
 bool object::SceneManager::isExisting(const std::string &identifier)
 {
-    return m_pool.find(identifier) != m_pool.end();
+    if (!(m_pool.find(identifier) != m_pool.end())) {
+        ERROR_MESSAGE("Scene doesn't exist");
+        ASSERT_ALWAYS();
+        return false;
+    }
+    return true;
 }
 
 object::SceneManager::SceneManager():

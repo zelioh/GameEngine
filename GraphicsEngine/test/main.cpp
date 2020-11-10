@@ -58,7 +58,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
     parameters.m_bClipCursorToWindow = true;
     parameters.m_strName = "Test graphic engine";
 
-    graphics::Window window(currentInstance, parameters);
+    graphics::Window window(nullptr, parameters);
 
     graphics::InstanceParameter instanceParam;
 

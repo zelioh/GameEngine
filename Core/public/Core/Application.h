@@ -6,6 +6,7 @@
 #define GAMEENGINE_APPLICATION_H
 
 #include <functional>
+#include <Window.h>
 
 namespace graphics
 {

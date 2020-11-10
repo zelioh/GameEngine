@@ -2,7 +2,7 @@
 // Created by FiercePC on 09/11/2020.
 //
 
-#include "Application.h"
+#include "public/Core/Application.h"
 #include "InstanceParameter.h"
 #include "WindowParameters.h"
 

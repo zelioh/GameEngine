@@ -12,8 +12,6 @@ public:
 	~BoundingBox();
 
 	IntersectData IntersectBoundingBox(const BoundingBox& other);
-	const Vector3F& getMaxBoxExtent() const;
-	const Vector3F& getMinBoxExtent() const;
 	virtual void Transform(const Vector3F& translation);
 	virtual Vector3F GetCenter() const { return center; }
 

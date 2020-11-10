@@ -82,6 +82,8 @@ namespace object {
          * Release all Lights in all scenes
          */
         void release();
+
+        void releaseScene(const std::string & levelIdentifier);
     private:
         LightManager() = default;
 

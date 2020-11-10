@@ -112,6 +112,16 @@ void object::Model3DManager::release()
     }
 }
 
+void object::Model3DManager::releaseScene(const std::string &levelIdentifier)
+{
+    for (auto & obj : m_pool[levelIdentifier])
+    {
+        obj.second->release();
+        delete obj.second;
+        obj.second = nullptr;
+    }
+}
+
 std::vector<object::GameObject *> object::Model3DManager::getObjectOfLevel(const std::string &levelIdentifier)
 {
     std::vector<object::GameObject *> objects;

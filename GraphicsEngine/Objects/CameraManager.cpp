@@ -98,3 +98,12 @@ void object::CameraManager::release()
         }
     }
 }
+
+void object::CameraManager::releaseScene(const std::string &levelIdentifier)
+{
+    for (auto & camera : m_pool[levelIdentifier])
+    {
+        delete camera.second;
+        camera.second = nullptr;
+    }
+}

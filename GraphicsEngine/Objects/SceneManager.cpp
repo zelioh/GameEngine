@@ -64,7 +64,7 @@ bool object::SceneManager::releaseScene(const std::string &identifier)
     if (search == m_pool.end()) {
         return false;
     }
-    //m_pool[identifier]->release(); ///< TODO
+    m_pool[identifier]->release();
     delete m_pool[identifier];
     m_pool[identifier] = nullptr;
     return true;
@@ -74,7 +74,7 @@ void object::SceneManager::release()
 {
     for (std::pair<std::string const, Scene *> & element : m_pool)
     {
-        //element.second->release() ///< TODO
+        element.second->release();
         delete element.second;
         element.second = nullptr;
     }

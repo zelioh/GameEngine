@@ -89,3 +89,21 @@ object::Light * object::Scene::getLight() const
 {
     return m_light;
 }
+
+void object::Scene::update()
+{
+    auto objects = getSceneObjects();
+
+    for (auto obj : objects)
+    {
+        obj->Update();
+    }
+}
+
+void object::Scene::release()
+{
+    CubeManager::getInstance()->releaseScene(m_strIdentifier);
+    PlaneManager::getInstance()->releaseScene(m_strIdentifier);
+    Model3DManager::getInstance()->releaseScene(m_strIdentifier);
+    LightManager::getInstance()->releaseScene(m_strIdentifier);
+}

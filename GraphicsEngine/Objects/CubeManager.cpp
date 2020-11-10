@@ -108,6 +108,16 @@ void object::CubeManager::release()
     }
 }
 
+void object::CubeManager::releaseScene(const std::string &levelIdentifier)
+{
+    for (auto & obj : m_pool[levelIdentifier])
+    {
+        obj.second->release();
+        delete obj.second;
+        obj.second = nullptr;
+    }
+}
+
 std::vector<object::GameObject *> object::CubeManager::getObjectOfLevel(const std::string &levelIdentifier)
 {
     std::vector<object::GameObject *> objects;

@@ -50,6 +50,8 @@ namespace object {
         void setPhysicsObject(PhysicsObject * object) { this->m_physicsObject = object; };
         PhysicsObject * getPhysicsObject() const { return this->m_physicsObject; };
 
+        void Update();
+
     protected:
         GameObject(const std::string & levelIdentifier,
                    const std::string & identifier,

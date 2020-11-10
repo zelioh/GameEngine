@@ -101,6 +101,16 @@ void object::LightManager::release()
     }
 }
 
+void object::LightManager::releaseScene(const std::string &levelIdentifier)
+{
+    for (auto & obj : m_pool[levelIdentifier])
+    {
+        obj.second->release();
+        delete obj.second;
+        obj.second = nullptr;
+    }
+}
+
 std::vector<object::Light *> object::LightManager::getLightOfScene(const std::string &levelIdentifier)
 {
     std::vector<object::Light *> lights;

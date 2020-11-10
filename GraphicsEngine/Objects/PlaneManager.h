@@ -72,6 +72,8 @@ namespace object {
 
         void release(); ///< Release all element in the pool
 
+        void releaseScene(const std::string & levelIdentifier);
+
     private:
         PlaneManager() = default;
 

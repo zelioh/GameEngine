@@ -30,6 +30,9 @@ namespace object {
         Camera * getCurrentCamera() const;
         PhysicsEngine & getPhysicsEngine();
         Light * getLight() const;
+
+        void update();
+        void release();
     private:
         Scene(const std::string &identifier);
 

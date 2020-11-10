@@ -18,12 +18,16 @@ find_package(Vulkan REQUIRED)
 
 target_link_libraries(Core PUBLIC ${Vulkan_LIBRARIES})
 target_link_libraries(Core PRIVATE ${GraphicsEngine})
+target_link_libraries(Core PRIVATE HIDEngine)
+target_link_libraries(Core PRIVATE ${PhysicsEngine})
 
 set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/Core/ . public/Core/)
 set(Core_INCLUDE_DIR "${INCLUDE_DIR}" CACHE INTERNAL "")
 
 target_include_directories(Core PUBLIC ${Core_INCLUDE_DIR})
 target_include_directories(Core PRIVATE ${GraphicsEngine_INCLUDE_DIR})
+target_include_directories(Core PUBLIC ${HIDEngine_INCLUDE_DIR})
+target_include_directories(Core PUBLIC ${PhysicalEngine_INCLUDE_DIR})
 
 set_target_properties(Core PROPERTIES
 		IMPORTED_LOCATION "${DEPENDENCIES_DIR}/core/bin/Core.dll"

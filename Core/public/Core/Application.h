@@ -8,10 +8,15 @@
 #include <functional>
 #include <Window.h>
 
+#include "Matrix4F.h"
+
 namespace graphics
 {
     class InstanceParameter;
     class WindowParameters;
+    class Window;
+    class Pipeline;
+    class Renderer;
 }
 
 namespace core {
@@ -21,8 +26,8 @@ namespace core {
     public:
         using PreInitializeCallback = std::function<void(graphics::InstanceParameter & instanceParameter,
                                                          graphics::WindowParameters & windowParameter)>;
-        using PostInitializeCallback = std::function<void(void)>;
-        using UpdateCallback = std::function<void(float)>;
+        using PostInitializeCallback = std::function<void()>;
+        using UpdateCallback = std::function<void(float, Math::Matrix4F & projectionMatrix, int, int)>;
         using ReleaseCallback = std::function<void()>;
 
         Application();
@@ -41,6 +46,12 @@ namespace core {
         void intialize();
         void update(float deltaTime);
         void release();
+
+        graphics::Window * m_window;
+        graphics::Pipeline * m_pipeline;
+        graphics::Renderer * m_renderer;
+
+        Math::Matrix4F m_projectionMatrix;
 
         bool m_isRunning;
 

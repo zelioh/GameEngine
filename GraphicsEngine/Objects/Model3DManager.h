@@ -71,6 +71,8 @@ namespace object {
 
         void release(); ///< Release all element in the pool
 
+        void releaseScene(const std::string & levelIdentifer);
+
     private:
         Model3DManager() = default;
 

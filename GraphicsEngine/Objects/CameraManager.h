@@ -75,6 +75,8 @@ namespace object {
          * Release all cameras in all scenes
          */
         void release();
+
+        void releaseScene(const std::string & levelIdentifier);
     private:
         CameraManager() = default;
 

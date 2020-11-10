@@ -36,47 +36,27 @@ bool HID::mouse::IsMidleMouseKeyDown()
 	return false;
 }
 
-std::pair<int, int> HID::mouse::GetMousePosition()
+std::pair<int, int> HID::mouse::GetMousePosition(HWND hwnd)
 {
 	POINT p;
 
 	GetCursorPos(&p);
-	return std::make_pair(p.x, p.y);
+	ScreenToClient(hwnd, &p);
+    return std::make_pair(p.x, p.y);
 }
 
-std::pair<int, int> HID::mouse::MouseMove()
+std::pair<int, int> HID::mouse::MouseMove(HWND hwnd)
 {
-    static std::pair<int, int> previousPos(-1, -1);
     std::pair<int, int> delta(0, 0);
-    std::pair<int, int> currentPosition = GetMousePosition();
+    std::pair<int, int> currentPosition = GetMousePosition(hwnd);
+    RECT screenRect;
 
-    if (previousPos == std::pair<int, int>(-1, -1))
-    {
-        previousPos = currentPosition;
-    }
+    GetWindowRect(hwnd, &screenRect);
 
-    if (previousPos != currentPosition)
-    {
-        delta.first = currentPosition.first - previousPos.first;
-        delta.second = currentPosition.second - previousPos.second;
-        if (delta.first >= 1)
-        {
-            delta.first = 1;
-            previousPos.first += 1;
-        } else if (delta.first <= -1) {
-            delta.first = -1;
-            previousPos.first -= 1;
-        }
-        if (delta.second >= 1)
-        {
-            delta.second = 1;
-            previousPos.second += 1;
-        }
-        if (delta.second <= -1)
-        {
-            delta.second = -1;
-            previousPos.second -= 1;
-        }
-    }
+    int centerX = screenRect.right / 2;
+    int centerY = screenRect.bottom / 2;
+
+    delta.first = centerX - currentPosition.first;
+    delta.second = centerY - currentPosition.second;
 	return delta;
 }

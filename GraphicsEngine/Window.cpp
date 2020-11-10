@@ -6,6 +6,9 @@
 #include "WindowParameters.h"
 #include <stdexcept>
 #include "WinUser.h"
+#include "WindowEvent.h"
+#include "Objects/SceneManager.h"
+#include "Windowsx.h"
 
 graphics::Window::Window(HINSTANCE const &hInstance, const WindowParameters & parameters):
 m_hInstance(hInstance),
@@ -61,15 +64,10 @@ m_iHeight(parameters.m_iHeight)
 
         GetWindowRect(m_hwnd, &_clip);
 
-        _clip.left += 5;
-        _clip.top += 30;
-        _clip.right -= 5;
-        _clip.bottom -= 5;
-
         //Clip the RECT
         ClipCursor(&_clip);
-        SetCursorPos(m_iWidth / 2, m_iHeight / 2);
-        ShowCursor(false);
+        SetCursorPos(_clip.right / 2, _clip.bottom / 2);
+        ShowCursor(true);
     }
 }
 
@@ -105,25 +103,6 @@ int graphics::Window::getHeight() const
     return m_iHeight;
 }
 
-int graphics::Window::addEventCallback(const EventCallback & callback)
-{
-    static int id = 0;
-
-    m_callbacks[id] = callback;
-    ++id;
-    return id - 1;
-}
-
-bool graphics::Window::removeEventCallback(int callbackID)
-{
-    if (m_callbacks.find(callbackID) != m_callbacks.end())
-    {
-        m_callbacks.erase(callbackID);
-        return true;
-    }
-    return false;
-}
-
 graphics::Window::operator bool()
 {
     return GetMessage(&m_message, nullptr, 0, 0);
@@ -136,28 +115,63 @@ void graphics::Window::handleEvent()
     InvalidateRect(m_hwnd, NULL, FALSE );   // invalidate whole window
 }
 
-void graphics::Window::close()
+void graphics::Window::close() const
 {
     DestroyWindow(m_hwnd);
 }
 
 LRESULT graphics::Window::WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM lparam)
 {
+    HID::WindowEvent * windowEvent = HID::WindowEvent::getInstance();
+    const std::string & levelIdentifier = object::SceneManager::getInstance()->getCurrentSceneIdentifier();
+
     switch (msg) {
         case WM_DESTROY:
             PostQuitMessage(0);
             return 0;
+        case WM_KEYDOWN:
+            windowEvent->onKeyPress(levelIdentifier, static_cast<HID::keyboard::Event>(param), false);
+            break;
+        case WM_KEYUP:
+            windowEvent->onKeyPress(levelIdentifier, static_cast<HID::keyboard::Event>(param), true);
+            break;
+        case WM_LBUTTONDOWN:
+            windowEvent->onMouseEvent(levelIdentifier,
+                                      HID::mouse::Event::LEFT_CLICK,
+                                      GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam), 0);
+            break;
+        case WM_RBUTTONDOWN:
+            windowEvent->onMouseEvent(levelIdentifier,
+                                      HID::mouse::Event::RIGHT_CLICK,
+                                      GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam), 0);
+            break;
+        case WM_MBUTTONDOWN:
+            windowEvent->onMouseEvent(levelIdentifier,
+                                      HID::mouse::Event::MIDDLE_CLICK,
+                                      GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam), 0);
+            break;
+
+        case WM_MOUSEWHEEL:
+            windowEvent->onMouseEvent(levelIdentifier,
+                                      HID::mouse::Event::SCROLL,
+                                      GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam),
+                                      GET_WHEEL_DELTA_WPARAM(param));
+            break;
+
+        case WM_MOUSEMOVE:
+            windowEvent->onMouseEvent(levelIdentifier,HID::mouse::Event::MOUSE_MOVE,
+                                      GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam),
+                                      0);
+            break;
+
+        case WM_SIZE:
+            windowEvent->onWindowEvent(HID::window::Event::RESIZE, LOWORD(lparam), HIWORD(lparam));
+            break;
+
         default:
             return DefWindowProc(hwnd, msg, param, lparam);
     }
-}
-
-void graphics::Window::useCallback(int eventID) const
-{
-    for (auto callback : m_callbacks)
-    {
-        callback.second(eventID);
-    }
+    return 0;
 }
 
 DWORD graphics::Window::getWindowStyle(const WindowParameters &parameters)

@@ -37,6 +37,8 @@
 #include <chrono>
 #include <thread>
 
+float g_deltaTime = 0.0f;
+
 int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR cmdLine, INT cmdCount)
 {
     graphics::WindowParameters parameters;
@@ -200,90 +202,85 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
                                                      0.3f,
                                                      Math::Vector3F(1.f, 1.f, 1.f));
 
-    while (window)
-    {
+    auto previousFrame = std::chrono::high_resolution_clock::now();
+
+    while (window) {
         auto currentTime = std::chrono::high_resolution_clock::now();
         float time = std::chrono::duration<float, std::chrono::seconds::period>(currentTime - startTime).count();
+        float deltaTime = std::chrono::duration<float, std::chrono::seconds::period>(
+                currentTime - previousFrame).count();
+
+        g_deltaTime = deltaTime;
 
         window.handleEvent();
-        if (!window)
-        {
+        if (!window) {
             break;
         }
-        if (HID::keyboard::IsKeyDown(HID::KEY::ESCAPE))
-        {
-            window.close();
-            break;
-        }
-        //cube1->setRotate(object::SRotation{90.f * time, cube1->getRotate().axis});
         cube3->setRotate(Math::SRotation{90.f * time, Math::Vector3F(1.f, 0.f, 0.f)});
+
         Math::Vector3F p = camera->getPosition();
         Math::Vector3F t = camera->getTarget();
 
-        if (HID::keyboard::IsKeyDown(HID::KEY::S))
-        {
-            p.Y += (0.1f * (1.f / 60.f));
-            t.Y += (0.1f * (1.f / 60.f));
-        }
-        if (HID::keyboard::IsKeyDown(HID::KEY::Z))
-        {
-            p.Y -= (0.1f * (1.f / 60.f));
-            t.Y -= (0.1f * (1.f / 60.f));
-        }
-        if (HID::keyboard::IsKeyDown(HID::KEY::D))
-        {
-            p.X -= (0.1f * (1.f / 60.f));
-            t.X -= (0.1f * (1.f / 60.f));
-        }
-        if (HID::keyboard::IsKeyDown(HID::KEY::Q))
-        {
-            p.X += (0.1f * (1.f / 60.f));
-            t.X += (0.1f * (1.f / 60.f));
-        }
-        if (HID::keyboard::IsKeyDown(HID::KEY::A))
-        {
-            p.Z -= (0.1f * (1.f / 60.f));
-            t.Z -= (0.1f * (1.f / 60.f));
-        }
-        if (HID::keyboard::IsKeyDown(HID::KEY::E))
-        {
-            p.Z += (0.1f * (1.f / 60.f));
-            t.Z += (0.1f * (1.f / 60.f));
+        if (HID::keyboard::IsKeyDown(HID::KEY::ESCAPE)) {
+            window.close();
+            break;
         }
 
-        std::pair<int, int> delta = HID::mouse::MouseMove();
+        float moveFactor = 2.5f * g_deltaTime;
 
-        if (delta != std::pair<int, int>(0, 0))
-        {
-            if (delta.first > 0)
-            {
-                t.X -= (0.1f * (1.f / 60.f));
-            }
-            if (delta.first < 0)
-            {
-                t.X += (0.1f * (1.f / 60.f));
-            }
-            if (delta.second > 0)
-            {
-                t.Z -= (0.1f * (1.f / 60.f));
-            }
-            if (delta.second < 0)
-            {
-                t.Z += (0.1f * (1.f / 60.f));
-            }
+        if (HID::keyboard::IsKeyDown(HID::KEY::S)) {
+            p.Y += moveFactor;
+            t.Y += moveFactor;
+        }
+        if (HID::keyboard::IsKeyDown(HID::KEY::Z)) {
+            p.Y -= moveFactor;
+            t.Y -= moveFactor;
+        }
+        if (HID::keyboard::IsKeyDown(HID::KEY::D)) {
+            p.X -= moveFactor;
+            t.X -= moveFactor;
+        }
+        if (HID::keyboard::IsKeyDown(HID::KEY::Q)) {
+            p.X += moveFactor;
+            t.X += moveFactor;
+        }
+        if (HID::keyboard::IsKeyDown(HID::KEY::A)) {
+            p.Z -= moveFactor;
+            t.Z -= moveFactor;
+        }
+        if (HID::keyboard::IsKeyDown(HID::KEY::E)) {
+            p.Z += moveFactor;
+            t.Z += moveFactor;
         }
 
-        if (HID::mouse::IsLeftMouseKeyDown())
-        {
-            static float currentAngle = 0.f;
+        auto result = HID::mouse::MouseMove(window.getHWindow());
 
-            currentAngle += 90.f;
+        if (result.first > 200) {
+            t.X += 2.5f * deltaTime;
+        } else if (result.first > 100) {
+            t.X += 1.0f * deltaTime;
+        } else if (result.first < -200) {
+            t.X -= 2.5f * deltaTime;
+        } else if (result.first < -100) {
+            t.X -= 1.0f * deltaTime;
+        }
 
-            cube4->setRotate(Math::SRotation{currentAngle, cube4->getRotate().axis});
+        if (result.second > 50) {
+            t.Y -= 2.5f * deltaTime;
+        } else if (result.second < -50) {
+            t.Y += 2.5f * deltaTime;
         }
 
         camera->setPosition(p);
         camera->setTarget(t);
+
+        if (HID::mouse::IsLeftMouseKeyDown()) {
+            static float currentAngle = 90.f;
+
+            currentAngle += 90.f * deltaTime;
+
+            cube4->setRotate(Math::SRotation{currentAngle, cube4->getRotate().axis});
+        }
 
         object::SceneManager::getInstance()->getCurrentScene()->getPhysicsEngine().CollisionHandler();
         object::SceneManager::getInstance()->getCurrentScene()->getPhysicsEngine().Update(0.01f);
@@ -299,6 +296,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
             pipeline.release();
             pipeline.initialize(shader);
         }
+        previousFrame = currentTime;
     }
     logicalDevice->getVkLogicalDevice().waitIdle();
     manager->release();

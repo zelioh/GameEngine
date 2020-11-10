@@ -28,29 +28,14 @@ namespace graphics {
         int getWidth() const;
         int getHeight() const;
 
-        /**
-         * Add a callback function call when a event occured and the return id of that callback in the pool.
-         * The id is use for remove the callback
-         * @param callback  callback to add
-         * @return id of the callback in the map
-         */
-        int addEventCallback(const EventCallback & callback);
-        /**
-         * Remove a callback with it id. The id is obtain when the callback is added
-         * @param callbackID id of the callback
-         * @return  true if the callback was find and so removed else false
-         */
-        bool removeEventCallback(int callbackID);
-
         operator bool(); ///< Check if the window is able to getMessage and so if it open.
         void handleEvent(); ///< Handle event must be call in the game loop
 
-        void close();
+        void close() const;
 
     private:
         static LRESULT CALLBACK WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM lparam); ///< Process event
 
-        void useCallback(int eventID) const; ///< Call all callBack with an eventID ///< TODO: eventID must be a Enum
         DWORD getWindowStyle(const WindowParameters & parameters);
     private:
         HWND m_hwnd;

@@ -69,3 +69,11 @@ void graphics::TextureManager::release()
         texture.second = nullptr;
     }
 }
+
+void graphics::TextureManager::windowSizeChanged()
+{
+    for (auto & texture : m_pool)
+    {
+        texture.second->recreateDescriptorSet();
+    }
+}

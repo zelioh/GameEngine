@@ -36,6 +36,7 @@ namespace graphics {
         graphics::Texture * findTexture(const std::string & textureName);
 
         void release();
+        void windowSizeChanged(); ///< Must be call when window is resize
     private:
         TextureManager() = default; ///< Private constructor use in getInstance
     private:

@@ -2,20 +2,18 @@
 
 #include "Vector3F.h"
 
-using namespace Math;
-
 class IntersectData
 {
 public:
-	IntersectData(const bool DoesIntersect, const Vector3F& Direction);
+	IntersectData(const bool DoesIntersect, const Math::Vector3F& Direction);
 	~IntersectData();
 
 	bool GetDoesIntersect()const { return doesIntersect; };
 	float GetDistance()const { return direction.Length(); };
-	const Vector3F GetDirection() const { return direction; };
+	const Math::Vector3F GetDirection() const { return direction; };
 
 private:
-	Vector3F direction;
+	Math::Vector3F direction;
 	bool doesIntersect;
 
 };

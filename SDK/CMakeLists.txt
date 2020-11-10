@@ -14,17 +14,17 @@ add_library(SDK OBJECT
         Light.cpp Light.h
         LightManager.cpp LightManager.h
         Camera.cpp Camera.h
-        CameraManager.cpp CameraManager.h Scene.cpp Scene.h SceneManager.cpp SceneManager.h)
+        CameraManager.cpp CameraManager.h Scene.cpp Scene.h SceneManager.cpp SceneManager.h Application.cpp Application.h)
 
 set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/SDK/ .)
 set(SDK_INCLUDE_DIR "${INCLUDE_DIR}" CACHE INTERNAL "")
 
-target_link_libraries(SDK PUBLIC Core)
+target_link_libraries(SDK PRIVATE Core)
 target_link_libraries(SDK PUBLIC PhysicsEngine)
 target_link_libraries(SDK PRIVATE GraphicsEngine)
 
 target_include_directories(SDK PUBLIC ${SDK_INCLUDE_DIR})
-target_include_directories(SDK PUBLIC ${Core_INCLUDE_DIR})
+target_include_directories(SDK PRIVATE ${Core_INCLUDE_DIR})
 target_include_directories(SDK PRIVATE ${GraphicsEngine_INCLUDE_DIR})
 target_include_directories(SDK PUBLIC ${PhysicalEngine_INCLUDE_DIR})
 target_include_directories(SDK PRIVATE ${CMAKE_SOURCE_DIR}/dependencies/stb)

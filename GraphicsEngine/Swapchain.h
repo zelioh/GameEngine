@@ -21,6 +21,8 @@ namespace graphics {
     struct Vertex;
     class Texture;
     class Window;
+    class Pipeline;
+    class Renderer;
 
     class Swapchain {
     public:
@@ -28,7 +30,7 @@ namespace graphics {
 
         void initialize(const Window & window);
         void release();
-        void recreate(const Window & window);
+        void recreate(const Window & window, Pipeline & pipeline, Renderer & renderer);
 
         const vk::SwapchainKHR & getVkSwapchain() const;
         const std::vector<vk::Image> & getVkSwapchainImage() const;
@@ -41,7 +43,6 @@ namespace graphics {
         const vk::Fence & getVkFence(int iIndex) const;
         const vk::Fence & getVkFenceInFlight(int iIndex) const;
         void setVkFenceInFlight(int iIndex, const vk::Fence & fence);
-        //const vk::DescriptorSet & getVkDescriptorSet(int iIndex) const;
         const vk::DescriptorPool & getVkDescriptorPool() const;
         const vk::Buffer & getVkGetUniformBuffer(int iIndex) const;
 

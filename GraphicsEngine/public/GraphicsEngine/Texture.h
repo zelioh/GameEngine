@@ -43,6 +43,7 @@ namespace graphics {
         void initializeInternal(stbi_uc *pixels);
         void createSampler(const vk::Device & logicalDevice);
         void createDescriptorSet();
+        void recreateDescriptorSet();
 
     private:
         std::string m_strName;
@@ -56,7 +57,7 @@ namespace graphics {
         vk::Sampler m_textureSampler;
         uint32_t m_iMipLevel;
 
-        vk::UniqueDescriptorSet m_descriptorSet;
+        vk::DescriptorSet m_descriptorSet;
     };
 }
 #endif //GAMEENGINE_TEXTURE_H

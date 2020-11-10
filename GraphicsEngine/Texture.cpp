@@ -86,7 +86,7 @@ uint32_t graphics::Texture::getMipLevel() const
 
 const vk::DescriptorSet & graphics::Texture::getVkDescriptorSet(int iIndex)
 {
-    return m_descriptorSet.get();
+    return m_descriptorSet;
 }
 
 void graphics::Texture::initializeInternal(stbi_uc *pixels)
@@ -180,7 +180,7 @@ void graphics::Texture::createDescriptorSet()
     allocateInfo.descriptorPool = swapchain->getVkDescriptorPool();
     allocateInfo.descriptorSetCount = size;
     allocateInfo.pSetLayouts = layouts.data();
-    m_descriptorSet = {std::move(vkLogicalDevice.allocateDescriptorSetsUnique(allocateInfo)[0])};
+    m_descriptorSet = {vkLogicalDevice.allocateDescriptorSets(allocateInfo)[0]};
 
     vk::DescriptorBufferInfo bufferInfo{};
 
@@ -196,7 +196,7 @@ void graphics::Texture::createDescriptorSet()
 
     std::array<vk::WriteDescriptorSet, 2> writeSets{};
 
-    writeSets[0].dstSet = m_descriptorSet.get();
+    writeSets[0].dstSet = m_descriptorSet;
     writeSets[0].dstBinding = 0;
     writeSets[0].dstArrayElement = 0;
     writeSets[0].descriptorType = vk::DescriptorType::eUniformBuffer;
@@ -204,7 +204,7 @@ void graphics::Texture::createDescriptorSet()
     writeSets[0].pBufferInfo = &bufferInfo;
     writeSets[0].pImageInfo = nullptr;
     writeSets[0].pTexelBufferView = nullptr;
-    writeSets[1].dstSet = m_descriptorSet.get();
+    writeSets[1].dstSet = m_descriptorSet;
     writeSets[1].dstBinding = 1;
     writeSets[1].dstArrayElement = 0;
     writeSets[1].descriptorType = vk::DescriptorType::eCombinedImageSampler;
@@ -214,4 +214,12 @@ void graphics::Texture::createDescriptorSet()
     writeSets[1].pTexelBufferView = nullptr;
 
     vkLogicalDevice.updateDescriptorSets(writeSets.size(), writeSets.data(), 0, nullptr);
+}
+
+void graphics::Texture::recreateDescriptorSet()
+{
+    const vk::Device & device = LogicalDevice::getInstance()->getVkLogicalDevice();
+
+    //device.freeDescriptorSets(graphics::Swapchain::getInstance()->getVkDescriptorPool(), 1, &m_descriptorSet.get());
+    createDescriptorSet();
 }

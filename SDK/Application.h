@@ -1,30 +1,31 @@
 //
-// Created by FiercePC on 09/11/2020.
+// Created by FiercePC on 10/11/2020.
 //
 
-#ifndef GAMEENGINE_APPLICATION_H
-#define GAMEENGINE_APPLICATION_H
+#ifndef GAMEENGINE_SDK_APPLICATION_H
+#define GAMEENGINE_SDK_APPLICATION_H
 
 #include <functional>
+#include "InstanceParameter.h"
+#include "WindowParameters.h"
 
-namespace graphics
+namespace core
 {
-    class InstanceParameter;
-    class WindowParameters;
+    class Application;
 }
 
-namespace core {
+namespace sdk {
 
     class Application
     {
     public:
+        Application();
+
         using PreInitializeCallback = std::function<void(graphics::InstanceParameter & instanceParameter,
                                                          graphics::WindowParameters & windowParameter)>;
         using PostInitializeCallback = std::function<void(void)>;
         using UpdateCallback = std::function<void(float)>;
         using ReleaseCallback = std::function<void()>;
-
-        Application();
 
         void setPreInitializeCallback(const PreInitializeCallback & function);
         void setPostInitializeCallback(const PostInitializeCallback & function);
@@ -34,21 +35,8 @@ namespace core {
         void setPostReleaseCallback(const ReleaseCallback & function);
 
         void run();
-        void stop();
-
     private:
-        void intialize();
-        void update(float deltaTime);
-        void release();
-
-        bool m_isRunning;
-
-        PreInitializeCallback m_preInitCallback;
-        PostInitializeCallback m_postInitCallback;
-        UpdateCallback m_preUploadCallback;
-        UpdateCallback m_postUploadCallback;
-        ReleaseCallback m_preReleaseCallback;
-        ReleaseCallback m_postReleaseCallback;
+        core::Application * m_pApplication;
     };
 
 }

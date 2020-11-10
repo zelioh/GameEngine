@@ -9,6 +9,10 @@ add_definitions(-DENGINE_VERSION_MAJOR=${PROJECT_VERSION_MAJOR}
                 -DENGINE_NAME="${PROJECT_NAME}"
         )
 
+if (NOT DEFINED CMAKE_BUILD_TYPE)
+    message(FATAL_ERROR "You must use CMAKE_BUILD_TYPE with Debug or Master value. In command line use -DCMAKE_BUILD_TYPE=Debug")
+endif (NOT DEFINED CMAKE_BUILD_TYPE)
+
 if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
     add_definitions(-DENGINE_DEBUG=1)
 endif(${CMAKE_BUILD_TYPE} STREQUAL "Debug")

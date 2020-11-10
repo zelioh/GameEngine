@@ -6,22 +6,50 @@
 #include "InstanceParameter.h"
 #include "WindowParameters.h"
 
+#include <chrono>
+
+float g_deltaTime = 0.0f;
+
 core::Application::Application():
 m_preInitCallback(),
 m_postInitCallback(),
 m_preUploadCallback(),
 m_postUploadCallback(),
 m_preReleaseCallback(),
-m_postReleaseCallback()
+m_postReleaseCallback(),
+m_isRunning(false)
 {
 }
 
 void core::Application::run()
 {
     intialize();
-    while (1)
+    auto startTime = std::chrono::high_resolution_clock::now();
+    auto previousFrame = std::chrono::high_resolution_clock::now();
+    m_isRunning = true;
+    while (m_isRunning)
     {
+        auto currentTime = std::chrono::high_resolution_clock::now();
+        float time = std::chrono::duration<float, std::chrono::seconds::period>(currentTime - startTime).count();
+        float deltaTime = std::chrono::duration<float, std::chrono::seconds::period>(
+            currentTime - previousFrame).count();
+
+        g_deltaTime = deltaTime;
+        // handle window event
+            // code here
+        ///////////////////////
+
+        float moveFactor = 2.5f * g_deltaTime;
+
+        // handle physics with factor
+            // code here
+        ///////////////////////////
         update(0.0f);
+
+        // handle graphics code here ///
+
+        previousFrame = currentTime;
+        // if windows closed call stop() taht set m_isRunning to false
     }
     release();
 }
@@ -77,11 +105,17 @@ void core::Application::update(float deltaTime)
     m_postUploadCallback(deltaTime);
 }
 
+void core::Application::stop()
+{
+    m_isRunning = false;
+}
+
 void core::Application::release()
 {
     m_preReleaseCallback();
 
     // Release
+
 
     m_postReleaseCallback();
 }

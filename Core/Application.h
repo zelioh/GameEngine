@@ -34,11 +34,14 @@ namespace core {
         void setPostReleaseCallback(const ReleaseCallback & function);
 
         void run();
+        void stop();
 
     private:
         void intialize();
         void update(float deltaTime);
         void release();
+
+        bool m_isRunning;
 
         PreInitializeCallback m_preInitCallback;
         PostInitializeCallback m_postInitCallback;

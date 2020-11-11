@@ -5,6 +5,7 @@
 #include "Instance.h"
 #include "InstanceParameter.h"
 #include "ValidationLayer.h"
+#include "public/GraphicsEngine/Window.h"
 
 graphics::Instance * graphics::Instance::getInstance()
 {
@@ -32,7 +33,7 @@ m_isInitialize(false),
 {
 }
 
-void graphics::Instance::initialize(const InstanceParameter & parameters,const Window & window)
+void graphics::Instance::initialize(const InstanceParameter & parameters)
 {
     m_appInfo.setPApplicationName(parameters.getApplicationName().c_str());
     m_appInfo.setApplicationVersion(VK_MAKE_VERSION(parameters.getProjectMajorVersion(),
@@ -49,7 +50,7 @@ void graphics::Instance::initialize(const InstanceParameter & parameters,const W
     m_appInfo.setApiVersion(VK_API_VERSION_1_2);
     initializeInternal();
     m_validationLayer.initialize(*this);
-    m_surface.initialize(*this, window);
+    m_surface.initialize(*this);
     m_isInitialize = true;
 }
 

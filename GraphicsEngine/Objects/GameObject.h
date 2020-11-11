@@ -47,8 +47,8 @@ namespace object {
         virtual void release() = 0;
 
         Math::Matrix4F getTransformationMatrix() const;
-        void setPhysicsObject(PhysicsObject * object) { this->m_physicsObject = object; };
-        PhysicsObject * getPhysicsObject() const { return this->m_physicsObject; };
+        void setPhysicsObject(PhysicsObject * object);
+        PhysicsObject * getPhysicsObject() const;
 
         void Update();
 

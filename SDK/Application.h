@@ -8,6 +8,7 @@
 #include <functional>
 #include "InstanceParameter.h"
 #include "WindowParameters.h"
+#include "Matrix4F.h"
 
 namespace core
 {
@@ -23,8 +24,8 @@ namespace sdk {
 
         using PreInitializeCallback = std::function<void(graphics::InstanceParameter & instanceParameter,
                                                          graphics::WindowParameters & windowParameter)>;
-        using PostInitializeCallback = std::function<void(void)>;
-        using UpdateCallback = std::function<void(float)>;
+        using PostInitializeCallback = std::function<void()>;
+        using UpdateCallback = std::function<void(float, Math::Matrix4F & projectionMatrix)>;
         using ReleaseCallback = std::function<void()>;
 
         void setPreInitializeCallback(const PreInitializeCallback & function);

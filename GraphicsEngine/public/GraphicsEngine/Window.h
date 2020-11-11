@@ -7,7 +7,7 @@
 #ifndef GAMEENGINE_WINDOW_H
 #define GAMEENGINE_WINDOW_H
 
-#include <windows.h>
+#include <Windows.h>
 #include <functional>
 
 namespace graphics {
@@ -19,8 +19,11 @@ namespace graphics {
     public:
         using EventCallback = std::function<void(int inputID)>;
 
-        Window(const HINSTANCE & hInstance, const WindowParameters & parameters);
+        static Window * getInstance();
+
         ~Window();
+
+        void initialize(const HINSTANCE & hInstance, const WindowParameters & parameters);
 
         const HINSTANCE & getHInstance() const;
         const HWND & getHWindow() const;
@@ -37,6 +40,7 @@ namespace graphics {
         void setResizeStatus(bool status);
 
     private:
+        Window();
         static LRESULT CALLBACK WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM lparam); ///< Process event
 
         DWORD getWindowStyle(const WindowParameters & parameters);

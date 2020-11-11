@@ -12,7 +12,7 @@
 #include "Instance.h"
 #include "Vertex.h"
 #include "SUniformBufferObject.h"
-#include "Window.h"
+#include "public/GraphicsEngine/Window.h"
 #include "Pipeline.h"
 #include "Renderer.h"
 #include "public/GraphicsEngine/TextureManager.h"
@@ -32,9 +32,9 @@ graphics::Swapchain::Swapchain()
 {
 }
 
-void graphics::Swapchain::initialize(const Window & window)
+void graphics::Swapchain::initialize()
 {
-    initializeInternal(window);
+    initializeInternal();
     initializeImageViews();
     m_renderPass.initialize();
     initializeFrameBuffer();
@@ -85,7 +85,7 @@ void graphics::Swapchain::release()
 }
 
 
-void graphics::Swapchain::recreate(const Window & window, graphics::Pipeline & pipeline, Renderer & renderer)
+void graphics::Swapchain::recreate(graphics::Pipeline & pipeline, Renderer & renderer)
 {
     const vk::Device & logicalDevice = LogicalDevice::getInstance()->getVkLogicalDevice();
 
@@ -121,7 +121,7 @@ void graphics::Swapchain::recreate(const Window & window, graphics::Pipeline & p
 
     logicalDevice.destroyDescriptorPool(m_descriptorPool);
 
-    initializeInternal(window);
+    initializeInternal();
     initializeImageViews();
     m_renderPass.initialize();
     pipeline.initialize();
@@ -212,7 +212,7 @@ void graphics::Swapchain::updateUniformBuffer(int imageIndex, const SUniformBuff
     logicalDevice.unmapMemory(m_uniformBufferMemories[imageIndex]);
 }
 
-void graphics::Swapchain::initializeInternal(const Window & window)
+void graphics::Swapchain::initializeInternal()
 {
     Instance * instance = Instance::getInstance();
     graphics::PhysicalDevice * physicalDevice = PhysicalDevice::getInstance();
@@ -221,7 +221,7 @@ void graphics::Swapchain::initializeInternal(const Window & window)
     vk::SurfaceFormatKHR format = chooseSwapchainFormat(details.getSurfaceFormats());
     vk::PresentModeKHR presentMode = chooseSwapchainPrensentMode(details.getPrensentModes());
     vk::SurfaceCapabilitiesKHR capabilities = details.getSurfaceCapabilities();
-    vk::Extent2D surfaceExtent = chooseSwapchainExtent(capabilities, window);
+    vk::Extent2D surfaceExtent = chooseSwapchainExtent(capabilities);
     uint32_t imageCount = capabilities.minImageCount + 1;
     QueueFamilyHint hints(*physicalDevice);
     uint32_t queueFamilyHints[] = {hints.getGraphicsFamilyValue(), hints.getPresentFamilyValue()};
@@ -293,13 +293,15 @@ const vk::PresentModeKHR & graphics::Swapchain::chooseSwapchainPrensentMode(
     return presentModes[0];
 }
 
-vk::Extent2D graphics::Swapchain::chooseSwapchainExtent(const vk::SurfaceCapabilitiesKHR &capabilities, const Window & window)
+vk::Extent2D graphics::Swapchain::chooseSwapchainExtent(const vk::SurfaceCapabilitiesKHR &capabilities)
 {
     if (capabilities.currentExtent.width != UINT32_MAX)
     {
         return capabilities.currentExtent;
     } else {
-        int width = window.getWidth(), height = window.getHeight();
+        graphics::Window * window = graphics::Window::getInstance();
+
+        int width = window->getWidth(), height = window->getHeight();
 
         VkExtent2D currentExtent = {static_cast<uint32_t>(width), static_cast<uint32_t>(height)};
 

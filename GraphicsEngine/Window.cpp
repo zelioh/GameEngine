@@ -2,7 +2,7 @@
 // Created by tangt on 24/10/2020.
 //
 
-#include "Window.h"
+#include "public/GraphicsEngine/Window.h"
 #include "WindowParameters.h"
 #include <stdexcept>
 #include "WinUser.h"
@@ -10,15 +10,44 @@
 #include "Objects/SceneManager.h"
 #include "Windowsx.h"
 
-graphics::Window::Window(HINSTANCE const &hInstance, const WindowParameters & parameters):
-m_hInstance(hInstance),
+graphics::Window::Window():
+m_hInstance(nullptr),
 m_hwnd(nullptr),
-m_bIsFullScreen(parameters.m_bIsFullScreen),
-m_iWidth(parameters.m_iWidth),
-m_iHeight(parameters.m_iHeight),
+m_bIsFullScreen(false),
+m_iWidth(0),
+m_iHeight(0),
 m_bWasResize(false),
-m_isInitialize(false)
+m_isInitialize(false),
+m_message()
 {
+
+}
+
+graphics::Window::~Window()
+{
+    PostQuitMessage(0);
+    m_hInstance = nullptr;
+    m_hwnd = nullptr;
+}
+
+graphics::Window * graphics::Window::getInstance()
+{
+    static Window * window = nullptr;
+
+    if (nullptr == window)
+    {
+        window = new Window();
+    }
+    return window;
+}
+
+void graphics::Window::initialize(const HINSTANCE &hInstance, const WindowParameters &parameters)
+{
+    m_hInstance = hInstance;
+    m_bIsFullScreen = parameters.m_bIsFullScreen;
+    m_iWidth = parameters.m_iWidth;
+    m_iHeight = parameters.m_iHeight;
+
     LPCWSTR CLASS_NAME = L"Window";
     WNDCLASS wc{};
 
@@ -51,14 +80,16 @@ m_isInitialize(false)
     std::wstring szname(parameters.m_strName.begin(), parameters.m_strName.end());
 
     m_hwnd = CreateWindow(CLASS_NAME, szname.c_str(),
-                        getWindowStyle(parameters),
-                        left, top, // Window initial position
-                        m_iWidth, m_iHeight, // Window size
-                        nullptr, // Parent handle
-                        nullptr, // Menu handle
-                        m_hInstance, // Current Instance
-                        nullptr // Extra parameters
-                        );
+                          getWindowStyle(parameters),
+                          left, top, // Window initial position
+                          m_iWidth, m_iHeight, // Window size
+                          nullptr, // Parent handle
+                          nullptr, // Menu handle
+                          m_hInstance, // Current Instance
+                          this // Extra parameters
+    );
+    SetWindowLong(m_hwnd, GWL_STYLE, getWindowStyle(parameters));
+    SetWindowLongPtr(m_hwnd, GWLP_USERDATA, (LONG_PTR)this);
 
     if (parameters.m_bClipCursorToWindow)
     {
@@ -72,13 +103,6 @@ m_isInitialize(false)
         ShowCursor(true);
     }
     m_isInitialize = true;
-}
-
-graphics::Window::~Window()
-{
-    PostQuitMessage(0);
-    m_hInstance = nullptr;
-    m_hwnd = nullptr;
 }
 
 const HINSTANCE & graphics::Window::getHInstance() const
@@ -150,44 +174,42 @@ LRESULT graphics::Window::WindowProcessMessages(HWND hwnd, UINT msg, WPARAM para
         case WM_DESTROY:
             PostQuitMessage(0);
             return 0;
-        case WM_KEYDOWN:
-            windowEvent->onKeyPress(levelIdentifier, static_cast<HID::keyboard::Event>(param), false);
-            break;
-        case WM_KEYUP:
-            windowEvent->onKeyPress(levelIdentifier, static_cast<HID::keyboard::Event>(param), true);
-            break;
-        case WM_LBUTTONDOWN:
-            windowEvent->onMouseEvent(levelIdentifier,
-                                      HID::mouse::Event::LEFT_CLICK,
-                                      GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam), 0);
-            break;
-        case WM_RBUTTONDOWN:
-            windowEvent->onMouseEvent(levelIdentifier,
-                                      HID::mouse::Event::RIGHT_CLICK,
-                                      GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam), 0);
-            break;
-        case WM_MBUTTONDOWN:
-            windowEvent->onMouseEvent(levelIdentifier,
-                                      HID::mouse::Event::MIDDLE_CLICK,
-                                      GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam), 0);
-            break;
-
-        case WM_MOUSEWHEEL:
-            windowEvent->onMouseEvent(levelIdentifier,
-                                      HID::mouse::Event::SCROLL,
-                                      GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam),
-                                      GET_WHEEL_DELTA_WPARAM(param));
-            break;
-
-        case WM_MOUSEMOVE:
-            windowEvent->onMouseEvent(levelIdentifier,HID::mouse::Event::MOUSE_MOVE,
-                                      GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam),
-                                      0);
-            break;
+//        case WM_KEYDOWN:
+//            windowEvent->onKeyPress(levelIdentifier, static_cast<HID::keyboard::Event>(param), false);
+//            break;
+//        case WM_KEYUP:
+//            windowEvent->onKeyPress(levelIdentifier, static_cast<HID::keyboard::Event>(param), true);
+//            break;
+//        case WM_LBUTTONDOWN:
+//            windowEvent->onMouseEvent(levelIdentifier,
+//                                      HID::mouse::Event::LEFT_CLICK,
+//                                      GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam), 0);
+//            break;
+//        case WM_RBUTTONDOWN:
+//            windowEvent->onMouseEvent(levelIdentifier,
+//                                      HID::mouse::Event::RIGHT_CLICK,
+//                                      GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam), 0);
+//            break;
+//        case WM_MBUTTONDOWN:
+//            windowEvent->onMouseEvent(levelIdentifier,
+//                                      HID::mouse::Event::MIDDLE_CLICK,
+//                                      GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam), 0);
+//            break;
+//
+//        case WM_MOUSEWHEEL:
+//            windowEvent->onMouseEvent(levelIdentifier,
+//                                      HID::mouse::Event::SCROLL,
+//                                      GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam),
+//                                      GET_WHEEL_DELTA_WPARAM(param));
+//            break;
+//
+//        case WM_MOUSEMOVE:
+//            windowEvent->onMouseEvent(levelIdentifier,HID::mouse::Event::MOUSE_MOVE,
+//                                      GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam),
+//                                      0);
+//            break;
 
         case WM_EXITSIZEMOVE:
-//            currentWindow->setResizeStatus(true);
-//            currentWindow->resize(LOWORD(lparam), HIWORD(lparam));
             RECT windRect;
             GetWindowRect(hwnd, &windRect);
             windowEvent->onWindowEvent(HID::window::Event::RESIZE, windRect.right, windRect.bottom);

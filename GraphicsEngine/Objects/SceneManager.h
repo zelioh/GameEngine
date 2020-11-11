@@ -25,6 +25,7 @@ namespace object {
         bool releaseScene(const std::string & identifier);
         void release();
         bool isExisting(const std::string & identifier);
+        Scene * findScene(const std::string & identifier);
 
     private:
         SceneManager();

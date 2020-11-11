@@ -3,17 +3,12 @@
 //
 
 #include <windows.h>
-#include "Window.h"
 #include "WindowParameters.h"
 
 #include "Instance.h"
 #include "InstanceParameter.h"
-#include "LogicalDevice.h"
-#include "PhysicalDevice.h"
 #include "Swapchain.h"
 #include "Renderer.h"
-#include "Pipeline.h"
-#include "Shader.h"
 #include "Objects/Cube.h"
 #include "Objects/CubeManager.h"
 #include "SUniformBufferObject.h"
@@ -31,13 +26,9 @@
 #include "Objects/LightManager.h"
 #include "Objects/Light.h"
 #include "Event.h"
-#include "WindowEvent.h"
-#include "public/Core/Core_utils.h"
 #include "public/Core/Application.h"
 
-#include <chrono>
 
-float g_deltaTime = 0.0f;
 
 void preInitialize(graphics::InstanceParameter &instanceParameter, graphics::WindowParameters & windowParameters)
 {
@@ -93,7 +84,7 @@ void postInitialize()
             Math::Vector3F(2.f, -1.f, 0.f),
             Math::Vector3F(0.f, 1.5f, 0.f),
             Math::Vector3F(1.5f, 1.5f, 1.5f),
-            Math::SRotation{180.f, Math::Vector3F(0.f, 0.f, 1.f)});
+            Math::SRotation{90.f, Math::Vector3F(0.f, 0.f, 1.f)});
 
     object::Cube * cube4 = manager->createCube(
             myLevelIdentifier,
@@ -136,6 +127,12 @@ void postInitialize()
                                                                                  Math::Vector3F(0.f, 0.f, 0.f),
                                                                                  Math::Vector3F(0.f, 0.f, 1.f));
 
+    object::Camera * camera2 = object::CameraManager::getInstance()->createCamera(myLevelIdentifier,
+                                                                                 "Camera_two",
+                                                                                 Math::Vector3F(0.f, -3.f, 2.f),
+                                                                                 Math::Vector3F(0.f, 0.f, 0.f),
+                                                                                 Math::Vector3F(0.f, 0.f, 1.f));
+
     myLevel->setCurrentCamera(camera);
     object::Model3DManager * modelsManager = object::Model3DManager::getInstance();
 
@@ -152,19 +149,12 @@ void postInitialize()
     viking_room->setTexture(viking_room_texture);
     viking_room->setRotate(Math::SRotation{90.f, Math::Vector3F(0.f, 0.f, 1.f)});
 
-    PhysicsObject * box1 = new PhysicsObject(new BoundingSphere(Vector3F(0.0f, 0.0f, 0.0f), 0.5f), Vector3F(0.1f, 0.0f, 0.0f));
-
-    PhysicsObject * box2 = new PhysicsObject(new BoundingSphere(Vector3F(10.0f, 0.0f, 0.0f), 0.5f), Vector3F(-0.1f, 0.0f, 0.0f));
-
-
-    box1->SetPosition(cube1->getPosition());
-    box2->SetPosition(cube2->getPosition());
+    PhysicsObject * box1 = new PhysicsObject(new BoundingSphere(Vector3F(0.0f, 0.0f, 0.0f), 0.5f), Vector3F(1.f, 0.0f, 0.0f));
+    PhysicsObject * box2 = new PhysicsObject(new BoundingSphere(Vector3F(10.0f, 0.0f, 0.0f), 0.5f), Vector3F(-1.f, 0.0f, 0.0f));
 
     cube1->setPhysicsObject(box1);
     cube2->setPhysicsObject(box2);
 
-    myLevel->getPhysicsEngine().AddPhysicsObject(cube1->getPhysicsObject());
-    myLevel->getPhysicsEngine().AddPhysicsObject(cube2->getPhysicsObject());
     object::LightManager::getInstance()->createLight(myLevelIdentifier,
                                                      "ligth_000",
                                                      Math::Vector3F(0.f, 0.f, 1.f),
@@ -174,30 +164,40 @@ void postInitialize()
 
 }
 
-void preUpdate(float deltaTime, Matrix4F & projectionMatrix, int width, int height)
+void preUpdate(float deltaTime, Matrix4F & projectionMatrix)
 {
+    auto window = graphics::Window::getInstance();
+
     projectionMatrix = Math::utils::perspective(90.0f,
-                                                static_cast<float>(width) / static_cast<float>(height),
+                                                static_cast<float>(window->getWidth()) / static_cast<float>(window->getHeight()),
                                                 0.01f, 25.f);
 
     object::Cube * cube3 = object::CubeManager::getInstance()->findCube("MyLevel", "TestCube3");
     object::Cube * cube4 = object::CubeManager::getInstance()->findCube("MyLevel", "TestCube4");
 
-    cube3->setRotate(Math::SRotation{90.f * deltaTime, Math::Vector3F(1.f, 0.f, 0.f)});
+    cube3->setRotate(Math::SRotation{cube3->getRotate().angle + 90.f * deltaTime, Math::Vector3F(1.f, 0.f, 0.f)});
+
+    if (HID::keyboard::IsKeyDown(HID::KEY::N))
+    {
+        object::SceneManager::getInstance()->getCurrentScene()->setCurrentCamera("Camera_one");
+    }
+
+    if (HID::keyboard::IsKeyDown(HID::KEY::B))
+    {
+        object::SceneManager::getInstance()->getCurrentScene()->setCurrentCamera("Camera_two");
+    }
 
     object::Camera * camera = object::SceneManager::getInstance()->getCurrentScene()->getCurrentCamera();
 
     Math::Vector3F p = camera->getPosition();
     Math::Vector3F t = camera->getTarget();
 
-    //
-    // TODO: singtone window
-//    if (HID::keyboard::IsKeyDown(HID::KEY::ESCAPE)) {
-//        window.close();
-//        return;
-//    }
+    if (HID::keyboard::IsKeyDown(HID::KEY::ESCAPE)) {
+        window->close();
+        return;
+    }
 
-    float moveFactor = 2.5f * g_deltaTime;
+    float moveFactor = 2.5f * deltaTime;
 
     if (HID::keyboard::IsKeyDown(HID::KEY::S)) {
         p.Y += moveFactor;
@@ -224,25 +224,25 @@ void preUpdate(float deltaTime, Matrix4F & projectionMatrix, int width, int heig
         t.Z += moveFactor;
     }
 
-//    if (HID::mouse::IsRightMouseKeyDown()) {
-//        auto result = HID::mouse::MouseMove(window.getHWindow());
-//
-//        if (result.first > 200) {
-//            t.X += 2.5f * deltaTime;
-//        } else if (result.first > 100) {
-//            t.X += 1.0f * deltaTime;
-//        } else if (result.first < -200) {
-//            t.X -= 2.5f * deltaTime;
-//        } else if (result.first < -100) {
-//            t.X -= 1.0f * deltaTime;
-//        }
-//
-//        if (result.second > 50) {
-//            t.Y -= 2.5f * deltaTime;
-//        } else if (result.second < -50) {
-//            t.Y += 2.5f * deltaTime;
-//        }
-//    }
+    if (HID::mouse::IsRightMouseKeyDown()) {
+        auto result = HID::mouse::MouseMove(window->getHWindow());
+
+        if (result.first > 200) {
+            t.X += 2.5f * deltaTime;
+        } else if (result.first > 100) {
+            t.X += 1.0f * deltaTime;
+        } else if (result.first < -200) {
+            t.X -= 2.5f * deltaTime;
+        } else if (result.first < -100) {
+            t.X -= 1.0f * deltaTime;
+        }
+
+        if (result.second > 50) {
+            t.Y -= 2.5f * deltaTime;
+        } else if (result.second < -50) {
+            t.Y += 2.5f * deltaTime;
+        }
+    }
 
     camera->setPosition(p);
     camera->setTarget(t);

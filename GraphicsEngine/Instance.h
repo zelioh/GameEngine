@@ -21,7 +21,7 @@ namespace graphics
     public:
             static Instance * getInstance();
 
-            void initialize(const InstanceParameter & parameters, const Window & window); ///< Initialize vulkan instance
+            void initialize(const InstanceParameter & parameters); ///< Initialize vulkan instance
             void release(); ///< Destroy the vulkan instance
 
             const vk::Instance & getVkInstance() const; ///< Returns the Vulkan instance for use it

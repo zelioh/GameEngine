@@ -14,6 +14,7 @@ namespace graphics {
 
     class Shader {
     public:
+        Shader() = default;
         /**
          * Create Shader with files path
          * @param vertexPath    Path to the vertex file path

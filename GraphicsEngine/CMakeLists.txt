@@ -38,7 +38,7 @@ add_library(GraphicsEngine OBJECT
         SUniformBufferObject.h
         TextureManager.cpp public/GraphicsEngine/TextureManager.h
         Texture.cpp public/GraphicsEngine/Texture.h
-        Window.cpp Window.h
+        Window.cpp public/GraphicsEngine/Window.h
         WindowParameters.cpp WindowParameters.h
         Renderer.cpp Renderer.h
         ${OBJECT_SRC}

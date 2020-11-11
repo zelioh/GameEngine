@@ -3,14 +3,14 @@
 
 bool HID::keyboard::IsKeyDown(KEY key)
 {
-	if (GetKeyState(static_cast<int>(key)) < 0)
+	if (GetAsyncKeyState(static_cast<int>(key)) < 0)
 		return true;
 	return false;
 }
 
 bool HID::keyboard::IsKeyUp(KEY key)
 {
-	if (GetKeyState(static_cast<int>(key)) >= 0)
+	if (GetAsyncKeyState(static_cast<int>(key)) >= 0)
 		return true;
 	return false;
 }
@@ -38,6 +38,8 @@ bool HID::mouse::IsMidleMouseKeyDown()
 
 std::pair<int, int> HID::mouse::GetMousePosition(HWND hwnd)
 {
+
+
 	POINT p;
 
 	GetCursorPos(&p);

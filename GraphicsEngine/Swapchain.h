@@ -28,9 +28,9 @@ namespace graphics {
     public:
         static Swapchain * getInstance();
 
-        void initialize(const Window & window);
+        void initialize();
         void release();
-        void recreate(const Window & window, Pipeline & pipeline, Renderer & renderer);
+        void recreate(Pipeline & pipeline, Renderer & renderer);
 
         const vk::SwapchainKHR & getVkSwapchain() const;
         const std::vector<vk::Image> & getVkSwapchainImage() const;
@@ -51,10 +51,10 @@ namespace graphics {
         void updateUniformBuffer(int imageIndex, const SUniformBufferObject & ubo) const;
 
     private:
-        void initializeInternal(const Window & window);
+        void initializeInternal();
         const vk::SurfaceFormatKHR & chooseSwapchainFormat(const std::vector<vk::SurfaceFormatKHR> & formats);
         const vk::PresentModeKHR & chooseSwapchainPrensentMode(const std::vector<vk::PresentModeKHR> & presentModes);
-        vk::Extent2D chooseSwapchainExtent(const vk::SurfaceCapabilitiesKHR & capabilities, const Window & window);
+        vk::Extent2D chooseSwapchainExtent(const vk::SurfaceCapabilitiesKHR & capabilities);
         void initializeImageViews(); ///< Must be call after initializeInternal
         void initializeFrameBuffer(); ///< Must be call after renderPass initialization
         void createColorResources();

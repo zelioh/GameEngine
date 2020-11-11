@@ -5,7 +5,7 @@
 #include "public/Core/Application.h"
 #include "InstanceParameter.h"
 #include "WindowParameters.h"
-#include "Window.h"
+#include "public/GraphicsEngine/Window.h"
 
 #include "Instance.h"
 #include "LogicalDevice.h"
@@ -29,61 +29,58 @@ m_preReleaseCallback(),
 m_postReleaseCallback(),
 m_isRunning(false),
 m_fDeltaTime(0.f),
-m_window(nullptr),
+m_projectionMatrix(MATRIX4F_IDENTITY),
 m_renderer(nullptr),
-m_pipeline(nullptr),
-m_projectionMatrix(MATRIX4F_IDENTITY)
+m_pipeline(nullptr)
 {
 }
 
 void core::Application::run()
 {
     intialize();
-    auto startTime = std::chrono::high_resolution_clock::now();
     auto previousFrame = std::chrono::high_resolution_clock::now();
     m_isRunning = true;
 
     graphics::Swapchain * swapchain = graphics::Swapchain::getInstance();
-
     HID::WindowEvent * event = HID::WindowEvent::getInstance();
+    graphics::Window * window = graphics::Window::getInstance();
 
-    event->registerWindowCallback([&](HID::window::Event id, int width, int height)
+    event->registerWindowCallback([](HID::window::Event id, int width, int height)
     {
-        m_window->resize(width, height);
-        m_window->setResizeStatus(true);
+        graphics::Window * window = graphics::Window::getInstance();
+
+        window->resize(width, height);
+        window->setResizeStatus(true);
     });
 
-    while (m_window)
+    while (*window)
     {
         auto currentTime = std::chrono::high_resolution_clock::now();
-        float time = std::chrono::duration<float, std::chrono::seconds::period>(currentTime - startTime).count();
         float deltaTime = std::chrono::duration<float, std::chrono::seconds::period>(currentTime - previousFrame).count();
 
         m_fDeltaTime = deltaTime;
         // handle window event
-            // code here
+        // code here
         ///////////////////////
 
-        m_window->handleEvent();
-        if (!m_window) {
+        window->handleEvent();
+        if (!*window) {
             break;
         }
 
         // handle physics with factor
-            // code here
+        // code here
         ///////////////////////////
         update(deltaTime);
 
         //
         // Render the current Scene
-        if (m_window->wasResized() || !m_renderer->render(*swapchain, *m_pipeline))
+        if (window->wasResized() || !m_renderer->render(*swapchain, *m_pipeline))
         {
-            swapchain->recreate(*m_window, *m_pipeline, *m_renderer);
-            m_window->setResizeStatus(false);
+            swapchain->recreate( *m_pipeline, *m_renderer);
+            window->setResizeStatus(false);
             LOG_MESSAGE("Window was resized");
         }
-
-        // handle graphics code here ///
 
         previousFrame = currentTime;
         // if windows closed call stop() that set m_isRunning to false
@@ -125,24 +122,26 @@ void core::Application::intialize()
 {
     graphics::InstanceParameter instanceParameters;
     graphics::WindowParameters windowParameter;
+    graphics::Window * window = graphics::Window::getInstance();
 
     if (m_preInitCallback)
     {
         m_preInitCallback(instanceParameters, windowParameter);
     }
-    m_window = new graphics::Window(nullptr, windowParameter);
+    window->initialize(nullptr, windowParameter);
 
     graphics::Instance * instance = graphics::Instance::getInstance();
 
-    instance->initialize(instanceParameters, *m_window);
+    instance->initialize(instanceParameters);
 
     graphics::PhysicalDevice * physicalDevice = graphics::PhysicalDevice::getInstance();
     graphics::LogicalDevice * logicalDevice = graphics::LogicalDevice::getInstance();
     graphics::Swapchain * swapchain = graphics::Swapchain::getInstance();
 
-    swapchain->initialize(*m_window);
+    swapchain->initialize();
 
     graphics::Shader shader("../shaders/defaultVert.spv", "../shaders/defaultFrag.spv");
+
     m_pipeline = new graphics::Pipeline(shader);
     m_renderer = new graphics::Renderer();
 
@@ -154,16 +153,18 @@ void core::Application::intialize()
 
 void core::Application::update(float deltaTime)
 {
+    graphics::Window * window = graphics::Window::getInstance();
+
     if (m_preUploadCallback)
     {
-        m_preUploadCallback(deltaTime, m_projectionMatrix, m_window->getWidth(), m_window->getHeight());
+        m_preUploadCallback(deltaTime, m_projectionMatrix);
     }
     object::SceneManager::getInstance()->getCurrentScene()->getPhysicsEngine().CollisionHandler();
     object::SceneManager::getInstance()->getCurrentScene()->getPhysicsEngine().Update(deltaTime);
     object::SceneManager::getInstance()->getCurrentScene()->update();
 
     if (m_postUploadCallback) {
-        m_postUploadCallback(deltaTime, m_projectionMatrix, m_window->getWidth(), m_window->getHeight());
+        m_postUploadCallback(deltaTime, m_projectionMatrix);
     }
     m_renderer->setProjectionMatrix(m_projectionMatrix);
 }
@@ -186,9 +187,6 @@ void core::Application::release()
     graphics::Swapchain::getInstance()->release();
     graphics::LogicalDevice::getInstance()->release();
     graphics::Instance::getInstance()->release();
-
-    delete m_window;
-    delete m_renderer;
 
     if (m_postReleaseCallback) {
         m_postReleaseCallback();

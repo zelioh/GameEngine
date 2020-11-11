@@ -90,6 +90,16 @@ bool object::SceneManager::isExisting(const std::string &identifier)
     return true;
 }
 
+object::Scene * object::SceneManager::findScene(const std::string &identifier)
+{
+    if (!(m_pool.find(identifier) != m_pool.end())) {
+        ERROR_MESSAGE("Scene doesn't exist");
+        ASSERT_ALWAYS();
+        return nullptr;
+    }
+    return m_pool[identifier];
+}
+
 object::SceneManager::SceneManager():
 m_currentSceneId("")
 {}

@@ -6,10 +6,11 @@
 #define GAMEENGINE_SDK_CAMERAMANAGER_H
 
 #include "Camera.h"
+#include "SDK.h"
 
 namespace sdk {
 
-    class CameraManager {
+    class SDK_EXPORT CameraManager {
     public:
         static Camera createCamera(const std::string & levelIdentifier,
                               const std::string & cameraIdentifier,

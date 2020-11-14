@@ -10,6 +10,8 @@
 #include "public/GraphicsEngine/WindowParameters.h"
 #include "Matrix4F.h"
 
+#include "SDK.h"
+
 namespace core
 {
     class Application;
@@ -17,7 +19,7 @@ namespace core
 
 namespace sdk {
 
-    class Application
+    class SDK_EXPORT Application
     {
     public:
         Application();

@@ -7,6 +7,7 @@
 
 #include "Vector3F.h"
 #include <string>
+#include "SDK.h"
 
 namespace object
 {
@@ -15,7 +16,7 @@ namespace object
 
 namespace sdk {
 
-    class Light
+    class SDK_EXPORT Light
     {
 
         friend class LightManager;

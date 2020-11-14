@@ -6,6 +6,7 @@
 #define GAMEENGINE_SDK_MODEL3D_H
 
 #include "GameObject.h"
+#include "SDK.h"
 
 namespace object
 {
@@ -14,7 +15,7 @@ namespace object
 
 namespace sdk {
 
-    class Model3D: public GameObject
+    class SDK_EXPORT Model3D: public GameObject
     {
 
         friend class Model3DManager;

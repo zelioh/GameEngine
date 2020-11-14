@@ -6,6 +6,7 @@
 #define GAMEENGINE_SDK_PLANE_H
 
 #include "GameObject.h"
+#include "SDK.h"
 
 namespace object
 {
@@ -14,7 +15,7 @@ namespace object
 
 namespace sdk {
 
-    class Plane: public GameObject {
+    class SDK_EXPORT Plane: public GameObject {
 
         friend class PlaneManager;
 

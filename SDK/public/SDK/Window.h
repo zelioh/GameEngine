@@ -6,6 +6,7 @@
 #define GAMEENGINE_SDK_WINDOW_H
 
 #include <Windows.h>
+#include "SDK.h"
 
 namespace graphics
 {
@@ -14,7 +15,7 @@ namespace graphics
 
 namespace sdk {
 
-    class Window
+    class SDK_EXPORT Window
     {
     public:
         Window();

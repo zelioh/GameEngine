@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Collider.h"
+#include "PhysicsEngine_public.h"
 
-class PhysicsObject
+class PHYSICS_ENGINE_EXPORT PhysicsObject
 {
 public:
 	PhysicsObject(Collider *Collider, const Math::Vector3F& Velocity);

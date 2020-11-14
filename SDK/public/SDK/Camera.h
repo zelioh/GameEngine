@@ -7,6 +7,7 @@
 
 #include "Vector3F.h"
 #include <string>
+#include "SDK.h"
 
 namespace object
 {
@@ -15,7 +16,7 @@ namespace object
 
 namespace sdk {
 
-    class Camera {
+    class SDK_EXPORT Camera {
 
         friend class CameraManager;
         friend class Scene;

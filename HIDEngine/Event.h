@@ -3,6 +3,8 @@
 #include <iostream>
 #include <Windows.h>
 
+#include "HIDEngine.h"
+
 namespace HID
 {
 	enum class KEY {
@@ -55,18 +57,18 @@ namespace HID
 
     namespace keyboard
     {
-        bool IsKeyDown(KEY keyId);
-        bool IsKeyUp(KEY keyId);
+        HID_EXPORT bool IsKeyDown(KEY keyId);
+        HID_EXPORT bool IsKeyUp(KEY keyId);
     }
 
     namespace mouse {
-        bool IsLeftMouseKeyDown();
-        bool IsRightMouseKeyDown();
-        bool IsMidleMouseKeyDown();
-        std::pair<int, int> GetMousePosition(HWND hwnd);
+        HID_EXPORT bool IsLeftMouseKeyDown();
+        HID_EXPORT bool IsRightMouseKeyDown();
+        HID_EXPORT bool IsMidleMouseKeyDown();
+        HID_EXPORT std::pair<int, int> GetMousePosition(HWND hwnd);
 
         //
         // Return the delta of previous and current mouse position. If the delta is egal to 0, 0 there was not mouse movement
-        std::pair<int, int> MouseMove(HWND hwnd);
+        HID_EXPORT std::pair<int, int> MouseMove(HWND hwnd);
     }
 }

@@ -6,12 +6,13 @@
 #define GAMEENGINE_SDK_SCENEMANAGER_H
 
 #include <string>
+#include "SDK.h"
 
 namespace sdk {
 
     class Scene;
 
-    class SceneManager
+    class SDK_EXPORT SceneManager
     {
     public:
         static Scene createScene(const std::string & identifier);

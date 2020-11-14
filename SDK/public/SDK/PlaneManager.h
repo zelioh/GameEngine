@@ -6,10 +6,11 @@
 #define GAMEENGINE_SDK_PLANEMANAGER_H
 
 #include "Plane.h"
+#include "SDK.h"
 
 namespace sdk {
 
-    class PlaneManager {
+    class SDK_EXPORT PlaneManager {
     public:
         static Plane createPlane(const std::string & levelIdentifier,
                                const std::string & planeIdentifier,

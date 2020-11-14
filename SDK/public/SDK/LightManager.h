@@ -6,10 +6,11 @@
 #define GAMEENGINE_SDK_LIGHTMANAGER_H
 
 #include "Light.h"
+#include "SDK.h"
 
 namespace sdk {
 
-    class LightManager
+    class SDK_EXPORT LightManager
     {
     public:
         static Light createLight(  const std::string & levelIdentifier,

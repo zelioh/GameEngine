@@ -7,6 +7,7 @@
 
 #include <string>
 #include "Camera.h"
+#include "SDK.h"
 
 namespace object
 {
@@ -15,7 +16,7 @@ namespace object
 
 namespace sdk {
 
-    class Scene {
+    class SDK_EXPORT Scene {
 
         friend class SceneManager;
 

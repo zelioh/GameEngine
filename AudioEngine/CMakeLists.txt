@@ -2,10 +2,7 @@
 
 project(AudioEngine)
 
-add_library(AudioEngine SHARED
+add_library(audioEngine OBJECT
         AudioEngine.cpp AudioEngine.h)
 
-add_executable(AudioEngineExe
-        AudioEngine.cpp AudioEngine.h main.c)
-
-target_link_libraries(AudioEngine Winmm)
+target_link_libraries(audioEngine Winmm)

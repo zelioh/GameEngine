@@ -2,10 +2,11 @@
 
 #include "IntersectData.h"
 #include "../Math/Vector3F.h"
+#include "PhysicsEngine_public.h"
 
 using namespace Math;
 
-class Collider
+class PHYSICS_ENGINE_EXPORT Collider
 {
 public:
 	enum {

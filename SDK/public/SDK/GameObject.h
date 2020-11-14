@@ -9,6 +9,7 @@
 #include "SRotation.h"
 #include "PhysicsObject.h"
 #include "Texture.h"
+#include "SDK.h"
 
 namespace object
 {
@@ -17,7 +18,7 @@ namespace object
 
 namespace sdk {
 
-    class GameObject {
+    class SDK_EXPORT GameObject {
     public:
 
         const Math::Vector3F & getPosition() const;

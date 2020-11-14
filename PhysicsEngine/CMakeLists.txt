@@ -9,7 +9,7 @@ add_library(PhysicsEngine OBJECT
 		IntersectData.h IntersectData.cpp
 		PhysicsObject.h PhysicsObject.cpp
 		PhysicsEngine.h PhysicsEngine.cpp
-		)
+        PhysicsEngine_public.h)
 
 target_link_libraries(PhysicsEngine PUBLIC Math)
 

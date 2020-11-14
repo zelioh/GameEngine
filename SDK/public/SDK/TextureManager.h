@@ -7,10 +7,11 @@
 
 #include <string>
 #include "Texture.h"
+#include "SDK.h"
 
 namespace sdk {
 
-    class TextureManager
+    class SDK_EXPORT TextureManager
     {
     public:
         static Texture createTexture(const std::string & texturePath, const std::string & textureIdentifier = nullptr);

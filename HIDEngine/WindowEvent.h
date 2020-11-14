@@ -9,6 +9,8 @@
 #include <unordered_map>
 #include <Windows.h>
 
+#include "HIDEngine.h"
+
 namespace graphics
 {
     class Window;
@@ -90,7 +92,7 @@ namespace HID {
     /*
      * Currently doesn't work better to use Event.h
      */
-    class WindowEvent
+    class HID_EXPORT WindowEvent
     {
 
         friend class graphics::Window;

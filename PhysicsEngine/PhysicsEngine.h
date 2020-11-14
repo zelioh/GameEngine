@@ -3,7 +3,9 @@
 #include <vector>
 #include "PhysicsObject.h"
 
-class PhysicsEngine
+#include "PhysicsEngine_public.h"
+
+class PHYSICS_ENGINE_EXPORT PhysicsEngine
 {
 public:
 	PhysicsEngine();

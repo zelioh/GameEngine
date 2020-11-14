@@ -8,12 +8,13 @@
 #include <string>
 #include "Vector3F.h"
 #include "SRotation.h"
+#include "SDK.h"
 
 namespace sdk {
 
     class Cube;
 
-    class CubeManager
+    class SDK_EXPORT CubeManager
     {
     public:
           static Cube createCube(const std::string & levelIdentifier,

@@ -1,8 +1,9 @@
 #pragma once
 
 #include "../Math/Vector3F.h"
+#include "PhysicsEngine_public.h"
 
-class IntersectData
+class PHYSICS_ENGINE_EXPORT IntersectData
 {
 public:
 	IntersectData(const bool DoesIntersect, const Math::Vector3F& Direction);

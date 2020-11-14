@@ -45,17 +45,17 @@ GENERATE_EXPORT_HEADER(gameEngine
         STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC)
 
 target_link_libraries(gameEngine PRIVATE
-                                audioEngine
+                                Core
                                 PhysicsEngine
                                 GraphicsEngine
                                 )
 
 target_link_libraries(gameEngine PUBLIC
-                                Core
                                 Debug
                                 Math
                                 HIDEngine
-                                SDK)
+                                SDK
+                                audioEngine)
 
 target_compile_definitions(gameEngine PRIVATE DLL)
 

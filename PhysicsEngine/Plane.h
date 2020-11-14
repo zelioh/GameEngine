@@ -4,7 +4,9 @@
 #include "BoundingBox.h"
 #include "BoundingSphere.h"
 
-class Plane :public Collider
+#include "PhysicsEngine_public.h"
+
+class PHYSICS_ENGINE_EXPORT Plane :public Collider
 {
 public:
 	Plane(const Vector3F& normal, float distance);

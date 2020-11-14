@@ -6,6 +6,7 @@
 #define GAMEENGINE_SDK_TEXTURE_H
 
 #include <string>
+#include "SDK.h"
 
 namespace graphics
 {
@@ -14,7 +15,7 @@ namespace graphics
 
 namespace sdk {
 
-    class Texture {
+    class SDK_EXPORT Texture {
 
         friend class GameObject;
         friend class TextureManager;

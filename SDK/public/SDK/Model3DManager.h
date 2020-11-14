@@ -6,10 +6,11 @@
 #define GAMEENGINE_SDK_MODEL3DMANAGER_H
 
 #include "Model3D.h"
+#include "SDK.h"
 
 namespace sdk {
 
-    class Model3DManager
+    class SDK_EXPORT Model3DManager
     {
     public:
         static Model3D createModel3D(const std::string & levelIdentifier,

@@ -1,11 +1,11 @@
 #pragma once
 
-
 #include "Collider.h"
+#include "PhysicsEngine_public.h"
 
 using namespace Math;
 
-class BoundingSphere : public Collider
+class PHYSICS_ENGINE_EXPORT BoundingSphere : public Collider
 {
 public:
 	BoundingSphere(const Vector3F& center, float radius);

@@ -26,6 +26,7 @@
 #include "GraphicsEngine/InstanceParameter.h"
 #include "BoundingBox.h"
 #include "BoundingSphere.h"
+#include "AudioEngine.h"
 
 void preInitialize(graphics::InstanceParameter &instanceParameter, graphics::WindowParameters & windowParameters)
 {
@@ -154,6 +155,10 @@ void postInitialize()
                                                      0.3f,
                                                      Math::Vector3F(1.f, 1.f, 1.f));
 
+    if (AudioEngine::PlayWavMusic("music.wav") == FALSE)
+    {
+        ASSERT_ALWAYS();
+    }
 }
 
 void preUpdate(float deltaTime, Matrix4F & projectionMatrix)

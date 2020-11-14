@@ -4,8 +4,8 @@
 // Class that create validation layer, use for log debug informations from vulkan error
 //
 
-#include "ValidationLayer.h"
-#include "Instance.h"
+#include "GraphicsEngine/ValidationLayer.h"
+#include "GraphicsEngine/Instance.h"
 
 graphics::ValidationLayer::ValidationLayer():
 m_debugUtilsMessengerInfo(),

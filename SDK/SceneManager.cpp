@@ -2,10 +2,10 @@
 // Created by FiercePC on 09/11/2020.
 //
 
-#include "SceneManager.h"
-#include "Objects/SceneManager.h"
-#include "Scene.h"
-#include "Objects/Scene.h"
+#include "public/SDK/SceneManager.h"
+#include "public/GraphicsEngine/SceneManager.h"
+#include "public/SDK/Scene.h"
+#include "public/GraphicsEngine/Scene.h"
 
 sdk::Scene sdk::SceneManager::createScene(const std::string &identifier)
 {

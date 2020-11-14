@@ -4,7 +4,7 @@
 //  Represent a vertice instance in the engine
 //
 
-#include "Vertex.h"
+#include "GraphicsEngine/Vertex.h"
 
 //graphics::Vertex::Vertex(const Math::Vector3F &position,
 //                         const Math::Vector3F &color,

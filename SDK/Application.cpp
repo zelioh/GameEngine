@@ -2,7 +2,7 @@
 // Created by FiercePC on 10/11/2020.
 //
 
-#include "Application.h"
+#include "public/SDK/Application.h"
 #include "public/Core/Application.h"
 
 sdk::Application::Application():

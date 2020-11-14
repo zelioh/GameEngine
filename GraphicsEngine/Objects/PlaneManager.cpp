@@ -2,9 +2,9 @@
 // Created by tangt on 03/11/2020.
 //
 
-#include "PlaneManager.h"
-#include "Plane.h"
-#include "SceneManager.h"
+#include "GraphicsEngine/PlaneManager.h"
+#include "GraphicsEngine/Plane.h"
+#include "GraphicsEngine/SceneManager.h"
 
 /*static*/ object::PlaneManager * object::PlaneManager::getInstance()
 {

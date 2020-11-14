@@ -2,8 +2,8 @@
 // Created by FiercePC on 09/11/2020.
 //
 
-#include "GameObject.h"
-#include "Objects/GameObject.h"
+#include "public/SDK/GameObject.h"
+#include "public/GraphicsEngine/GameObject.h"
 
 sdk::GameObject::GameObject(object::GameObject *pEngineObject):
 m_pObject(pEngineObject)

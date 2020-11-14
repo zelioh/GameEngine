@@ -2,10 +2,10 @@
 // Created by FiercePC on 09/11/2020.
 //
 
-#include "Cube.h"
-#include "CubeManager.h"
-#include "Objects/Cube.h"
-#include "Objects/CubeManager.h"
+#include "public/SDK/Cube.h"
+#include "public/SDK/CubeManager.h"
+#include "public/GraphicsEngine/Cube.h"
+#include "public/GraphicsEngine/CubeManager.h"
 
 sdk::Cube sdk::CubeManager::createCube(const std::string &levelIdentifier,
                                        const std::string &cubeIdentifier,

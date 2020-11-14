@@ -4,19 +4,19 @@
 // Command buffer is use for bind a vertex and index buffer to the graphic pipeline and then use for render
 //
 
-#include "CommandBuffer.h"
-#include "CommandPool.h"
-#include "Swapchain.h"
-#include "LogicalDevice.h"
-#include "Pipeline.h"
-#include "Objects/GameObject.h"
+#include "GraphicsEngine/CommandBuffer.h"
+#include "GraphicsEngine/CommandPool.h"
+#include "GraphicsEngine/Swapchain.h"
+#include "GraphicsEngine/LogicalDevice.h"
+#include "GraphicsEngine/Pipeline.h"
+#include "GraphicsEngine/GameObject.h"
 #include "public/GraphicsEngine/Texture.h"
-#include "SUniformBufferObject.h"
+#include "GraphicsEngine/SUniformBufferObject.h"
 #include "public/GraphicsEngine/TextureManager.h"
-#include "SceneManager.h"
-#include "Scene.h"
-#include "Light.h"
-#include "Camera.h"
+#include "GraphicsEngine/SceneManager.h"
+#include "GraphicsEngine/Scene.h"
+#include "GraphicsEngine/Light.h"
+#include "GraphicsEngine/Camera.h"
 
 void graphics::CommandBuffer::initialize()
 {

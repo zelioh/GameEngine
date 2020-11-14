@@ -2,8 +2,8 @@
 // Created by FiercePC on 09/11/2020.
 //
 
-#include "Camera.h"
-#include "Objects/Camera.h"
+#include "public/SDK/Camera.h"
+#include "public/GraphicsEngine/Camera.h"
 
 sdk::Camera::Camera(object::Camera *pEngineCamera):
 m_pObjectCamera(pEngineCamera)

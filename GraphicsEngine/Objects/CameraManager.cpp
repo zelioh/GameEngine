@@ -2,9 +2,9 @@
 // Created by tangt on 03/11/2020.
 //
 
-#include "CameraManager.h"
-#include "Camera.h"
-#include "SceneManager.h"
+#include "GraphicsEngine/CameraManager.h"
+#include "GraphicsEngine/Camera.h"
+#include "GraphicsEngine/SceneManager.h"
 #include "Debug_utils.h"
 
 object::CameraManager * object::CameraManager::getInstance()

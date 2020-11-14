@@ -2,7 +2,7 @@
 // Created by FiercePC on 11/11/2020.
 //
 
-#include "Window.h"
+#include "public/SDK/Window.h"
 #include "public/GraphicsEngine/Window.h"
 
 sdk::Window::Window():
@@ -28,4 +28,9 @@ int sdk::Window::getHeight() const
 bool sdk::Window::isFullScreen() const
 {
     return m_pWindow->isFullScreen();
+}
+
+void sdk::Window::close()
+{
+    m_pWindow->close();
 }

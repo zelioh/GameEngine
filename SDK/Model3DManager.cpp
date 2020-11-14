@@ -2,8 +2,8 @@
 // Created by FiercePC on 09/11/2020.
 //
 
-#include "Objects/Model3DManager.h"
-#include "Model3DManager.h"
+#include "public/GraphicsEngine/Model3DManager.h"
+#include "public/SDK/Model3DManager.h"
 
 sdk::Model3D sdk::Model3DManager::createModel3D(const std::string &levelIdentifier, const std::string &identifier,
                                            const std::string &fileModel, const Math::Vector3F &position,

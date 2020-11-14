@@ -4,10 +4,10 @@
 // Command pool is use to create command buffer
 //
 
-#include "CommandPool.h"
-#include "PhysicalDevice.h"
-#include "LogicalDevice.h"
-#include "QueueFamilyHint.h"
+#include "GraphicsEngine/CommandPool.h"
+#include "GraphicsEngine/PhysicalDevice.h"
+#include "GraphicsEngine/LogicalDevice.h"
+#include "GraphicsEngine/QueueFamilyHint.h"
 
 void graphics::CommandPool::initialize(const LogicalDevice &logicalDevice)
 {

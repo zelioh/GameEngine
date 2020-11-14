@@ -7,9 +7,9 @@
 #define STB_IMAGE_IMPLEMENTATION
 
 #include "public/GraphicsEngine/Texture.h"
-#include "LogicalDevice.h"
-#include "Swapchain.h"
-#include "SUniformBufferObject.h"
+#include "GraphicsEngine/LogicalDevice.h"
+#include "GraphicsEngine/Swapchain.h"
+#include "GraphicsEngine/SUniformBufferObject.h"
 
 graphics::Texture::Texture(const std::string & name,
                            stbi_uc *pixels,

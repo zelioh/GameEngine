@@ -2,9 +2,9 @@
 // Created by tangt on 04/11/2020.
 //
 
-#include "Model3DManager.h"
-#include "Model3D.h"
-#include "SceneManager.h"
+#include "GraphicsEngine/Model3DManager.h"
+#include "GraphicsEngine/Model3D.h"
+#include "GraphicsEngine/SceneManager.h"
 #include "Debug_utils.h"
 
 /*static*/ object::Model3DManager * object::Model3DManager::getInstance()

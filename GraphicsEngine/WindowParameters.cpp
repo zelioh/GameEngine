@@ -4,7 +4,7 @@
 // Class use for parameters the window
 //
 
-#include "WindowParameters.h"
+#include "GraphicsEngine/WindowParameters.h"
 
 graphics::WindowParameters::WindowParameters(const std::string &name,
                                              bool isFullScreen,

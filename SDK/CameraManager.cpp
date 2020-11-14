@@ -2,8 +2,8 @@
 // Created by FiercePC on 09/11/2020.
 //
 
-#include "CameraManager.h"
-#include "Objects/CameraManager.h"
+#include "public/SDK/CameraManager.h"
+#include "public/GraphicsEngine/CameraManager.h"
 
 sdk::Camera sdk::CameraManager::createCamera(const std::string &levelIdentifier, const std::string &cameraIdentifier,
                                         const Math::Vector3F &position, const Math::Vector3F &target,

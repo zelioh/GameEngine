@@ -7,7 +7,7 @@ add_library(Math OBJECT
         Math_utils.inl Math_utils.h
         SRotation.h SRotation.cpp MathEngine.h)
 
-set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/Math/ .)
+set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/Math)
 set(Math_INCLUDE_DIR "${INCLUDE_DIR}" CACHE INTERNAL "")
 
 target_link_libraries(Math PUBLIC Debug)

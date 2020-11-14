@@ -2,9 +2,9 @@
 // Created by theos on 03/11/2020.
 //
 
-#include "Light.h"
+#include "GraphicsEngine/Light.h"
 #include "../../Math/Math_utils.h"
-#include "LogicalDevice.h"
+#include "GraphicsEngine/LogicalDevice.h"
 
 float object::Light::getStrength() const
 {

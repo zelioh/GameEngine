@@ -5,7 +5,7 @@
 add_library(Debug OBJECT
         Debug_utils.h Debug_utils.inl)
 
-set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/Debug/ .)
+set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/Debug/)
 set(Debug_INCLUDE_DIR "${INCLUDE_DIR}" CACHE INTERNAL "")
 
 target_include_directories(Debug PUBLIC ${Debug_INCLUDE_DIR} ${CMAKE_SOURCE_DIR}/Debug/ .)

@@ -5,7 +5,7 @@ add_library(HIDEngine OBJECT
         Event.cpp Event.h
         WindowEvent.cpp WindowEvent.h)
 
-set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/HIDEngine/ .)
+set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/HIDEngine/)
 set(HIDEngine_INCLUDE_DIR "${INCLUDE_DIR}" CACHE INTERNAL "")
 
 set_target_properties(HIDEngine PROPERTIES

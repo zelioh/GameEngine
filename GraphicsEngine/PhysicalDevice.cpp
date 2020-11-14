@@ -4,10 +4,10 @@
 // Class that implement physical device creation in Vulkan. That represent all graphic card information of the computer
 //
 
-#include "PhysicalDevice.h"
-#include "QueueFamilyHint.h"
-#include "SwapchainDetails.h"
-#include "Instance.h"
+#include "GraphicsEngine/PhysicalDevice.h"
+#include "GraphicsEngine/QueueFamilyHint.h"
+#include "GraphicsEngine/SwapchainDetails.h"
+#include "GraphicsEngine/Instance.h"
 #include <set>
 
 graphics::PhysicalDevice * graphics::PhysicalDevice::getInstance()

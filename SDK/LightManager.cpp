@@ -2,8 +2,8 @@
 // Created by FiercePC on 09/11/2020.
 //
 
-#include "LightManager.h"
-#include "Objects/LightManager.h"
+#include "public/SDK/LightManager.h"
+#include "public/GraphicsEngine/LightManager.h"
 
 sdk::Light sdk::LightManager::createLight(const std::string &levelIdentifier, const std::string &LightIdentifier,
                                      const Math::Vector3F &position, float strength, float specular,

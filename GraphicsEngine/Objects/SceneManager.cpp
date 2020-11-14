@@ -2,9 +2,9 @@
 // Created by tangt on 31/10/2020.
 //
 
-#include "SceneManager.h"
-#include "Scene.h"
-#include "Camera.h"
+#include "GraphicsEngine/SceneManager.h"
+#include "GraphicsEngine/Scene.h"
+#include "GraphicsEngine/Camera.h"
 
 object::SceneManager * object::SceneManager::getInstance()
 {

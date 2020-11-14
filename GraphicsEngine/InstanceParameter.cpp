@@ -4,7 +4,7 @@
 // This class is use for parameter a graphics::Instance inside the motor
 //
 
-#include "InstanceParameter.h"
+#include "GraphicsEngine/InstanceParameter.h"
 
 void graphics::InstanceParameter::setApplicationName(const std::string &applicationName)
 {

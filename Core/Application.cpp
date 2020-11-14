@@ -3,18 +3,18 @@
 //
 
 #include "public/Core/Application.h"
-#include "InstanceParameter.h"
-#include "WindowParameters.h"
+#include "public/GraphicsEngine/InstanceParameter.h"
+#include "public/GraphicsEngine/WindowParameters.h"
 #include "public/GraphicsEngine/Window.h"
 
-#include "Instance.h"
-#include "LogicalDevice.h"
-#include "PhysicalDevice.h"
-#include "Swapchain.h"
-#include "Shader.h"
-#include "Pipeline.h"
-#include "Renderer.h"
-#include "Objects/SceneManager.h"
+#include "public/GraphicsEngine/Instance.h"
+#include "public/GraphicsEngine/LogicalDevice.h"
+#include "public/GraphicsEngine/PhysicalDevice.h"
+#include "public/GraphicsEngine/Swapchain.h"
+#include "public/GraphicsEngine/Shader.h"
+#include "public/GraphicsEngine/Pipeline.h"
+#include "public/GraphicsEngine/Renderer.h"
+#include "public/GraphicsEngine/SceneManager.h"
 #include "public/GraphicsEngine/TextureManager.h"
 #include "WindowEvent.h"
 

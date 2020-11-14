@@ -4,10 +4,10 @@
 // Class use for the render pass instancing
 //
 
-#include "RenderPass.h"
-#include "swapchain.h"
-#include "LogicalDevice.h"
-#include "PhysicalDevice.h"
+#include "GraphicsEngine/RenderPass.h"
+#include "GraphicsEngine/Swapchain.h"
+#include "GraphicsEngine/LogicalDevice.h"
+#include "GraphicsEngine/PhysicalDevice.h"
 
 void graphics::RenderPass::initialize()
 {

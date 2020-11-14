@@ -2,9 +2,9 @@
 // Created by tangt on 04/11/2020.
 //
 
-#include "Model3D.h"
-#include "LogicalDevice.h"
-#include "Objects/Objects_utils.h"
+#include "GraphicsEngine/Model3D.h"
+#include "GraphicsEngine/LogicalDevice.h"
+#include "GraphicsEngine/Objects_utils.h"
 
 object::Model3D::Model3D(const std::string &levelIdentifier,
                          const std::string &identifier,

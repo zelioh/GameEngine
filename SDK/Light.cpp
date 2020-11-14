@@ -2,8 +2,8 @@
 // Created by FiercePC on 09/11/2020.
 //
 
-#include "Light.h"
-#include "Objects/Light.h"
+#include "public/SDK/Light.h"
+#include "public/GraphicsEngine/Light.h"
 
 sdk::Light::Light(object::Light *pLight):
 m_pLight(pLight)

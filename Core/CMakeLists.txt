@@ -13,7 +13,7 @@ target_link_libraries(Core PUBLIC PhysicsEngine)
 target_link_libraries(Core PUBLIC Math)
 target_link_libraries(Core PUBLIC Debug)
 
-set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/Core/ . public/Core/)
+set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/Core/ ${CMAKE_SOURCE_DIR}/Core/public/Core/)
 set(Core_INCLUDE_DIR "${INCLUDE_DIR}" CACHE INTERNAL "")
 
 target_include_directories(Core PUBLIC ${Core_INCLUDE_DIR})
@@ -21,6 +21,9 @@ target_include_directories(Core PRIVATE ${GraphicsEngine_INCLUDE_DIR})
 target_include_directories(Core PUBLIC ${HIDEngine_INCLUDE_DIR})
 target_include_directories(Core PUBLIC ${PhysicalEngine_INCLUDE_DIR})
 target_include_directories(Core PUBLIC ${Math_INCLUDE_DIR})
+target_include_directories(Core PUBLIC $<TARGET_PROPERTY:Math,INCLUDE_DIRECTORIES>)
+target_include_directories(Core PUBLIC ${CMAKE_SOURCE_DIR}/Math)
+target_include_directories(Core PUBLIC ${CMAKE_SOURCE_DIR}/GraphicsEngine)
 target_include_directories(Core PUBLIC ${Debug_INCLUDE_DIR})
 
 set_target_properties(Core PROPERTIES

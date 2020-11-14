@@ -2,8 +2,8 @@
 // Created by FiercePC on 09/11/2020.
 //
 
-#include "Scene.h"
-#include "Objects/Scene.h"
+#include "public/SDK/Scene.h"
+#include "public/GraphicsEngine/Scene.h"
 
 sdk::Scene::Scene(object::Scene *pEngineScene):
 m_pScene(pEngineScene)

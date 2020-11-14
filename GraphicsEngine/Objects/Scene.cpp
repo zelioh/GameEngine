@@ -2,15 +2,15 @@
 // Created by tangt on 31/10/2020.
 //
 
-#include "Scene.h"
-#include "CubeManager.h"
-#include "CameraManager.h"
-#include "PlaneManager.h"
-#include "Model3DManager.h"
-#include "LightManager.h"
-#include "Light.h"
-#include "Cube.h"
-#include "GameObject.h"
+#include "GraphicsEngine/Scene.h"
+#include "GraphicsEngine/CubeManager.h"
+#include "GraphicsEngine/CameraManager.h"
+#include "GraphicsEngine/PlaneManager.h"
+#include "GraphicsEngine/Model3DManager.h"
+#include "GraphicsEngine/LightManager.h"
+#include "GraphicsEngine/Light.h"
+#include "GraphicsEngine/Cube.h"
+#include "GraphicsEngine/GameObject.h"
 
 object::Scene::Scene(const std::string &identifier):
 m_strIdentifier(identifier),

@@ -4,8 +4,8 @@
 // Represent a cube into the game
 //
 
-#include "Cube.h"
-#include "LogicalDevice.h"
+#include "GraphicsEngine/Cube.h"
+#include "GraphicsEngine/LogicalDevice.h"
 
 object::Cube::Cube(const std::string & levelIdentifier,
                    const std::string & identifier,

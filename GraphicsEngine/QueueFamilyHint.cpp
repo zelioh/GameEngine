@@ -4,10 +4,10 @@
 // Class use for check if a physical device can be use by Vulkan
 //
 
-#include "QueueFamilyHint.h"
-#include "Surface.h"
-#include "PhysicalDevice.h"
-#include "Instance.h"
+#include "GraphicsEngine/QueueFamilyHint.h"
+#include "GraphicsEngine/Surface.h"
+#include "GraphicsEngine/PhysicalDevice.h"
+#include "GraphicsEngine/Instance.h"
 
 graphics::QueueFamilyHint::QueueFamilyHint(const PhysicalDevice &physicalDevice)
 {

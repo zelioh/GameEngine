@@ -4,9 +4,9 @@
 // Class use for get swapchain information with a given physicalDevice
 //
 
-#include "SwapchainDetails.h"
-#include "PhysicalDevice.h"
-#include "Instance.h"
+#include "GraphicsEngine/SwapchainDetails.h"
+#include "GraphicsEngine/PhysicalDevice.h"
+#include "GraphicsEngine/Instance.h"
 
 graphics::SwapchainDetails::SwapchainDetails(const graphics::PhysicalDevice &physicalDevice)
 {

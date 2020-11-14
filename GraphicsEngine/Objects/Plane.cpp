@@ -2,8 +2,8 @@
 // Created by tangt on 03/11/2020.
 //
 
-#include "Plane.h"
-#include "LogicalDevice.h"
+#include "GraphicsEngine/Plane.h"
+#include "GraphicsEngine/LogicalDevice.h"
 
 object::Plane::Plane(const std::string & levelIdentifier,
                    const std::string & identifier,

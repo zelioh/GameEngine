@@ -4,14 +4,14 @@
 // Class that represente the logical device, use for queue and pipeline instancing
 //
 
-#include "LogicalDevice.h"
-#include "PhysicalDevice.h"
-#include "QueueFamilyHint.h"
-#include "ValidationLayer.h"
-#include "Instance.h"
-#include "CommandPool.h"
+#include "GraphicsEngine/LogicalDevice.h"
+#include "GraphicsEngine/PhysicalDevice.h"
+#include "GraphicsEngine/QueueFamilyHint.h"
+#include "GraphicsEngine/ValidationLayer.h"
+#include "GraphicsEngine/Instance.h"
+#include "GraphicsEngine/CommandPool.h"
 #include <set>
-#include "Vertex.h"
+#include "GraphicsEngine/Vertex.h"
 
 graphics::LogicalDevice * graphics::LogicalDevice::getInstance()
 {

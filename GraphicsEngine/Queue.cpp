@@ -4,7 +4,7 @@
 // Class that represent the different queue usage in the engine
 //
 
-#include "Queue.h"
+#include "GraphicsEngine/Queue.h"
 
 graphics::Queue::Queue(const vk::Queue &queue):
 m_queue(queue)

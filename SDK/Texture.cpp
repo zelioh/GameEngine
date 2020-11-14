@@ -2,7 +2,7 @@
 // Created by FiercePC on 09/11/2020.
 //
 
-#include "Texture.h"
+#include "public/SDK/Texture.h"
 #include "public/GraphicsEngine/Texture.h"
 
 sdk::Texture::Texture(graphics::Texture *pEngineTexture):

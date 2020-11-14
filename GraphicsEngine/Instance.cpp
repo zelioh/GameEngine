@@ -2,9 +2,9 @@
 // Created by tangt on 06/10/2020.
 //
 
-#include "Instance.h"
-#include "InstanceParameter.h"
-#include "ValidationLayer.h"
+#include "GraphicsEngine/Instance.h"
+#include "GraphicsEngine/InstanceParameter.h"
+#include "GraphicsEngine/ValidationLayer.h"
 #include "public/GraphicsEngine/Window.h"
 
 graphics::Instance * graphics::Instance::getInstance()

@@ -4,7 +4,7 @@
 // Class that load a shader with vertex and fragment shader path file
 //
 
-#include "Shader.h"
+#include "GraphicsEngine/Shader.h"
 #include <fstream>
 
 graphics::Shader::Shader(const std::string &vertexPath, const std::string &fragmentPath)

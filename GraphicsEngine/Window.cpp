@@ -3,11 +3,11 @@
 //
 
 #include "public/GraphicsEngine/Window.h"
-#include "WindowParameters.h"
+#include "GraphicsEngine/WindowParameters.h"
 #include <stdexcept>
 #include "WinUser.h"
 #include "WindowEvent.h"
-#include "Objects/SceneManager.h"
+#include "GraphicsEngine/SceneManager.h"
 #include "Windowsx.h"
 
 graphics::Window::Window():

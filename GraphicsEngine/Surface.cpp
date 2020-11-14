@@ -4,8 +4,8 @@
 // Class that represent the surface use on the window
 //
 
-#include "Surface.h"
-#include "Instance.h"
+#include "GraphicsEngine/Surface.h"
+#include "GraphicsEngine/Instance.h"
 #include "public/GraphicsEngine/Window.h"
 
 void graphics::Surface::initialize(const Instance &instance)

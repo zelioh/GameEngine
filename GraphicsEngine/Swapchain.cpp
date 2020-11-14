@@ -4,17 +4,17 @@
 // Class that represent the swapchain, use for send the render informations to the surface
 //
 
-#include "Swapchain.h"
-#include "LogicalDevice.h"
-#include "PhysicalDevice.h"
-#include "SwapchainDetails.h"
-#include "QueueFamilyHint.h"
-#include "Instance.h"
-#include "Vertex.h"
-#include "SUniformBufferObject.h"
+#include "GraphicsEngine/Swapchain.h"
+#include "GraphicsEngine/LogicalDevice.h"
+#include "GraphicsEngine/PhysicalDevice.h"
+#include "GraphicsEngine/SwapchainDetails.h"
+#include "GraphicsEngine/QueueFamilyHint.h"
+#include "GraphicsEngine/Instance.h"
+#include "GraphicsEngine/Vertex.h"
+#include "GraphicsEngine/SUniformBufferObject.h"
 #include "public/GraphicsEngine/Window.h"
-#include "Pipeline.h"
-#include "Renderer.h"
+#include "GraphicsEngine/Pipeline.h"
+#include "GraphicsEngine/Renderer.h"
 #include "public/GraphicsEngine/TextureManager.h"
 
 graphics::Swapchain * graphics::Swapchain::getInstance()

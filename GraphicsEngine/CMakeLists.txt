@@ -1,46 +1,46 @@
 # CMake list that build graphics engine dll
 
 set(OBJECT_SRC
-        Objects/GameObject.cpp Objects/GameObject.h
-        Objects/Cube.cpp Objects/Cube.h
-        Objects/CubeManager.cpp Objects/CubeManager.h
-        Objects/ITextureObject.cpp Objects/ITextureObject.h
-        Objects/Scene.cpp Objects/Scene.h
-        Objects/SceneManager.cpp Objects/SceneManager.h
-        Objects/CameraManager.cpp Objects/CameraManager.h
-        Objects/Camera.cpp Objects/Camera.h
-		Objects/Plane.cpp Objects/Plane.h
-		Objects/PlaneManager.cpp Objects/PlaneManager.h
-		Objects/Objects_utils.cpp Objects/Objects_utils.h
-		Objects/Model3D.cpp Objects/Model3D.h
-		Objects/Model3DManager.cpp Objects/Model3DManager.h
-        Objects/LightManager.h Objects/LightManager.cpp
-        Objects/Light.h Objects/Light.cpp
+        Objects/GameObject.cpp public/GraphicsEngine/GameObject.h
+        Objects/Cube.cpp public/GraphicsEngine/Cube.h
+        Objects/CubeManager.cpp public/GraphicsEngine/CubeManager.h
+        Objects/ITextureObject.cpp public/GraphicsEngine/ITextureObject.h
+        Objects/Scene.cpp public/GraphicsEngine/Scene.h
+        Objects/SceneManager.cpp public/GraphicsEngine/SceneManager.h
+        Objects/CameraManager.cpp public/GraphicsEngine/CameraManager.h
+        Objects/Camera.cpp public/GraphicsEngine/Camera.h
+		Objects/Plane.cpp public/GraphicsEngine/Plane.h
+		Objects/PlaneManager.cpp public/GraphicsEngine/PlaneManager.h
+		Objects/Objects_utils.cpp public/GraphicsEngine/Objects_utils.h
+		Objects/Model3D.cpp public/GraphicsEngine/Model3D.h
+		Objects/Model3DManager.cpp public/GraphicsEngine/Model3DManager.h
+		public/GraphicsEngine/LightManager.h Objects/LightManager.cpp
+		public/GraphicsEngine/Light.h Objects/Light.cpp
         )
 
 add_library(GraphicsEngine OBJECT
-        Instance.cpp Instance.h
-        InstanceParameter.cpp InstanceParameter.h
-        ValidationLayer.cpp ValidationLayer.h
-        PhysicalDevice.cpp PhysicalDevice.h
-        QueueFamilyHint.cpp QueueFamilyHint.h
-        Surface.cpp Surface.h
-        SwapchainDetails.cpp SwapchainDetails.h
-        LogicalDevice.cpp LogicalDevice.h
-        Queue.cpp Queue.h
-        Swapchain.cpp Swapchain.h
-        RenderPass.cpp RenderPass.h
-        Pipeline.cpp Pipeline.h
-        Shader.cpp Shader.h
-        Vertex.cpp Vertex.h
-        CommandPool.cpp CommandPool.h
-        CommandBuffer.cpp CommandBuffer.h
-        SUniformBufferObject.h
+        Instance.cpp public/GraphicsEngine/Instance.h
+        InstanceParameter.cpp public/GraphicsEngine/InstanceParameter.h
+        ValidationLayer.cpp public/GraphicsEngine/ValidationLayer.h
+        PhysicalDevice.cpp public/GraphicsEngine/PhysicalDevice.h
+        QueueFamilyHint.cpp public/GraphicsEngine/QueueFamilyHint.h
+        Surface.cpp public/GraphicsEngine/Surface.h
+        SwapchainDetails.cpp public/GraphicsEngine/SwapchainDetails.h
+        LogicalDevice.cpp public/GraphicsEngine/LogicalDevice.h
+        Queue.cpp public/GraphicsEngine/Queue.h
+        Swapchain.cpp public/GraphicsEngine/Swapchain.h
+        RenderPass.cpp public/GraphicsEngine/RenderPass.h
+        Pipeline.cpp public/GraphicsEngine/Pipeline.h
+        Shader.cpp public/GraphicsEngine/Shader.h
+        Vertex.cpp public/GraphicsEngine/Vertex.h
+        CommandPool.cpp public/GraphicsEngine/CommandPool.h
+        CommandBuffer.cpp public/GraphicsEngine/CommandBuffer.h
+		public/GraphicsEngine/SUniformBufferObject.h
         TextureManager.cpp public/GraphicsEngine/TextureManager.h
         Texture.cpp public/GraphicsEngine/Texture.h
         Window.cpp public/GraphicsEngine/Window.h
-        WindowParameters.cpp WindowParameters.h
-        Renderer.cpp Renderer.h
+        WindowParameters.cpp public/GraphicsEngine/WindowParameters.h
+        Renderer.cpp public/GraphicsEngine/Renderer.h
         ${OBJECT_SRC}
 		public/GraphicsEngine/GraphicsEngine.h)
 
@@ -52,19 +52,21 @@ target_link_libraries(GraphicsEngine PUBLIC Debug)
 target_link_libraries(GraphicsEngine PUBLIC PhysicsEngine)
 target_link_libraries(GraphicsEngine PUBLIC HIDEngine)
 
-target_include_directories(GraphicsEngine PUBLIC Objects/)
-target_include_directories(GraphicsEngine PUBLIC .)
-target_include_directories(GraphicsEngine PUBLIC public/)
+target_include_directories(GraphicsEngine PUBLIC ${CMAKE_SOURCE_DIR}/GraphicsEngine/Objects/)
+target_include_directories(GraphicsEngine PUBLIC ${CMAKE_SOURCE_DIR}/GraphicsEngine/public/)
 target_include_directories(GraphicsEngine PUBLIC ${Vulkan_INCLUDE_DIR})
-target_include_directories(GraphicsEngine PUBLIC ${CMAKE_SOURCE_DIR})
+target_include_directories(GraphicsEngine PUBLIC ${CMAKE_SOURCE_DIR}/GraphicsEngine)
 target_include_directories(GraphicsEngine PUBLIC ${Debug_INCLUDE_DIR})
 target_include_directories(GraphicsEngine PUBLIC ${PhysicalEngine_INCLUDE_DIR})
 target_include_directories(GraphicsEngine PUBLIC ${HIDEngine_INCLUDE_DIR})
+target_include_directories(GraphicsEngine PUBLIC ${Math_INCLUDE_DIR})
+target_include_directories(GraphicsEngine PUBLIC $<TARGET_PROPERTY:Math,INCLUDE_DIRECTORIES>)
+target_include_directories(GraphicsEngine PUBLIC ${CMAKE_SOURCE_DIR}/Math)
 target_include_directories(GraphicsEngine PRIVATE ${CMAKE_SOURCE_DIR}/dependencies/stb)
 
 add_definitions(-DUNICODE)
 
-set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/GraphicsEngine/ ${Vulkan_INCLUDE_DIR} Objects/ . public/)
+set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/GraphicsEngine/ ${Vulkan_INCLUDE_DIR} ${CMAKE_SOURCE_DIR}/GraphicsEngine/Objects/ ${CMAKE_SOURCE_DIR}/GraphicsEngine/public/)
 
 set(GraphicsEngine_INCLUDE_DIR "${INCLUDE_DIR}" CACHE INTERNAL "")
 

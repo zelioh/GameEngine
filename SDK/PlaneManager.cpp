@@ -2,9 +2,9 @@
 // Created by FiercePC on 09/11/2020.
 //
 
-#include "PlaneManager.h"
-#include "Objects/PlaneManager.h"
-#include "Objects/Plane.h"
+#include "public/SDK/PlaneManager.h"
+#include "public/GraphicsEngine/PlaneManager.h"
+#include "public/GraphicsEngine/Plane.h"
 
 sdk::Plane sdk::PlaneManager::createPlane(const std::string &levelIdentifier, const std::string &planeIdentifier,
                                      const Math::Vector3F &position, const Math::Vector3F &color,

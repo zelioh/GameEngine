@@ -13,7 +13,7 @@ add_library(PhysicsEngine OBJECT
 
 target_link_libraries(PhysicsEngine PUBLIC Math)
 
-set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/PhysicsEngine/ .)
+set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/PhysicsEngine/)
 set(PhysicalEngine_INCLUDE_DIR "${INCLUDE_DIR}" CACHE INTERNAL "")
 
 target_include_directories(PhysicsEngine PUBLIC ${Math_INCLUDE_DIR})

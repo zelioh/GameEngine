@@ -4,9 +4,9 @@
 // Use for create a cube Instance
 //
 
-#include "CubeManager.h"
-#include "Cube.h"
-#include "SceneManager.h"
+#include "GraphicsEngine/CubeManager.h"
+#include "GraphicsEngine/Cube.h"
+#include "GraphicsEngine/SceneManager.h"
 #include "Debug_utils.h"
 
 /*static*/ object::CubeManager * object::CubeManager::getInstance()

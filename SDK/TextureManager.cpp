@@ -2,7 +2,7 @@
 // Created by FiercePC on 09/11/2020.
 //
 
-#include "TextureManager.h"
+#include "public/SDK/TextureManager.h"
 #include "public/GraphicsEngine/Texture.h"
 #include "public/GraphicsEngine/TextureManager.h"
 

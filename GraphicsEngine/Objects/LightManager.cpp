@@ -2,9 +2,9 @@
 // Created by theos on 03/11/2020.
 //
 
-#include "LightManager.h"
-#include "Light.h"
-#include "SceneManager.h"
+#include "GraphicsEngine/LightManager.h"
+#include "GraphicsEngine/Light.h"
+#include "GraphicsEngine/SceneManager.h"
 
 object::LightManager * object::LightManager::getInstance()
 {

@@ -36,7 +36,7 @@ add_subdirectory(SDK)
 
 include(GenerateExportHeader)
 
-add_library(gameEngine STATIC null.cpp)
+add_library(gameEngine SHARED null.cpp)
 
 GENERATE_EXPORT_HEADER(gameEngine
         BASE_NAME gameEngine
@@ -45,13 +45,13 @@ GENERATE_EXPORT_HEADER(gameEngine
         STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC)
 
 target_link_libraries(gameEngine PRIVATE
-                                Core
                                 audioEngine
                                 PhysicsEngine
                                 GraphicsEngine
                                 )
 
 target_link_libraries(gameEngine PUBLIC
+                                Core
                                 Debug
                                 Math
                                 HIDEngine
@@ -74,5 +74,4 @@ set_target_properties(gameEngine PROPERTIES
                         IMPORTED_LOCATION "${GAME_ENGINE_LIBRARIES}"
                         INTERFACE_INCLUDE_DIRECTORIES "${GAME_ENGINE_INCLUDE_DIRS}")
 
-message("GraphicsEngine_INCLUDE_DIR==${GAME_ENGINE_INCLUDE_DIRS}")
-message("GAME_ENGINE_LIBRARIES==${GAME_ENGINE_LIBRARIES}")
+add_subdirectory(demo)

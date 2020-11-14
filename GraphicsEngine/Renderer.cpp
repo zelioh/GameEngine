@@ -2,15 +2,15 @@
 // Created by tangt on 26/10/2020.
 //
 
-#include "Renderer.h"
-#include "Swapchain.h"
-#include "LogicalDevice.h"
-#include "Pipeline.h"
-#include "Objects/SceneManager.h"
-#include "Objects/Scene.h"
-#include "SUniformBufferObject.h"
-#include "Objects/Camera.h"
-#include "Objects/CameraManager.h"
+#include "GraphicsEngine/Renderer.h"
+#include "GraphicsEngine/Swapchain.h"
+#include "GraphicsEngine/LogicalDevice.h"
+#include "GraphicsEngine/Pipeline.h"
+#include "GraphicsEngine/SceneManager.h"
+#include "GraphicsEngine/Scene.h"
+#include "GraphicsEngine/SUniformBufferObject.h"
+#include "GraphicsEngine/Camera.h"
+#include "GraphicsEngine/CameraManager.h"
 
 graphics::Renderer::Renderer():
 m_currentFrame(0),

@@ -4,13 +4,13 @@
 // Graphics pipeline implementation, use to bind a shader, viewport, scissor, rasterizer, ... with the command buffer
 //
 
-#include "Pipeline.h"
-#include "LogicalDevice.h"
-#include "Shader.h"
-#include "Vertex.h"
-#include "Swapchain.h"
-#include "PhysicalDevice.h"
-#include "SUniformBufferObject.h"
+#include "GraphicsEngine/Pipeline.h"
+#include "GraphicsEngine/LogicalDevice.h"
+#include "GraphicsEngine/Shader.h"
+#include "GraphicsEngine/Vertex.h"
+#include "GraphicsEngine/Swapchain.h"
+#include "GraphicsEngine/PhysicalDevice.h"
+#include "GraphicsEngine/SUniformBufferObject.h"
 
 graphics::Pipeline::Pipeline(const Shader &shader):
 m_shader(shader)

@@ -1,8 +1,11 @@
-﻿# CMakeList.txt : CMake project for AudioEngine, include source and define
-# project specific logic here.
-#
+﻿cmake_minimum_required(VERSION 3.14)
 
-# Add source to this project's executable.
-add_library(audioEngine OBJECT AudioEngine.cpp AudioEngine.h)
+project(AudioEngine)
 
-# TODO: Add tests and install targets if needed.
+add_library(AudioEngine SHARED
+        AudioEngine.cpp AudioEngine.h)
+
+add_executable(AudioEngineExe
+        AudioEngine.cpp AudioEngine.h main.c)
+
+target_link_libraries(AudioEngine Winmm)

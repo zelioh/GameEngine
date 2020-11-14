@@ -1,12 +1,8 @@
-﻿// AudioEngine.cpp : Defines the entry point for the application.
-//
-
-#include "AudioEngine.h"
+﻿#include "AudioEngine.h"
+#include <Windows.h>
 
 using namespace std;
 
-//int main()
-//{
-//	cout << "Hello CMake." << endl;
-//	return 0;
-//}
+int AudioEngine::PlayWav(const std::string& filename) {
+	return (PlaySound(TEXT(filename.c_str()), NULL, SND_ALIAS));
+}

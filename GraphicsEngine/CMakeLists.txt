@@ -42,25 +42,25 @@ add_library(GraphicsEngine OBJECT
         WindowParameters.cpp WindowParameters.h
         Renderer.cpp Renderer.h
         ${OBJECT_SRC}
-        )
+		public/GraphicsEngine/GraphicsEngine.h)
 
 find_package(Vulkan REQUIRED)
-find_library(ws2_32_LIBRARY_PATH ws2_32)
 
 target_link_libraries(GraphicsEngine PUBLIC ${Vulkan_LIBRARIES})
-#target_link_libraries(GraphicsEngine PUBLIC ${ws2_32_LIBRARY_PATH})
-target_link_libraries(GraphicsEngine PUBLIC Core)
+target_link_libraries(GraphicsEngine PUBLIC Math)
+target_link_libraries(GraphicsEngine PUBLIC Debug)
 target_link_libraries(GraphicsEngine PUBLIC PhysicsEngine)
 target_link_libraries(GraphicsEngine PUBLIC HIDEngine)
 
-target_include_directories(GraphicsEngine PUBLIC ${Vulkan_INCLUDE_DIR})
-target_include_directories(GraphicsEngine PUBLIC ${Core_INCLUDE_DIR})
-target_include_directories(GraphicsEngine PUBLIC ${PhysicalEngine_INCLUDE_DIR})
-target_include_directories(GraphicsEngine PUBLIC ${HIDEngine_INCLUDE_DIR})
-target_include_directories(GraphicsEngine PUBLIC ${CMAKE_SOURCE_DIR}/dependencies/stb)
 target_include_directories(GraphicsEngine PUBLIC Objects/)
 target_include_directories(GraphicsEngine PUBLIC .)
 target_include_directories(GraphicsEngine PUBLIC public/)
+target_include_directories(GraphicsEngine PUBLIC ${Vulkan_INCLUDE_DIR})
+target_include_directories(GraphicsEngine PUBLIC ${CMAKE_SOURCE_DIR})
+target_include_directories(GraphicsEngine PUBLIC ${Debug_INCLUDE_DIR})
+target_include_directories(GraphicsEngine PUBLIC ${PhysicalEngine_INCLUDE_DIR})
+target_include_directories(GraphicsEngine PUBLIC ${HIDEngine_INCLUDE_DIR})
+target_include_directories(GraphicsEngine PRIVATE ${CMAKE_SOURCE_DIR}/dependencies/stb)
 
 add_definitions(-DUNICODE)
 

@@ -9,12 +9,13 @@
 
 #define VK_USE_PLATFORM_WIN32_KHR
 #include "vulkan/vulkan.hpp"
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace graphics {
     class Instance;
     class Window;
 
-    class Surface {
+    class GRAPHICS_ENGINE_EXPORT Surface {
     public:
         Surface() = default;
 

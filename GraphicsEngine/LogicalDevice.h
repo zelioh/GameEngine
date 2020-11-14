@@ -9,13 +9,14 @@
 
 #include "Queue.h"
 #include "CommandPool.h"
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace graphics {
 
     class PhysicalDevice;
     struct Vertex;
 
-    class LogicalDevice
+    class GRAPHICS_ENGINE_EXPORT LogicalDevice
     {
     public:
         static LogicalDevice * getInstance();

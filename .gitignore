@@ -15,5 +15,6 @@ Win32
 
 build
 cmake-build-debug
+cmake-build-debug_x64_86
 cmake-build-release
 .idea

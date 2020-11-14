@@ -5,8 +5,8 @@
 #ifndef GAMEENGINE_SDK_GAMEOBJECT_H
 #define GAMEENGINE_SDK_GAMEOBJECT_H
 
-#include "Vector3F.h"
-#include "SRotation.h"
+#include "../Math/Vector3F.h"
+#include "../Math/SRotation.h"
 #include "PhysicsObject.h"
 #include "Texture.h"
 

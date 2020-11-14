@@ -8,10 +8,11 @@
 #define GAMEENGINE_INSTANCEPARAMETER_H
 
 #include <string>
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace graphics {
 
-    class InstanceParameter {
+    class GRAPHICS_ENGINE_EXPORT InstanceParameter {
     public:
         InstanceParameter() = default; ///< Default constrcutor
 

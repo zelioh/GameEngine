@@ -7,10 +7,11 @@
 #ifndef GAMEENGINE_SUNIFORMBUFFEROBJECT_H
 #define GAMEENGINE_SUNIFORMBUFFEROBJECT_H
 
-#include "Matrix4F.h"
-#include "Vector3F.h"
+#include "../Math/Matrix4F.h"
+#include "../Math/Vector3F.h"
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
-struct SUniformBufferObject
+struct GRAPHICS_ENGINE_EXPORT SUniformBufferObject
 {
     alignas(16) Math::Matrix4F model;
     alignas(16) Math::Matrix4F view;

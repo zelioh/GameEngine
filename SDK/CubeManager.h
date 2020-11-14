@@ -6,8 +6,8 @@
 #define GAMEENGINE_SDK_CUBEMANAGER_H
 
 #include <string>
-#include "Vector3F.h"
-#include "SRotation.h"
+#include "../Math/Vector3F.h"
+#include "../Math/SRotation.h"
 
 namespace sdk {
 

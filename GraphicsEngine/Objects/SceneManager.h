@@ -9,12 +9,14 @@
 #include <unordered_map>
 #include "Scene.h"
 
+#include "public/GraphicsEngine/GraphicsEngine.h"
+
 namespace object {
 
     class Scene;
     class Camera;
 
-    class SceneManager
+    class GRAPHICS_ENGINE_EXPORT SceneManager
     {
     public:
         static SceneManager * getInstance();

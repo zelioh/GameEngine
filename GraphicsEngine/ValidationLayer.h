@@ -10,11 +10,12 @@
 #include "vulkan/vulkan.hpp"
 #include <iostream>
 #include <vector>
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace graphics {
     class Instance;
 
-    class ValidationLayer {
+    class GRAPHICS_ENGINE_EXPORT ValidationLayer {
     public:
         ValidationLayer(); ///< Constructor will populate the debugMessenger info
 

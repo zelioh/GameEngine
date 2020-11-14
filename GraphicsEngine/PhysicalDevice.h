@@ -8,12 +8,13 @@
 #define GAMEENGINE_PHYSICALDEVICE_H
 
 #include "vulkan/vulkan.hpp"
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace graphics {
 
     class Instance;
 
-    class PhysicalDevice
+    class GRAPHICS_ENGINE_EXPORT PhysicalDevice
     {
     public:
         static PhysicalDevice * getInstance();

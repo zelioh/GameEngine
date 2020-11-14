@@ -6,10 +6,11 @@
 #define GAMEENGINE_MODEL3D_H
 
 #include "GameObject.h"
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace object {
 
-    class Model3D: public GameObject
+    class GRAPHICS_ENGINE_EXPORT Model3D: public GameObject
     {
 
         friend class Model3DManager;

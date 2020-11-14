@@ -5,7 +5,7 @@
 #include "Model3DManager.h"
 #include "Model3D.h"
 #include "SceneManager.h"
-#include "public/Core/Core_utils.h"
+#include "Debug_utils.h"
 
 /*static*/ object::Model3DManager * object::Model3DManager::getInstance()
 {

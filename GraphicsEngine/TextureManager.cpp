@@ -6,7 +6,7 @@
 
 #include "public/GraphicsEngine/TextureManager.h"
 #include "public/GraphicsEngine/Texture.h"
-#include "public/Core/Core_utils.h"
+#include "Debug_utils.h"
 
 /*static*/ graphics::TextureManager * graphics::TextureManager::getInstance()
 {

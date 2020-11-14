@@ -8,6 +8,7 @@
 #define GAMEENGINE_COMMANDBUFFER_H
 
 #include "vulkan/vulkan.hpp"
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace object
 {
@@ -26,7 +27,7 @@ namespace graphics {
     class LogicalDevice;
     class Pipeline;
 
-    class CommandBuffer {
+    class GRAPHICS_ENGINE_EXPORT CommandBuffer {
     public:
         CommandBuffer() = default;
 

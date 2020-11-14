@@ -7,8 +7,8 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include "Vector3F.h"
-#include "Vector2F.h"
+#include "../../Math/Vector3F.h"
+#include "../../Math/Vector2F.h"
 #include <unordered_map>
 
 std::vector<std::string> object::utils::splitString(const std::string & str, const std::string & delimiter)

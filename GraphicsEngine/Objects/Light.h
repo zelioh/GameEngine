@@ -5,15 +5,17 @@
 #ifndef GAMEENGINE_LIGHT_H
 #define GAMEENGINE_LIGHT_H
 
-#include "Vector3F.h"
-#include "Matrix4F.h"
+#include "../Math/Vector3F.h"
+#include "../Math/Matrix4F.h"
 #include "Cube.h"
+
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 #include <string>
 
 namespace object {
 
-    class Light: public Cube
+    class GRAPHICS_ENGINE_EXPORT Light: public Cube
     {
         friend class LightManager;
 

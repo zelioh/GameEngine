@@ -9,12 +9,13 @@
 
 #include "vulkan/vulkan.hpp"
 #include "stb_image.h"
+#include "GraphicsEngine.h"
 
 namespace graphics {
     class LogicalDevice;
     class Swapchain;
 
-    class Texture {
+    class GRAPHICS_ENGINE_EXPORT Texture {
 
         friend class TextureManager;
 

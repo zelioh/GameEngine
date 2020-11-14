@@ -8,6 +8,8 @@
 #include <string>
 #include <unordered_map>
 
+#include "public/GraphicsEngine/GraphicsEngine.h"
+
 namespace Math
 {
     class Vector3F;
@@ -17,7 +19,7 @@ namespace object {
 
     class Light;
 
-    class LightManager
+    class GRAPHICS_ENGINE_EXPORT LightManager
     {
 
         friend class Scene;

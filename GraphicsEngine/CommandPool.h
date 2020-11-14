@@ -8,12 +8,13 @@
 #define GAMEENGINE_COMMANDPOOL_H
 
 #include "vulkan/vulkan.hpp"
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace graphics {
 
     class LogicalDevice;
 
-    class CommandPool
+    class GRAPHICS_ENGINE_EXPORT CommandPool
     {
     public:
         CommandPool() = default;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Vector3F.h"
+#include "../Math/Vector3F.h"
 
 class IntersectData
 {

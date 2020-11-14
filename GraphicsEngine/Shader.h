@@ -9,10 +9,11 @@
 
 #include <string>
 #include <vector>
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace graphics {
 
-    class Shader {
+    class GRAPHICS_ENGINE_EXPORT Shader {
     public:
         Shader() = default;
         /**

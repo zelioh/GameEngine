@@ -7,16 +7,18 @@
 
 #include <unordered_map>
 #include <string>
-#include "Vector3F.h"
+#include "../Math/Vector3F.h"
 #include "LogicalDevice.h"
-#include "SRotation.h"
+#include "../Math/SRotation.h"
+
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace object {
 
     class Model3D;
     class GameObject;
 
-    class Model3DManager
+    class GRAPHICS_ENGINE_EXPORT Model3DManager
     {
     public:
 

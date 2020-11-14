@@ -1,7 +1,7 @@
 #pragma once
 
 #include "IntersectData.h"
-#include "Vector3F.h"
+#include "../Math/Vector3F.h"
 
 using namespace Math;
 

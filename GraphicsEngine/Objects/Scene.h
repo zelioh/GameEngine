@@ -10,12 +10,14 @@
 #include "GameObject.h"
 #include "PhysicsEngine.h"
 
+#include "public/GraphicsEngine/GraphicsEngine.h"
+
 namespace object {
 
     class Camera;
     class Light;
 
-    class Scene {
+    class GRAPHICS_ENGINE_EXPORT Scene {
 
         friend class SceneManager;
 

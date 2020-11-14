@@ -5,7 +5,7 @@
 #include "CameraManager.h"
 #include "Camera.h"
 #include "SceneManager.h"
-#include "public/Core/Core_utils.h"
+#include "Debug_utils.h"
 
 object::CameraManager * object::CameraManager::getInstance()
 {

@@ -6,9 +6,8 @@
 #define GAMEENGINE_APPLICATION_H
 
 #include <functional>
-#include <public/GraphicsEngine/Window.h>
 
-#include "Matrix4F.h"
+#include "../../../Math/Matrix4F.h"
 
 namespace graphics
 {

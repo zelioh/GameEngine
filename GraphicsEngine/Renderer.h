@@ -7,17 +7,13 @@
 
 #include "Objects/GameObject.h"
 #include "CommandBuffer.h"
-
-//namespace Math
-//{
-//    class Matrix4F;
-//}
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace graphics {
 
     class Swapchain;
 
-    class Renderer
+    class GRAPHICS_ENGINE_EXPORT Renderer
     {
     public:
         Renderer();

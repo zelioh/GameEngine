@@ -9,16 +9,17 @@
 
 #include <unordered_map>
 #include <string>
-#include "Vector3F.h"
+#include "../Math/Vector3F.h"
 #include "LogicalDevice.h"
-#include "SRotation.h"
+#include "../Math/SRotation.h"
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace object {
 
     class Cube;
     class GameObject;
 
-    class CubeManager {
+    class GRAPHICS_ENGINE_EXPORT CubeManager {
     public:
 
         friend class Scene;

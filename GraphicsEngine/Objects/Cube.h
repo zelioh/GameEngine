@@ -8,10 +8,11 @@
 #define GAMEENGINE_CUBE_H
 
 #include "GameObject.h"
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace object {
 
-class Cube : public GameObject
+class GRAPHICS_ENGINE_EXPORT Cube : public GameObject
     {
 
         friend class CubeManager;

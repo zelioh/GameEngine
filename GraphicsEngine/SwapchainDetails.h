@@ -8,12 +8,13 @@
 #define GAMEENGINE_SWAPCHAINDETAILS_H
 
 #include "vulkan/vulkan.hpp"
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace graphics {
 
     class PhysicalDevice;
 
-    class SwapchainDetails
+    class GRAPHICS_ENGINE_EXPORT SwapchainDetails
     {
     public:
         SwapchainDetails(const PhysicalDevice &physicalDevice);

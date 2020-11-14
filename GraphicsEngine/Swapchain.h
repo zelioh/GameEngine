@@ -10,6 +10,7 @@
 #include "vulkan/vulkan.hpp"
 
 #include "RenderPass.h"
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 #define MAX_FRAMES_IN_FLIGHT 2
 
@@ -24,7 +25,7 @@ namespace graphics {
     class Pipeline;
     class Renderer;
 
-    class Swapchain {
+    class GRAPHICS_ENGINE_EXPORT Swapchain {
     public:
         static Swapchain * getInstance();
 

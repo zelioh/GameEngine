@@ -11,13 +11,14 @@
 #include "ValidationLayer.h"
 #include "Surface.h"
 #include <vector>
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace graphics
 {
     class InstanceParameter;
     class Window;
 
-    class Instance {
+    class GRAPHICS_ENGINE_EXPORT Instance {
     public:
             static Instance * getInstance();
 

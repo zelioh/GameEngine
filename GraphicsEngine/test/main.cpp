@@ -4,6 +4,7 @@
 
 #include <windows.h>
 #include "WindowParameters.h"
+#include "public/GraphicsEngine/Window.h"
 
 #include "Instance.h"
 #include "InstanceParameter.h"
@@ -15,7 +16,7 @@
 #include "public/GraphicsEngine/TextureManager.h"
 #include "public/GraphicsEngine/Texture.h"
 #include "Objects/SceneManager.h"
-#include "Math_utils.h"
+#include "../../Math/Math_utils.h"
 #include "Objects/Camera.h"
 #include "Objects/CameraManager.h"
 #include "Objects/Plane.h"
@@ -27,8 +28,6 @@
 #include "Objects/Light.h"
 #include "Event.h"
 #include "public/Core/Application.h"
-
-
 
 void preInitialize(graphics::InstanceParameter &instanceParameter, graphics::WindowParameters & windowParameters)
 {

@@ -3,7 +3,7 @@
 //
 
 #include "Camera.h"
-#include "Math_utils.h"
+#include "Math/Math_utils.h"
 
 const Math::Vector3F & object::Camera::getPosition() const
 {

@@ -8,6 +8,8 @@
 #include <string>
 #include <unordered_map>
 
+#include "public/GraphicsEngine/GraphicsEngine.h"
+
 namespace Math
 {
     class Vector3F;
@@ -17,7 +19,7 @@ namespace object {
 
     class Camera;
 
-    class CameraManager
+    class GRAPHICS_ENGINE_EXPORT CameraManager
     {
     public:
         /**

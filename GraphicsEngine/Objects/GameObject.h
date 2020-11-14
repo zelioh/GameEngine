@@ -7,14 +7,16 @@
 #ifndef GAMEENGINE_GAMEOBJECT_H
 #define GAMEENGINE_GAMEOBJECT_H
 
-#include "Vector3F.h"
+#include "../Math/Vector3F.h"
 #include "Vertex.h"
 #include <vector>
 #include <string>
 
 #include "ITextureObject.h"
-#include "SRotation.h"
+#include "../Math/SRotation.h"
 #include "PhysicsObject.h"
+
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace graphics
 {
@@ -22,7 +24,7 @@ namespace graphics
 }
 
 namespace object {
-    class GameObject: public ITextureObject
+    class GRAPHICS_ENGINE_EXPORT GameObject: public ITextureObject
     {
     public:
         const Math::Vector3F & getPosition() const;

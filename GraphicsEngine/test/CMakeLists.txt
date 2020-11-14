@@ -1,6 +1,8 @@
 add_executable(GraphicsEngine_test WIN32 main.cpp)
 
 target_link_libraries(GraphicsEngine_test PUBLIC Core)
+target_link_libraries(GraphicsEngine_test PUBLIC Math)
+target_link_libraries(GraphicsEngine_test PUBLIC Debug)
 target_link_libraries(GraphicsEngine_test PUBLIC GraphicsEngine)
 target_link_libraries(GraphicsEngine_test PUBLIC PhysicsEngine)
 target_link_libraries(GraphicsEngine_test PUBLIC HIDEngine)

@@ -7,7 +7,7 @@
 #include "CubeManager.h"
 #include "Cube.h"
 #include "SceneManager.h"
-#include "public/Core/Core_utils.h"
+#include "Debug_utils.h"
 
 /*static*/ object::CubeManager * object::CubeManager::getInstance()
 {

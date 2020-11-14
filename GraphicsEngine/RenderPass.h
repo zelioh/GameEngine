@@ -8,12 +8,13 @@
 #define GAMEENGINE_RENDERPASS_H
 
 #include "vulkan/vulkan.hpp"
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace graphics {
 
     class Swapchain;
 
-    class RenderPass {
+    class GRAPHICS_ENGINE_EXPORT RenderPass {
     public:
         RenderPass() = default;
 

@@ -3,7 +3,7 @@
 //
 
 #include "Light.h"
-#include "Math_utils.h"
+#include "../../Math/Math_utils.h"
 #include "LogicalDevice.h"
 
 float object::Light::getStrength() const

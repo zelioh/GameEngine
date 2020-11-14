@@ -9,12 +9,13 @@
 
 #include <Windows.h>
 #include <functional>
+#include "GraphicsEngine.h"
 
 namespace graphics {
 
     class WindowParameters;
 
-    class Window
+    class GRAPHICS_ENGINE_EXPORT Window
     {
     public:
         using EventCallback = std::function<void(int inputID)>;

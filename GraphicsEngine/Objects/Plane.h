@@ -7,9 +7,11 @@
 
 #include "Cube.h"
 
+#include "public/GraphicsEngine/GraphicsEngine.h"
+
 namespace object {
 
-    class Plane: public Cube
+    class GRAPHICS_ENGINE_EXPORT Plane: public Cube
     {
 
         friend class PlaneManager;

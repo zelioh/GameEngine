@@ -8,7 +8,7 @@
 #include <functional>
 #include "InstanceParameter.h"
 #include "WindowParameters.h"
-#include "Matrix4F.h"
+#include "../Math/Matrix4F.h"
 
 namespace core
 {

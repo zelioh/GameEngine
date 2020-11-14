@@ -8,12 +8,13 @@
 #define GAMEENGINE_VERTEX_H
 
 #include "vulkan/vulkan.hpp"
-#include "Vector3F.h"
-#include "Vector2F.h"
+#include "../Math/Vector3F.h"
+#include "../Math/Vector2F.h"
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace graphics {
 
-    struct Vertex {
+    struct GRAPHICS_ENGINE_EXPORT Vertex {
 
         Math::Vector3F m_position;
         Math::Vector3F m_color;

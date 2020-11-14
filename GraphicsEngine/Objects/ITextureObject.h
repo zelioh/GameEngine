@@ -5,6 +5,8 @@
 #ifndef GAMEENGINE_ITEXTUREOBJECT_H
 #define GAMEENGINE_ITEXTUREOBJECT_H
 
+#include "public/GraphicsEngine/GraphicsEngine.h"
+
 namespace graphics
 {
     class Texture;
@@ -12,7 +14,7 @@ namespace graphics
 
 namespace object {
 
-    class ITextureObject {
+    class GRAPHICS_ENGINE_EXPORT ITextureObject {
     public:
         graphics::Texture * getTexture() const;
         void setTexture(graphics::Texture  * texture);

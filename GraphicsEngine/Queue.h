@@ -8,10 +8,11 @@
 #define GAMEENGINE_QUEUE_H
 
 #include "vulkan/vulkan.hpp"
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace graphics {
 
-    class Queue {
+    class GRAPHICS_ENGINE_EXPORT Queue {
     public:
         Queue() = default;
         Queue(const vk::Queue & queue);

@@ -8,10 +8,11 @@
 #define GAMEENGINE_WINDOWPARAMETERS_H
 
 #include <string>
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace graphics {
 
-    class WindowParameters {
+    class GRAPHICS_ENGINE_EXPORT WindowParameters {
 
     public:
 

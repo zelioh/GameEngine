@@ -10,13 +10,14 @@
 
 #include "vulkan/vulkan.hpp"
 #include "Shader.h"
+#include "public/GraphicsEngine/GraphicsEngine.h"
 
 namespace graphics {
     class LogicalDevice;
     class Shader;
     class Swapchain;
 
-    class Pipeline
+    class GRAPHICS_ENGINE_EXPORT Pipeline
     {
     public:
         Pipeline() = default; ///< Default constructor

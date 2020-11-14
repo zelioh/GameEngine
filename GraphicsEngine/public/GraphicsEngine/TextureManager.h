@@ -9,6 +9,7 @@
 
 #include <string>
 #include <unordered_map>
+#include "GraphicsEngine.h"
 
 namespace graphics {
 
@@ -16,7 +17,7 @@ namespace graphics {
     class Swapchain;
     class Texture;
 
-    class TextureManager {
+    class GRAPHICS_ENGINE_EXPORT TextureManager {
     public:
         static TextureManager * getInstance(); ///< Singletone that return a TextureManager instance
         /**

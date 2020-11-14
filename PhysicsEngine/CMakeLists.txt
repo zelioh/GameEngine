@@ -11,12 +11,12 @@ add_library(PhysicsEngine OBJECT
 		PhysicsEngine.h PhysicsEngine.cpp
 		)
 
-target_link_libraries(PhysicsEngine PUBLIC Core)
+target_link_libraries(PhysicsEngine PUBLIC Math)
 
 set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/PhysicsEngine/ .)
 set(PhysicalEngine_INCLUDE_DIR "${INCLUDE_DIR}" CACHE INTERNAL "")
 
-target_include_directories(PhysicsEngine PUBLIC ${Core_INCLUDE_DIR})
+target_include_directories(PhysicsEngine PUBLIC ${Math_INCLUDE_DIR})
 target_include_directories(PhysicsEngine PUBLIC ${PhysicalEngine_INCLUDE_DIR})
 target_include_directories(PhysicsEngine PUBLIC .)
 

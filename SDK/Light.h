@@ -5,7 +5,7 @@
 #ifndef GAMEENGINE_SDK_LIGHT_H
 #define GAMEENGINE_SDK_LIGHT_H
 
-#include "Vector3F.h"
+#include "../Math/Vector3F.h"
 #include <string>
 
 namespace object

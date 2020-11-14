@@ -9,13 +9,14 @@
 
 #include "vulkan/vulkan.hpp"
 #include <optional>
+#include "GraphicsEngine/GraphicsEngine.h"
 
 namespace graphics
 {
     class Surface;
     class PhysicalDevice;
 
-    class QueueFamilyHint
+    class GRAPHICS_ENGINE_EXPORT QueueFamilyHint
     {
     public:
         /**

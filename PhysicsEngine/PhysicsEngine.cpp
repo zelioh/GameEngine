@@ -29,13 +29,24 @@ void PhysicsEngine::CollisionHandler()
 	for (int i = 0; i < PhysicsObjectList.size(); i++) {
 		for (int j = i + 1; j < PhysicsObjectList.size(); j++) {
 			IntersectData intersectData = PhysicsObjectList[i]->GetCollider().Intersect(PhysicsObjectList[j]->GetCollider());
-
+			
 			if (intersectData.GetDoesIntersect()){
 				std::cout << "Collison Happened\n";
-				Vector3F direction = intersectData.GetDirection().Normalized();
-				Vector3F otherDirection = Vector3F(direction.Reflection(PhysicsObjectList[i]->GetVelocity().Normalized()));
-				PhysicsObjectList[i]->SetVelocity(Vector3F(PhysicsObjectList[i]->GetVelocity().Reflection(otherDirection)));
-				PhysicsObjectList[j]->SetVelocity(Vector3F(PhysicsObjectList[j]->GetVelocity().Reflection(direction)));
+				if (PhysicsObjectList[i]->GetCollider().GetColliderType() == Collider::COLLIDER_SPHERE
+					&& PhysicsObjectList[j]->GetCollider().GetColliderType() == Collider::COLLIDER_SPHERE) {
+					
+					Vector3F direction = intersectData.GetDirection().Normalized();
+					Vector3F otherDirection = Vector3F(direction.Reflection(PhysicsObjectList[i]->GetVelocity().Normalized()));
+					PhysicsObjectList[i]->SetVelocity(Vector3F(PhysicsObjectList[i]->GetVelocity().Reflection(otherDirection)));
+					PhysicsObjectList[j]->SetVelocity(Vector3F(PhysicsObjectList[j]->GetVelocity().Reflection(direction)));
+				}
+				
+				if (PhysicsObjectList[i]->GetCollider().GetColliderType() == Collider::COLLIDER_BOX 
+					&& PhysicsObjectList[j]->GetCollider().GetColliderType() == Collider::COLLIDER_BOX) {
+					Vector3F tempvel = PhysicsObjectList[i]->GetVelocity();
+					PhysicsObjectList[i]->SetVelocity(Vector3F(PhysicsObjectList[j]->GetVelocity()));
+					PhysicsObjectList[j]->SetVelocity(tempvel);
+				}
 			}
 		}
 	}

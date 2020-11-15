@@ -122,6 +122,7 @@ Vector3F Math::Vector3F::Max(const Vector3F& value) const
 Vector3F Math::Vector3F::Normalized() const
 {
 		float length = Length();
+		std::cout << "lenght = " << length << std::endl;
 		return Vector3F(X / length, Y / length, Z / length);
 }
 

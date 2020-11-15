@@ -1,7 +1,11 @@
 #include "Plane.h"
 
-Plane::Plane(const Vector3F& normal, float distance) : normal(normal), distance(distance), Collider(Collider::COLLIDER_PLANE)
+Plane::Plane(const Vector3F& normal, float distance) : m_normal(normal), m_distance(distance), Collider(Collider::COLLIDER_PLANE)
 {
+	float magnitude = normal.Length();
+
+	m_normal = m_normal / magnitude;
+	m_distance = m_distance / magnitude;
 }
 
 Plane::~Plane()
@@ -10,17 +14,17 @@ Plane::~Plane()
 
 Plane Plane::Normalized() const
 {
-	float magnitude = normal.Length();
+	float magnitude = m_normal.Length();
 
-	return Plane(normal / magnitude, distance / magnitude);
+	return Plane(m_normal / magnitude, m_distance / magnitude);
 }
 
 IntersectData Plane::IntersectBoundingSphere(const BoundingSphere& other)
 {
-	float distanceFromSphereCenter = (float)fabs(normal.Dot(other.GetCenter()) + distance);
+	float distanceFromSphereCenter = (float)fabs(m_normal.Dot(other.GetCenter()) + m_distance);
 	float distanceFromSphere = distanceFromSphereCenter - other.GetRadius();
 
-	return IntersectData(distanceFromSphere < 0, normal * distanceFromSphere);
+	return IntersectData(distanceFromSphere < 0, m_normal * distanceFromSphere);
 }
 
 IntersectData Plane::IntersectBoundingBox(const BoundingBox& other)

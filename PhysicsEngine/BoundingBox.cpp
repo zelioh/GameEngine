@@ -17,7 +17,7 @@ IntersectData BoundingBox::IntersectBoundingBox(const BoundingBox& other)
 	Vector3F distances2 = (this->center - this->m_scale) - (other.center + other.m_scale); //this->getMinBoxExtent() - other.getMaxBoxExtent();
 	Vector3F distances = Vector3F(distances1.Max(distances2));
 	float maxDistance = distances.Max();
-	return IntersectData(maxDistance <= 0, distances);
+	return IntersectData(maxDistance < 0, distances);
 }
 
 void BoundingBox::Transform(const Vector3F& translation)

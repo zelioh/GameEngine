@@ -12,11 +12,13 @@
 #include "CubeScene.h"
 #include "Matrix4F.h"
 #include "CollisionSphereScene.h"
+#include "PlaneSphereScene.h"
 
 CameraScene g_cameraScene;
 LightScene g_lightScene;
 CubeScene g_cubeScene;
 CollisionSphereScene g_collisionSphereScene;
+PlaneSphereScene g_planeSphereScene;
 
 void preInitialize(graphics::InstanceParameter &instanceParameter, graphics::WindowParameters & windowParameters)
 {
@@ -44,6 +46,7 @@ void postInitialize()
     g_cubeScene.postInitialize();
     g_cameraScene.postInitialize();
     g_collisionSphereScene.postInitialize();
+    g_planeSphereScene.postInitialize();
 
     //
     // Doesn't work
@@ -82,6 +85,9 @@ void preUpdate(float deltaTime, Math::Matrix4F & projectionMatrix)
     } else if (HID::keyboard::IsKeyDown(HID::KEY::P)) {
         sceneId = 3;
         g_collisionSphereScene.setToCurrentScene();
+    } else if (HID::keyboard::IsKeyDown(HID::KEY::M)) {
+        sceneId = 4;
+        g_planeSphereScene.setToCurrentScene();
     }
 
     switch (sceneId) {

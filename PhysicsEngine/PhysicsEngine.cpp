@@ -49,6 +49,15 @@ void PhysicsEngine::CollisionHandler()
 					PhysicsObjectList[i]->SetVelocity(Vector3F(PhysicsObjectList[j]->GetVelocity()));
 					PhysicsObjectList[j]->SetVelocity(tempvel);
 				}
+				if ((PhysicsObjectList[i]->GetCollider().GetColliderType() == Collider::COLLIDER_PLANE
+					&& PhysicsObjectList[j]->GetCollider().GetColliderType() == Collider::COLLIDER_SPHERE) || 
+					(PhysicsObjectList[i]->GetCollider().GetColliderType() == Collider::COLLIDER_SPHERE
+						&& PhysicsObjectList[j]->GetCollider().GetColliderType() == Collider::COLLIDER_PLANE)) {
+					if (PhysicsObjectList[i]->GetCollider().GetColliderType() == Collider::COLLIDER_SPHERE)
+						PhysicsObjectList[i]->SetVelocity(Vector3F());
+					else
+						PhysicsObjectList[j]->SetVelocity(Vector3F());
+				}
 			}
 		}
 	}

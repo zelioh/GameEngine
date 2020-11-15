@@ -19,6 +19,8 @@ public:
 	//getter
 	const Vector3F& GetNormal() const { return normal; }
 	float GetDistance() const { return distance; }
+	virtual void Transform(const Vector3F& translation) {}
+	virtual Vector3F GetCenter() const { return Vector3F(0, 0, 0); }
 
 private:
 	const Vector3F normal;

@@ -1,8 +1,8 @@
 ﻿#include "AudioEngine.h"
 #include <Windows.h>
 #include <istream>
-#include <fstream>
 #include <algorithm>
+#include "Debug_utils.h"
 
 using namespace std;
 
@@ -23,10 +23,9 @@ int AudioEngine::PlayWavMusic(const std::string& filename) {
         }
     }
 
-    std::cout << file << std::endl;
+    DEBUG_MESSAGE(file);
 
     PlaySound(file.c_str(), 0, SND_FILENAME | SND_SYNC);
-    std::cout << "Hello, World!" << std::endl;
 
 	return TRUE;
 }

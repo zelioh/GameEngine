@@ -1,5 +1,6 @@
 #include "PhysicsEngine.h"
 #include <iostream>
+#include "Debug_utils.h"
 
 PhysicsEngine::PhysicsEngine()
 {
@@ -18,9 +19,10 @@ void PhysicsEngine::Update(float DeltaTime)
 {
 	for (int i = 0; i < this->PhysicsObjectList.size(); i++) {
 		this->PhysicsObjectList[i]->Calculate(DeltaTime);
-        std::cout << "Object : " << i << "  " <<"  X = " <<this->PhysicsObjectList[i]->GetPosition().X <<
-                  "  Y = " << this->PhysicsObjectList[i]->GetPosition().Y <<
-                  "  Z = " << this->PhysicsObjectList[i]->GetPosition().Z << "\n\n";
+		DEBUG_MESSAGE("Object : " + std::to_string(i) + "  " + "  X = " +
+		                std::to_string(this->PhysicsObjectList[i]->GetPosition().X) +
+                                  "  Y = " + std::to_string(this->PhysicsObjectList[i]->GetPosition().Y) +
+                                  "  Z = " + std::to_string(this->PhysicsObjectList[i]->GetPosition().Z));
 	}
 }
 

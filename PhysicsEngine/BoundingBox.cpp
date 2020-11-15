@@ -2,7 +2,7 @@
 #include <iostream>
 
 BoundingBox::BoundingBox(const Vector3F& Position, const Vector3F& scale) : 
-	center(Position), m_scale(scale), Collider(Collider::COLLIDER_BOX)
+	center(Position), m_scale(scale * 0.5f), Collider(Collider::COLLIDER_BOX)
 {
 }
 

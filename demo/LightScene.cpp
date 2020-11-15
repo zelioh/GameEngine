@@ -58,10 +58,10 @@ void LightScene::postInitialize()
     sdk::Plane plane = sdk::PlaneManager::createPlane(
             m_strIdentifier,
             "Cool_plane",
-            Math::Vector3F(0.f, 0.f, -2.f),
+            Math::Vector3F(0.f, 0.f, -5.f),
             Math::Vector3F(1.f, 0.2f, 0.4f),
             Math::Vector3F(5.f, 5.f, 5.f),
-            Math::SRotation{90.f, Math::Vector3F(1.f, 0.f, 0.f)});
+            Math::SRotation{0.f, Math::Vector3F(1.f, 0.f, 0.f)});
 
     sdk::Camera camera = sdk::CameraManager::createCamera(m_strIdentifier,
                                                           "Camera_one",

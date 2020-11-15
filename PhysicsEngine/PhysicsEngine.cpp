@@ -33,7 +33,7 @@ void PhysicsEngine::CollisionHandler()
 			IntersectData intersectData = PhysicsObjectList[i]->GetCollider().Intersect(PhysicsObjectList[j]->GetCollider());
 			
 			if (intersectData.GetDoesIntersect()){
-                DEBUG_MESSAGE("Collison Happened");
+                DEBUG_MESSAGE("Collision happened");
 				if (PhysicsObjectList[i]->GetCollider().GetColliderType() == Collider::COLLIDER_SPHERE
 					&& PhysicsObjectList[j]->GetCollider().GetColliderType() == Collider::COLLIDER_SPHERE) {
 					

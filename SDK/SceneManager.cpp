@@ -31,3 +31,8 @@ bool sdk::SceneManager::releaseScene(const std::string &identifier)
 {
     return object::SceneManager::getInstance()->releaseScene(identifier);
 }
+
+sdk::Scene sdk::SceneManager::findScene(const std::string &identifier)
+{
+    return Scene(object::SceneManager::getInstance()->findScene(identifier));
+}

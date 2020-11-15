@@ -46,8 +46,8 @@ std::vector<object::GameObject *> object::Scene::getSceneObjects()
             m_light = nullptr;
         } else {
             m_light = lights[0]; ///< Take the first available light. TODO: multi-lighting
+            objects.push_back(lights[0]);
         }
-        objects.push_back(lights[0]);
 	}
     return objects;
 }

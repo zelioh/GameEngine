@@ -20,6 +20,7 @@ namespace sdk {
         static Scene getCurrentScene();
         static const std::string & getCurrentSceneIdentifier();
         static bool releaseScene(const std::string & identifier);
+        static Scene findScene(const std::string & identifier);
     };
 
 }

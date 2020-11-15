@@ -1,8 +1,15 @@
 add_executable(PhysicalEngine_test main.cpp)
 
-target_link_libraries(PhysicalEngine_test PUBLIC PhysicsEngine)
 target_link_libraries(PhysicalEngine_test PUBLIC Core)
+target_link_libraries(PhysicalEngine_test PUBLIC Math)
+target_link_libraries(PhysicalEngine_test PUBLIC Debug)
+target_link_libraries(PhysicalEngine_test PUBLIC GraphicsEngine)
+target_link_libraries(PhysicalEngine_test PUBLIC PhysicsEngine)
+target_link_libraries(PhysicalEngine_test PUBLIC HIDEngine)
 
-target_include_directories(PhysicalEngine_test PUBLIC ${PhysicalEngine_INCLUDE_DIR})
 target_include_directories(PhysicalEngine_test PUBLIC ${Core_INCLUDE_DIR})
+target_include_directories(PhysicalEngine_test PUBLIC ${GraphicsEngine_INCLUDE_DIR})
+target_include_directories(PhysicalEngine_test PUBLIC ${PhysicalEngine_INCLUDE_DIR})
+target_include_directories(PhysicalEngine_test PUBLIC ${HIDEngine_INCLUDE_DIR})
+target_include_directories(PhysicalEngine_test PUBLIC ${Math_INCLUDE_DIR})
 

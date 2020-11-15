@@ -115,12 +115,9 @@ std::vector<object::Light *> object::LightManager::getLightOfScene(const std::st
 {
     std::vector<object::Light *> lights;
 
-    for (auto level : m_pool)
+    for (auto element : m_pool[levelIdentifier])
     {
-        for (auto element : level.second)
-        {
-            lights.emplace_back(element.second);
-        }
+        lights.emplace_back(element.second);
     }
     return lights;
 }
